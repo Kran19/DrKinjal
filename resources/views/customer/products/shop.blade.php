@@ -25,14 +25,14 @@
             <div id="categories-container" class="flex gap-4 overflow-x-auto pb-8 no-scrollbar scrollbar-hide snap-x -mx-4 md:mx-0 px-4 md:px-0">
                 @php
                     $categories = [
-                        ['slug' => 'soaps', 'name' => 'Soaps', 'bg_from' => 'from-rose-50', 'bg_to' => 'to-rose-200', 'image' => 'assets/images/62.png'],
-                        ['slug' => 'serum', 'name' => 'Serum', 'bg_from' => 'from-purple-50', 'bg_to' => 'to-purple-200', 'image' => 'assets/images/40.png'],
-                        ['slug' => 'moisturizer', 'name' => 'Moisturizer', 'bg_from' => 'from-orange-50', 'bg_to' => 'to-orange-200', 'image' => 'assets/images/23.png'],
-                        ['slug' => 'shampoo', 'name' => 'Shampoo', 'bg_from' => 'from-sky-50', 'bg_to' => 'to-sky-200', 'image' => 'assets/images/30.png'],
-                        ['slug' => 'conditioner', 'name' => 'Conditioner', 'bg_from' => 'from-teal-50', 'bg_to' => 'to-teal-200', 'image' => 'assets/images/50.png'],
-                        ['slug' => 'facewash', 'name' => 'Face Wash', 'bg_from' => 'from-lime-50', 'bg_to' => 'to-lime-200', 'image' => 'assets/images/6.png'],
-                        ['slug' => 'sunscreen', 'name' => 'Sunscreen', 'bg_from' => 'from-amber-50', 'bg_to' => 'to-amber-200', 'image' => 'assets/images/72.png'],
-                        ['slug' => 'bodywash', 'name' => 'Bodywash', 'bg_from' => 'from-yellow-50', 'bg_to' => 'to-yellow-200', 'image' => 'assets/images/46.png'],
+                        ['slug' => 'soaps', 'name' => 'Soaps', 'bg_from' => 'from-rose-50', 'bg_to' => 'to-rose-200', 'image' => 'storage/assets/images/62.png'],
+                        ['slug' => 'serum', 'name' => 'Serum', 'bg_from' => 'from-purple-50', 'bg_to' => 'to-purple-200', 'image' => 'storage/assets/images/40.png'],
+                        ['slug' => 'moisturizer', 'name' => 'Moisturizer', 'bg_from' => 'from-orange-50', 'bg_to' => 'to-orange-200', 'image' => 'storage/assets/images/23.png'],
+                        ['slug' => 'shampoo', 'name' => 'Shampoo', 'bg_from' => 'from-sky-50', 'bg_to' => 'to-sky-200', 'image' => 'storage/assets/images/30.png'],
+                        ['slug' => 'conditioner', 'name' => 'Conditioner', 'bg_from' => 'from-teal-50', 'bg_to' => 'to-teal-200', 'image' => 'storage/assets/images/50.png'],
+                        ['slug' => 'facewash', 'name' => 'Face Wash', 'bg_from' => 'from-lime-50', 'bg_to' => 'to-lime-200', 'image' => 'storage/assets/images/6.png'],
+                        ['slug' => 'sunscreen', 'name' => 'Sunscreen', 'bg_from' => 'from-amber-50', 'bg_to' => 'to-amber-200', 'image' => 'storage/assets/images/72.png'],
+                        ['slug' => 'bodywash', 'name' => 'Bodywash', 'bg_from' => 'from-yellow-50', 'bg_to' => 'to-yellow-200', 'image' => 'storage/assets/images/46.png'],
                     ];
                 @endphp
 
@@ -74,7 +74,7 @@
                         'name' => 'Skin Brightening Face Wash',
                         'price' => '399',
                         'description' => 'Brightening & Anti-Pigmentation',
-                        'image' => 'assets/images/16.png',
+                        'image' => 'storage/assets/images/16.png',
                         'badge' => 'Best Seller',
                         'badge_color' => 'bg-white/90',
                         'bg_color' => 'bg-teal-50',
@@ -85,7 +85,7 @@
                         'name' => 'Moisturizer',
                         'price' => '399',
                         'description' => 'Oil-Free Matte Moisturizer',
-                        'image' => 'assets/images/23.png',
+                        'image' => 'storage/assets/images/23.png',
                         'badge' => 'New',
                         'badge_color' => 'bg-brand-500 text-white',
                         'bg_color' => 'bg-cyan-50',
@@ -96,7 +96,7 @@
                         'name' => '3 in 1 Shampoo',
                         'price' => '799',
                         'description' => 'Deep Hydration Serum',
-                        'image' => 'assets/images/31.png',
+                        'image' => 'storage/assets/images/31.png',
                         'badge' => null,
                         'bg_color' => 'bg-sky-50',
                         'shadow_color' => 'shadow-sky-100'
@@ -106,7 +106,7 @@
                         'name' => 'Face Serum',
                         'price' => '480',
                         'description' => 'Brightening & Anti-Pigmentation',
-                        'image' => 'assets/images/36.png',
+                        'image' => 'storage/assets/images/36.png',
                         'badge' => 'Best Seller',
                         'badge_color' => 'bg-white/90',
                         'bg_color' => 'bg-teal-50',
@@ -117,7 +117,7 @@
                         'name' => 'Bodywash',
                         'price' => '420',
                         'description' => 'Oil-Free Matte Moisturizer',
-                        'image' => 'assets/images/70.png',
+                        'image' => 'storage/assets/images/70.png',
                         'badge' => 'New',
                         'badge_color' => 'bg-brand-500 text-white',
                         'bg_color' => 'bg-cyan-50',
@@ -128,7 +128,7 @@
                         'name' => 'Conditioner',
                         'price' => '330',
                         'description' => 'Deep Hydration Serum',
-                        'image' => 'assets/images/49.png',
+                        'image' => 'storage/assets/images/49.png',
                         'badge' => null,
                         'bg_color' => 'bg-sky-50',
                         'shadow_color' => 'shadow-sky-100'
@@ -138,7 +138,7 @@
                         'name' => 'Facewash',
                         'price' => '299',
                         'description' => 'Deep Hydration Serum',
-                        'image' => 'assets/images/54.png',
+                        'image' => 'storage/assets/images/54.png',
                         'badge' => null,
                         'bg_color' => 'bg-sky-50',
                         'shadow_color' => 'shadow-sky-100'
@@ -148,7 +148,7 @@
                         'name' => 'Cleansing & Moisturizing Soap',
                         'price' => '135',
                         'description' => 'Soothing Repair Sleep Mask',
-                        'image' => 'assets/images/69.png',
+                        'image' => 'storage/assets/images/69.png',
                         'badge' => 'Trending',
                         'badge_color' => 'bg-white/90',
                         'bg_color' => 'bg-teal-50',
@@ -159,7 +159,7 @@
                         'name' => 'Skin Brightening Soap',
                         'price' => '135',
                         'description' => 'Antioxidant Brightening',
-                        'image' => 'assets/images/68.png',
+                        'image' => 'storage/assets/images/68.png',
                         'badge' => null,
                         'bg_color' => 'bg-sky-50',
                         'shadow_color' => 'shadow-sky-100'
@@ -169,7 +169,7 @@
                         'name' => 'Sunscreen SPF 50++',
                         'price' => '398',
                         'description' => 'SPF 50++ Broad Spectrum',
-                        'image' => 'assets/images/73.png',
+                        'image' => 'storage/assets/images/73.png',
                         'badge' => null,
                         'bg_color' => 'bg-amber-50',
                         'shadow_color' => 'shadow-amber-100'
@@ -211,7 +211,7 @@
 
         <!-- View More Button -->
         <div class="text-center mt-12">
-            <a href="{{ route('customer.category.products', ['slug' => 'combos']) }}" 
+            <a href="{{ route('customer.products.bestsellers') }}" 
                class="inline-flex items-center gap-2 px-6 py-3 md:px-8 md:py-4
                       bg-brand-500 text-white font-semibold rounded-full
                       hover:bg-brand-600 hover:scale-105
