@@ -32,6 +32,17 @@ Route::name('customer.')->group(function () {
     */
     Route::get('/', [CustomerHome::class, 'index'])->name('home.index');
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | NEW PAGES
+    |--------------------------------------------------------------------------
+    */
+    Route::get('/bestsellers', [CustomerProduct::class, 'bestsellers'])->name('products.bestsellers');
+    Route::get('/concerns', [CustomerPage::class, 'concerns'])->name('page.concerns');
+    Route::get('/ingredients', [CustomerPage::class, 'ingredients'])->name('page.ingredients');
+
+
     /*
     |--------------------------------------------------------------------------
     | CUSTOMER AUTH (UI ONLY)

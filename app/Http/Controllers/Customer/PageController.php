@@ -34,4 +34,14 @@ class PageController extends Controller
         return view('customer.pages.size-guide');
     }
 
+        public function concerns()
+    {
+        return view('customer.pages.concerns');
+    }
+
+    public function ingredients()
+    {
+        return view('customer.pages.ingridiants'); // Note: your blade file is named 'ingridiants'
+    }
+
 }

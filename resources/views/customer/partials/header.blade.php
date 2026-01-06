@@ -17,9 +17,21 @@
                class="{{ request()->routeIs('customer.home.index') ? 'text-sky-500 underline underline-offset-4' : 'hover:text-sky-500' }}">
                 Home
             </a>
+            <a href="{{ route('customer.products.bestsellers') }}" 
+               class="{{ request()->routeIs('customer.products.bestsellers') ? 'text-sky-500 underline underline-offset-4' : 'hover:text-sky-500' }}">
+                Best Sellers
+            </a>
             <a href="{{ route('customer.products.list') }}" 
-               class="{{ request()->routeIs('customer.products.*') ? 'text-sky-500 underline underline-offset-4' : 'hover:text-sky-500' }}">
+               class="{{ request()->routeIs('customer.products.*') && !request()->routeIs('customer.products.bestsellers') ? 'text-sky-500 underline underline-offset-4' : 'hover:text-sky-500' }}">
                 Shop All
+            </a>
+            <a href="{{ route('customer.page.concerns') }}" 
+               class="{{ request()->routeIs('customer.page.concerns') ? 'text-sky-500 underline underline-offset-4' : 'hover:text-sky-500' }}">
+                By Concern
+            </a>
+            <a href="{{ route('customer.page.ingredients') }}" 
+               class="{{ request()->routeIs('customer.page.ingredients') ? 'text-sky-500 underline underline-offset-4' : 'hover:text-sky-500' }}">
+                Ingredients
             </a>
             <a href="{{ route('customer.page.about') }}" 
                class="{{ request()->routeIs('customer.page.about') ? 'text-sky-500 underline underline-offset-4' : 'hover:text-sky-500' }}">
@@ -30,7 +42,7 @@
                    class="{{ request()->routeIs('customer.account.*') ? 'text-sky-500 underline underline-offset-4' : 'hover:text-sky-500' }}">
                     My Account
                 </a>
-                <form method="POST" action="{{ route('logout') }}" class="inline">
+                <form method="POST" action="{{ route('customer.logout') }}" class="inline">
                     @csrf
                     <button type="submit" class="hover:text-sky-500">Logout</button>
                 </form>
@@ -68,19 +80,32 @@
     </div>
 
     <!-- MOBILE MENU -->
-    <div id="mobile-menu" class="lg:hidden bg-white border-t border-sky-100 px-5 py- flex flex-col text-stone-700 text-lg font-medium">
+    <div id="mobile-menu" class="lg:hidden bg-white border-t border-sky-100 px-5 py-4 flex flex-col text-stone-700 text-lg font-medium">
         <a href="{{ route('customer.home.index') }}" 
            class="py-2 {{ request()->routeIs('customer.home.index') ? 'text-sky-500 font-semibold' : '' }}">
             Home
         </a>
+        <a href="{{ route('customer.products.bestsellers') }}" 
+           class="py-2 {{ request()->routeIs('customer.products.bestsellers') ? 'text-sky-500 font-semibold' : '' }}">
+            Best Sellers
+        </a>
         <a href="{{ route('customer.products.list') }}" 
-           class="py-2 {{ request()->routeIs('customer.products.*') ? 'text-sky-500 font-semibold' : '' }}">
+           class="py-2 {{ request()->routeIs('customer.products.*') && !request()->routeIs('customer.products.bestsellers') ? 'text-sky-500 font-semibold' : '' }}">
             Shop All
+        </a>
+        <a href="{{ route('customer.page.concerns') }}" 
+           class="py-2 {{ request()->routeIs('customer.page.concerns') ? 'text-sky-500 font-semibold' : '' }}">
+            By Concern
+        </a>
+        <a href="{{ route('customer.page.ingredients') }}" 
+           class="py-2 {{ request()->routeIs('customer.page.ingredients') ? 'text-sky-500 font-semibold' : '' }}">
+            Ingredients
         </a>
         <a href="{{ route('customer.page.about') }}" 
            class="py-2 {{ request()->routeIs('customer.page.about') ? 'text-sky-500 font-semibold' : '' }}">
             Our Story
         </a>
+        @auth
             <a href="{{ route('customer.account.profile') }}" 
                class="py-2 {{ request()->routeIs('customer.account.*') ? 'text-sky-500 font-semibold' : '' }}">
                 My Account
@@ -89,9 +114,11 @@
                 @csrf
                 <button type="submit" class="w-full text-left">Logout</button>
             </form>
+        @else
             <a href="{{ route('customer.login') }}" 
                class="py-2 {{ request()->routeIs('customer.login') ? 'text-sky-500 font-semibold' : '' }}">
                 Log-in
             </a>
+        @endauth
     </div>
 </nav>
