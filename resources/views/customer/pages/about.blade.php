@@ -19,7 +19,7 @@
             <div class="grid md:grid-cols-2 gap-12 items-center">
                 <div class="bg-white rounded-3xl p-8 shadow-sm border border-slate-100">
                     <div class="aspect-square rounded-2xl overflow-hidden mb-6">
-                        <img src="{{ asset('assets/images/img1.jpg') }}" class="w-full h-full object-contain" alt="Dr. Kinjal Bhayani Anadkat">
+                        <img src="{{ asset('storage/assets/images/img1.jpg') }}" class="w-full h-full object-contain" alt="Dr. Kinjal Bhayani Anadkat">
                     </div>
                     <h3 class="text-2xl font-bold text-slate-900 mb-2">Dr. KINJAL BHAYANI ANADKAT</h3>
                     <p class="text-teal-500 font-medium mb-4">B.H.M.S., C.S.D., F.M.C., D.D.N</p>
@@ -130,7 +130,7 @@
                 
                 <div class="bg-white rounded-3xl p-8 shadow-sm border border-slate-100">
                     <div class="aspect-square rounded-2xl overflow-hidden mb-6">
-<img src="{{ asset('storage/assets/images/1.png') }}"
+<img src="{{ asset('storage/assets/images/img2.jpg') }}"
      class="w-full h-full object-contain"
      alt="Mr. Vijay Bharatbhai Anadkat">
                     </div>
