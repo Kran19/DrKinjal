@@ -23,11 +23,11 @@ class PageController extends Controller
     }
     public function privacy()
     {
-        return view('customer.pages.privacy-policy');
+        return view('customer.pages.privacy');
     }
-    public function shipping()
+    public function refund()
     {
-        return view('customer.pages.shipping-policy');
+        return view('customer.pages.refund');
     }
     public function sizeGuide()
     {

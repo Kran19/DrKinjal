@@ -97,8 +97,8 @@ Route::name('customer.')->group(function () {
         Route::get('/contact', [CustomerPage::class, 'contact'])->name('page.contact');
         Route::get('/faq', [CustomerPage::class, 'faq'])->name('page.faq');
         Route::get('/terms', [CustomerPage::class, 'terms'])->name('page.terms');
-        Route::get('/privacy-policy', [CustomerPage::class, 'privacy'])->name('page.privacy');
-        Route::get('/shipping-policy', [CustomerPage::class, 'shipping'])->name('page.shipping-policy');
+        Route::get('/privacy', [CustomerPage::class, 'privacy'])->name('page.privacy');
+        Route::get('/refund', [CustomerPage::class, 'refund'])->name('page.refund');
         Route::get('/size-guide', [CustomerPage::class, 'sizeGuide'])->name('page.size-guide');
 
     });

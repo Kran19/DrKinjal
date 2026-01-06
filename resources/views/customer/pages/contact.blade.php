@@ -1,4 +1,4 @@
-@extends('customer.master')
+@extends('customer.layouts.master')
 
 @section('title', 'Contact Us | Dr. Kinjal Skincare')
 @section('description', 'Get in touch with Dr. Kinjal customer support. Find answers to FAQs about orders, products, payments, and collaborations.')
@@ -300,8 +300,8 @@
                         <p class="text-sm font-medium text-slate-900">Support 5 Days/Week</p>
                     </div>
                     <div class="bg-white rounded-xl p-4 shadow-sm">
-                        <i data-lucide="refresh-cw" class="w-8 h-8 text-sky-600 mx-auto mb-2"></i>
-                        <p class="text-sm font-medium text-slate-900">Easy Returns</p>
+                        <i data-lucide="heart" class="w-8 h-8 text-sky-600 mx-auto mb-2"></i>
+                        <p class="text-sm font-medium text-slate-900">Satisfaction Guaranteed</p>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,489 @@
+@extends('customer.layouts.master')
+
+@section('title', 'My Wishlist | Dr. Kinjal')
+
+@push('styles')
+<style>
+    body {
+        background-color: #fafafa;
+    }
+    
+    .wishlist-item {
+        transition: all 0.3s ease;
+    }
+    
+    .wishlist-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    .product-image {
+        position: relative;
+        overflow: hidden;
+        border-radius: 12px;
+    }
+    
+    .product-image img {
+        transition: transform 0.5s ease;
+    }
+    
+    .product-image:hover img {
+        transform: scale(1.05);
+    }
+    
+    .stock-badge {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        z-index: 10;
+    }
+    
+    .remove-btn {
+        opacity: 0;
+        transition: opacity 0.2s ease;
+    }
+    
+    .wishlist-item:hover .remove-btn {
+        opacity: 1;
+    }
+    
+    .skeleton-loading {
+        background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+        background-size: 200% 100%;
+        animation: loading 1.5s infinite;
+    }
+    
+    @keyframes loading {
+        0% {
+            background-position: 200% 0;
+        }
+        100% {
+            background-position: -200% 0;
+        }
+    }
+    
+    /* Empty state animation */
+    .empty-state-illustration {
+        animation: float 3s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+</style>
+@endpush
+
+@section('content')
+<!-- Main Content -->
+<main class="flex-grow pt-8 lg:pt-12">
+    <div class="max-w-7xl mx-auto px-4 py-8 md:py-12 lg:py-16">
+        
+        <!-- Page Header -->
+        <div class="mb-8 lg:mb-12">
+            <h1 class="text-3xl md:text-4xl font-bold text-stone-900 mb-2">My Wishlist</h1>
+            <p class="text-stone-600">Your saved items for later</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            
+            <!-- Left Sidebar - Navigation -->
+            <div class="lg:col-span-1">
+                <!-- Profile Card -->
+                <div class="profile-card bg-white rounded-3xl p-6 md:p-8 shadow-xl shadow-stone-200/50 border border-stone-100 mb-6">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-16 h-16 rounded-full bg-gradient-to-br from-pink-100 to-rose-100 flex items-center justify-center">
+                            <i data-lucide="user" class="w-8 h-8 text-rose-600"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-bold text-stone-900">Alex Johnson</h2>
+                            <p class="text-stone-500">alex@example.com</p>
+                            <span class="inline-block mt-1 px-3 py-1 bg-rose-100 text-rose-700 text-xs font-semibold rounded-full">
+                                Premium Member
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <!-- Stats -->
+                    <div class="stats-grid grid grid-cols-2 gap-4 mb-6">
+                        <div class="bg-stone-50 p-4 rounded-xl">
+                            <div class="text-2xl font-bold text-stone-900">12</div>
+                            <div class="text-sm text-stone-500">Wishlist Items</div>
+                        </div>
+                        <div class="bg-stone-50 p-4 rounded-xl">
+                            <div class="text-2xl font-bold text-stone-900">8</div>
+                            <div class="text-sm text-stone-500">Total Orders</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Navigation -->
+                    <div class="space-y-2">
+                        <a href="{{ route('customer.account.orders') }}" class="block w-full text-left p-3 rounded-xl hover:bg-stone-50 flex items-center gap-3">
+                            <i data-lucide="package" class="w-5 h-5 text-stone-400"></i>
+                            <span class="font-medium">My Orders</span>
+                        </a>
+                        
+                        <a href="{{ route('customer.account.profile') }}" class="block w-full text-left p-3 rounded-xl hover:bg-stone-50 flex items-center gap-3">
+                            <i data-lucide="user" class="w-5 h-5 text-stone-400"></i>
+                            <span class="font-medium">Profile Settings</span>
+                        </a>
+                        
+                        <a href="{{ route('customer.account.addresses') }}" class="block w-full text-left p-3 rounded-xl hover:bg-stone-50 flex items-center gap-3">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-stone-400"></i>
+                            <span class="font-medium">Saved Addresses</span>
+                        </a>
+
+                        <a href="{{ route('customer.wishlist') }}" class="block w-full text-left p-3 rounded-xl hover:bg-stone-50 active bg-white text-rose-600 flex items-center gap-3">
+                            <i data-lucide="heart" class="w-5 h-5 text-rose-600"></i>
+                            <span class="font-medium">Wishlist</span>
+                        </a>
+                        
+                        <a href="{{ route('customer.account.change-password') }}" class="block w-full text-left p-3 rounded-xl hover:bg-stone-50 flex items-center gap-3">
+                            <i data-lucide="lock" class="w-5 h-5 text-stone-400"></i>
+                            <span class="font-medium">Change Password</span>
+                        </a>
+                        
+                        <form method="POST" action="{{ route('customer.logout') }}" class="block">
+                            @csrf
+                            <button type="submit" class="w-full text-left p-3 rounded-xl hover:bg-red-50 text-red-600 flex items-center gap-3 mt-4">
+                                <i data-lucide="log-out" class="w-5 h-5"></i>
+                                <span class="font-medium">Log Out</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Wishlist Stats -->
+                <div class="bg-gradient-to-r from-rose-500 to-pink-500 rounded-3xl p-6 text-white">
+                    <h3 class="font-bold mb-4">Wishlist Summary</h3>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm">Total Items</span>
+                            <span class="text-lg font-bold">12</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm">Items in Stock</span>
+                            <span class="text-lg font-bold">10</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm">Total Value</span>
+                            <span class="text-lg font-bold">₹8,450</span>
+                        </div>
+                    </div>
+                    <button class="w-full mt-6 bg-white text-rose-600 font-semibold py-3 rounded-full hover:bg-stone-50 transition-colors">
+                        Move All to Cart
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right Content Area - Wishlist Items -->
+            <div class="lg:col-span-3">
+                <!-- Wishlist Actions -->
+                <div class="bg-white rounded-3xl p-6 mb-6 shadow-xl shadow-stone-200/50 border border-stone-100">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div>
+                            <h3 class="text-lg font-semibold text-stone-900">Saved Products</h3>
+                            <p class="text-stone-500 text-sm">12 items • Last updated today</p>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-3">
+                            <button id="selectAll" class="px-4 py-2 border border-stone-200 rounded-xl text-stone-700 hover:bg-stone-50 transition-colors">
+                                Select All
+                            </button>
+                            <button id="moveSelectedToCart" class="px-4 py-2 bg-cyan-600 text-white rounded-xl hover:bg-cyan-700 transition-colors">
+                                Move Selected to Cart
+                            </button>
+                            <button id="clearWishlist" class="px-4 py-2 border border-red-200 text-red-600 rounded-xl hover:bg-red-50 transition-colors">
+                                Clear All
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wishlist Items Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="wishlistItems">
+                    <!-- Wishlist Item 1 -->
+                    <div class="wishlist-item bg-white rounded-3xl p-4 shadow-lg shadow-stone-200/50 border border-stone-100">
+                        <div class="relative">
+                            <div class="product-image aspect-square rounded-xl bg-stone-100 mb-4">
+                                <img src="{{ asset('storage/assets/images/16.png') }}"
+                                     alt="Glow Serum" 
+                                     class="w-full h-full object-cover rounded-xl">
+                                <div class="stock-badge">
+                                    <span class="px-3 py-1 bg-green-500 text-white text-xs font-semibold rounded-full">
+                                        In Stock
+                                    </span>
+                                </div>
+                                <button class="remove-btn absolute top-2 right-2 w-8 h-8 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white">
+                                    <i data-lucide="x" class="w-4 h-4 text-stone-700"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="flex items-start justify-between mb-3">
+                                <div>
+                                    <h4 class="font-semibold text-stone-900 mb-1">Brightening Face Wash</h4>
+                                    <p class="text-sm text-stone-500">Brightening & Anti-Pigmentation</p>
+                                </div>
+                                <label class="inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" class="w-5 h-5 text-rose-500 rounded border-stone-300 focus:ring-rose-400">
+                                </label>
+                            </div>
+                            
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xl font-bold text-stone-900">₹399</span>
+                                </div>
+                            </div>
+                            
+                            <button class="w-full py-3 bg-cyan-600 text-white font-semibold rounded-xl hover:bg-cyan-700 transition-colors flex items-center justify-center gap-2">
+                                <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Empty State (Hidden by default) -->
+                <div id="emptyWishlist" class="hidden">
+                    <div class="text-center py-16">
+                        <div class="empty-state-illustration inline-block mb-8">
+                            <i data-lucide="heart" class="w-24 h-24 text-rose-200"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-stone-900 mb-3">Your wishlist is empty</h3>
+                        <p class="text-stone-600 mb-8 max-w-md mx-auto">Save products you love to your wishlist. Review them anytime and easily move them to your cart.</p>
+                        <a href="{{ route('customer.products.list') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-cyan-600 text-white font-semibold rounded-xl hover:bg-cyan-700 transition-colors">
+                            <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+                            Start Shopping
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Footer Note -->
+<div class="bg-white border-t border-stone-200 py-4 px-4 mt-8">
+    <div class="max-w-7xl mx-auto">
+        <p class="text-center text-sm text-stone-500">
+            Prices and availability are subject to change. 
+            <a href="{{ route('customer.page.contact') }}" class="text-cyan-600 hover:text-cyan-700 font-medium ml-1">Contact us</a> for any queries.
+        </p>
+    </div>
+</div>
+@endsection
+
+@push('scripts')
+<script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const wishlistItems = document.getElementById('wishlistItems');
+        const emptyWishlist = document.getElementById('emptyWishlist');
+        const selectAllBtn = document.getElementById('selectAll');
+        const moveToCartBtn = document.getElementById('moveSelectedToCart');
+        const clearWishlistBtn = document.getElementById('clearWishlist');
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        const removeButtons = document.querySelectorAll('.remove-btn');
+        
+        let isAllSelected = false;
+        
+        // Select All functionality
+        selectAllBtn.addEventListener('click', function() {
+            isAllSelected = !isAllSelected;
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = isAllSelected;
+            });
+            selectAllBtn.textContent = isAllSelected ? 'Deselect All' : 'Select All';
+            updateMoveToCartButton();
+        });
+        
+        // Update move to cart button based on selection
+        function updateMoveToCartButton() {
+            const selectedCount = document.querySelectorAll('input[type="checkbox"]:checked').length;
+            moveToCartBtn.textContent = selectedCount > 0 
+                ? `Move ${selectedCount} Item${selectedCount > 1 ? 's' : ''} to Cart` 
+                : 'Move Selected to Cart';
+            moveToCartBtn.disabled = selectedCount === 0;
+        }
+        
+        // Update checkbox state and button text
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', updateMoveToCartButton);
+        });
+        
+        // Move selected items to cart
+        moveToCartBtn.addEventListener('click', function() {
+            const selectedItems = document.querySelectorAll('input[type="checkbox"]:checked');
+            if (selectedItems.length === 0) {
+                alert('Please select items to move to cart');
+                return;
+            }
+            
+            // Show loading state
+            const originalText = moveToCartBtn.innerHTML;
+            moveToCartBtn.innerHTML = '<span>Adding to cart...</span>';
+            moveToCartBtn.disabled = true;
+            
+            // Simulate API call
+            setTimeout(() => {
+                alert(`${selectedItems.length} item(s) added to cart successfully!`);
+                moveToCartBtn.innerHTML = originalText;
+                moveToCartBtn.disabled = false;
+                
+                // Uncheck all checkboxes
+                checkboxes.forEach(cb => cb.checked = false);
+                isAllSelected = false;
+                selectAllBtn.textContent = 'Select All';
+                updateMoveToCartButton();
+            }, 1500);
+        });
+        
+        // Clear wishlist
+        clearWishlistBtn.addEventListener('click', function() {
+            if (confirm('Are you sure you want to clear your entire wishlist? This action cannot be undone.')) {
+                // Show loading
+                this.innerHTML = '<span>Clearing...</span>';
+                this.disabled = true;
+                
+                // Simulate API call
+                setTimeout(() => {
+                    wishlistItems.style.display = 'none';
+                    emptyWishlist.classList.remove('hidden');
+                    
+                    // Update stats
+                    document.querySelector('.stats-grid .text-2xl:nth-child(1)').textContent = '0';
+                    document.querySelector('.bg-gradient-to-r .text-lg:nth-child(2)').textContent = '0';
+                    document.querySelector('.bg-gradient-to-r .text-lg:nth-child(4)').textContent = '₹0';
+                    
+                    alert('Wishlist cleared successfully!');
+                    clearWishlistBtn.innerHTML = 'Clear All';
+                    clearWishlistBtn.disabled = false;
+                }, 1500);
+            }
+        });
+        
+        // Remove individual item
+        removeButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const item = this.closest('.wishlist-item');
+                
+                // Show confirmation for desktop
+                if (window.innerWidth > 768) {
+                    if (!confirm('Remove this item from wishlist?')) {
+                        return;
+                    }
+                }
+                
+                // Add removal animation
+                item.style.opacity = '0.5';
+                item.style.transform = 'translateX(20px)';
+                
+                setTimeout(() => {
+                    item.remove();
+                    
+                    // Update item count
+                    const itemCount = document.querySelectorAll('.wishlist-item').length;
+                    document.querySelector('.stats-grid .text-2xl:nth-child(1)').textContent = itemCount;
+                    document.querySelector('.bg-gradient-to-r .text-lg:nth-child(2)').textContent = itemCount;
+                    
+                    // Update summary value (simplified)
+                    const currentValue = parseInt(document.querySelector('.bg-gradient-to-r .text-lg:nth-child(4)').textContent.replace('₹', '')) || 0;
+                    const itemPrice = parseInt(item.querySelector('.text-stone-900.text-xl').textContent.replace('₹', '')) || 0;
+                    document.querySelector('.bg-gradient-to-r .text-lg:nth-child(4)').textContent = `₹${currentValue - itemPrice}`;
+                    
+                    // Show empty state if no items
+                    if (itemCount === 0) {
+                        wishlistItems.style.display = 'none';
+                        emptyWishlist.classList.remove('hidden');
+                    }
+                    
+                    // Show success message
+                    const toast = document.createElement('div');
+                    toast.className = 'fixed top-4 right-4 bg-white border border-stone-200 rounded-xl shadow-lg p-4 z-50 animate-fade-in';
+                    toast.innerHTML = `
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
+                                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-stone-900">Item removed</p>
+                                <p class="text-sm text-stone-500">Product removed from wishlist</p>
+                            </div>
+                        </div>
+                    `;
+                    document.body.appendChild(toast);
+                    
+                    setTimeout(() => {
+                        toast.style.opacity = '0';
+                        toast.style.transform = 'translateY(-10px)';
+                        setTimeout(() => toast.remove(), 300);
+                    }, 3000);
+                }, 300);
+            });
+        });
+        
+        // Add to cart buttons
+        document.querySelectorAll('button:contains("Add to Cart")').forEach(button => {
+            button.addEventListener('click', function() {
+                const item = this.closest('.wishlist-item');
+                const productName = item.querySelector('h4').textContent;
+                
+                // Show loading
+                const originalText = this.innerHTML;
+                this.innerHTML = '<span>Adding...</span>';
+                this.disabled = true;
+                
+                // Simulate API call
+                setTimeout(() => {
+                    this.innerHTML = originalText;
+                    this.disabled = false;
+                    
+                    // Update cart count
+                    updateCartCount(1);
+                    
+                    // Show success message
+                    const toast = document.createElement('div');
+                    toast.className = 'fixed top-4 right-4 bg-white border border-stone-200 rounded-xl shadow-lg p-4 z-50 animate-fade-in';
+                    toast.innerHTML = `
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
+                                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-stone-900">Added to cart!</p>
+                                <p class="text-sm text-stone-500">${productName}</p>
+                            </div>
+                        </div>
+                    `;
+                    document.body.appendChild(toast);
+                    
+                    setTimeout(() => {
+                        toast.style.opacity = '0';
+                        toast.style.transform = 'translateY(-10px)';
+                        setTimeout(() => toast.remove(), 300);
+                    }, 3000);
+                }, 1000);
+            });
+        });
+        
+        // Helper function to update cart count
+        function updateCartCount(amount) {
+            const cartCount = document.getElementById('cartCount');
+            if (cartCount) {
+                const currentCount = parseInt(cartCount.textContent) || 0;
+                cartCount.textContent = currentCount + amount;
+            }
+        }
+        
+        // Initialize button states
+        updateMoveToCartButton();
+    });
+</script>
+@endpush

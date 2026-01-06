@@ -51,7 +51,7 @@
                     <li><a href="{{ route('customer.page.contact') }}" class="text-stone-400 hover:text-white transition-colors">Contact Us</a></li>
                     <li><a href="{{ route('customer.page.faq') }}" class="text-stone-400 hover:text-white transition-colors">FAQ</a></li>
                     <li><a href="{{ route('customer.account.orders') }}" class="text-stone-400 hover:text-white transition-colors">Track Order</a></li>
-                    <li><a href="{{ route('customer.page.shipping-policy') }}" class="text-stone-400 hover:text-white transition-colors">Shipping Policy</a></li>
+                    <li><a href="{{ route('customer.page.refund') }}" class="text-stone-400 hover:text-white transition-colors">Refund Policy</a></li>
                     <li><a href="{{ route('customer.page.privacy') }}" class="text-stone-400 hover:text-white transition-colors">Privacy Policy</a></li>
                 </ul>
             </div>

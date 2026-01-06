@@ -42,7 +42,7 @@
                 </p>
                 <div class="space-y-3">
                     <a href="{{ route('customer.category.products', ['slug' => 'facewash']) }}" class="block font-medium text-teal-600 hover:text-teal-700">Skin Brightening Face Wash →</a>
-                    <a href="{{ route('customer.category.products', ['slug' => 'combos']) }}" class="block font-medium text-teal-600 hover:text-teal-700">Skin Brightening Soap →</a>
+                    <a href="{{ route('customer.category.products', ['slug' => 'soaps']) }}" class="block font-medium text-teal-600 hover:text-teal-700">Skin Brightening Soap →</a>
                     <a href="{{ route('customer.category.products', ['slug' => 'sunscreen']) }}" class="block font-medium text-teal-600 hover:text-teal-700">Sunscreen →</a>
                 </div>
             </div>
@@ -57,7 +57,7 @@
                     Deep hydration boosters that lock moisture for long-lasting glow.
                 </p>
                 <div class="space-y-3">
-                    <a href="{{ route('customer.category.products', ['slug' => 'combos']) }}" class="block font-medium text-sky-600 hover:text-sky-700">Cleansing & Moisturizing Soap →</a>
+                    <a href="{{ route('customer.category.products', ['slug' => 'soaps']) }}" class="block font-medium text-sky-600 hover:text-sky-700">Cleansing & Moisturizing Soap →</a>
                     <a href="{{ route('customer.category.products', ['slug' => 'moisturizer']) }}" class="block font-medium text-sky-600 hover:text-sky-700">Moisturizer →</a>
                 </div>
             </div>
@@ -74,7 +74,7 @@
                 <div class="space-y-3">
                     <a href="{{ route('customer.category.products', ['slug' => 'facewash']) }}" class="block font-medium text-cyan-600 hover:text-cyan-700">Facewash →</a>
                     <a href="{{ route('customer.category.products', ['slug' => 'serum']) }}" class="block font-medium text-cyan-600 hover:text-cyan-700">Face Serum →</a>
-                    <a href="{{ route('customer.category.products', ['slug' => 'combos']) }}" class="block font-medium text-cyan-600 hover:text-cyan-700">Bodywash & Shower Gel →</a>
+                    <a href="{{ route('customer.category.products', ['slug' => 'bodywash']) }}" class="block font-medium text-cyan-600 hover:text-cyan-700">Bodywash & Shower Gel →</a>
                 </div>
             </div>
 
@@ -102,8 +102,8 @@
                     Complete hair care solutions for healthy, shiny hair.
                 </p>
                 <div class="space-y-3">
-                    <a href="{{ route('customer.products.list') }}" class="block font-medium text-violet-600 hover:text-violet-700">3-in-1 Shampoo →</a>
-                    <a href="{{ route('customer.category.products', ['slug' => 'combos']) }}" class="block font-medium text-violet-600 hover:text-violet-700">Conditioner →</a>
+                    <a href="{{ route('customer.category.products', ['slug' => 'shampoo']) }}" class="block font-medium text-violet-600 hover:text-violet-700">3-in-1 Shampoo →</a>
+                    <a href="{{ route('customer.category.products', ['slug' => 'conditioner']) }}" class="block font-medium text-violet-600 hover:text-violet-700">Conditioner →</a>
                 </div>
             </div>
 
