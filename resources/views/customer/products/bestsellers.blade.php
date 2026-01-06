@@ -71,12 +71,22 @@
                 data-filter="serums">Serums</button>
             <button class="px-6 py-2 rounded-full bg-white border border-stone-200 text-stone-600 font-medium text-sm hover:border-rose-300 hover:text-rose-500 transition-colors filter-btn"
                 data-filter="sunscreens">Sunscreens</button>
+            <button class="px-6 py-2 rounded-full bg-white border border-stone-200 text-stone-600 font-medium text-sm hover:border-rose-300 hover:text-rose-500 transition-colors filter-btn"
+                data-filter="Facewash">Facewash</button>
+            <button class="px-6 py-2 rounded-full bg-white border border-stone-200 text-stone-600 font-medium text-sm hover:border-rose-300 hover:text-rose-500 transition-colors filter-btn"
+                data-filter="shampoo">Shampoo</button>
+            <button class="px-6 py-2 rounded-full bg-white border border-stone-200 text-stone-600 font-medium text-sm hover:border-rose-300 hover:text-rose-500 transition-colors filter-btn"
+                data-filter="conditioner">Conditioner</button>
+            <button class="px-6 py-2 rounded-full bg-white border border-stone-200 text-stone-600 font-medium text-sm hover:border-rose-300 hover:text-rose-500 transition-colors filter-btn"
+                data-filter="soap">Soap</button>
+            <button class="px-6 py-2 rounded-full bg-white border border-stone-200 text-stone-600 font-medium text-sm hover:border-rose-300 hover:text-rose-500 transition-colors filter-btn"
+                data-filter="bodywash">Bodywash</button>
         </div>
 
         <!-- Product Grid -->
         <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8" id="product-grid">
             <!-- Product 1 -->
-            <div class="product-card group cursor-pointer" data-category="serums">
+            <div class="product-card group cursor-pointer" data-category="Facewash">
                 <a href="#">
                     <div class="relative bg-orange-50 rounded-2xl aspect-[3/4] mb-4 overflow-hidden card-tilt transition-all duration-300 hover:shadow-2xl hover:shadow-orange-100">
                         <!-- Badge -->
@@ -134,7 +144,7 @@
             </div>
 
             <!-- Product 3 -->
-            <div class="product-card group cursor-pointer" data-category="serums">
+            <div class="product-card group cursor-pointer" data-category="shampoo">
                 <a href="#">
                     <div class="relative bg-blue-50 rounded-2xl aspect-[3/4] mb-4 overflow-hidden card-tilt transition-all duration-300 hover:shadow-2xl hover:shadow-blue-100">
                         <!-- Local Image -->
@@ -191,7 +201,7 @@
             </div>
 
             <!-- Product 5 -->
-            <div class="product-card group cursor-pointer" data-category="moisturizers">
+            <div class="product-card group cursor-pointer" data-category="bodywash">
                 <a href="#">
                     <div class="relative bg-rose-50 rounded-2xl aspect-[3/4] mb-4 overflow-hidden card-tilt transition-all duration-300 hover:shadow-2xl hover:shadow-rose-100">
                         <span class="absolute top-4 left-4 bg-rose-500 text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wide z-20">New</span>
@@ -217,7 +227,7 @@
             </div>
 
             <!-- Product 6 -->
-            <div class="product-card group cursor-pointer" data-category="serums">
+            <div class="product-card group cursor-pointer" data-category="conditioner">
                 <a href="#">
                     <div class="relative bg-blue-50 rounded-2xl aspect-[3/4] mb-4 overflow-hidden card-tilt transition-all duration-300 hover:shadow-2xl hover:shadow-blue-100">
                         <!-- Local Image -->
@@ -242,7 +252,7 @@
             </div>
 
             <!-- Product 7 -->
-            <div class="product-card group cursor-pointer" data-category="serums">
+            <div class="product-card group cursor-pointer" data-category="Facewash">
                 <a href="#">
                     <div class="relative bg-blue-50 rounded-2xl aspect-[3/4] mb-4 overflow-hidden card-tilt transition-all duration-300 hover:shadow-2xl hover:shadow-blue-100">
                         <!-- Local Image -->
@@ -267,7 +277,7 @@
             </div>
 
             <!-- Product 8 -->
-            <div class="product-card group cursor-pointer" data-category="moisturizers">
+            <div class="product-card group cursor-pointer" data-category="soap">
                 <a href="#">
                     <div class="relative bg-green-50 rounded-2xl aspect-[3/4] mb-4 overflow-hidden card-tilt transition-all duration-300 hover:shadow-2xl hover:shadow-green-100">
                         <span class="absolute top-4 left-4 bg-white/90 backdrop-blur text-stone-900 text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wide z-20">Trending</span>
@@ -293,7 +303,7 @@
             </div>
 
             <!-- Product 9 -->
-            <div class="product-card group cursor-pointer" data-category="serums">
+            <div class="product-card group cursor-pointer" data-category="soap">
                 <a href="#">
                     <div class="relative bg-purple-50 rounded-2xl aspect-[3/4] mb-4 overflow-hidden card-tilt transition-all duration-300 hover:shadow-2xl hover:shadow-purple-100">
                         <!-- Local Image -->

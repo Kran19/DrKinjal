@@ -80,7 +80,7 @@
     </div>
 
     <!-- MOBILE MENU -->
-    <div id="mobile-menu" class="lg:hidden bg-white border-t border-sky-100 px-5 py-4 flex flex-col text-stone-700 text-lg font-medium">
+    <div id="mobile-menu" class="lg:hidden bg-white border-t border-sky-100 px-5 py-0 flex flex-col text-stone-700 text-lg font-medium">
         <a href="{{ route('customer.home.index') }}" 
            class="py-2 {{ request()->routeIs('customer.home.index') ? 'text-sky-500 font-semibold' : '' }}">
             Home

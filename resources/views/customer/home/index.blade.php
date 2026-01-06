@@ -324,17 +324,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 <button class="px-6 py-2 rounded-full bg-stone-900 text-white font-medium text-sm shadow-lg shadow-stone-200 filter-btn active"
                         data-filter="all">All Stars</button>
                 <button class="px-6 py-2 rounded-full bg-white border border-stone-200 text-stone-600 font-medium text-sm hover:border-rose-300 hover:text-rose-500 transition-colors filter-btn"
-                        data-filter="moisturizers">Moisturizers</button>
+                        data-filter="bodywash">Bodywash</button>
                 <button class="px-6 py-2 rounded-full bg-white border border-stone-200 text-stone-600 font-medium text-sm hover:border-rose-300 hover:text-rose-500 transition-colors filter-btn"
                         data-filter="serums">Serums</button>
                 <button class="px-6 py-2 rounded-full bg-white border border-stone-200 text-stone-600 font-medium text-sm hover:border-rose-300 hover:text-rose-500 transition-colors filter-btn"
                         data-filter="sunscreens">Sunscreens</button>
+                <button class="px-6 py-2 rounded-full bg-white border border-stone-200 text-stone-600 font-medium text-sm hover:border-rose-300 hover:text-rose-500 transition-colors filter-btn"
+                        data-filter="facewash">Facewash</button>
+                <button class="px-6 py-2 rounded-full bg-white border border-stone-200 text-stone-600 font-medium text-sm hover:border-rose-300 hover:text-rose-500 transition-colors filter-btn"
+                        data-filter="shampoo">shampoo</button>
             </div>
 
             <!-- Product Grid -->
             <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8" id="product-grid">
                 <!-- Product 1 -->
-                <div class="product-card group cursor-pointer" data-category="serums">
+                <div class="product-card group cursor-pointer" data-category="facewash">
                     <a href="{{ route('customer.products.details', ['slug' => 'brightening-face-wash']) }}">
                         <div class="relative bg-orange-50 rounded-2xl aspect-[3/4] mb-4 overflow-hidden card-tilt transition-all duration-300 hover:shadow-2xl hover:shadow-orange-100">
                             <!-- Badge -->
@@ -366,7 +370,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
 
                 <!-- Product 2 -->
-                <div class="product-card group cursor-pointer" data-category="serums">
+                <div class="product-card group cursor-pointer" data-category="shampoo">
                     <a href="{{ route('customer.products.details', ['slug' => '3-in-1-shampoo']) }}">
                         <div class="relative bg-blue-50 rounded-2xl aspect-[3/4] mb-4 overflow-hidden card-tilt transition-all duration-300 hover:shadow-2xl hover:shadow-blue-100">
                             <!-- Image -->
@@ -425,7 +429,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
 
                 <!-- Product 4 -->
-                <div class="product-card group cursor-pointer" data-category="moisturizers">
+                <div class="product-card group cursor-pointer" data-category="bodywash">
                     <a href="{{ route('customer.products.details', ['slug' => 'bodywash']) }}">
                         <div class="relative bg-rose-50 rounded-2xl aspect-[3/4] mb-4 overflow-hidden card-tilt transition-all duration-300 hover:shadow-2xl hover:shadow-rose-100">
                             <span class="absolute top-4 left-4 bg-rose-500 text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wide z-20">New</span>
@@ -453,7 +457,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
 
                 <!-- Product 5 -->
-                <div class="product-card group cursor-pointer" data-category="serums">
+                <div class="product-card group cursor-pointer" data-category="facewash">
                     <a href="{{ route('customer.products.details', ['slug' => 'facewash']) }}">
                         <div class="relative bg-blue-50 rounded-2xl aspect-[3/4] mb-4 overflow-hidden card-tilt transition-all duration-300 hover:shadow-2xl hover:shadow-blue-100">
                             <!-- Image -->
