@@ -38,7 +38,7 @@
         color: white;
     }
 </style>
-@endsection
+@endpush
 
 @section('content')
 <!-- Checkout Progress -->

@@ -521,78 +521,79 @@ document.addEventListener('DOMContentLoaded', function() {
     </section>
 
     <!-- Categories / Concerns -->
-    <section class="py-24" id="concerns">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="flex justify-between items-end mb-12">
-                <div>
-                    <h2 class="text-3xl font-bold tracking-tight text-stone-900 mb-2">Shop by Concern</h2>
-                    <p class="text-stone-500">Targeted solutions for your skin goals.</p>
-                </div>
-                <a href="{{ route('customer.products.search') }}?concern=all"
-                    class="hidden md:flex items-center gap-2 text-rose-500 font-semibold hover:gap-3 transition-all">
-                    View All <i data-lucide="arrow-right" class="w-4 h-4 stroke-[1.5]"></i>
-                </a>
+<!-- Categories / Concerns -->
+<section class="py-24" id="concerns">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="flex justify-between items-end mb-12">
+            <div>
+                <h2 class="text-3xl font-bold tracking-tight text-stone-900 mb-2">Shop by Concern</h2>
+                <p class="text-stone-500">Targeted solutions for your skin goals.</p>
             </div>
-
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <!-- Concern 1 - Dullness & Dark Spots -->
-                <a href="{{ route('customer.products.search') }}?concern=dullness-dark-spots"
-                    class="group relative overflow-hidden aspect-[4/5] bg-orange-50 hover:bg-orange-100 transition-colors">
-                    <div class="absolute inset-0 p-6 flex flex-col justify-between z-10">
-                        <h3 class="text-xl font-bold tracking-tight text-stone-900">Dullness &amp;<br>Dark Spots</h3>
-                        <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                            <i data-lucide="arrow-up-right" class="w-5 h-5 text-stone-900 stroke-[1.5]"></i>
-                        </div>
-                    </div>
-                    <img src="https://plus.unsplash.com/premium_photo-1682096423780-41ca1b04af68?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8c2tpbiUyMGNhcmV8ZW58MHx8MHx8fDA%3D"
-                        class="absolute bottom-0 right-0 w-3/4 object-contain translate-x-4 translate-y-4 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-500"
-                        alt="Vitamin C">
-                </a>
-                
-                <!-- Concern 2 - Dryness & Dehydration -->
-                <a href="{{ route('customer.products.search') }}?concern=dryness-dehydration"
-                    class="group relative overflow-hidden aspect-[4/5] bg-blue-50 hover:bg-blue-100 transition-colors">
-                    <div class="absolute inset-0 p-6 flex flex-col justify-between z-10">
-                        <h3 class="text-xl font-bold tracking-tight text-stone-900">Dryness &amp;<br>Dehydration</h3>
-                        <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                            <i data-lucide="arrow-up-right" class="w-5 h-5 text-stone-900 stroke-[1.5]"></i>
-                        </div>
-                    </div>
-                    <img src="https://plus.unsplash.com/premium_photo-1679760653272-516d42f1fd83?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8c2tpbiUyMGRyeW5lc3N8ZW58MHx8MHx8fDA%3D"
-                        class="absolute bottom-0 right-0 w-3/4 object-contain translate-x-4 translate-y-4 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-500"
-                        alt="Hydration">
-                </a>
-                
-                <!-- Concern 3 - Acne & Breakouts -->
-                <a href="{{ route('customer.products.search') }}?concern=acne-breakouts"
-                    class="group relative overflow-hidden aspect-[4/5] bg-green-50 hover:bg-green-100 transition-colors">
-                    <div class="absolute inset-0 p-6 flex flex-col justify-between z-10">
-                        <h3 class="text-xl font-bold tracking-tight text-stone-900">Acne &amp;<br>Breakouts</h3>
-                        <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                            <i data-lucide="arrow-up-right" class="w-5 h-5 text-stone-900 stroke-[1.5]"></i>
-                        </div>
-                    </div>
-                    <img src="https://media.istockphoto.com/id/1142670146/photo/young-woman-looking-her-acne-scars-on-the-mirror.jpg?s=612x612&w=0&k=20&c=EdSdTEy9zbTOLDwCiSn7MtS3OT3NYijNJ72wuh7He3c="
-                        class="absolute bottom-0 right-0 w-3/4 object-contain translate-x-4 translate-y-4 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-500"
-                        alt="Acne">
-                </a>
-                
-                <!-- Concern 4 - Hair & Care -->
-                <a href="{{ route('customer.products.search') }}?concern=hair-care"
-                    class="group relative overflow-hidden aspect-[4/5] bg-rose-50 hover:bg-rose-100 transition-colors">
-                    <div class="absolute inset-0 p-6 flex flex-col justify-between z-10">
-                        <h3 class="text-xl font-bold tracking-tight text-stone-900">Hair <br>Care</h3>
-                        <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                            <i data-lucide="arrow-up-right" class="w-5 h-5 text-stone-900 stroke-[1.5]"></i>
-                        </div>
-                    </div>
-                    <img src="https://media.istockphoto.com/id/1345846432/photo/young-woman-hair-care-stock-photo.webp?a=1&b=1&s=612x612&w=0&k=20&c=Il_0BnTuMrPD1Zy6aPRFfDOMavOtJJApjZq0LZP1Q70="
-                        class="absolute bottom-0 right-0 w-3/4 object-contain translate-x-4 translate-y-4 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-500"
-                        alt="Anti Aging">
-                </a>
-            </div>
+            <a href="{{ route('customer.page.concerns') }}"
+               class="hidden md:flex items-center gap-2 text-rose-500 font-semibold hover:gap-3 transition-all">
+                View All <i data-lucide="arrow-right" class="w-4 h-4 stroke-[1.5]"></i>
+            </a>
         </div>
-    </section>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <!-- Concern 1 - Dullness & Dark Spots -->
+            <a href="{{ route('customer.page.concerns') }}?concern=dullness-dark-spots"
+               class="group relative overflow-hidden aspect-[4/5] bg-orange-50 hover:bg-orange-100 transition-colors">
+                <div class="absolute inset-0 p-6 flex flex-col justify-between z-10">
+                    <h3 class="text-xl font-bold tracking-tight text-stone-900">Dullness &amp;<br>Dark Spots</h3>
+                    <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                        <i data-lucide="arrow-up-right" class="w-5 h-5 text-stone-900 stroke-[1.5]"></i>
+                    </div>
+                </div>
+                <img src="https://plus.unsplash.com/premium_photo-1682096423780-41ca1b04af68?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8c2tpbiUyMGNhcmV8ZW58MHx8MHx8fDA%3D"
+                     class="absolute bottom-0 right-0 w-3/4 object-contain translate-x-4 translate-y-4 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-500"
+                     alt="Vitamin C">
+            </a>
+            
+            <!-- Concern 2 - Dryness & Dehydration -->
+            <a href="{{ route('customer.page.concerns') }}?concern=dryness-dehydration"
+               class="group relative overflow-hidden aspect-[4/5] bg-blue-50 hover:bg-blue-100 transition-colors">
+                <div class="absolute inset-0 p-6 flex flex-col justify-between z-10">
+                    <h3 class="text-xl font-bold tracking-tight text-stone-900">Dryness &amp;<br>Dehydration</h3>
+                    <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                        <i data-lucide="arrow-up-right" class="w-5 h-5 text-stone-900 stroke-[1.5]"></i>
+                    </div>
+                </div>
+                <img src="https://plus.unsplash.com/premium_photo-1679760653272-516d42f1fd83?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8c2tpbiUyMGRyeW5lc3N8ZW58MHx8MHx8fDA%3D"
+                     class="absolute bottom-0 right-0 w-3/4 object-contain translate-x-4 translate-y-4 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-500"
+                     alt="Hydration">
+            </a>
+            
+            <!-- Concern 3 - Acne & Breakouts -->
+            <a href="{{ route('customer.page.concerns') }}?concern=acne-breakouts"
+               class="group relative overflow-hidden aspect-[4/5] bg-green-50 hover:bg-green-100 transition-colors">
+                <div class="absolute inset-0 p-6 flex flex-col justify-between z-10">
+                    <h3 class="text-xl font-bold tracking-tight text-stone-900">Acne &amp;<br>Breakouts</h3>
+                    <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                        <i data-lucide="arrow-up-right" class="w-5 h-5 text-stone-900 stroke-[1.5]"></i>
+                    </div>
+                </div>
+                <img src="https://media.istockphoto.com/id/1142670146/photo/young-woman-looking-her-acne-scars-on-the-mirror.jpg?s=612x612&w=0&k=20&c=EdSdTEy9zbTOLDwCiSn7MtS3OT3NYijNJ72wuh7He3c="
+                     class="absolute bottom-0 right-0 w-3/4 object-contain translate-x-4 translate-y-4 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-500"
+                     alt="Acne">
+            </a>
+            
+            <!-- Concern 4 - Hair & Care -->
+            <a href="{{ route('customer.page.concerns') }}?concern=hair-care"
+               class="group relative overflow-hidden aspect-[4/5] bg-rose-50 hover:bg-rose-100 transition-colors">
+                <div class="absolute inset-0 p-6 flex flex-col justify-between z-10">
+                    <h3 class="text-xl font-bold tracking-tight text-stone-900">Hair <br>Care</h3>
+                    <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                        <i data-lucide="arrow-up-right" class="w-5 h-5 text-stone-900 stroke-[1.5]"></i>
+                    </div>
+                </div>
+                <img src="https://media.istockphoto.com/id/1345846432/photo/young-woman-hair-care-stock-photo.webp?a=1&b=1&s=612x612&w=0&k=20&c=Il_0BnTuMrPD1Zy6aPRFfDOMavOtJJApjZq0LZP1Q70="
+                     class="absolute bottom-0 right-0 w-3/4 object-contain translate-x-4 translate-y-4 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-500"
+                     alt="Anti Aging">
+            </a>
+        </div>
+    </div>
+</section>
 
     <!-- Testimonials -->
     <section class="py-24 bg-stone-50 overflow-hidden">
