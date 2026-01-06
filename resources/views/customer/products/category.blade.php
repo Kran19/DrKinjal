@@ -1,4 +1,4 @@
-@extends('customer.master')
+@extends('customer.layouts.master')
 
 @section('title', 'Shop by Category | Dr. Kinjal Skincare')
 @section('description', 'Browse our skincare products by category - Serums, Face Wash, Moisturizers, Shampoos, Sunscreen and more.')
