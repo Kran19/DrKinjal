@@ -17,7 +17,7 @@
                class="{{ request()->routeIs('customer.home.index') ? 'text-sky-500 underline underline-offset-4' : 'hover:text-sky-500' }}">
                 Home
             </a>
-            <a href="{{ route('customer.products.*') }}" 
+            <a href="{{ route('customer.products.list') }}" 
                class="{{ request()->routeIs('customer.products.*') ? 'text-sky-500 underline underline-offset-4' : 'hover:text-sky-500' }}">
                 Shop All
             </a>
