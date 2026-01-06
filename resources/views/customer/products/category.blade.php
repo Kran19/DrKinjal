@@ -100,7 +100,7 @@
                     <span class="absolute top-4 left-4 z-20 rounded-full bg-white/90 px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-gray-900">
                         Best Seller
                     </span>
-                    <img src="{{ asset('assets/images/16.png') }}"
+                    <img src="{{ asset('storage/assets/images/16.png') }}"
                          class="absolute inset-0 z-10 h-full w-full object-cover p-8 transition-transform duration-700 group-hover:scale-110"
                          alt="Brightening Face Wash">
                     <button class="absolute bottom-4 right-4 z-20 flex h-10 w-10 translate-y-14 items-center justify-center rounded-full bg-white shadow-lg transition-transform duration-300 hover:bg-gray-900 hover:text-white group-hover:translate-y-0">
@@ -126,7 +126,7 @@
             <a href="#">
                 <div class="relative mb-4 aspect-[3/4] overflow-hidden rounded-[2rem] bg-rose-50 transition-all duration-300 hover:shadow-2xl hover:shadow-rose-100">
                     <span class="absolute top-4 left-4 z-20 rounded-full bg-rose-500 text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wide z-20">New</span>
-                    <img src="{{ asset('assets/images/23.png') }}"
+                    <img src="{{ asset('storage/assets/images/23.png') }}"
                          class="absolute inset-0 z-10 h-full w-full object-cover p-8 transition-transform duration-700 group-hover:scale-110"
                          alt="Moisturizer">
                     <button class="absolute bottom-4 right-4 z-20 flex h-10 w-10 translate-y-14 items-center justify-center rounded-full bg-white shadow-lg transition-transform duration-300 hover:bg-gray-900 hover:text-white group-hover:translate-y-0">
@@ -151,7 +151,7 @@
         <div class="product-item group cursor-pointer" data-category="shampoo">
             <a href="#">
                 <div class="relative mb-4 aspect-[3/4] overflow-hidden rounded-[2rem] bg-blue-50 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-100">
-                    <img src="{{ asset('assets/images/31.png') }}"
+                    <img src="{{ asset('storage/assets/images/31.png') }}"
                          class="absolute inset-0 z-10 h-full w-full object-cover p-8 transition-transform duration-700 group-hover:scale-110"
                          alt="3 in 1 Shampoo">
                     <button class="absolute bottom-4 right-4 z-20 flex h-10 w-10 translate-y-14 items-center justify-center rounded-full bg-white shadow-lg transition-transform duration-300 hover:bg-gray-900 hover:text-white group-hover:translate-y-0">
@@ -178,7 +178,7 @@
                     <span class="absolute top-4 left-4 z-20 rounded-full bg-white/90 px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-gray-900">
                         Best Seller
                     </span>
-                    <img src="{{ asset('assets/images/36.png') }}"
+                    <img src="{{ asset('storage/assets/images/36.png') }}"
                          class="absolute inset-0 z-10 h-full w-full object-cover p-8 transition-transform duration-700 group-hover:scale-110"
                          alt="Face Serum">
                     <button class="absolute bottom-4 right-4 z-20 flex h-10 w-10 translate-y-14 items-center justify-center rounded-full bg-white shadow-lg transition-transform duration-300 hover:bg-gray-900 hover:text-white group-hover:translate-y-0">
@@ -204,7 +204,7 @@
             <a href="#">
                 <div class="relative mb-4 aspect-[3/4] overflow-hidden rounded-[2rem] bg-rose-50 transition-all duration-300 hover:shadow-2xl hover:shadow-rose-100">
                     <span class="absolute top-4 left-4 z-20 rounded-full bg-rose-500 text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wide z-20">New</span>
-                    <img src="{{ asset('assets/images/70.png') }}"
+                    <img src="{{ asset('storage/assets/images/70.png') }}"
                          class="absolute inset-0 z-10 h-full w-full object-cover p-8 transition-transform duration-700 group-hover:scale-110"
                          alt="Bodywash">
                     <button class="absolute bottom-4 right-4 z-20 flex h-10 w-10 translate-y-14 items-center justify-center rounded-full bg-white shadow-lg transition-transform duration-300 hover:bg-gray-900 hover:text-white group-hover:translate-y-0">
@@ -229,7 +229,7 @@
         <div class="product-item group cursor-pointer" data-category="conditioner">
             <a href="#">
                 <div class="relative mb-4 aspect-[3/4] overflow-hidden rounded-[2rem] bg-blue-50 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-100">
-                    <img src="{{ asset('assets/images/49.png') }}"
+                    <img src="{{ asset('storage/assets/images/49.png') }}"
                          class="absolute inset-0 z-10 h-full w-full object-cover p-8 transition-transform duration-700 group-hover:scale-110"
                          alt="Conditioner">
                     <button class="absolute bottom-4 right-4 z-20 flex h-10 w-10 translate-y-14 items-center justify-center rounded-full bg-white shadow-lg transition-transform duration-300 hover:bg-gray-900 hover:text-white group-hover:translate-y-0">
@@ -253,7 +253,7 @@
         <div class="product-item group cursor-pointer" data-category="facewash">
             <a href="#">
                 <div class="relative mb-4 aspect-[3/4] overflow-hidden rounded-[2rem] bg-blue-50 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-100">
-                    <img src="{{ asset('assets/images/54.png') }}"
+                    <img src="{{ asset('storage/assets/images/54.png') }}"
                          class="absolute inset-0 z-10 h-full w-full object-cover p-8 transition-transform duration-700 group-hover:scale-110"
                          alt="Facewash">
                     <button class="absolute bottom-4 right-4 z-20 flex h-10 w-10 translate-y-14 items-center justify-center rounded-full bg-white shadow-lg transition-transform duration-300 hover:bg-gray-900 hover:text-white group-hover:translate-y-0">
@@ -278,7 +278,7 @@
             <a href="#">
                 <div class="relative mb-4 aspect-[3/4] overflow-hidden rounded-[2rem] bg-green-50 transition-all duration-300 hover:shadow-2xl hover:shadow-green-100">
                     <span class="absolute top-4 left-4 z-20 rounded-full bg-white/90 px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-gray-900">Trending</span>
-                    <img src="{{ asset('assets/images/69.png') }}"
+                    <img src="{{ asset('storage/assets/images/69.png') }}"
                          class="absolute inset-0 z-10 h-full w-full object-contain p-8 transition-transform duration-700 group-hover:scale-110"
                          alt="Cleansing & Moisturizing Soap">
                     <button class="absolute bottom-4 right-4 z-20 flex h-10 w-10 translate-y-14 items-center justify-center rounded-full bg-white shadow-lg transition-transform duration-300 hover:bg-gray-900 hover:text-white group-hover:translate-y-0">
@@ -303,7 +303,7 @@
         <div class="product-item group cursor-pointer" data-category="soaps">
             <a href="#">
                 <div class="relative mb-4 aspect-[3/4] overflow-hidden rounded-[2rem] bg-purple-50 transition-all duration-300 hover:shadow-2xl hover:shadow-purple-100">
-                    <img src="{{ asset('assets/images/68.png') }}"
+                    <img src="{{ asset('storage/assets/images/68.png') }}"
                          class="absolute inset-0 z-10 h-full w-full object-cover p-8 transition-transform duration-700 group-hover:scale-110"
                          alt="Brightening Soap">
                     <button class="absolute bottom-4 right-4 z-20 flex h-10 w-10 translate-y-14 items-center justify-center rounded-full bg-white shadow-lg transition-transform duration-300 hover:bg-gray-900 hover:text-white group-hover:translate-y-0">
@@ -330,7 +330,7 @@
                     <span class="absolute top-4 left-4 z-20 rounded-full bg-white/90 px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-gray-900">
                         SPF 50++
                     </span>
-                    <img src="{{ asset('assets/images/sunscreen-main.png') }}"
+                    <img src="{{ asset('storage/assets/images/73.png') }}"
                          class="absolute inset-0 z-10 h-full w-full object-cover p-8 transition-transform duration-700 group-hover:scale-110"
                          alt="Dr. Kinjal Sunscreen SPF 50++">
                     <button class="absolute bottom-4 right-4 z-20 flex h-10 w-10 translate-y-14 items-center justify-center rounded-full bg-white shadow-lg transition-transform duration-300 hover:bg-gray-900 hover:text-white group-hover:translate-y-0">
