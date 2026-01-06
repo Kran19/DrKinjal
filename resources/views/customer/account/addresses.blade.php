@@ -2,7 +2,7 @@
 
 @section('title', 'Saved Addresses | Dr. Kinjal')
 
-@section('styles')
+@push('styles')
 <style>
     body { 
         font-family: 'Inter', sans-serif; 
@@ -40,7 +40,7 @@
         animation: fadeIn 0.5s ease-out forwards;
     }
 </style>
-@endsection
+@endpush
 
 @section('content')
 <!-- Main Content -->
@@ -345,7 +345,7 @@
 </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
 <script>
     // Initialize Lucide icons
     lucide.createIcons();
@@ -412,4 +412,4 @@
         });
     });
 </script>
-@endsection
+@endpush

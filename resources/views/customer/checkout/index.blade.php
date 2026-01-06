@@ -2,7 +2,7 @@
 
 @section('title', 'Checkout | Dr. KINJAL')
 
-@section('styles')
+@push('styles')
 <style>
     body {
         font-family: 'DM Sans', sans-serif;
@@ -313,7 +313,7 @@
                     <div class="space-y-4 mb-6">
                         <div class="flex items-center gap-3">
                             <div class="w-12 h-12 rounded-lg bg-slate-100 overflow-hidden">
-                                <img src="{{ asset('assets/images/36.png') }}" class="w-full h-full object-cover">
+                                <img src="{{ asset('storage/assets/images/36.png') }}" class="w-full h-full object-cover">
                             </div>
                             <div class="flex-1">
                                 <p class="text-sm font-medium text-gray-900">Vitamin C Serum</p>
@@ -323,7 +323,7 @@
                         </div>
                         <div class="flex items-center gap-3">
                             <div class="w-12 h-12 rounded-lg bg-slate-100 overflow-hidden">
-                                <img src="{{ asset('assets/images/16.png') }}" class="w-full h-full object-cover">
+                                <img src="{{ asset('storage/assets/images/16.png') }}" class="w-full h-full object-cover">
                             </div>
                             <div class="flex-1">
                                 <p class="text-sm font-medium text-gray-900">Watermelon Gel</p>

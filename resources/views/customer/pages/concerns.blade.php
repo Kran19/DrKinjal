@@ -4,7 +4,7 @@
 
 @section('description', 'Targeted solutions for your skin concerns. Find the right Dr. Kinjal products for your skin goals.')
 
-@section('styles')
+@push('styles')
 <style>
     /* Add some animation for the highlighted concern */
     #concern-dullness-dark-spots.ring-current { --tw-ring-color: #0d9488; }
@@ -12,7 +12,7 @@
     #concern-acne-breakouts.ring-current { --tw-ring-color: #0891b2; }
     #concern-hair-care.ring-current { --tw-ring-color: #7c3aed; }
 </style>
-@endsection
+@endpush
 
 @section('content')
 <section class="py-24 bg-white">
@@ -126,7 +126,7 @@
 </section>
 @endsection
 
-@section('scripts')
+@push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize Lucide icons
@@ -171,4 +171,4 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
-@endsection
+@endpush

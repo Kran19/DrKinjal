@@ -2,7 +2,7 @@
 
 @section('title', 'Profile Settings | Dr. Kinjal')
 
-@section('styles')
+@push('styles')
 <style>
     body { 
         font-family: 'Inter', sans-serif; 
@@ -48,7 +48,7 @@
         }
     }
 </style>
-@endsection
+@endpush
 
 @section('content')
 <!-- Main Content -->
@@ -264,7 +264,7 @@
 </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
 <script>
     // Initialize Lucide icons
     lucide.createIcons();
@@ -311,4 +311,4 @@
         });
     });
 </script>
-@endsection
+@endpush

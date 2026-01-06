@@ -3,7 +3,7 @@
 @section('title', 'Our Ingredients | Dr. Kinjal Skincare')
 @section('description', 'Explore our science-backed ingredients carefully selected for effective, safe, and visible results.')
 
-@section('styles')
+@push('styles')
 <style>
     .ingredient-item {
         animation: fadeInUp 0.5s ease-out;
@@ -63,7 +63,7 @@
         background: #94a3b8;
     }
 </style>
-@endsection
+@endpush
 
 @section('content')
 <section class="py-12 bg-gradient-to-b from-slate-50 to-white">

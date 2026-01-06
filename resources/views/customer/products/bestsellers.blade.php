@@ -4,7 +4,7 @@
 @section('description', 'Our most-loved products, clinically proven to boost your confidence with healthy glowing skin.')
 @section('keywords', 'bestsellers, skincare, beauty, top products')
 
-@section('styles')
+@push('styles')
 <style>
     /* Card tilt effect */
     .card-tilt {
@@ -46,7 +46,7 @@
         color: white !important;
     }
 </style>
-@endsection
+@endpush
 
 @section('content')
 <!-- Hero Section -->
@@ -353,7 +353,7 @@
 </section>
 @endsection
 
-@push(section: 'scripts')
+@push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         // Initialize Lucide icons

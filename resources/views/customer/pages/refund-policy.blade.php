@@ -4,7 +4,7 @@
 
 @section('description', 'Learn about our refund, replacement, and cancellation policies for Dr. Kinjal skincare products.')
 
-@section('styles')
+@push('styles')
 <style>
     .policy-item {
         animation: fadeInUp 0.5s ease-out;
@@ -61,7 +61,7 @@
         background-color: #10b981;
     }
 </style>
-@endsection
+@endpush
 
 @section('content')
 <section class="py-8 md:py-12 lg:py-16 xl:py-20 bg-gradient-to-b from-slate-50 to-white">
@@ -455,7 +455,7 @@
 </section>
 @endsection
 
-@section('scripts')
+@push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize Lucide icons
@@ -551,4 +551,4 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
-@endsection
+@endpush
