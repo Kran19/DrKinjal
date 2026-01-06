@@ -85,7 +85,7 @@
                         </span>
 
                         <!-- Local Image -->
-                        <img src="{{ asset('assets/images/16.png') }}"
+                        <img src="{{ asset('storage/assets/images/16.png') }}"
                             class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 z-10"
                             alt="C-Glow Serum">
 
@@ -113,7 +113,7 @@
                     <div class="relative bg-rose-50 rounded-2xl aspect-[3/4] mb-4 overflow-hidden card-tilt transition-all duration-300 hover:shadow-2xl hover:shadow-rose-100">
                         <span class="absolute top-4 left-4 bg-rose-500 text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wide z-20">New</span>
                         <!-- Local Image -->
-                        <img src="{{ asset('assets/images/23.png') }}"
+                        <img src="{{ asset('storage/assets/images/23.png') }}"
                             class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 z-10"
                             alt="Watermelon Gel">
                         <button class="quick-add-btn absolute bottom-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg translate-y-14 group-hover:translate-y-0 transition-transform duration-300 z-20 hover:bg-stone-900 hover:text-white"
@@ -138,7 +138,7 @@
                 <a href="#">
                     <div class="relative bg-blue-50 rounded-2xl aspect-[3/4] mb-4 overflow-hidden card-tilt transition-all duration-300 hover:shadow-2xl hover:shadow-blue-100">
                         <!-- Local Image -->
-                        <img src="{{ asset('assets/images/31.png') }}"
+                        <img src="{{ asset('storage/assets/images/31.png') }}"
                             class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 z-10"
                             alt="Hyaluronic Burst">
                         <button class="quick-add-btn absolute bottom-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg translate-y-14 group-hover:translate-y-0 transition-transform duration-300 z-20 hover:bg-stone-900 hover:text-white"
@@ -168,7 +168,7 @@
                         </span>
 
                         <!-- Local Image -->
-                        <img src="{{ asset('assets/images/36.png') }}"
+                        <img src="{{ asset('storage/assets/images/36.png') }}"
                             class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 z-10"
                             alt="C-Glow Serum">
 
@@ -196,7 +196,7 @@
                     <div class="relative bg-rose-50 rounded-2xl aspect-[3/4] mb-4 overflow-hidden card-tilt transition-all duration-300 hover:shadow-2xl hover:shadow-rose-100">
                         <span class="absolute top-4 left-4 bg-rose-500 text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wide z-20">New</span>
                         <!-- Local Image -->
-                        <img src="{{ asset('assets/images/70.png') }}"
+                        <img src="{{ asset('storage/assets/images/70.png') }}"
                             class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 z-10"
                             alt="Watermelon Gel">
                         <button class="quick-add-btn absolute bottom-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg translate-y-14 group-hover:translate-y-0 transition-transform duration-300 z-20 hover:bg-stone-900 hover:text-white"
@@ -221,7 +221,7 @@
                 <a href="#">
                     <div class="relative bg-blue-50 rounded-2xl aspect-[3/4] mb-4 overflow-hidden card-tilt transition-all duration-300 hover:shadow-2xl hover:shadow-blue-100">
                         <!-- Local Image -->
-                        <img src="{{ asset('assets/images/49.png') }}"
+                        <img src="{{ asset('storage/assets/images/49.png') }}"
                             class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 z-10"
                             alt="Hyaluronic Burst">
                         <button class="quick-add-btn absolute bottom-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg translate-y-14 group-hover:translate-y-0 transition-transform duration-300 z-20 hover:bg-stone-900 hover:text-white"
@@ -246,7 +246,7 @@
                 <a href="#">
                     <div class="relative bg-blue-50 rounded-2xl aspect-[3/4] mb-4 overflow-hidden card-tilt transition-all duration-300 hover:shadow-2xl hover:shadow-blue-100">
                         <!-- Local Image -->
-                        <img src="{{ asset('assets/images/54.png') }}"
+                        <img src="{{ asset('storage/assets/images/54.png') }}"
                             class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 z-10"
                             alt="Hyaluronic Burst">
                         <button class="quick-add-btn absolute bottom-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg translate-y-14 group-hover:translate-y-0 transition-transform duration-300 z-20 hover:bg-stone-900 hover:text-white"
@@ -272,7 +272,7 @@
                     <div class="relative bg-green-50 rounded-2xl aspect-[3/4] mb-4 overflow-hidden card-tilt transition-all duration-300 hover:shadow-2xl hover:shadow-green-100">
                         <span class="absolute top-4 left-4 bg-white/90 backdrop-blur text-stone-900 text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wide z-20">Trending</span>
                         <!-- Local Image -->
-                        <img src="{{ asset('assets/images/69.png') }}"
+                        <img src="{{ asset('storage/assets/images/69.png') }}"
                             class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 z-10"
                             alt="Cica Night Mask">
                         <button class="quick-add-btn absolute bottom-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg translate-y-14 group-hover:translate-y-0 transition-transform duration-300 z-20 hover:bg-stone-900 hover:text-white"
@@ -297,7 +297,7 @@
                 <a href="#">
                     <div class="relative bg-purple-50 rounded-2xl aspect-[3/4] mb-4 overflow-hidden card-tilt transition-all duration-300 hover:shadow-2xl hover:shadow-purple-100">
                         <!-- Local Image -->
-                        <img src="{{ asset('assets/images/68.png') }}"
+                        <img src="{{ asset('storage/assets/images/68.png') }}"
                             class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 z-10"
                             alt="Vitamin C Serum">
                         <button class="quick-add-btn absolute bottom-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg translate-y-14 group-hover:translate-y-0 transition-transform duration-300 z-20 hover:bg-stone-900 hover:text-white"
@@ -321,7 +321,7 @@
             <div class="product-card group cursor-pointer" data-category="sunscreens">
                 <a href="#">
                     <div class="relative bg-yellow-50 rounded-2xl aspect-[3/4] mb-4 overflow-hidden card-tilt transition-all duration-300 hover:shadow-2xl hover:shadow-yellow-100">
-                        <img src="{{ asset('assets/images/73.png') }}"
+                        <img src="{{ asset('storage/assets/images/73.png') }}"
                             class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 z-10"
                             alt="Mineral Sunscreen">
                         <button class="quick-add-btn absolute bottom-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg translate-y-14 group-hover:translate-y-0 transition-transform duration-300 z-20 hover:bg-stone-900 hover:text-white"
@@ -353,7 +353,7 @@
 </section>
 @endsection
 
-@section('scripts')
+@push(section: 'scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         // Initialize Lucide icons
@@ -467,4 +467,4 @@
         }
     });
 </script>
-@endsection
+@endpush

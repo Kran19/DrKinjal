@@ -179,7 +179,7 @@
                 <div class="flex flex-col h-full">
                     <div class="mb-4">
                         <div class="h-48 rounded-xl overflow-hidden bg-gradient-to-br from-brown-50 to-amber-50 flex items-center justify-center mb-4">
-                            <img src="{{ asset('assets/images/Almond-oil.png') }}" alt="Almond Oil" class="w-full h-full object-cover">
+                            <img src="{{ asset('storage/assets/images/Almond-oil.png') }}" alt="Almond Oil" class="w-full h-full object-cover">
                         </div>
                         <h3 class="text-xl font-bold text-slate-900 mb-3">
                             Almond Oil
@@ -288,7 +288,7 @@
                 <div class="flex flex-col h-full">
                     <div class="mb-4">
                         <div class="h-48 rounded-xl overflow-hidden bg-gradient-to-br from-amber-50 to-orange-50 flex items-center justify-center mb-4">
-                            <img src="{{ asset('assets/images/ceramides.png') }}" alt="Ceramides" class="w-full h-full object-cover">
+                            <img src="{{ asset('storage/assets/images/ceramides.png') }}" alt="Ceramides" class="w-full h-full object-cover">
                         </div>
                         <h3 class="text-xl font-bold text-slate-900 mb-3">
                             Ceramides
@@ -428,7 +428,7 @@
                 <div class="flex flex-col h-full">
                     <div class="mb-4">
                         <div class="h-48 rounded-xl overflow-hidden bg-gradient-to-br from-purple-50 to-pink-50 flex items-center justify-center mb-4">
-                            <img src="{{ asset('assets/images/glycolic-acid.png') }}" alt="Glycolic Acid" class="w-full h-full object-cover">
+                            <img src="{{ asset('storage/assets/images/glycolic-acid.png') }}" alt="Glycolic Acid" class="w-full h-full object-cover">
                         </div>
                         <h3 class="text-xl font-bold text-slate-900 mb-3">
                             Glycolic Acid (AHA)
@@ -486,7 +486,7 @@
                 <div class="flex flex-col h-full">
                     <div class="mb-4">
                         <div class="h-48 rounded-xl overflow-hidden bg-gradient-to-br from-amber-50 to-orange-50 flex items-center justify-center mb-4">
-                            <img src="{{ asset('assets/images/keratin.jpeg') }}" alt="Keratin" class="w-full h-full object-cover">
+                            <img src="{{ asset('storage/assets/images/keratin.jpeg') }}" alt="Keratin" class="w-full h-full object-cover">
                         </div>
                         <h3 class="text-xl font-bold text-slate-900 mb-3">
                             Keratin
@@ -513,7 +513,7 @@
                 <div class="flex flex-col h-full">
                     <div class="mb-4">
                         <div class="h-48 rounded-xl overflow-hidden bg-gradient-to-br from-teal-50 to-emerald-50 flex items-center justify-center mb-4">
-                            <img src="{{ asset('assets/images/Kojic-acid.jpeg') }}" alt="Kojic Acid" class="w-full h-full object-cover">
+                            <img src="{{ asset('storage/assets/images/Kojic-acid.jpeg') }}" alt="Kojic Acid" class="w-full h-full object-cover">
                         </div>
                         <h3 class="text-xl font-bold text-slate-900 mb-3">
                             Kojic Acid
@@ -541,7 +541,7 @@
                 <div class="flex flex-col h-full">
                     <div class="mb-4">
                         <div class="h-48 rounded-xl overflow-hidden bg-gradient-to-br from-pink-50 to-rose-50 flex items-center justify-center mb-4">
-                            <img src="{{ asset('assets/images/Lactic-acid.png') }}" alt="Lactic Acid" class="w-full h-full object-cover">
+                            <img src="{{ asset('storage/assets/images/Lactic-acid.png') }}" alt="Lactic Acid" class="w-full h-full object-cover">
                         </div>
                         <h3 class="text-xl font-bold text-slate-900 mb-3">
                             Lactic Acid
@@ -733,7 +733,7 @@
                 <div class="flex flex-col h-full">
                     <div class="mb-4">
                         <div class="h-48 rounded-xl overflow-hidden bg-gradient-to-br from-purple-50 to-violet-50 flex items-center justify-center mb-4">
-                            <img src="{{ asset('assets/images/procapil.png') }}" alt="Procapil" class="w-full h-full object-cover">
+                            <img src="{{ asset('storage/assets/images/procapil.png') }}" alt="Procapil" class="w-full h-full object-cover">
                         </div>
                         <h3 class="text-xl font-bold text-slate-900 mb-3">
                             Procapil
@@ -993,7 +993,7 @@
 </section>
 @endsection
 
-@section('scripts')
+@push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const filterButtons = document.querySelectorAll('.ingredient-filter');
@@ -1050,4 +1050,4 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
-@endsection
+@endpush
