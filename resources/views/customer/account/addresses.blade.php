@@ -100,10 +100,15 @@
                             <i data-lucide="map-pin" class="w-5 h-5 text-cyan-600"></i>
                             <span class="font-medium">Saved Addresses</span>
                         </a>
-                        
+
                         <a href="{{ route('customer.account.change-password') }}" class="block w-full text-left p-3 rounded-xl hover:bg-stone-50 flex items-center gap-3">
                             <i data-lucide="lock" class="w-5 h-5 text-stone-400"></i>
                             <span class="font-medium">Change Password</span>
+                        </a>
+                        
+                        <a href="{{ route('customer.wishlist') }}" class="block w-full text-left p-3 rounded-xl hover:bg-stone-50 flex items-center gap-3">
+                            <i data-lucide="heart" class="w-5 h-5 text-stone-400"></i>
+                            <span class="font-medium">wishlist</span>
                         </a>
                         
                         <form method="POST" action="{{ route('customer.logout') }}" class="block">
