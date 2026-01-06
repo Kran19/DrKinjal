@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 class ProductController extends Controller
 {
     public function listing() {
-        return view('customer.products.listing');
+        return view('customer.products.shop');
     }
 
     public function category($slug) {
