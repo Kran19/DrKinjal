@@ -1,4 +1,4 @@
-@extends('customer.master')
+@extends('customer.layouts.master')
 
 @section('title', 'Dr. Kinjal - Login')
 @section('description', 'Sign in to your Dr. Kinjal account to access personalized skincare routines and exclusive offers.')
