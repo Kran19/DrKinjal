@@ -19,7 +19,7 @@
                 <div class="relative h-full w-full flex items-center justify-center">
                     <!-- Background Image -->
                     <div class="absolute inset-0 z-0">
-                        <img src= "{{ asset('storage/assets/images/slide 1.png') }}"
+                        <img src= "{{ asset('storage/assets/images/home1.jpg') }}"
                             alt="Skincare Product"
                             class="w-full h-full">
                         <div class="absolute inset-0 bg-gradient-to-r from-black/40 to-black/20 md:to-transparent"></div>
@@ -32,7 +32,7 @@
                 <div class="relative h-full w-full flex items-center justify-center">
                     <!-- Background Image -->
                     <div class="absolute inset-0 z-0">
-                        <img src= "{{ asset('storage/assets/images/slide 2.png') }}"
+                        <img src= "{{ asset('storage/assets/images/home2.jpg') }}"
                             alt="Fresh Fruits"
                             class="w-full h-full">
                         <div class="absolute inset-0 bg-gradient-to-r from-black/50 to-black/30 md:to-transparent"></div>
@@ -45,7 +45,7 @@
                 <div class="relative h-full w-full flex items-center justify-center">
                     <!-- Background Image -->
                     <div class="absolute inset-0 z-0">
-                        <img src= "{{ asset('storage/assets/images/slide 3.png') }}"
+                        <img src= "{{ asset('storage/assets/images/home3.jpg') }}"
                             alt="3"
                             class="w-full h-full">
                         <div class="absolute inset-0 bg-gradient-to-r from-black/50 to-black/30 md:to-transparent"></div>
@@ -71,7 +71,7 @@
                 <div class="relative h-full w-full flex items-center justify-center">
                     <!-- Background Image -->
                     <div class="absolute inset-0 z-0">
-                        <img src= "{{ asset('storage/assets/images/slide 5.png') }}"
+                        <img src= "{{ asset('storage/assets/images/home4.jpg') }}"
                             alt="5"
                             class="w-full h-full">
                         <div class="absolute inset-0 bg-gradient-to-r from-black/50 to-black/30 md:to-transparent"></div>
@@ -80,9 +80,9 @@
             </div>
             
             <!-- Slide 6 -->
-            <div class="swiper-slide">
+            {{-- <div class="swiper-slide">
                 <div class="relative h-full w-full flex items-center justify-center">
-                    <!-- Background Image -->
+                   
                     <div class="absolute inset-0 z-0">
                         <img src= "{{ asset('storage/assets/images/slide 6.png') }}"
                             alt="6"
@@ -90,14 +90,14 @@
                         <div class="absolute inset-0 bg-gradient-to-r from-black/50 to-black/30 md:to-transparent"></div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             
             <!-- Slide 7 -->
             <div class="swiper-slide">
                 <div class="relative h-full w-full flex items-center justify-center">
                     <!-- Background Image -->
                     <div class="absolute inset-0 z-0">
-                        <img src= "{{ asset('storage/assets/images/slide 7.png') }}"
+                        <img src= "{{ asset('storage/assets/images/home6.jpg') }}"
                             alt="7"
                             class="w-full h-full">
                         <div class="absolute inset-0 bg-gradient-to-r from-black/50 to-black/30 md:to-transparent"></div>
@@ -106,7 +106,7 @@
             </div>
             
             <!-- Slide 8 -->
-            <div class="swiper-slide">
+            {{-- <div class="swiper-slide">
                 <div class="relative h-full w-full flex items-center justify-center">
                     
                     <div class="absolute inset-0 z-0">
@@ -116,7 +116,7 @@
                         <div class="absolute inset-0 bg-gradient-to-r from-black/50 to-black/30 md:to-transparent"></div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             
             <!-- Slide 9 -->
             <!-- <div class="swiper-slide">
@@ -217,7 +217,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="absolute bottom-4 left-4 w-8 h-8 rounded-full border border-stone-900/10 flex items-center justify-center bg-white/40 z-10 group-hover:bg-white">
                             <i data-lucide="arrow-right" class="w-4 h-4 text-stone-900"></i>
                         </div>
-                        <img src="{{ asset('storage/assets/images/62.png') }}"
+                        <img src="{{ asset('storage/assets/images/soap_img.png') }}"
                             class="absolute bottom-0 right-0 w-24 h-31 object-contain rotate-[-10deg] group-hover:rotate-0 transition-transform duration-500"
                             alt="Soaps">
                     </a>
@@ -229,8 +229,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="absolute bottom-4 left-4 w-8 h-8 rounded-full border border-stone-900/10 flex items-center justify-center bg-white/40 z-10 group-hover:bg-white">
                             <i data-lucide="arrow-right" class="w-4 h-4 text-stone-900"></i>
                         </div>
-                        <img src="{{ asset('storage/assets/images/40.png') }}"
-                            class="absolute bottom-0 right-0 w-20 h-30 object-contain rotate-[-10deg] group-hover:scale-110 transition-transform duration-500"
+                        <img src="{{ asset('storage/assets/images/serum_img.png') }}"
+                            class="absolute bottom-0 right-0 w-20 h-24 object-contain rotate-[-10deg] group-hover:rotate-0 transition-transform duration-500"
                             alt="Serum">
                     </a>
 
@@ -241,8 +241,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="absolute bottom-4 left-4 w-8 h-8 rounded-full border border-stone-900/10 flex items-center justify-center bg-white/40 z-10 group-hover:bg-white">
                             <i data-lucide="arrow-right" class="w-4 h-4 text-stone-900"></i>
                         </div>
-                        <img src="{{ asset('storage/assets/images/23.png') }}"
-                            class="absolute bottom-0 right-0 w-24 h-24 object-contain rotate-[-10deg] translate-x-2 group-hover:scale-105 transition-transform duration-500"
+                        <img src="{{ asset('storage/assets/images/mosturizer_img.png') }}"
+                            class="absolute bottom-0 right-0 w-24 h-24 object-contain rotate-[-10deg] translate-x-2 group-hover:rotate-0 transition-transform duration-500"
                             alt="Moisturizer">
                     </a>
 
@@ -253,8 +253,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="absolute bottom-4 left-4 w-8 h-8 rounded-full border border-stone-900/10 flex items-center justify-center bg-white/40 z-10 group-hover:bg-white">
                             <i data-lucide="arrow-right" class="w-4 h-4 text-stone-900"></i>
                         </div>
-                        <img src="{{ asset('storage/assets/images/30.png') }}"
-                            class="absolute bottom-0 right-0 w-20 h-30 object-contain rotate-[-10deg] group-hover:scale-105 transition-transform duration-500"
+                        <img src="{{ asset('storage/assets/images/shampoo_img.png') }}"
+                            class="absolute bottom-0 right-0 w-20 h-30 object-contain rotate-[-10deg] group-hover:rotate-0 transition-transform duration-500"
                             alt="Shampoo">
                     </a>
 
@@ -265,8 +265,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="absolute bottom-4 left-4 w-8 h-8 rounded-full border border-stone-900/10 flex items-center justify-center bg-white/40 z-10 group-hover:bg-white">
                             <i data-lucide="arrow-right" class="w-4 h-4 text-stone-900"></i>
                         </div>
-                        <img src="{{ asset('storage/assets/images/49.png') }}"
-                            class="absolute bottom-0 right-0 w-22 h-24 object-contain rotate-[-10deg] group-hover:scale-105 transition-transform duration-500"
+                        <img src="{{ asset('storage/assets/images/conditioner_img.png') }}"
+                            class="absolute bottom-0 right-0 w-22 h-24 object-contain rotate-[-10deg] group-hover:rotate-0 transition-transform duration-500"
                             alt="Conditioner">
                     </a>
 
@@ -277,8 +277,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="absolute bottom-4 left-4 w-8 h-8 rounded-full border border-stone-900/10 flex items-center justify-center bg-white/40 z-10 group-hover:bg-white">
                             <i data-lucide="arrow-right" class="w-4 h-4 text-stone-900"></i>
                         </div>
-                        <img src="{{ asset('storage/assets/images/6.png') }}"
-                            class="absolute bottom-0 right-0 w-24 h-24 object-contain rotate-[-10deg] translate-x-2 group-hover:scale-105 transition-transform duration-500"
+                        <img src="{{ asset('storage/assets/images/facewash_img.png') }}"
+                            class="absolute bottom-0 right-0 w-24 h-24 object-contain rotate-[-10deg] translate-x-2 group-hover:rotate-0 transition-transform duration-500"
                             alt="Face Wash">
                     </a>
 
@@ -289,8 +289,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="absolute bottom-4 left-4 w-8 h-8 rounded-full border border-stone-900/10 flex items-center justify-center bg-white/40 z-10 group-hover:bg-white">
                             <i data-lucide="arrow-right" class="w-4 h-4 text-stone-900"></i>
                         </div>
-                        <img src="{{ asset('storage/assets/images/72.png') }}"
-                            class="absolute bottom-0 right-0 w-25 h-24 object-contain rotate-[-10deg] group-hover:scale-110 transition-transform duration-500"
+                        <img src="{{ asset('storage/assets/images/sunscreen_img.png') }}"
+                            class="absolute bottom-0 right-0 w-25 h-24 object-contain rotate-[-10deg] group-hover:rotate-0 transition-transform duration-500"
                             alt="Sunscreen">
                     </a>
 
@@ -301,8 +301,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="absolute bottom-4 left-4 w-8 h-8 rounded-full border border-stone-900/10 flex items-center justify-center bg-white/40 z-10 group-hover:bg-white">
                             <i data-lucide="arrow-right" class="w-4 h-4 text-stone-900"></i>
                         </div>
-                        <img src="{{ asset('storage/assets/images/46.png') }}"
-                            class="absolute bottom-0 right-0 w-25 h-24 object-contain rotate-[-10deg] group-hover:scale-110 transition-transform duration-500"
+                        <img src="{{ asset('storage/assets/images/bodywash_img.png') }}"
+                            class="absolute bottom-0 right-0 w-25 h-24 object-contain rotate-[-10deg] group-hover:rotate-0 transition-transform duration-500"
                             alt="Bodywash">
                     </a>
                 </div>
@@ -745,7 +745,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     @media (max-width: 768px) {
         .heroSwiper {
-            height: 12rem !important;
+            height: 14rem !important;
         }
     }
 

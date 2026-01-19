@@ -217,10 +217,10 @@
                         </div>
                         
                         <!-- Gift Row (Initially hidden) -->
-                        <div class="flex justify-between text-[#0ea5e9] hidden" id="gift-row">
+                        {{-- <div class="flex justify-between text-[#0ea5e9] hidden" id="gift-row">
                             <span>Gift Wrapping</span>
                             <span class="font-semibold">+₹5.00</span>
-                        </div>
+                        </div> --}}
                     </div>
 
                     <div class="h-px bg-gray-100 my-6"></div>
@@ -262,6 +262,8 @@
 @endsection
 
 @push('scripts')
+<!-- Iconify Script -->
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 <script>
     // Data Structure - Updated with new products
     const products = [

@@ -47,6 +47,7 @@
         <div class="flex items-center gap-2">
             <div class="flex items-center gap-2">
                 <div class="w-8 h-8 rounded-full step-complete flex items-center justify-center">
+                    <span>1</span>
                     <iconify-icon icon="lucide:check" width="16"></iconify-icon>
                 </div>
                 <span class="text-sm font-medium text-gray-900">Cart</span>
@@ -373,7 +374,7 @@
                 </div>
 
                 <!-- Security Badges -->
-                <div class="mt-6 bg-white rounded-3xl p-6 border border-sky-50 shadow-[0_8px_30px_rgb(15,23,42,0.06)]">
+                {{-- <div class="mt-6 bg-white rounded-3xl p-6 border border-sky-50 shadow-[0_8px_30px_rgb(15,23,42,0.06)]">
                     <div class="flex flex-col items-center text-center">
                         <div class="flex items-center gap-3 mb-3">
                             <iconify-icon icon="lucide:shield-check" width="24" class="text-green-500"></iconify-icon>
@@ -389,7 +390,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
                 <!-- Need Help -->
                 <div class="mt-4 text-center">

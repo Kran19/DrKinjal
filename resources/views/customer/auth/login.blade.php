@@ -243,13 +243,13 @@
                         </div>
                         <div class="text-center">
                             <div class="text-xl font-bold text-sky-600">100%</div>
-                            <div class="text-xs text-stone-500">Vegan & Clean</div>
+                            <div class="text-xs text-stone-500">Clean</div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Mini Cards -->
-                <div class="grid grid-cols-2 gap-4">
+                {{-- <div class="grid grid-cols-2 gap-4">
                     <div class="bg-gradient-to-br from-orange-50 to-orange-100 rounded-2xl p-6 border border-orange-200">
                         <div class="flex justify-between items-start">
                             <div>
@@ -272,7 +272,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
 
             <!-- Mobile Marketing Section -->
@@ -304,7 +304,7 @@
                             </div>
                             <div>
                                 <h4 class="font-medium text-stone-900">Clean & Sustainable</h4>
-                                <p class="text-sm text-stone-600">100% vegan, cruelty-free formulas</p>
+                                <p class="text-sm text-stone-600">100% cruelty-free formulas</p>
                             </div>
                         </div>
                     </div>
@@ -316,14 +316,14 @@
 
 <!-- Footer Note -->
 <div class="bg-white border-t border-stone-200 py-4 px-4">
-    <div class="max-w-6xl mx-auto">
+    {{-- <div class="max-w-6xl mx-auto">
         <p class="text-center text-sm text-stone-500">
             By continuing, you agree to our 
-            <a href="{{ route('customer.page.terms') }}" class="text-sky-600 hover:text-sky-700">Terms of Service</a> 
+            <a href="{{ route('customer.pages.terms') }}" class="text-sky-600 hover:text-sky-700">Refund </a> 
             and 
-            <a href="{{ route('customer.page.privacy') }}" class="text-sky-600 hover:text-sky-700">Privacy Policy</a>
+            <a href="{{ route('customer.pages.privacy-policy') }}" class="text-sky-600 hover:text-sky-700">Privacy Policy</a>
         </p>
-    </div>
+    </div> --}}
 </div>
 @endsection
 

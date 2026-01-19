@@ -41,7 +41,8 @@ Route::name('customer.')->group(function () {
     Route::get('/bestsellers', [CustomerProduct::class, 'bestsellers'])->name('products.bestsellers');
     Route::get('/concerns', [CustomerPage::class, 'concerns'])->name('page.concerns');
     Route::get('/ingredients', [CustomerPage::class, 'ingredients'])->name('page.ingredients');
-
+     Route::get('/privacy-policy', [CustomerPage::class, 'privacy-policy'])->name('page.privacy-policy');
+      Route::get('/terms', [CustomerPage::class, 'terms'])->name('page.terms');
 
     /*
     |--------------------------------------------------------------------------
@@ -49,7 +50,7 @@ Route::name('customer.')->group(function () {
     |--------------------------------------------------------------------------
     */
     Route::get('/login', [CustomerAuth::class, 'loginPage'])->name('login');
-        Route::post('/logout', [CustomerAuth::class, 'logout'])->name('logout');
+    Route::post('/logout', [CustomerAuth::class, 'logout'])->name('logout');
 
     Route::get('/register', [CustomerAuth::class, 'registerPage'])->name('register');
     Route::get('/forgot-password', [CustomerAuth::class, 'showForgotPassword'])->name('forgot-password');

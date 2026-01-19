@@ -23,7 +23,7 @@ class PageController extends Controller
     }
     public function privacy()
     {
-        return view('customer.pages.privacy');
+        return view('customer.pages.privacy-policy');
     }
     public function refund()
     {

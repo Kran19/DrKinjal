@@ -169,8 +169,8 @@
                             {{ old('terms') ? 'checked' : '' }}
                         >
                         <label for="terms" class="text-xs md:text-sm text-stone-600">
-                            I agree to the <a href="{{ route('customer.page.terms') }}" class="text-sky-600 hover:text-sky-700 font-medium">Terms of Service</a> and 
-                            <a href="{{ route('customer.page.privacy') }}" class="text-sky-600 hover:text-sky-700 font-medium">Privacy Policy</a>. 
+                            I agree to the Terms of Service and 
+                            Privacy Policy
                             I also agree to receive skincare tips and offers via email.
                         </label>
                     </div>

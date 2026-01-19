@@ -25,14 +25,14 @@
             <div id="categories-container" class="flex gap-4 overflow-x-auto pb-8 no-scrollbar scrollbar-hide snap-x -mx-4 md:mx-0 px-4 md:px-0">
                 @php
                     $categories = [
-                        ['slug' => 'soaps', 'name' => 'Soaps', 'bg_from' => 'from-rose-50', 'bg_to' => 'to-rose-200', 'image' => 'storage/assets/images/62.png'],
-                        ['slug' => 'serum', 'name' => 'Serum', 'bg_from' => 'from-purple-50', 'bg_to' => 'to-purple-200', 'image' => 'storage/assets/images/40.png'],
-                        ['slug' => 'moisturizer', 'name' => 'Moisturizer', 'bg_from' => 'from-orange-50', 'bg_to' => 'to-orange-200', 'image' => 'storage/assets/images/23.png'],
-                        ['slug' => 'shampoo', 'name' => 'Shampoo', 'bg_from' => 'from-sky-50', 'bg_to' => 'to-sky-200', 'image' => 'storage/assets/images/30.png'],
-                        ['slug' => 'conditioner', 'name' => 'Conditioner', 'bg_from' => 'from-teal-50', 'bg_to' => 'to-teal-200', 'image' => 'storage/assets/images/50.png'],
-                        ['slug' => 'facewash', 'name' => 'Face Wash', 'bg_from' => 'from-lime-50', 'bg_to' => 'to-lime-200', 'image' => 'storage/assets/images/6.png'],
-                        ['slug' => 'sunscreen', 'name' => 'Sunscreen', 'bg_from' => 'from-amber-50', 'bg_to' => 'to-amber-200', 'image' => 'storage/assets/images/72.png'],
-                        ['slug' => 'bodywash', 'name' => 'Bodywash', 'bg_from' => 'from-yellow-50', 'bg_to' => 'to-yellow-200', 'image' => 'storage/assets/images/46.png'],
+                        ['slug' => 'soaps', 'name' => 'Soaps', 'bg_from' => 'from-rose-50', 'bg_to' => 'to-rose-200', 'image' => 'storage/assets/images/soap_img.png'],
+                        ['slug' => 'serum', 'name' => 'Serum', 'bg_from' => 'from-purple-50', 'bg_to' => 'to-purple-200', 'image' => 'storage/assets/images/serum_img.png'],
+                        ['slug' => 'moisturizer', 'name' => 'Moisturizer', 'bg_from' => 'from-orange-50', 'bg_to' => 'to-orange-200', 'image' => 'storage/assets/images/mosturizer_img.png'],
+                        ['slug' => 'shampoo', 'name' => 'Shampoo', 'bg_from' => 'from-sky-50', 'bg_to' => 'to-sky-200', 'image' => 'storage/assets/images/shampoo_img.png'],
+                        ['slug' => 'conditioner', 'name' => 'Conditioner', 'bg_from' => 'from-teal-50', 'bg_to' => 'to-teal-200', 'image' => 'storage/assets/images/conditioner_img.png'],
+                        ['slug' => 'facewash', 'name' => 'Face Wash', 'bg_from' => 'from-lime-50', 'bg_to' => 'to-lime-200', 'image' => 'storage/assets/images/facewash_img.png'],
+                        ['slug' => 'sunscreen', 'name' => 'Sunscreen', 'bg_from' => 'from-amber-50', 'bg_to' => 'to-amber-200', 'image' => 'storage/assets/images/sunscreen_img.png'],
+                        ['slug' => 'bodywash', 'name' => 'Bodywash', 'bg_from' => 'from-yellow-50', 'bg_to' => 'to-yellow-200', 'image' => 'storage/assets/images/bodywash_img.png'],
                     ];
                 @endphp
 
@@ -44,7 +44,7 @@
                             <i data-lucide="arrow-right" class="w-4 h-4 text-stone-900"></i>
                         </div>
                         <img src="{{ asset($category['image']) }}"
-                            class="absolute bottom-0 right-0 w-24 h-24 object-contain rotate-[-10deg] group-hover:scale-105 transition-transform duration-500"
+                            class="absolute bottom-0 right-0 w-24 h-24 object-contain rotate-[-10deg] group-hover:rotate-0 transition-transform duration-500"
                             alt="{{ $category['name'] }}">
                     </a>
                 @endforeach
