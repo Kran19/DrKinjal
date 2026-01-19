@@ -42,7 +42,6 @@ Route::name('customer.')->group(function () {
     Route::get('/concerns', [CustomerPage::class, 'concerns'])->name('page.concerns');
     Route::get('/ingredients', [CustomerPage::class, 'ingredients'])->name('page.ingredients');
      Route::get('/privacy-policy', [CustomerPage::class, 'privacy-policy'])->name('page.privacy-policy');
-      Route::get('/terms', [CustomerPage::class, 'terms'])->name('page.terms');
 
     /*
     |--------------------------------------------------------------------------
