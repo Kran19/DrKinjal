@@ -18,18 +18,6 @@
         position: absolute;
         right: 12px;
         top: 50%;
-        transform: translateY(-50%);
-        background: none;
-        border: none;
-        color: #64748b;
-        cursor: pointer;
-        padding: 4px;
-    }
-    
-    .toggle-password:hover {
-        color: #0ea5e9;
-    }
-    
     .password-strength-meter {
         height: 4px;
         background-color: #e5e7eb;
@@ -141,10 +129,10 @@
                             <i data-lucide="user" class="w-8 h-8 text-cyan-600"></i>
                         </div>
                         <div>
-                            <h2 class="text-xl font-bold text-stone-900">Alex Johnson</h2>
-                            <p class="text-stone-500">alex@example.com</p>
+                            <h2 class="text-xl font-bold text-stone-900">{{ Auth::guard('customer')->user()->name }}</h2>
+                            <p class="text-stone-500">{{ Auth::guard('customer')->user()->email }}</p>
                             <span class="inline-block mt-1 px-3 py-1 bg-cyan-100 text-cyan-700 text-xs font-semibold rounded-full">
-                                Premium Member
+                                Member
                             </span>
                         </div>
                     </div>
@@ -178,7 +166,7 @@
                             <span class="font-medium">Saved Addresses</span>
                         </a>
 
-                        <a href="{{ route('customer.wishlist') }}" class="block w-full text-left p-3 rounded-xl hover:bg-stone-50 flex items-center gap-3">
+                        <a href="{{ route('customer.wishlist.index') }}" class="block w-full text-left p-3 rounded-xl hover:bg-stone-50 flex items-center gap-3">
                             <i data-lucide="heart" class="w-5 h-5 text-stone-400"></i>
                             <span class="font-medium">Wishlist</span>
                         </a>
@@ -230,7 +218,25 @@
                 <div class="bg-white rounded-3xl p-6 md:p-8 shadow-xl shadow-stone-200/50 border border-stone-100">
                     <h2 class="text-2xl font-bold text-stone-900 mb-6">Update Your Password</h2>
                     
-                    <form id="changePasswordForm" class="space-y-6">
+                    @if(session('success'))
+                        <div class="mb-6 p-4 bg-emerald-50 text-emerald-700 rounded-xl flex items-center gap-3">
+                            <i data-lucide="check-circle" class="w-5 h-5"></i>
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+                    @if($errors->any())
+                        <div class="mb-6 p-4 bg-red-50 text-red-700 rounded-xl">
+                            <ul class="list-disc list-inside">
+                                @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    
+                    <form id="changePasswordForm" action="{{ route('customer.account.change-password.update') }}" method="POST" class="space-y-6">
+                        @csrf
                         <!-- Current Password -->
                         <div class="space-y-2">
                             <label class="text-sm font-medium text-stone-700">Current Password</label>
@@ -256,7 +262,7 @@
                                 <input 
                                     type="password" 
                                     id="newPassword"
-                                    name="new_password"
+                                    name="password"
                                     class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-stone-900 focus:outline-none focus:ring-2 focus:ring-cyan-500/40 focus:border-cyan-400"
                                     placeholder="Enter new password"
                                     required
@@ -292,7 +298,7 @@
                                 <input 
                                     type="password" 
                                     id="confirmPassword"
-                                    name="confirm_password"
+                                    name="password_confirmation"
                                     class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-stone-900 focus:outline-none focus:ring-2 focus:ring-cyan-500/40 focus:border-cyan-400"
                                     placeholder="Confirm new password"
                                     required
@@ -514,57 +520,20 @@
         // Form submission
         if (form) {
             form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
+                // Client-side validation before submission
                 if (!validateForm()) {
+                    e.preventDefault(); // Prevent form submission if validation fails
+                    // Optionally, scroll to the first error or show a general message
+                    alert('Please ensure all password requirements are met and passwords match.');
                     return;
                 }
                 
-                const originalText = submitButton ? submitButton.textContent : 'Update Password';
+                // Disable button and show loading state on submission
                 if (submitButton) {
                     submitButton.innerHTML = '<span>Updating...</span>';
                     submitButton.disabled = true;
                 }
-                
-                // Simulate API call
-                setTimeout(() => {
-                    alert('Password updated successfully!');
-                    if (form) form.reset();
-                    if (submitButton) {
-                        submitButton.textContent = originalText;
-                        submitButton.disabled = false;
-                    }
-                    
-                    // Reset UI elements
-                    if (passwordStrengthFill) {
-                        passwordStrengthFill.style.width = '0%';
-                    }
-                    if (passwordStrengthText) {
-                        passwordStrengthText.textContent = '';
-                    }
-                    if (passwordMatchText) {
-                        passwordMatchText.textContent = '';
-                    }
-                    
-                    // Reset requirement indicators
-                    document.querySelectorAll('.requirement-item').forEach(item => {
-                        item.classList.remove('met');
-                    });
-                    
-                    // Reset all password inputs to password type
-                    document.querySelectorAll('input').forEach(input => {
-                        if (input.type === 'text' && (input.id.includes('Password') || input.id.includes('password'))) {
-                            input.type = 'password';
-                        }
-                    });
-                    
-                    // Reset all eye icons
-                    document.querySelectorAll('.toggle-password i').forEach(icon => {
-                        icon.setAttribute('data-lucide', 'eye');
-                    });
-                    lucide.createIcons();
-                    
-                }, 1500);
+                // The form will now submit normally to the server
             });
         }
         

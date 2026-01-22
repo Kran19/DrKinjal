@@ -52,7 +52,7 @@
                     </div>
                 @endif
 
-                <form action="{{ route('customer.register') }}" method="POST" class="space-y-5 md:space-y-6" id="signupForm">
+                <form action="{{ route('customer.register.submit') }}" method="POST" class="space-y-5 md:space-y-6" id="signupForm">
                     @csrf
                     
                     <!-- Name Fields -->
@@ -64,6 +64,7 @@
                                 <input
                                     type="text"
                                     name="first_name"
+                                    id="firstName"
                                     placeholder="John"
                                     value="{{ old('first_name') }}"
                                     class="w-full pl-12 pr-4 py-3.5 md:py-3 bg-stone-50 border border-stone-200 rounded-xl text-base md:text-sm text-stone-900
@@ -82,6 +83,7 @@
                                 <input
                                     type="text"
                                     name="last_name"
+                                    id="lastName"
                                     placeholder="Doe"
                                     value="{{ old('last_name') }}"
                                     class="w-full pl-12 pr-4 py-3.5 md:py-3 bg-stone-50 border border-stone-200 rounded-xl text-base md:text-sm text-stone-900
@@ -91,6 +93,29 @@
                                     autocomplete="family-name"
                                 >
                             </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Hidden Name Field for Backend -->
+                    <input type="hidden" name="name" id="fullName">
+
+                    <!-- Mobile Field -->
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium text-stone-700">Mobile Number</label>
+                        <div class="relative">
+                            <i data-lucide="phone" class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-stone-400"></i>
+                            <input
+                                type="tel"
+                                name="mobile"
+                                placeholder="9876543210"
+                                value="{{ old('mobile') }}"
+                                class="w-full pl-12 pr-4 py-3.5 md:py-3 bg-stone-50 border border-stone-200 rounded-xl text-base md:text-sm text-stone-900
+                                       focus:outline-none focus:ring-2 focus:ring-sky-500/40 focus:border-sky-400
+                                       transition-all placeholder:text-stone-400"
+                                required
+                                autocomplete="tel"
+                                pattern="[0-9]{10,15}"
+                            >
                         </div>
                     </div>
 
@@ -420,6 +445,11 @@
                 const terms = document.getElementById('terms');
                 const submitButton = document.getElementById('submitButton');
                 const buttonText = document.getElementById('buttonText');
+                
+                // Concatenate names
+                const firstName = document.getElementById('firstName').value;
+                const lastName = document.getElementById('lastName').value;
+                document.getElementById('fullName').value = firstName + ' ' + lastName;
                 
                 // Check password match
                 if (password.value !== confirmPassword.value) {

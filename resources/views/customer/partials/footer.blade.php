@@ -59,7 +59,7 @@
             <!-- Newsletter -->
             <div>
                 <h3 class="font-bold text-lg mb-6">Stay Updated</h3>
-                {{-- <form action="{{ route('newsletter.subscribe') }}" method="POST" class="space-y-2">
+                <form action="{{ route('customer.newsletter.subscribe') }}" method="POST" class="space-y-2">
                     @csrf
                     <input type="email" name="email" placeholder="Your email" required
                         class="w-full px-4 py-3 bg-stone-800 border border-stone-700 rounded-full text-white placeholder-stone-500 focus:outline-none focus:border-sky-500">
@@ -67,7 +67,7 @@
                         class="w-full px-6 py-3 bg-sky-500 text-white font-semibold rounded-full hover:bg-sky-600 transition-colors">
                         Subscribe
                     </button>
-                </form> --}}
+                </form>
             </div>
         </div>
         

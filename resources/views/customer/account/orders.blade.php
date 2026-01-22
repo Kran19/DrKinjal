@@ -45,16 +45,6 @@
         }
     }
     
-    /* Loading animation */
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-    
-    .animate-fade-in {
-        animation: fadeIn 0.5s ease-out forwards;
-    }
-    
     /* Custom scrollbar */
     .custom-scrollbar::-webkit-scrollbar {
         width: 4px;
@@ -93,16 +83,16 @@
             <!-- Left Sidebar - Navigation -->
             <div class="lg:col-span-1">
                 <!-- Profile Card -->
-                <div class="profile-card bg-white rounded-3xl p-6 md:p-8 shadow-xl shadow-stone-200/50 border border-stone-100 mb-6 animate-fade-in">
+                <div class="profile-card bg-white rounded-3xl p-6 md:p-8 shadow-xl shadow-stone-200/50 border border-stone-100 mb-6">
                     <div class="flex items-center gap-4 mb-6">
                         <div class="w-16 h-16 rounded-full bg-gradient-to-br from-cyan-100 to-teal-100 flex items-center justify-center">
                             <i data-lucide="user" class="w-8 h-8 text-cyan-600"></i>
                         </div>
                         <div>
-                            <h2 class="text-xl font-bold text-stone-900">Alex Johnson</h2>
-                            <p class="text-stone-500">alex@example.com</p>
+                            <h2 class="text-xl font-bold text-stone-900">{{ Auth::guard('customer')->user()->name }}</h2>
+                            <p class="text-stone-500">{{ Auth::guard('customer')->user()->email }}</p>
                             <span class="inline-block mt-1 px-3 py-1 bg-cyan-100 text-cyan-700 text-xs font-semibold rounded-full">
-                                Premium Member
+                                Member
                             </span>
                         </div>
                     </div>
@@ -110,11 +100,11 @@
                     <!-- Stats -->
                     <div class="stats-grid grid grid-cols-2 gap-4 mb-6">
                         <div class="bg-stone-50 p-4 rounded-xl">
-                            <div class="text-2xl font-bold text-stone-900">₹12,450</div>
+                            <div class="text-2xl font-bold text-stone-900">₹{{ number_format($totalSpent, 0) }}</div>
                             <div class="text-sm text-stone-500">Total Spent</div>
                         </div>
                         <div class="bg-stone-50 p-4 rounded-xl">
-                            <div class="text-2xl font-bold text-stone-900">8</div>
+                            <div class="text-2xl font-bold text-stone-900">{{ $totalOrders }}</div>
                             <div class="text-sm text-stone-500">Total Orders</div>
                         </div>
                     </div>
@@ -136,9 +126,9 @@
                             <span class="font-medium">Saved Addresses</span>
                         </a>
                         
-                        <a href="{{ route('customer.wishlist') }}" class="block w-full text-left p-3 rounded-xl hover:bg-stone-50 flex items-center gap-3">
+                        <a href="{{ route('customer.wishlist.index') }}" class="block w-full text-left p-3 rounded-xl hover:bg-stone-50 flex items-center gap-3">
                             <i data-lucide="heart" class="w-5 h-5 text-stone-400"></i>
-                            <span class="font-medium">wishlist</span>
+                            <span class="font-medium">Wishlist</span>
                         </a>
 
                         <a href="{{ route('customer.account.change-password') }}" class="block w-full text-left p-3 rounded-xl hover:bg-stone-50 flex items-center gap-3">
@@ -155,29 +145,7 @@
                         </form>
                     </div>
                 </div>
-                
-                <!-- Quick Stats -->
-                <div class="bg-gradient-to-r from-cyan-500 to-teal-500 rounded-3xl p-6 text-white">
-                    <h3 class="font-bold mb-4">Order Summary</h3>
-                    <div class="space-y-3">
-                        <div class="flex justify-between">
-                            <span>Pending</span>
-                            <span class="font-bold">1</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span>Shipped</span>
-                            <span class="font-bold">1</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span>Delivered</span>
-                            <span class="font-bold">6</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span>Cancelled</span>
-                            <span class="font-bold">0</span>
-                        </div>
-                    </div>
-                </div>
+
             </div>
 
             <!-- Right Content Area - Orders -->
@@ -185,204 +153,126 @@
                 <!-- Order History Header -->
                 <div class="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
                     <h2 class="text-2xl font-bold text-stone-900">Recent Orders</h2>
-                    <div class="flex gap-2">
-                        <button class="px-4 py-2 bg-white border border-stone-200 rounded-xl text-sm font-medium hover:bg-stone-50 flex items-center gap-2">
-                            <i data-lucide="filter" class="w-4 h-4"></i>
-                            Filter
-                        </button>
-                        <button class="px-4 py-2 bg-white border border-stone-200 rounded-xl text-sm font-medium hover:bg-stone-50 flex items-center gap-2">
-                            <i data-lucide="download" class="w-4 h-4"></i>
-                            Export
-                        </button>
+                    <div class="flex gap-2 relative group">
+                        <!-- Simple Filter Links -->
+                         <div class="flex flex-wrap gap-2">
+                            <a href="{{ route('customer.account.orders') }}" class="px-3 py-1 bg-white border border-stone-200 rounded-lg text-xs font-medium hover:bg-stone-50 {{ !request()->route('status') ? 'bg-cyan-50 border-cyan-200 text-cyan-700' : '' }}">All</a>
+                            <a href="{{ route('customer.account.orders.filter', 'confirmed') }}" class="px-3 py-1 bg-white border border-stone-200 rounded-lg text-xs font-medium hover:bg-stone-50 {{ request()->route('status') == 'confirmed' ? 'bg-cyan-50 border-cyan-200 text-cyan-700' : '' }}">Confirmed</a>
+                            <a href="{{ route('customer.account.orders.filter', 'shipped') }}" class="px-3 py-1 bg-white border border-stone-200 rounded-lg text-xs font-medium hover:bg-stone-50 {{ request()->route('status') == 'shipped' ? 'bg-cyan-50 border-cyan-200 text-cyan-700' : '' }}">Shipped</a>
+                            <a href="{{ route('customer.account.orders.filter', 'delivered') }}" class="px-3 py-1 bg-white border border-stone-200 rounded-lg text-xs font-medium hover:bg-stone-50 {{ request()->route('status') == 'delivered' ? 'bg-cyan-50 border-cyan-200 text-cyan-700' : '' }}">Delivered</a>
+                         </div>
                     </div>
                 </div>
                 
                 <!-- Search Box -->
                 <div class="mb-6">
-                    <div class="relative">
+                    <form action="{{ route('customer.account.orders') }}" method="GET" class="relative">
                         <i data-lucide="search" class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-stone-400"></i>
                         <input
                             type="text"
-                            placeholder="Search orders by ID, product, or date..."
+                            name="search"
+                            value="{{ request('search') }}"
+                            placeholder="Search orders by ID..."
                             class="w-full pl-12 pr-4 py-3 bg-white border border-stone-200 rounded-xl text-stone-900
                                    focus:outline-none focus:ring-2 focus:ring-cyan-500/40 focus:border-cyan-400
                                    transition-all placeholder:text-stone-400"
                         >
-                    </div>
+                    </form>
                 </div>
 
                 <!-- Orders List -->
                 <div class="space-y-4">
-                    
-                    <!-- Order 1 - Delivered -->
-                    <div class="order-card bg-white rounded-3xl p-6 shadow-lg shadow-stone-200/30 border border-stone-100">
-                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-4 gap-4">
-                            <div>
-                                <div class="flex items-center gap-3 mb-2">
-                                    <h3 class="font-bold text-stone-900">ORD-789456</h3>
-                                    <span class="status-badge px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-semibold rounded-full">
-                                        Delivered
-                                    </span>
+                    @forelse($orders as $order)
+                        <div class="order-card bg-white rounded-3xl p-6 shadow-lg shadow-stone-200/30 border border-stone-100">
+                            <div class="flex flex-col md:flex-row md:items-center justify-between mb-4 gap-4">
+                                <div>
+                                    <div class="flex items-center gap-3 mb-2">
+                                        <h3 class="font-bold text-stone-900">{{ $order->order_number }}</h3>
+                                        @php
+                                            $statusColors = [
+                                                'pending' => 'bg-amber-100 text-amber-800',
+                                                'confirmed' => 'bg-blue-100 text-blue-800',
+                                                'processing' => 'bg-indigo-100 text-indigo-800',
+                                                'shipped' => 'bg-purple-100 text-purple-800',
+                                                'delivered' => 'bg-emerald-100 text-emerald-800',
+                                                'cancelled' => 'bg-red-100 text-red-800',
+                                                'refunded' => 'bg-gray-100 text-gray-800',
+                                                'returned' => 'bg-orange-100 text-orange-800',
+                                            ];
+                                            $badgeInfo = $statusColors[$order->status] ?? 'bg-stone-100 text-stone-800';
+                                        @endphp
+                                        <span class="status-badge px-3 py-1 {{ $badgeInfo }} text-xs font-semibold rounded-full">
+                                            {{ ucfirst($order->status) }}
+                                        </span>
+                                    </div>
+                                    <p class="text-sm text-stone-500">Placed on {{ $order->created_at->format('F j, Y') }} • {{ $order->items->count() }} items</p>
                                 </div>
-                                <p class="text-sm text-stone-500">Placed on March 15, 2024 • 3 items</p>
+                                <div class="text-right">
+                                    <div class="text-xl font-bold text-stone-900">₹{{ number_format($order->grand_total, 2) }}</div>
+                                    <a href="{{ route('customer.account.orders.details', $order->id) }}" class="inline-block text-sm text-cyan-600 font-medium hover:text-cyan-700 mt-1 flex items-center gap-1">
+                                        View Details
+                                        <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                                    </a>
+                                </div>
                             </div>
-                            <div class="text-right">
-                                <div class="text-xl font-bold text-stone-900">₹2,999</div>
-                                <a href="{{ route('customer.account.orders.details', ['id' => 789456]) }}" class="inline-block text-sm text-cyan-600 font-medium hover:text-cyan-700 mt-1 flex items-center gap-1">
-                                    View Details
-                                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                            
+                            <!-- Order Items Preview -->
+                            <div class="flex items-center gap-4 mb-4 overflow-x-auto custom-scrollbar pb-2">
+                                @foreach($order->items->take(3) as $item)
+                                    <div class="flex-shrink-0 w-16 h-16 bg-stone-100 rounded-xl flex items-center justify-center overflow-hidden">
+                                        @if($item->product && $item->product->images && count($item->product->images) > 0)
+                                             <img src="{{ asset('storage/' . $item->product->images[0]) }}" alt="{{ $item->product->name }}" class="w-full h-full object-cover">
+                                        @else
+                                            <i data-lucide="package" class="w-6 h-6 text-stone-400"></i>
+                                        @endif
+                                    </div>
+                                @endforeach
+                                
+                                @if($order->items->count() > 3)
+                                    <div class="flex-shrink-0 text-stone-500 text-sm pl-2">
+                                        + {{ $order->items->count() - 3 }} more items
+                                    </div>
+                                @endif
+                            </div>
+                            
+                            <!-- Order Actions -->
+                            <div class="flex flex-wrap gap-3 pt-4 border-t border-stone-100">
+                                @if(in_array($order->status, ['shipped', 'delivered']))
+                                    <button class="px-4 py-2 bg-white border border-stone-200 rounded-xl text-sm font-medium hover:bg-stone-50 flex items-center gap-2">
+                                        <i data-lucide="truck" class="w-4 h-4"></i>
+                                        Track Order
+                                    </button>
+                                @endif
+                                @if($order->status == 'delivered')
+                                    <button class="px-4 py-2 bg-white border border-stone-200 rounded-xl text-sm font-medium hover:bg-stone-50 flex items-center gap-2">
+                                        <i data-lucide="repeat" class="w-4 h-4"></i>
+                                        Buy Again
+                                    </button>
+                                @endif
+                                <a href="{{ route('customer.page.contact') }}" class="px-4 py-2 bg-white border border-stone-200 rounded-xl text-sm font-medium hover:bg-stone-50 flex items-center gap-2">
+                                    <i data-lucide="message-circle" class="w-4 h-4"></i>
+                                    Get Help
                                 </a>
                             </div>
                         </div>
-                        
-                        <!-- Order Items Preview -->
-                        <div class="flex items-center gap-4 mb-4 overflow-x-auto custom-scrollbar pb-2">
-                            <div class="flex-shrink-0 w-16 h-16 bg-stone-100 rounded-xl flex items-center justify-center">
-                                <i data-lucide="package" class="w-6 h-6 text-stone-400"></i>
-                            </div>
-                            <div class="flex-shrink-0 w-16 h-16 bg-stone-100 rounded-xl flex items-center justify-center">
-                                <i data-lucide="package" class="w-6 h-6 text-stone-400"></i>
-                            </div>
-                            <div class="flex-shrink-0 w-16 h-16 bg-stone-100 rounded-xl flex items-center justify-center">
-                                <i data-lucide="package" class="w-6 h-6 text-stone-400"></i>
-                            </div>
-                            <div class="flex-shrink-0 text-stone-500 text-sm">
-                                + 2 more items
-                            </div>
+                    @empty
+                        <div class="text-center py-12 bg-white rounded-3xl border border-stone-100">
+                            <i data-lucide="package-search" class="w-16 h-16 text-stone-300 mx-auto mb-4"></i>
+                            <h3 class="text-xl font-bold text-stone-900 mb-2">No orders found</h3>
+                            <p class="text-stone-500">You haven't placed any orders yet.</p>
+                            <a href="{{ route('customer.products.list') }}" class="inline-block mt-4 px-6 py-3 bg-cyan-600 text-white font-semibold rounded-xl hover:bg-cyan-700 transition-colors">
+                                Start Shopping
+                            </a>
                         </div>
-                        
-                        <!-- Order Actions -->
-                        <div class="flex flex-wrap gap-3 pt-4 border-t border-stone-100">
-                            <button class="px-4 py-2 bg-white border border-stone-200 rounded-xl text-sm font-medium hover:bg-stone-50 flex items-center gap-2">
-                                <i data-lucide="truck" class="w-4 h-4"></i>
-                                Track Order
-                            </button>
-                            <button class="px-4 py-2 bg-white border border-stone-200 rounded-xl text-sm font-medium hover:bg-stone-50 flex items-center gap-2">
-                                <i data-lucide="repeat" class="w-4 h-4"></i>
-                                Buy Again
-                            </button>
-                            <button class="px-4 py-2 bg-white border border-stone-200 rounded-xl text-sm font-medium hover:bg-stone-50 flex items-center gap-2">
-                                <i data-lucide="message-circle" class="w-4 h-4"></i>
-                                Get Help
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <!-- Order 2 - Shipped -->
-                    <div class="order-card bg-white rounded-3xl p-6 shadow-lg shadow-stone-200/30 border border-stone-100">
-                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-4 gap-4">
-                            <div>
-                                <div class="flex items-center gap-3 mb-2">
-                                    <h3 class="font-bold text-stone-900">ORD-789123</h3>
-                                    <span class="status-badge px-3 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full">
-                                        Shipped
-                                    </span>
-                                </div>
-                                <p class="text-sm text-stone-500">Placed on March 10, 2024 • 2 items</p>
-                            </div>
-                            <div class="text-right">
-                                <div class="text-xl font-bold text-stone-900">₹1,499</div>
-                                <a href="{{ route('customer.account.orders.details', ['id' => 789123]) }}" class="inline-block text-sm text-cyan-600 font-medium hover:text-cyan-700 mt-1 flex items-center gap-1">
-                                    View Details
-                                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
-                                </a>
-                            </div>
-                        </div>
-                        
-                        <!-- Order Items Preview -->
-                        <div class="flex items-center gap-4 mb-4 overflow-x-auto custom-scrollbar pb-2">
-                            <div class="flex-shrink-0 w-16 h-16 bg-stone-100 rounded-xl flex items-center justify-center">
-                                <i data-lucide="package" class="w-6 h-6 text-stone-400"></i>
-                            </div>
-                            <div class="flex-shrink-0 w-16 h-16 bg-stone-100 rounded-xl flex items-center justify-center">
-                                <i data-lucide="package" class="w-6 h-6 text-stone-400"></i>
-                            </div>
-                        </div>
-                        
-                        <!-- Tracking Info -->
-                        <div class="bg-stone-50 p-4 rounded-xl mb-4">
-                            <div class="flex items-center gap-3 mb-2">
-                                <i data-lucide="truck" class="w-5 h-5 text-blue-500"></i>
-                                <span class="font-medium text-sm">Tracking Number: TRK-321654987</span>
-                            </div>
-                            <div class="w-full bg-white rounded-full h-2">
-                                <div class="bg-blue-500 h-2 rounded-full w-3/4"></div>
-                            </div>
-                            <p class="text-sm text-stone-500 mt-2">Expected delivery: March 18, 2024</p>
-                        </div>
-                        
-                        <!-- Order Actions -->
-                        <div class="flex flex-wrap gap-3 pt-4 border-t border-stone-100">
-                            <button class="px-4 py-2 bg-white border border-stone-200 rounded-xl text-sm font-medium hover:bg-stone-50 flex items-center gap-2">
-                                <i data-lucide="map-pin" class="w-4 h-4"></i>
-                                View Tracking
-                            </button>
-                            <button class="px-4 py-2 bg-white border border-stone-200 rounded-xl text-sm font-medium hover:bg-stone-50 flex items-center gap-2">
-                                <i data-lucide="phone" class="w-4 h-4"></i>
-                                Contact Support
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <!-- Order 3 - Processing -->
-                    <div class="order-card bg-white rounded-3xl p-6 shadow-lg shadow-stone-200/30 border border-stone-100">
-                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-4 gap-4">
-                            <div>
-                                <div class="flex items-center gap-3 mb-2">
-                                    <h3 class="font-bold text-stone-900">ORD-456789</h3>
-                                    <span class="status-badge px-3 py-1 bg-amber-100 text-amber-800 text-xs font-semibold rounded-full">
-                                        Processing
-                                    </span>
-                                </div>
-                                <p class="text-sm text-stone-500">Placed on March 5, 2024 • 1 item</p>
-                            </div>
-                            <div class="text-right">
-                                <div class="text-xl font-bold text-stone-900">₹899</div>
-                                <a href="{{ route('customer.account.orders.details', ['id' => 456789]) }}" class="inline-block text-sm text-cyan-600 font-medium hover:text-cyan-700 mt-1 flex items-center gap-1">
-                                    View Details
-                                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
-                                </a>
-                            </div>
-                        </div>
-                        
-                        <!-- Order Items Preview -->
-                        <div class="flex items-center gap-4 mb-4">
-                            <div class="flex-shrink-0 w-16 h-16 bg-stone-100 rounded-xl flex items-center justify-center">
-                                <i data-lucide="package" class="w-6 h-6 text-stone-400"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-medium text-stone-900">C-Glow Vitamin C Serum</h4>
-                                <p class="text-sm text-stone-500">30ml • Brightening Formula</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Order Actions -->
-                        <div class="flex flex-wrap gap-3 pt-4 border-t border-stone-100">
-                            <button class="px-4 py-2 bg-white border border-stone-200 rounded-xl text-sm font-medium hover:bg-stone-50 flex items-center gap-2">
-                                <i data-lucide="clock" class="w-4 h-4"></i>
-                                Check Status
-                            </button>
-                            <button class="px-4 py-2 bg-white border border-stone-200 rounded-xl text-sm font-medium hover:bg-stone-50 flex items-center gap-2">
-                                <i data-lucide="x-circle" class="w-4 h-4"></i>
-                                Cancel Order
-                            </button>
-                        </div>
-                    </div>
+                    @endforelse
                 </div>
                 
                 <!-- Pagination -->
-                <div class="flex justify-center items-center gap-2 mt-8">
-                    <button class="w-10 h-10 flex items-center justify-center rounded-xl border border-stone-200 hover:bg-stone-50">
-                        <i data-lucide="chevron-left" class="w-5 h-5"></i>
-                    </button>
-                    <button class="w-10 h-10 flex items-center justify-center rounded-xl bg-cyan-600 text-white font-medium">1</button>
-                    <button class="w-10 h-10 flex items-center justify-center rounded-xl border border-stone-200 hover:bg-stone-50 font-medium">2</button>
-                    <button class="w-10 h-10 flex items-center justify-center rounded-xl border border-stone-200 hover:bg-stone-50 font-medium">3</button>
-                    <span class="px-2">...</span>
-                    <button class="w-10 h-10 flex items-center justify-center rounded-xl border border-stone-200 hover:bg-stone-50">
-                        <i data-lucide="chevron-right" class="w-5 h-5"></i>
-                    </button>
-                </div>
+                @if($orders->hasPages())
+                    <div class="mt-8">
+                        {{ $orders->appends(request()->query())->links() }}
+                    </div>
+                @endif
             </div>
         </div>
     </div>
@@ -404,45 +294,9 @@
     // Initialize Lucide icons
     lucide.createIcons();
     
-    // Order action buttons
     document.addEventListener('DOMContentLoaded', function() {
-        // Search functionality placeholder
-        const searchInput = document.querySelector('input[placeholder*="Search orders"]');
-        if (searchInput) {
-            searchInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    alert(`Searching for: ${this.value}. Backend integration pending.`);
-                }
-            });
-        }
-        
-        // Filter button
-        const filterBtn = document.querySelector('button:contains("Filter")');
-        if (filterBtn) {
-            filterBtn.addEventListener('click', function() {
-                alert('Filter options would appear here. Backend integration pending.');
-            });
-        }
-        
-        // Export button
-        const exportBtn = document.querySelector('button:contains("Export")');
-        if (exportBtn) {
-            exportBtn.addEventListener('click', function() {
-                alert('Exporting order history. Backend integration pending.');
-            });
-        }
-        
-        // Order action buttons
-        const orderActionBtns = document.querySelectorAll('.order-card button');
-        orderActionBtns.forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                if (!this.querySelector('i[data-lucide="chevron-right"]')) {
-                    e.preventDefault();
-                    const action = this.textContent.trim();
-                    alert(`${action} action triggered. Backend integration pending.`);
-                }
-            });
-        });
+        // Any custom JS for orders page
     });
 </script>
 @endpush
+

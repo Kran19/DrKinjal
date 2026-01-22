@@ -9,7 +9,11 @@
     }
 
     // Cart management functions
+    const isLoggedIn = {{ auth('customer')->check() ? 'true' : 'false' }};
+
     function initializeCartCount() {
+        if (isLoggedIn) return;
+
         // Get cart from localStorage or API
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
         const totalItems = cart.reduce((total, item) => total + (item.quantity || 1), 0);
@@ -115,10 +119,41 @@
     });
 
     // Axios setup for AJAX requests
-    window.axios = require('axios');
-    window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-</script>
+    if (window.axios) {
+        const csrfToken = document.querySelector('meta[name="csrf-token"]');
+        if (csrfToken) {
+            window.axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken.getAttribute('content');
+        }
+    }
 
-<!-- Page Specific Scripts -->
-@stack('scripts')
+    // Global Toast Notification Helper
+    window.showToast = function(message, type = 'success') {
+        if (typeof Swal !== 'undefined') {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+
+            Toast.fire({
+                icon: type,
+                title: message
+            });
+        } else if (window.showNotification && window.showNotification !== window.showToast) {
+            window.showNotification(message, type);
+        } else {
+            console.log(type + ': ' + message);
+        }
+    };
+    
+    // Ensure showNotification is also linked if not already matching
+    if (!window.showNotification) {
+        window.showNotification = window.showToast;
+    }
+</script>

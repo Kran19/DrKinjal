@@ -37,7 +37,7 @@
                class="{{ request()->routeIs('customer.page.about') ? 'text-sky-500 underline underline-offset-4' : 'hover:text-sky-500' }}">
                 Our Story
             </a>
-            @auth
+            @auth('customer')
                 <a href="{{ route('customer.account.profile') }}" 
                    class="{{ request()->routeIs('customer.account.*') ? 'text-sky-500 underline underline-offset-4' : 'hover:text-sky-500' }}">
                     My Account
@@ -71,8 +71,8 @@
             <a href="{{ route('customer.cart') }}" class="relative">
                 <button class="p-2 hover:bg-sky-50 rounded-full transition relative">
                     <i data-lucide="shopping-bag" class="w-5 h-5 text-stone-700"></i>
-                    <span id="cartCount" class="absolute -top-2 -right-2 bg-sky-500 text-white text-xs w-6 h-6 rounded-full flex items-center justify-center border-2 border-white font-bold shadow-sm hidden">
-                        0
+                    <span id="cartCount" class="absolute -top-2 -right-2 bg-sky-500 text-white text-xs w-6 h-6 rounded-full flex items-center justify-center border-2 border-white font-bold shadow-sm {{ isset($cartCount) && $cartCount > 0 ? '' : 'hidden' }}">
+                        {{ $cartCount ?? 0 }}
                     </span>
                 </button>
             </a>

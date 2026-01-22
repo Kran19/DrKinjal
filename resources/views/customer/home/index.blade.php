@@ -4,6 +4,8 @@
 @section('description', 'Discover clinically effective, result-oriented skincare products. Natural, clean formulas for radiant skin.')
 
 @section('content')
+
+
     <!-- Hero Section -->
 <header class="relative overflow-hidden">
     <!-- Background Blobs -->
@@ -14,122 +16,27 @@
     <div class="swiper heroSwiper w-full object-cover">
         <!-- Swiper's Required Wrapper -->
         <div class="swiper-wrapper object-cover">
-            <!-- Slide 1: Main Product -->
+            @foreach($banners as $banner)
             <div class="swiper-slide">
                 <div class="relative h-full w-full flex items-center justify-center">
                     <!-- Background Image -->
                     <div class="absolute inset-0 z-0">
-                        <img src= "{{ asset('storage/assets/images/home1.jpg') }}"
-                            alt="Skincare Product"
-                            class="w-full h-full">
+                        @php
+                            $bannerImg = $banner->image;
+                            if (is_string($bannerImg) && \Illuminate\Support\Str::startsWith($bannerImg, '{')) {
+                                $data = json_decode($bannerImg, true);
+                                $bannerImg = $data['file_path'] ?? $bannerImg;
+                            }
+                            $bannerUrl = \Illuminate\Support\Str::startsWith($bannerImg, 'http') ? $bannerImg : asset('storage/' . $bannerImg);
+                        @endphp
+                        <img src="{{ $bannerUrl }}"
+                            alt="{{ $banner->title ?? 'Banner' }}"
+                            class="w-full h-full object-cover">
                         <div class="absolute inset-0 bg-gradient-to-r from-black/40 to-black/20 md:to-transparent"></div>
                     </div>
                 </div>
             </div>
-
-            <!-- Slide 2: Fresh Ingredients -->
-            <div class="swiper-slide">
-                <div class="relative h-full w-full flex items-center justify-center">
-                    <!-- Background Image -->
-                    <div class="absolute inset-0 z-0">
-                        <img src= "{{ asset('storage/assets/images/home2.jpg') }}"
-                            alt="Fresh Fruits"
-                            class="w-full h-full">
-                        <div class="absolute inset-0 bg-gradient-to-r from-black/50 to-black/30 md:to-transparent"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 3: Glow Results -->
-            <div class="swiper-slide">
-                <div class="relative h-full w-full flex items-center justify-center">
-                    <!-- Background Image -->
-                    <div class="absolute inset-0 z-0">
-                        <img src= "{{ asset('storage/assets/images/home3.jpg') }}"
-                            alt="3"
-                            class="w-full h-full">
-                        <div class="absolute inset-0 bg-gradient-to-r from-black/50 to-black/30 md:to-transparent"></div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Slide 4 -->
-            <!-- <div class="swiper-slide">
-                <div class="relative h-full w-full flex items-center justify-center">
-                    
-                    <div class="absolute inset-0 z-0">
-                        <img src="assets\images\slide 4.png"
-                            alt="4"
-                            class="w-full h-full">
-                        <div class="absolute inset-0 bg-gradient-to-r from-black/50 to-black/30 md:to-transparent"></div>
-                    </div>
-                </div>
-            </div> -->
-            
-            <!-- Slide 5 -->
-            <div class="swiper-slide">
-                <div class="relative h-full w-full flex items-center justify-center">
-                    <!-- Background Image -->
-                    <div class="absolute inset-0 z-0">
-                        <img src= "{{ asset('storage/assets/images/home4.jpg') }}"
-                            alt="5"
-                            class="w-full h-full">
-                        <div class="absolute inset-0 bg-gradient-to-r from-black/50 to-black/30 md:to-transparent"></div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Slide 6 -->
-            {{-- <div class="swiper-slide">
-                <div class="relative h-full w-full flex items-center justify-center">
-                   
-                    <div class="absolute inset-0 z-0">
-                        <img src= "{{ asset('storage/assets/images/slide 6.png') }}"
-                            alt="6"
-                            class="w-full h-full">
-                        <div class="absolute inset-0 bg-gradient-to-r from-black/50 to-black/30 md:to-transparent"></div>
-                    </div>
-                </div>
-            </div> --}}
-            
-            <!-- Slide 7 -->
-            <div class="swiper-slide">
-                <div class="relative h-full w-full flex items-center justify-center">
-                    <!-- Background Image -->
-                    <div class="absolute inset-0 z-0">
-                        <img src= "{{ asset('storage/assets/images/home6.jpg') }}"
-                            alt="7"
-                            class="w-full h-full">
-                        <div class="absolute inset-0 bg-gradient-to-r from-black/50 to-black/30 md:to-transparent"></div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Slide 8 -->
-            {{-- <div class="swiper-slide">
-                <div class="relative h-full w-full flex items-center justify-center">
-                    
-                    <div class="absolute inset-0 z-0">
-                        <img src= "{{ asset('storage/assets/images/slide 8.png') }}"
-                            alt="8"
-                            class="w-full h-full">
-                        <div class="absolute inset-0 bg-gradient-to-r from-black/50 to-black/30 md:to-transparent"></div>
-                    </div>
-                </div>
-            </div> --}}
-            
-            <!-- Slide 9 -->
-            <!-- <div class="swiper-slide">
-                <div class="relative h-full w-full flex items-center justify-center">
-                   
-                    <div class="absolute inset-0 z-0">
-                        <img src="assets\images\slide 9.png"
-                            alt="9"
-                            class="w-full h-full">
-                        <div class="absolute inset-0 bg-gradient-to-r from-black/50 to-black/30 md:to-transparent"></div>
-                    </div>
-                </div>
-            </div> -->
+            @endforeach
         </div>
     </div>
 </header>
@@ -139,7 +46,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const heroSwiper = new Swiper('.heroSwiper', {
         direction: 'horizontal',
-        loop: true,
+        loop: {{ $banners->count() > 1 ? 'true' : 'false' }},
         speed: 1000,
         autoplay: {
             delay: 5000,
@@ -166,6 +73,86 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // No need for height adjustment since we're using fixed heights
 });
+
+function addToCart(e, variantId) {
+    e.preventDefault();
+    e.stopPropagation(); // Stop bubbling to the anchor tag
+
+    const btn = e.currentTarget;
+    if (btn.disabled) return; // Prevent double submission
+
+    if (!variantId) {
+        if (typeof window.showToast === 'function') {
+            window.showToast('Product not available', 'error');
+        } else {
+            alert('Product not available');
+        }
+        return;
+    }
+
+    const originalContent = btn.innerHTML;
+    
+    // Show Loading
+    btn.innerHTML = '<i data-lucide="loader" class="w-5 h-5 animate-spin"></i>';
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+    btn.disabled = true;
+
+    fetch('{{ route("customer.cart.add") }}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            variant_id: variantId,
+            quantity: 1
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Show Success
+            btn.innerHTML = '<i data-lucide="check" class="w-5 h-5 text-green-600"></i>';
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+            
+            // Update Cart Count
+            const cartCountEl = document.getElementById('cartCount');
+            if (cartCountEl) cartCountEl.textContent = data.cart_count;
+
+            // Show Toast
+            if (typeof window.showToast === 'function') {
+                window.showToast('Added to cart!', 'success');
+            }
+            
+            // Revert button after delay
+            setTimeout(() => {
+                btn.innerHTML = originalContent;
+                btn.disabled = false;
+                if (typeof lucide !== 'undefined') lucide.createIcons();
+            }, 2000);
+        } else {
+            throw new Error(data.message || 'Failed to add to cart');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        btn.innerHTML = '<i data-lucide="x" class="w-5 h-5 text-red-600"></i>';
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+        
+        if (typeof window.showToast === 'function') {
+            window.showToast(error.message || 'Error adding to cart', 'error');
+        } else {
+            alert(error.message);
+        }
+        
+        setTimeout(() => {
+            btn.innerHTML = originalContent;
+            btn.disabled = false;
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        }, 2000);
+    });
+}
 </script>
 @endpush
 
@@ -210,305 +197,94 @@ document.addEventListener('DOMContentLoaded', function() {
 
             <div class="relative">
                 <div id="categories-container" class="flex gap-4 overflow-x-auto pb-8 scrollbar-hide snap-x -mx-6 px-6 md:mx-0 md:px-0">
-                    <!-- Soaps -->
-                    <a href="{{ route('customer.category.products', ['slug' => 'soaps']) }}"
-                        class="snap-start shrink-0 relative w-[160px] h-[160px] bg-gradient-to-br from-rose-50 to-rose-200 rounded-2xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
-                        <span class="absolute top-4 left-4 text-sm font-semibold text-stone-900 z-10">Soaps</span>
+                     @foreach($featuredCategories as $category)
+                    <a href="{{ route('customer.category.products', ['slug' => $category->slug]) }}"
+                        class="snap-start shrink-0 relative w-[160px] h-[160px] bg-gradient-to-br from-stone-50 to-stone-200 rounded-2xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
+                        <span class="absolute top-4 left-4 text-sm font-semibold text-stone-900 z-10">{{ $category->name }}</span>
                         <div class="absolute bottom-4 left-4 w-8 h-8 rounded-full border border-stone-900/10 flex items-center justify-center bg-white/40 z-10 group-hover:bg-white">
                             <i data-lucide="arrow-right" class="w-4 h-4 text-stone-900"></i>
                         </div>
-                        <img src="{{ asset('storage/assets/images/soap_img.png') }}"
-                            class="absolute bottom-0 right-0 w-24 h-31 object-contain rotate-[-10deg] group-hover:rotate-0 transition-transform duration-500"
-                            alt="Soaps">
+                        @if($category->image)
+                        @php
+                            $catImg = $category->image;
+                            if (is_string($catImg) && \Illuminate\Support\Str::startsWith($catImg, '{')) {
+                                $data = json_decode($catImg, true);
+                                $catImg = $data['file_path'] ?? $catImg;
+                            } elseif (is_object($catImg)) {
+                                $catImg = $catImg->file_path ?? '';
+                            }
+                            $catUrl = \Illuminate\Support\Str::startsWith($catImg, 'http') ? $catImg : asset('storage/' . $catImg);
+                        @endphp
+                        <img src="{{ $catUrl }}"
+                            class="absolute bottom-0 right-0 w-24 h-24 object-contain rotate-[-10deg] group-hover:rotate-0 transition-transform duration-500"
+                            alt="{{ $category->name }}">
+                        @endif
                     </a>
-
-                    <!-- Serum -->
-                    <a href="{{ route('customer.category.products', ['slug' => 'serum']) }}"
-                        class="snap-start shrink-0 relative w-[160px] h-[160px] bg-gradient-to-br from-purple-50 to-purple-200 rounded-2xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
-                        <span class="absolute top-4 left-4 text-sm font-semibold text-stone-900 z-10">Serum</span>
-                        <div class="absolute bottom-4 left-4 w-8 h-8 rounded-full border border-stone-900/10 flex items-center justify-center bg-white/40 z-10 group-hover:bg-white">
-                            <i data-lucide="arrow-right" class="w-4 h-4 text-stone-900"></i>
-                        </div>
-                        <img src="{{ asset('storage/assets/images/serum_img.png') }}"
-                            class="absolute bottom-0 right-0 w-20 h-24 object-contain rotate-[-10deg] group-hover:rotate-0 transition-transform duration-500"
-                            alt="Serum">
-                    </a>
-
-                    <!-- Moisturizer -->
-                    <a href="{{ route('customer.category.products', ['slug' => 'moisturizer']) }}"
-                        class="snap-start shrink-0 relative w-[160px] h-[160px] bg-gradient-to-br from-orange-50 to-orange-200 rounded-2xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
-                        <span class="absolute top-4 left-4 text-sm font-semibold text-stone-900 z-10">Moisturizer</span>
-                        <div class="absolute bottom-4 left-4 w-8 h-8 rounded-full border border-stone-900/10 flex items-center justify-center bg-white/40 z-10 group-hover:bg-white">
-                            <i data-lucide="arrow-right" class="w-4 h-4 text-stone-900"></i>
-                        </div>
-                        <img src="{{ asset('storage/assets/images/mosturizer_img.png') }}"
-                            class="absolute bottom-0 right-0 w-24 h-24 object-contain rotate-[-10deg] translate-x-2 group-hover:rotate-0 transition-transform duration-500"
-                            alt="Moisturizer">
-                    </a>
-
-                    <!-- Shampoo -->
-                    <a href="{{ route('customer.category.products', ['slug' => 'shampoo']) }}"
-                        class="snap-start shrink-0 relative w-[160px] h-[160px] bg-gradient-to-br from-sky-50 to-sky-200 rounded-2xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
-                        <span class="absolute top-4 left-4 text-sm font-semibold text-stone-900 z-10">Shampoo</span>
-                        <div class="absolute bottom-4 left-4 w-8 h-8 rounded-full border border-stone-900/10 flex items-center justify-center bg-white/40 z-10 group-hover:bg-white">
-                            <i data-lucide="arrow-right" class="w-4 h-4 text-stone-900"></i>
-                        </div>
-                        <img src="{{ asset('storage/assets/images/shampoo_img.png') }}"
-                            class="absolute bottom-0 right-0 w-20 h-30 object-contain rotate-[-10deg] group-hover:rotate-0 transition-transform duration-500"
-                            alt="Shampoo">
-                    </a>
-
-                    <!-- Conditioner -->
-                    <a href="{{ route('customer.category.products', ['slug' => 'conditioner']) }}"
-                        class="snap-start shrink-0 relative w-[160px] h-[160px] bg-gradient-to-br from-teal-50 to-teal-200 rounded-2xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
-                        <span class="absolute top-4 left-4 text-sm font-semibold text-stone-900 z-10">Conditioner</span>
-                        <div class="absolute bottom-4 left-4 w-8 h-8 rounded-full border border-stone-900/10 flex items-center justify-center bg-white/40 z-10 group-hover:bg-white">
-                            <i data-lucide="arrow-right" class="w-4 h-4 text-stone-900"></i>
-                        </div>
-                        <img src="{{ asset('storage/assets/images/conditioner_img.png') }}"
-                            class="absolute bottom-0 right-0 w-22 h-24 object-contain rotate-[-10deg] group-hover:rotate-0 transition-transform duration-500"
-                            alt="Conditioner">
-                    </a>
-
-                    <!-- Face Wash -->
-                    <a href="{{ route('customer.category.products', ['slug' => 'facewash']) }}"
-                        class="snap-start shrink-0 relative w-[160px] h-[160px] bg-gradient-to-br from-lime-50 to-lime-200 rounded-2xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
-                        <span class="absolute top-4 left-4 text-sm font-semibold text-stone-900 z-10">Face Wash</span>
-                        <div class="absolute bottom-4 left-4 w-8 h-8 rounded-full border border-stone-900/10 flex items-center justify-center bg-white/40 z-10 group-hover:bg-white">
-                            <i data-lucide="arrow-right" class="w-4 h-4 text-stone-900"></i>
-                        </div>
-                        <img src="{{ asset('storage/assets/images/facewash_img.png') }}"
-                            class="absolute bottom-0 right-0 w-24 h-24 object-contain rotate-[-10deg] translate-x-2 group-hover:rotate-0 transition-transform duration-500"
-                            alt="Face Wash">
-                    </a>
-
-                    <!-- Sunscreen -->
-                    <a href="{{ route('customer.category.products', ['slug' => 'sunscreen']) }}"
-                        class="snap-start shrink-0 relative w-[160px] h-[160px] bg-gradient-to-br from-amber-50 to-amber-200 rounded-2xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
-                        <span class="absolute top-4 left-4 text-sm font-semibold text-stone-900 z-10">Sunscreen</span>
-                        <div class="absolute bottom-4 left-4 w-8 h-8 rounded-full border border-stone-900/10 flex items-center justify-center bg-white/40 z-10 group-hover:bg-white">
-                            <i data-lucide="arrow-right" class="w-4 h-4 text-stone-900"></i>
-                        </div>
-                        <img src="{{ asset('storage/assets/images/sunscreen_img.png') }}"
-                            class="absolute bottom-0 right-0 w-25 h-24 object-contain rotate-[-10deg] group-hover:rotate-0 transition-transform duration-500"
-                            alt="Sunscreen">
-                    </a>
-
-                    <!-- Bodywash -->
-                    <a href="{{ route('customer.category.products', ['slug' => 'bodywash']) }}"
-                        class="snap-start shrink-0 relative w-[160px] h-[160px] bg-gradient-to-br from-yellow-50 to-yellow-200 rounded-2xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
-                        <span class="absolute top-4 left-4 text-sm font-semibold text-stone-900 z-10">Bodywash</span>
-                        <div class="absolute bottom-4 left-4 w-8 h-8 rounded-full border border-stone-900/10 flex items-center justify-center bg-white/40 z-10 group-hover:bg-white">
-                            <i data-lucide="arrow-right" class="w-4 h-4 text-stone-900"></i>
-                        </div>
-                        <img src="{{ asset('storage/assets/images/bodywash_img.png') }}"
-                            class="absolute bottom-0 right-0 w-25 h-24 object-contain rotate-[-10deg] group-hover:rotate-0 transition-transform duration-500"
-                            alt="Bodywash">
-                    </a>
+                    @endforeach
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Bestsellers Section -->
-    <section class="py-12 bg-white" id="bestsellers">
+    <!-- Bestsellers Section / Dynamic Sections -->
+    @foreach($dynamicSections as $section)
+    <section class="py-12 bg-white" id="section-{{ Str::slug($section['title']) }}">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16 max-w-2xl mx-auto">
-                <span class="text-cyan-500 font-bold uppercase tracking-wider text-xs mb-2 block">Customer Favorites</span>
-                <h2 class="text-4xl font-bold tracking-tight text-stone-900 mb-4">Picked For You</h2>
-                <p class="text-stone-500">GET RID OF YOUR CONCERNS WITH CLINICALLY PROVEN INGREDIENTS</p>
-            </div>
-
-            <!-- Filter Tabs -->
-            <div class="flex justify-center gap-4 mb-12 flex-wrap">
-                <button class="px-6 py-2 rounded-full bg-stone-900 text-white font-medium text-sm shadow-lg shadow-stone-200 filter-btn active"
-                        data-filter="all">All Stars</button>
-                <button class="px-6 py-2 rounded-full bg-white border border-stone-200 text-stone-600 font-medium text-sm hover:border-rose-300 hover:text-rose-500 transition-colors filter-btn"
-                        data-filter="bodywash">Bodywash</button>
-                <button class="px-6 py-2 rounded-full bg-white border border-stone-200 text-stone-600 font-medium text-sm hover:border-rose-300 hover:text-rose-500 transition-colors filter-btn"
-                        data-filter="serums">Serums</button>
-                <button class="px-6 py-2 rounded-full bg-white border border-stone-200 text-stone-600 font-medium text-sm hover:border-rose-300 hover:text-rose-500 transition-colors filter-btn"
-                        data-filter="sunscreens">Sunscreens</button>
-                <button class="px-6 py-2 rounded-full bg-white border border-stone-200 text-stone-600 font-medium text-sm hover:border-rose-300 hover:text-rose-500 transition-colors filter-btn"
-                        data-filter="facewash">Facewash</button>
-                <button class="px-6 py-2 rounded-full bg-white border border-stone-200 text-stone-600 font-medium text-sm hover:border-rose-300 hover:text-rose-500 transition-colors filter-btn"
-                        data-filter="shampoo">shampoo</button>
+                <span class="text-cyan-500 font-bold uppercase tracking-wider text-xs mb-2 block">{{ $section['subtitle'] ?? 'Featured Collection' }}</span>
+                <h2 class="text-4xl font-bold tracking-tight text-stone-900 mb-4">{{ $section['title'] }}</h2>
             </div>
 
             <!-- Product Grid -->
-            <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8" id="product-grid">
-                <!-- Product 1 -->
-                <div class="product-card group cursor-pointer" data-category="facewash">
-                    <a href="{{ route('customer.products.details', ['slug' => 'brightening-face-wash']) }}">
-                        <div class="relative bg-orange-50 rounded-2xl aspect-[3/4] mb-4 overflow-hidden card-tilt transition-all duration-300 hover:shadow-2xl hover:shadow-orange-100">
+            <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                @foreach($section['products'] as $product)
+                <!-- Product Card -->
+                <div class="product-card group cursor-pointer">
+                    <a href="{{ route('customer.products.details', ['slug' => $product['slug']]) }}">
+                        <div class="relative bg-stone-50 rounded-2xl aspect-[3/4] mb-4 overflow-hidden card-tilt transition-all duration-300 hover:shadow-2xl hover:shadow-stone-200">
                             <!-- Badge -->
-                            <span class="absolute top-4 left-4 bg-white/90 backdrop-blur text-stone-900 text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wide z-20">Best Seller</span>
+                            @if($product['is_new'])
+                                <span class="absolute top-4 left-4 bg-rose-500 text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wide z-20">New</span>
+                            @elseif($product['is_bestseller'])
+                                <span class="absolute top-4 left-4 bg-white/90 backdrop-blur text-stone-900 text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wide z-20">Best Seller</span>
+                            @endif
 
                             <!-- Image -->
-                            <img src="{{ asset('storage/assets/images/16.png') }}"
+                            @php
+                                $prodImg = $product['main_image'] ?? 'assets/images/placeholder.jpg';
+                                if (is_string($prodImg) && \Illuminate\Support\Str::startsWith($prodImg, '{')) {
+                                    $data = json_decode($prodImg, true);
+                                    $prodImg = $data['file_path'] ?? $prodImg;
+                                } elseif (is_array($prodImg)) {
+                                    $prodImg = $prodImg['file_path'] ?? $prodImg;
+                                }
+                                $prodUrl = \Illuminate\Support\Str::startsWith($prodImg, 'http') ? $prodImg : asset('storage/' . $prodImg);
+                                if ($prodImg === 'assets/images/placeholder.jpg') {
+                                    $prodUrl = asset('assets/images/placeholder.jpg'); 
+                                }
+                            @endphp
+                            <img src="{{ $prodUrl }}"
                                 class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 z-10"
-                                alt="Brightening Face Wash">
+                                alt="{{ $product['name'] }}">
 
                             <!-- Quick Add -->
                             <button class="quick-add-btn absolute bottom-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg translate-y-14 group-hover:translate-y-0 transition-transform duration-300 z-20 hover:bg-stone-900 hover:text-white"
-                                    data-product-id="1"
-                                    data-product-name="Brightening Face Wash"
-                                    data-product-price="399"
-                                    data-product-image="{{ asset('assets/images/16.png') }}">
+                                    onclick="addToCart(event, {{ $product['default_variant_id'] ?? 'null' }})">
                                 <i data-lucide="plus" class="w-5 h-5 stroke-[1.5]"></i>
                             </button>
                         </div>
                         <div class="space-y-1">
                             <div class="flex justify-between items-start">
-                                <h3 class="font-bold tracking-tight text-stone-900 text-lg group-hover:text-rose-500 transition-colors">
-                                    Brightening Face Wash</h3>
-                                <span class="font-semibold text-stone-900">₹399</span>
+                                <h3 class="font-bold tracking-tight text-stone-900 text-lg group-hover:text-rose-500 transition-colors line-clamp-1">
+                                    {{ $product['name'] }}
+                                </h3>
+                                <span class="font-semibold text-stone-900 whitespace-nowrap">₹{{ number_format($product['offer_price'] ?? $product['price'], 0) }}</span>
                             </div>
-                            <p class="text-xs text-stone-500">Brightening & Anti-Pigmentation</p>
+                            <p class="text-xs text-stone-500 line-clamp-1">{{ $product['subtitle'] ?? $product['category']['name'] ?? 'Skincare' }}</p>
                         </div>
                     </a>
                 </div>
-
-                <!-- Product 2 -->
-                <div class="product-card group cursor-pointer" data-category="shampoo">
-                    <a href="{{ route('customer.products.details', ['slug' => '3-in-1-shampoo']) }}">
-                        <div class="relative bg-blue-50 rounded-2xl aspect-[3/4] mb-4 overflow-hidden card-tilt transition-all duration-300 hover:shadow-2xl hover:shadow-blue-100">
-                            <!-- Image -->
-                            <img src="{{ asset('storage/assets/images/31.png') }}"
-                                class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 z-10"
-                                alt="3 in 1 Shampoo">
-                            <button class="quick-add-btn absolute bottom-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg translate-y-14 group-hover:translate-y-0 transition-transform duration-300 z-20 hover:bg-stone-900 hover:text-white"
-                                    data-product-id="3"
-                                    data-product-name="3 in 1 Shampoo"
-                                    data-product-price="799"
-                                    data-product-image="{{ asset('assets/images/31.png') }}">
-                                <i data-lucide="plus" class="w-5 h-5 stroke-[1.5]"></i>
-                            </button>
-                        </div>
-                        <div class="space-y-1">
-                            <div class="flex justify-between items-start">
-                                <h3 class="font-bold tracking-tight text-stone-900 text-lg group-hover:text-rose-500 transition-colors">
-                                    3 in 1 Shampoo</h3>
-                                <span class="font-semibold text-stone-900">₹799</span>
-                            </div>
-                            <p class="text-xs text-stone-500">Deep Hydration Serum</p>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Product 3 -->
-                <div class="product-card group cursor-pointer" data-category="serums">
-                    <a href="{{ route('customer.products.details', ['slug' => 'face-serum']) }}">
-                        <div class="relative bg-orange-50 rounded-2xl aspect-[3/4] mb-4 overflow-hidden card-tilt transition-all duration-300 hover:shadow-2xl hover:shadow-orange-100">
-                            <!-- Badge -->
-                            <span class="absolute top-4 left-4 bg-white/90 backdrop-blur text-stone-900 text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wide z-20">Best Seller</span>
-
-                            <!-- Image -->
-                            <img src="{{ asset('storage/assets/images/36.png') }}"
-                                class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 z-10"
-                                alt="Face Serum">
-
-                            <!-- Quick Add -->
-                            <button class="quick-add-btn absolute bottom-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg translate-y-14 group-hover:translate-y-0 transition-transform duration-300 z-20 hover:bg-stone-900 hover:text-white"
-                                    data-product-id="4"
-                                    data-product-name="Face Serum"
-                                    data-product-price="480"
-                                    data-product-image="{{ asset('assets/images/36.png') }}">
-                                <i data-lucide="plus" class="w-5 h-5 stroke-[1.5]"></i>
-                            </button>
-                        </div>
-                        <div class="space-y-1">
-                            <div class="flex justify-between items-start">
-                                <h3 class="font-bold tracking-tight text-stone-900 text-lg group-hover:text-rose-500 transition-colors">
-                                    Face Serum</h3>
-                                <span class="font-semibold text-stone-900">₹480</span>
-                            </div>
-                            <p class="text-xs text-stone-500">Brightening & Anti-Pigmentation</p>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Product 4 -->
-                <div class="product-card group cursor-pointer" data-category="bodywash">
-                    <a href="{{ route('customer.products.details', ['slug' => 'bodywash']) }}">
-                        <div class="relative bg-rose-50 rounded-2xl aspect-[3/4] mb-4 overflow-hidden card-tilt transition-all duration-300 hover:shadow-2xl hover:shadow-rose-100">
-                            <span class="absolute top-4 left-4 bg-rose-500 text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wide z-20">New</span>
-                            <!-- Image -->
-                            <img src="{{ asset('storage/assets/images/70.png') }}"
-                                class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 z-10"
-                                alt="Bodywash">
-                            <button class="quick-add-btn absolute bottom-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg translate-y-14 group-hover:translate-y-0 transition-transform duration-300 z-20 hover:bg-stone-900 hover:text-white"
-                                    data-product-id="5"
-                                    data-product-name="Bodywash"
-                                    data-product-price="420"
-                                    data-product-image="{{ asset('assets/images/70.png') }}">
-                                <i data-lucide="plus" class="w-5 h-5 stroke-[1.5]"></i>
-                            </button>
-                        </div>
-                        <div class="space-y-1">
-                            <div class="flex justify-between items-start">
-                                <h3 class="font-bold tracking-tight text-stone-900 text-lg group-hover:text-rose-500 transition-colors">
-                                    Bodywash</h3>
-                                <span class="font-semibold text-stone-900">₹420</span>
-                            </div>
-                            <p class="text-xs text-stone-500">Oil-Free Matte Moisturizer</p>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Product 5 -->
-                <div class="product-card group cursor-pointer" data-category="facewash">
-                    <a href="{{ route('customer.products.details', ['slug' => 'facewash']) }}">
-                        <div class="relative bg-blue-50 rounded-2xl aspect-[3/4] mb-4 overflow-hidden card-tilt transition-all duration-300 hover:shadow-2xl hover:shadow-blue-100">
-                            <!-- Image -->
-                            <img src="{{ asset('storage/assets/images/54.png') }}"
-                                class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 z-10"
-                                alt="Facewash">
-                            <button class="quick-add-btn absolute bottom-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg translate-y-14 group-hover:translate-y-0 transition-transform duration-300 z-20 hover:bg-stone-900 hover:text-white"
-                                    data-product-id="7"
-                                    data-product-name="Facewash"
-                                    data-product-price="299"
-                                    data-product-image="{{ asset('assets/images/54.png') }}">
-                                <i data-lucide="plus" class="w-5 h-5 stroke-[1.5]"></i>
-                            </button>
-                        </div>
-                        <div class="space-y-1">
-                            <div class="flex justify-between items-start">
-                                <h3 class="font-bold tracking-tight text-stone-900 text-lg group-hover:text-rose-500 transition-colors">
-                                    Facewash</h3>
-                                <span class="font-semibold text-stone-900">₹299</span>
-                            </div>
-                            <p class="text-xs text-stone-500">Deep Hydration Serum</p>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Product 6 -->
-                <div class="product-card group cursor-pointer" data-category="sunscreens">
-                    <a href="{{ route('customer.products.details', ['slug' => 'sunscreen-spf-50']) }}">
-                        <div class="relative bg-yellow-50 rounded-2xl aspect-[3/4] mb-4 overflow-hidden card-tilt transition-all duration-300 hover:shadow-2xl hover:shadow-yellow-100">
-                            <!-- Image -->
-                            <img src="{{ asset('storage/assets/images/73.png') }}"
-                                class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 z-10"
-                                alt="Sunscreen SPF 50">
-                            <button class="quick-add-btn absolute bottom-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg translate-y-14 group-hover:translate-y-0 transition-transform duration-300 z-20 hover:bg-stone-900 hover:text-white"
-                                    data-product-id="10"
-                                    data-product-name="Sunscreen SPF 50++"
-                                    data-product-price="398"
-                                    data-product-image="{{ asset('assets/images/73.png') }}">
-                                <i data-lucide="plus" class="w-5 h-5 stroke-[1.5]"></i>
-                            </button>
-                        </div>
-                        <div class="space-y-1">
-                            <div class="flex justify-between items-start">
-                                <h3 class="font-bold tracking-tight text-stone-900 text-lg group-hover:text-rose-500 transition-colors">
-                                    Sunscreen SPF 50++</h3>
-                                <span class="font-semibold text-stone-900">₹398</span>
-                            </div>
-                            <p class="text-xs text-stone-500">SPF 50++ Broad Spectrum</p>
-                        </div>
-                    </a>
-                </div>
+                @endforeach
             </div>
 
             <div class="text-center mt-12">
@@ -519,6 +295,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         </div>
     </section>
+    @endforeach
 
     <!-- Categories / Concerns -->
 <!-- Categories / Concerns -->
@@ -610,101 +387,41 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
 
         <div class="testimonial-container flex gap-6 overflow-x-auto px-6 scrollbar-hide pb-10 max-w-7xl mx-auto">
-            <!-- Review 1 -->
+            @forelse($testimonials as $testimonial)
             <div class="testimonial min-w-[300px] md:min-w-[400px] bg-white p-8 rounded-3xl shadow-sm border border-stone-100">
                 <div class="flex gap-1 text-yellow-400 mb-4">
-                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    @for($i = 0; $i < 5; $i++)
+                        @if($i < $testimonial->rating)
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        @else
+                            <i data-lucide="star" class="w-4 h-4 text-gray-300"></i>
+                        @endif
+                    @endfor
                 </div>
                 <p class="text-stone-600 mb-6 italic">
-                    "Best clinic I have ever been to. The staff is polite, the Doctor is really knowledgeable and gives real advice. We are very satisfied with experience."
+                    "{{ $testimonial->message }}"
                 </p>
                 <div class="flex items-center gap-4">
-                    <div class="w-10 h-10 rounded-full overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1622049605334-72e1e4432346?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8aW5kaWFuJTIwZ2lybHxlbnwwfHwwfHx8MA%3D%3D"
-                             class="w-full h-full object-cover" alt="Bhavya Patel">
+                    <div class="w-10 h-10 rounded-full overflow-hidden bg-stone-100 flex items-center justify-center">
+                        @if($testimonial->image)
+                            <img src="{{ asset('storage/' . $testimonial->image) }}"
+                                 class="w-full h-full object-cover" alt="{{ $testimonial->name }}">
+                        @else
+                            <span class="font-bold text-stone-500">{{ substr($testimonial->name, 0, 1) }}</span>
+                        @endif
                     </div>
                     <div>
-                        <h5 class="font-bold text-sm">Vaishali Maradia</h5>
-                        <p class="text-xs text-stone-400">Verified Buyer · Surat</p>
+                        <h5 class="font-bold text-sm">{{ $testimonial->name }}</h5>
+                        <p class="text-xs text-stone-400">{{ $testimonial->designation ?? 'Verified Buyer' }}</p>
                     </div>
                 </div>
             </div>
-
-            <!-- Review 2 -->
+            @empty
+            <!-- Fallback if no testimonials -->
             <div class="testimonial min-w-[300px] md:min-w-[400px] bg-white p-8 rounded-3xl shadow-sm border border-stone-100">
-                <div class="flex gap-1 text-yellow-400 mb-4">
-                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                </div>
-                <p class="text-stone-600 mb-6 italic">
-                    "I had a great exprience of microbalding. Doctors have a great expreience staff is very humble. My eyebrows look really nice and dark now . I am very satisfied with service."
-                </p>
-                <div class="flex items-center gap-4">
-                    <div class="w-10 h-10 rounded-full overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1706943262459-3ef6ce03305c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGluZGlhbiUyMGdpcmx8ZW58MHx8MHx8fDA%3D"
-                             class="w-full h-full object-cover" alt="Riya Shah">
-                    </div>
-                    <div>
-                        <h5 class="font-bold text-sm">Shalu Hinduja</h5>
-                        <p class="text-xs text-stone-400">Verified Buyer · Ahmedabad</p>
-                    </div>
-                </div>
+                <p class="text-stone-600 mb-6 italic">No reviews yet.</p>
             </div>
-
-            <!-- Review 3 -->
-            <div class="testimonial min-w-[300px] md:min-w-[400px] bg-white p-8 rounded-3xl shadow-sm border border-stone-100">
-                <div class="flex gap-1 text-yellow-400 mb-4">
-                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                </div>
-                <p class="text-stone-600 mb-6 italic">
-                    "Warm and welcoming atmosphere and very pleased with my daughter skin treatment. Had excellent result and happy with Dr Kinjal consultation."
-                </p>
-                <div class="flex items-center gap-4">
-                    <div class="w-10 h-10 rounded-full overflow-hidden">
-                        <img src="https://plus.unsplash.com/premium_photo-1691030254390-aa56b22e6a45?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8aW5kaWFuJTIwbWFufGVufDB8fDB8fHww"
-                             class="w-full h-full object-cover" alt="Neel Desai">
-                    </div>
-                    <div>
-                        <h5 class="font-bold text-sm">dharmesh dodia</h5>
-                        <p class="text-xs text-stone-400">Verified Buyer · Vadodara</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Review 4 -->
-            <div class="testimonial min-w-[300px] md:min-w-[400px] bg-white p-8 rounded-3xl shadow-sm border border-stone-100">
-                <div class="flex gap-1 text-yellow-400 mb-4">
-                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    <i data-lucide="star" class="w-4 fill-current"></i>
-                    <i data-lucide="star" class="w-4 fill-current"></i>
-                    <i data-lucide="star" class="w-4 fill-current"></i>
-                </div>
-                <p class="text-stone-600 mb-6 italic">
-                    "good service for My face treatment about 1 year i realise a good thik for abha clinic. my experience are very good face no reaction no skin tone about a treatment because her treatment are very smoothly."
-                </p>
-                <div class="flex items-center gap-4">
-                    <div class="w-10 h-10 rounded-full overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1706943262117-b35de4ba50b4?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8aW5kaWFuJTIwZ2lybHxlbnwwfHwwfHx8MA%3D%3D"
-                             class="w-full h-full object-cover" alt="Pooja Joshi">
-                    </div>
-                    <div>
-                        <h5 class="font-bold text-sm">Hiral Patel</h5>
-                        <p class="text-xs text-stone-400">Verified Buyer · Rajkot</p>
-                    </div>
-                </div>
-            </div>
+            @endforelse
         </div>
     </section>
 @endsection
@@ -825,22 +542,7 @@ document.addEventListener('DOMContentLoaded', function() {
 @push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Initialize Hero Swiper
-        const heroSwiper = new Swiper('.heroSwiper', {
-            direction: 'horizontal',
-            loop: true,
-            speed: 1000,
-            autoplay: {
-                delay: 5000,
-                disableOnInteraction: false,
-            },
-            effect: 'fade',
-            fadeEffect: {
-                crossFade: true
-            },
-            navigation: false,
-            pagination: false,
-        });
+
 
         // Category scrolling
         window.scrollCategories = function(direction) {
@@ -906,39 +608,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // Quick add to cart functionality
-        document.querySelectorAll('.quick-add-btn').forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                
-                const productId = this.getAttribute('data-product-id');
-                const productName = this.getAttribute('data-product-name');
-                const productPrice = this.getAttribute('data-product-price');
-                const productImage = this.getAttribute('data-product-image');
 
-                // Add to cart using the global function
-                if (typeof window.addItemToCart === 'function') {
-                    window.addItemToCart(productId, productName, productPrice, productImage);
-                }
-
-                // Visual feedback
-                const originalHTML = this.innerHTML;
-                this.innerHTML = '<i data-lucide="check" class="w-5 h-5"></i>';
-                this.style.backgroundColor = '#10b981';
-                this.style.color = 'white';
-
-                // Re-initialize icons
-                lucide.createIcons();
-
-                setTimeout(() => {
-                    this.innerHTML = originalHTML;
-                    this.style.backgroundColor = '';
-                    this.style.color = '';
-                    lucide.createIcons();
-                }, 1000);
-            });
-        });
 
         // Notification function
         window.showNotification = function(message, type = 'info') {

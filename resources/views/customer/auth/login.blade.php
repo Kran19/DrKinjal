@@ -61,6 +61,31 @@
             </div>
         </div>
 
+
+        <!-- Success Message -->
+        @if(session('success'))
+            <div class="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg animate-fade-in">
+                <p class="text-green-600 text-sm flex items-center">
+                    <i data-lucide="check-circle" class="w-4 h-4 mr-2"></i>
+                    {{ session('success') }}
+                </p>
+            </div>
+        @endif
+
+        <!-- Error Messages -->
+        @if($errors->any())
+            <div class="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg animate-fade-in">
+                <h3 class="font-semibold text-red-800 mb-2 flex items-center text-sm">
+                    <i data-lucide="alert-triangle" class="w-4 h-4 mr-2"></i> Please fix the following errors:
+                </h3>
+                <ul class="text-sm text-red-600 list-disc list-inside">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             
             <!-- Login Form Card -->
@@ -76,7 +101,7 @@
                     </a>
                 </div>
 
-                <form action="#" method="POST" class="space-y-5 md:space-y-6">
+                <form action="{{ route('customer.login.submit') }}" method="POST" class="space-y-5 md:space-y-6">
                     @csrf
                     <!-- Email Field -->
                     <div class="space-y-2">
@@ -109,6 +134,15 @@
                                 name="password"
                                 placeholder="Enter your password"
                                 class="w-full pl-12 pr-4 py-3.5 md:py-3 bg-stone-50 border border-stone-200 rounded-xl text-base md:text-sm text-stone-900
+                                       focus:outline-none focus:ring-2 focus:ring-sky-500/40 focus:border-sky-400
+                                       transition-all placeholder:text-stone-400"
+                                required
+                                autocomplete="current-password"
+                            <input
+                                type="password"
+                                name="password"
+                                placeholder="Enter your password"
+                                class="w-full pl-12 pr-4 py-3.5 md:py-3 bg-stone-50 border {{ $errors->has('password') ? 'border-red-300' : 'border-stone-200' }} rounded-xl text-base md:text-sm text-stone-900
                                        focus:outline-none focus:ring-2 focus:ring-sky-500/40 focus:border-sky-400
                                        transition-all placeholder:text-stone-400"
                                 required
@@ -372,17 +406,7 @@
             });
         });
         
-        // Form submission (static for now)
-        const form = document.querySelector('form');
-        if (form) {
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                // Static form - just show an alert
-                alert('This is a static demo page. In a real application, this would submit to your login endpoint.');
-                // For real implementation, remove the alert and let the form submit normally
-                // this.submit();
-            });
-        }
+
     });
     
     // Handle viewport height on mobile

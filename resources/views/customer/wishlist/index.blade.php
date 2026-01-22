@@ -137,7 +137,7 @@
                             <span class="font-medium">Saved Addresses</span>
                         </a>
 
-                        <a href="{{ route('customer.wishlist') }}" class="block w-full text-left p-3 rounded-xl hover:bg-stone-50 active bg-white text-rose-600 flex items-center gap-3">
+                        <a href="{{ route('customer.wishlist.index') }}" class="block w-full text-left p-3 rounded-xl hover:bg-stone-50 active bg-white text-rose-600 flex items-center gap-3">
                             <i data-lucide="heart" class="w-5 h-5 text-rose-600"></i>
                             <span class="font-medium">Wishlist</span>
                         </a>

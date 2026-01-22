@@ -72,10 +72,10 @@
                             <i data-lucide="user" class="w-8 h-8 text-cyan-600"></i>
                         </div>
                         <div>
-                            <h2 class="text-xl font-bold text-stone-900">Alex Johnson</h2>
-                            <p class="text-stone-500">alex@example.com</p>
+                            <h2 class="text-xl font-bold text-stone-900">{{ $customer->name }}</h2>
+                            <p class="text-stone-500">{{ $customer->email }}</p>
                             <span class="inline-block mt-1 px-3 py-1 bg-cyan-100 text-cyan-700 text-xs font-semibold rounded-full">
-                                Premium Member
+                                Member
                             </span>
                         </div>
                     </div>
@@ -83,11 +83,11 @@
                     <!-- Stats -->
                     <div class="stats-grid grid grid-cols-2 gap-4 mb-6">
                         <div class="bg-stone-50 p-4 rounded-xl">
-                            <div class="text-2xl font-bold text-stone-900">₹12,450</div>
+                            <div class="text-2xl font-bold text-stone-900">₹{{ number_format($totalSpent, 2) }}</div>
                             <div class="text-sm text-stone-500">Total Spent</div>
                         </div>
                         <div class="bg-stone-50 p-4 rounded-xl">
-                            <div class="text-2xl font-bold text-stone-900">8</div>
+                            <div class="text-2xl font-bold text-stone-900">{{ $ordersCount }}</div>
                             <div class="text-sm text-stone-500">Total Orders</div>
                         </div>
                     </div>
@@ -109,7 +109,7 @@
                             <span class="font-medium">Saved Addresses</span>
                         </a>
 
-                        <a href="{{ route('customer.wishlist') }}" class="block w-full text-left p-3 rounded-xl hover:bg-stone-50 flex items-center gap-3">
+                        <a href="{{ route('customer.wishlist.index') }}" class="block w-full text-left p-3 rounded-xl hover:bg-stone-50 flex items-center gap-3">
                             <i data-lucide="heart" class="w-5 h-5 text-stone-400"></i>
                             <span class="font-medium">wishlist</span>
                         </a>
@@ -128,34 +128,7 @@
                         </form>
                     </div>
                 </div>
-                
-                <!-- Quick Stats -->
-                <div class="bg-gradient-to-r from-cyan-500 to-teal-500 rounded-3xl p-6 text-white">
-                    <h3 class="font-bold mb-4">Your Skincare Journey</h3>
-                    <div class="space-y-4">
-                        <div>
-                            <div class="flex justify-between mb-1">
-                                <span class="text-sm">Skin Health Score</span>
-                                <span class="text-sm font-bold">85%</span>
-                            </div>
-                            <div class="w-full bg-white/20 rounded-full h-2">
-                                <div class="bg-white h-2 rounded-full w-4/5"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between mb-1">
-                                <span class="text-sm">Consistency Score</span>
-                                <span class="text-sm font-bold">92%</span>
-                            </div>
-                            <div class="w-full bg-white/20 rounded-full h-2">
-                                <div class="bg-white h-2 rounded-full w-[92%]"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="w-full mt-6 bg-white text-cyan-600 font-semibold py-3 rounded-full hover:bg-stone-50 transition-colors">
-                        View Detailed Report
-                    </button>
-                </div>
+
             </div>
 
             <!-- Right Content Area - Profile Settings -->
@@ -163,87 +136,27 @@
                 <div class="bg-white rounded-3xl p-6 md:p-8 shadow-xl shadow-stone-200/50 border border-stone-100">
                     <h2 class="text-2xl font-bold text-stone-900 mb-6">Profile Information</h2>
                     
-                    <form class="space-y-6">
+                    <form class="space-y-6" action="{{ route('customer.account.profile.update') }}" method="POST">
+                        @csrf
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-2">
-                                <label class="text-sm font-medium text-stone-700">First Name</label>
-                                <input type="text" value="Alex" class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-stone-900 focus:outline-none focus:ring-2 focus:ring-cyan-500/40 focus:border-cyan-400">
+                                <label class="text-sm font-medium text-stone-700">Name</label>
+                                <input type="text" name="name" value="{{ $customer->name }}" class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-stone-900 focus:outline-none focus:ring-2 focus:ring-cyan-500/40 focus:border-cyan-400">
                             </div>
                             <div class="space-y-2">
-                                <label class="text-sm font-medium text-stone-700">Last Name</label>
-                                <input type="text" value="Johnson" class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-stone-900 focus:outline-none focus:ring-2 focus:ring-cyan-500/40 focus:border-cyan-400">
+                                <label class="text-sm font-medium text-stone-700">Email Address</label>
+                                <input type="email" name="email" value="{{ $customer->email }}" class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-stone-900 focus:outline-none focus:ring-2 focus:ring-cyan-500/40 focus:border-cyan-400" readonly>
                             </div>
-                        </div>
-                        
-                        <div class="space-y-2">
-                            <label class="text-sm font-medium text-stone-700">Email Address</label>
-                            <input type="email" value="alex@example.com" class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-stone-900 focus:outline-none focus:ring-2 focus:ring-cyan-500/40 focus:border-cyan-400">
                         </div>
                         
                         <div class="space-y-2">
                             <label class="text-sm font-medium text-stone-700">Phone Number</label>
-                            <input type="tel" value="+91 98765 43210" class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-stone-900 focus:outline-none focus:ring-2 focus:ring-cyan-500/40 focus:border-cyan-400">
-                        </div>
-                        
-                        <div class="space-y-2">
-                            <label class="text-sm font-medium text-stone-700">Date of Birth</label>
-                            <input type="date" value="1990-05-15" class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-stone-900 focus:outline-none focus:ring-2 focus:ring-cyan-500/40 focus:border-cyan-400">
-                        </div>
-                        
-                        <div class="space-y-2">
-                            <label class="text-sm font-medium text-stone-700">Skin Type</label>
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                                <label class="flex items-center p-3 border border-stone-200 rounded-xl cursor-pointer hover:bg-stone-50">
-                                    <input type="radio" name="skin-type" class="mr-2" checked>
-                                    <span>Oily</span>
-                                </label>
-                                <label class="flex items-center p-3 border border-stone-200 rounded-xl cursor-pointer hover:bg-stone-50">
-                                    <input type="radio" name="skin-type" class="mr-2">
-                                    <span>Dry</span>
-                                </label>
-                                <label class="flex items-center p-3 border border-stone-200 rounded-xl cursor-pointer hover:bg-stone-50">
-                                    <input type="radio" name="skin-type" class="mr-2">
-                                    <span>Combination</span>
-                                </label>
-                                <label class="flex items-center p-3 border border-stone-200 rounded-xl cursor-pointer hover:bg-stone-50">
-                                    <input type="radio" name="skin-type" class="mr-2">
-                                    <span>Sensitive</span>
-                                </label>
-                            </div>
-                        </div>
-                        
-                        <div class="space-y-2">
-                            <label class="text-sm font-medium text-stone-700">Skin Concerns</label>
-                            <div class="flex flex-wrap gap-2">
-                                <label class="flex items-center px-3 py-2 border border-stone-200 rounded-xl cursor-pointer hover:bg-stone-50">
-                                    <input type="checkbox" class="mr-2" checked>
-                                    <span>Acne</span>
-                                </label>
-                                <label class="flex items-center px-3 py-2 border border-stone-200 rounded-xl cursor-pointer hover:bg-stone-50">
-                                    <input type="checkbox" class="mr-2">
-                                    <span>Dark Spots</span>
-                                </label>
-                                <label class="flex items-center px-3 py-2 border border-stone-200 rounded-xl cursor-pointer hover:bg-stone-50">
-                                    <input type="checkbox" class="mr-2" checked>
-                                    <span>Aging</span>
-                                </label>
-                                <label class="flex items-center px-3 py-2 border border-stone-200 rounded-xl cursor-pointer hover:bg-stone-50">
-                                    <input type="checkbox" class="mr-2">
-                                    <span>Dryness</span>
-                                </label>
-                                <label class="flex items-center px-3 py-2 border border-stone-200 rounded-xl cursor-pointer hover:bg-stone-50">
-                                    <input type="checkbox" class="mr-2">
-                                    <span>Redness</span>
-                                </label>
-                            </div>
+                            <input type="tel" name="mobile" value="{{ $customer->mobile }}" class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-stone-900 focus:outline-none focus:ring-2 focus:ring-cyan-500/40 focus:border-cyan-400" readonly>
                         </div>
                         
                         <div class="pt-6 border-t border-stone-100">
-                            <button type="button" class="px-6 py-3 bg-cyan-600 text-white font-semibold rounded-xl hover:bg-cyan-700 transition-colors">
+                            <button type="submit" class="px-6 py-3 bg-cyan-600 text-white font-semibold rounded-xl hover:bg-cyan-700 transition-colors">
                                 Save Changes
-                            </button>
-                            <button type="button" class="px-6 py-3 bg-white border border-stone-200 text-stone-700 font-semibold rounded-xl hover:bg-stone-50 transition-colors ml-3">
-                                Cancel
                             </button>
                         </div>
                     </form>
