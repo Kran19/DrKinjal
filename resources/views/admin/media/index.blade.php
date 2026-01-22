@@ -28,7 +28,7 @@
             <button onclick="document.getElementById('fileInput').click()" class="btn-primary mb-2">
                 <i class="fas fa-folder-open mr-2"></i>Browse Files
             </button>
-            <p class="text-sm text-gray-500">Supports: JPG, PNG, GIF, WEBP, SVG (Max 4MB per file, Max 20 files at once)</p>
+            <p class="text-sm text-gray-500">Supports: JPG, PNG, GIF, WEBP, SVG (Max 3MB)</p>
             <input type="file" id="fileInput" multiple class="hidden" accept=".jpg,.jpeg,.png,.gif,.webp,.svg">
         </div>
 
@@ -804,52 +804,14 @@
             }
         }
 
-        // Upload files with detailed error handling
+        // Upload files (simplified version)
         async function uploadFiles(files) {
-            // 1. Validate max files count (PHP limit is 20)
-            const maxFiles = 20;
-            if (files.length > maxFiles) {
-                toastr.error(`You selected ${files.length} files. Maximum ${maxFiles} files allowed at once.`, 'Too Many Files', {
-                    timeOut: 10000
-                });
-                return;
-            }
-
-            // 2. Validate file sizes on client side and filter
-            const maxSize = 4 * 1024 * 1024; // 4MB in bytes
-            const validFiles = [];
-            const oversizedFiles = [];
-            
-            for (let i = 0; i < files.length; i++) {
-                if (files[i].size > maxSize) {
-                    oversizedFiles.push(files[i].name);
-                } else {
-                    validFiles.push(files[i]);
-                }
-            }
-            
-            // Show warning for oversized files
-            if (oversizedFiles.length > 0) {
-                toastr.warning(`Skipping ${oversizedFiles.length} oversized file(s) (>4MB):<br>${oversizedFiles.slice(0, 3).join(', ')}${oversizedFiles.length > 3 ? '...' : ''}`, 'Files Skipped', {
-                    timeOut: 8000,
-                    extendedTimeOut: 3000
-                });
-            }
-            
-            // If no valid files, return
-            if (validFiles.length === 0) {
-                if (oversizedFiles.length > 0) {
-                    toastr.error('No valid files to upload. All selected files exceed the 4MB limit.');
-                }
-                return;
-            }
-
             // Show upload progress
-            showUploadProgress(validFiles.length);
+            showUploadProgress(files.length);
 
             const formData = new FormData();
-            for (let i = 0; i < validFiles.length; i++) {
-                formData.append('files[]', validFiles[i]);
+            for (let i = 0; i < files.length; i++) {
+                formData.append('files[]', files[i]);
             }
 
             // Add alt text if available
@@ -860,38 +822,23 @@
 
             try {
                 const response = await axios.post('/api/admin/media/upload', formData, {
+
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         'Authorization': `Bearer ${window.ADMIN_API_TOKEN || "{{ session('admin_api_token') }}"}`,
                     },
                     onUploadProgress: function(progressEvent) {
-                        const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                        const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent
+                            .total);
                         updateUploadProgress(percentCompleted, progressEvent.loaded, progressEvent.total);
                     }
                 });
 
                 if (response.data.success) {
-                    const data = response.data.data;
-                    
-                    // Show success message
-                    if (data.total_uploaded > 0) {
-                        toastr.success(`Successfully uploaded ${data.total_uploaded} file(s)`);
-                    }
-                    
-                    // Show detailed errors for failed files
-                    if (data.failed && data.failed.length > 0) {
-                        data.failed.forEach(failed => {
-                            toastr.error(`${failed.name}: ${failed.error}`, 'Upload Failed', {
-                                timeOut: 8000,
-                                extendedTimeOut: 3000
-                            });
-                        });
-                    }
+                    toastr.success(`Successfully uploaded ${response.data.data.total_uploaded} file(s)`);
 
-                    // Refresh data if any files were uploaded
-                    if (data.total_uploaded > 0) {
-                        refreshData();
-                    }
+                    // Refresh data
+                    refreshData();
 
                     // Clear bulk alt text
                     document.getElementById('bulkAltText').value = '';
@@ -899,33 +846,7 @@
                 }
             } catch (error) {
                 console.error('Upload error:', error);
-                
-                // Show detailed validation errors
-                if (error.response && error.response.status === 422) {
-                    const errors = error.response.data.errors || {};
-                    let errorMessages = [];
-                    
-                    Object.keys(errors).forEach(key => {
-                        const fileIndex = key.match(/files\.(\d+)/)?.[1];
-                        const fileName = validFiles[fileIndex]?.name || `File ${parseInt(fileIndex) + 1}`;
-                        errors[key].forEach(msg => {
-                            errorMessages.push(`${fileName}: ${msg}`);
-                        });
-                    });
-                    
-                    if (errorMessages.length > 0) {
-                        errorMessages.forEach(msg => {
-                            toastr.error(msg, 'Validation Error', {
-                                timeOut: 8000,
-                                extendedTimeOut: 3000
-                            });
-                        });
-                    } else {
-                        toastr.error('Validation failed. Please check your files.');
-                    }
-                } else {
-                    toastr.error(error.response?.data?.message || 'Upload failed. Please try again.');
-                }
+                toastr.error('Upload failed');
             } finally {
                 hideUploadProgress();
             }

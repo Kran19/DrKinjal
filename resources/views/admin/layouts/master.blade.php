@@ -7,9 +7,7 @@
     <title>@yield('title', 'eCommerce Admin Panel')</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <!-- Vite Assets -->
-    <!-- @vite(['resources/css/app.css', 'resources/js/app.js']) -->
-
+    <!-- TailwindCSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Font Awesome -->
@@ -26,8 +24,6 @@
 
     <!-- Toastr -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-
-
 
     <!-- Custom Styles -->
     <link rel="stylesheet" href="{{ asset('css/admin/custom.css') }}">
@@ -92,7 +88,6 @@
     </script>
     @endif
 
-    @stack('modals')
     @stack('scripts')
 </body>
 
