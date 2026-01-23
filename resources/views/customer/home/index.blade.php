@@ -197,9 +197,27 @@ function addToCart(e, variantId) {
 
             <div class="relative">
                 <div id="categories-container" class="flex gap-4 overflow-x-auto pb-8 scrollbar-hide snap-x -mx-6 px-6 md:mx-0 md:px-0">
-                     @foreach($featuredCategories as $category)
+                    @php
+                        $gradients = [
+                            ['from' => 'from-rose-50', 'to' => 'to-rose-200'],
+                            ['from' => 'from-purple-50', 'to' => 'to-purple-200'],
+                            ['from' => 'from-orange-50', 'to' => 'to-orange-200'],
+                            ['from' => 'from-sky-50', 'to' => 'to-sky-200'],
+                            ['from' => 'from-teal-50', 'to' => 'to-teal-200'],
+                            ['from' => 'from-lime-50', 'to' => 'to-lime-200'],
+                            ['from' => 'from-amber-50', 'to' => 'to-amber-200'],
+                            ['from' => 'from-yellow-50', 'to' => 'to-yellow-200'],
+                        ];
+                    @endphp
+
+                    @foreach($featuredCategories as $index => $category)
+                        @php
+                            $gradient = $gradients[$index % count($gradients)];
+                            $bgFrom = $gradient['from'];
+                            $bgTo = $gradient['to'];
+                        @endphp
                     <a href="{{ route('customer.category.products', ['slug' => $category->slug]) }}"
-                        class="snap-start shrink-0 relative w-[160px] h-[160px] bg-gradient-to-br from-stone-50 to-stone-200 rounded-2xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
+                        class="snap-start shrink-0 relative w-[160px] h-[160px] bg-gradient-to-br {{ $bgFrom }} {{ $bgTo }} rounded-2xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
                         <span class="absolute top-4 left-4 text-sm font-semibold text-stone-900 z-10">{{ $category->name }}</span>
                         <div class="absolute bottom-4 left-4 w-8 h-8 rounded-full border border-stone-900/10 flex items-center justify-center bg-white/40 z-10 group-hover:bg-white">
                             <i data-lucide="arrow-right" class="w-4 h-4 text-stone-900"></i>
