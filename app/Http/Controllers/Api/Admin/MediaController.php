@@ -109,23 +109,10 @@ class MediaController extends Controller
                 ];
             });
 
-            return $this->apiResponse(true, [
-                'data' => $transformedData,
-                'meta' => [
-                    'current_page' => $media->currentPage(),
-                    'from' => $media->firstItem(),
-                    'to' => $media->lastItem(),
-                    'per_page' => $media->perPage(),
-                    'total' => $media->total(),
-                    'last_page' => $media->lastPage(),
-                ],
-                'links' => [
-                    'first' => $media->url(1),
-                    'last' => $media->url($media->lastPage()),
-                    'prev' => $media->previousPageUrl(),
-                    'next' => $media->nextPageUrl(),
-                ],
-            ], 'Media list retrieved successfully');
+            $pagination = $media->toArray();
+            $pagination['data'] = $transformedData;
+
+            return $this->apiResponse(true, $pagination, 'Media list retrieved successfully');
 
         } catch (\Exception $e) {
             \Log::error('Media index error: ' . $e->getMessage());

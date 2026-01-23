@@ -36,52 +36,52 @@
         <!-- Will be populated by JavaScript -->
     </div>
 
-    <!-- Media Library Modal -->
-    <div id="mediaLibraryModal" class="fixed inset-0 z-50 hidden">
-        <div class="absolute inset-0 bg-gray-600 bg-opacity-75 transition-opacity"></div>
-        <div class="fixed inset-0 z-10 overflow-y-auto">
-            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                <div class="relative transform overflow-hidden rounded-2xl bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-6xl">
-                    <div class="bg-white px-6 pb-4 pt-5 sm:p-6 sm:pb-4">
-                        <div class="sm:flex sm:items-start">
-                            <div class="w-full">
-                                <!-- Header -->
-                                <div class="flex justify-between items-center mb-6">
-                                    <h3 class="text-xl font-bold text-gray-800">Media Library</h3>
-                                    <button onclick="closeMediaLibrary()" class="text-gray-400 hover:text-gray-600">
-                                        <i class="fas fa-times text-xl"></i>
-                                    </button>
-                                </div>
+    <!-- Media Library Modal (Same as Product) -->
+    <div id="media-modal" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full">
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">Select Media</h3>
+                        <button onclick="closeMediaModal()" class="text-gray-400 hover:text-gray-500">
+                            <span class="sr-only">Close</span>
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
 
-                                <!-- Search -->
-                                <div class="mb-6">
-                                    <div class="relative">
-                                        <input type="text" id="mediaSearchInput" placeholder="Search media..."
-                                            class="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent w-full">
-                                        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
-                                    </div>
-                                </div>
-
-                                <!-- Media Grid -->
-                                <div id="mediaGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 max-h-[60vh] overflow-y-auto p-2">
-                                    <div class="col-span-full text-center py-12">
-                                        <i class="fas fa-spinner fa-spin text-gray-400 text-2xl"></i>
-                                        <p class="text-sm text-gray-500 mt-2">Loading media...</p>
-                                    </div>
-                                </div>
-                            </div>
+                    <!-- Search & Upload -->
+                    <div class="flex flex-col md:flex-row gap-4 mb-4">
+                        <div class="flex-1">
+                            <input type="text" id="media-search" placeholder="Search files..." class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label for="media-upload" class="cursor-pointer bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition inline-block">
+                                Upload New
+                            </label>
+                            <input type="file" id="media-upload" class="hidden" multiple accept="image/*">
                         </div>
                     </div>
 
-                    <!-- Footer -->
-                    <div class="bg-gray-50 px-6 py-4 sm:flex sm:flex-row-reverse sm:px-6">
-                        <button type="button" onclick="selectMedia()" class="btn-primary ml-3">
-                            <i class="fas fa-check mr-2"></i>Select Image
-                        </button>
-                        <button type="button" onclick="closeMediaLibrary()" class="btn-secondary mt-3 sm:mt-0">
-                            Cancel
-                        </button>
+                    <!-- Media Grid -->
+                    <div id="media-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 h-96 overflow-y-auto p-2 border rounded bg-gray-50">
+                        <!-- Media items will be injected here -->
                     </div>
+
+                    <!-- Pagination -->
+                    <div id="media-pagination" class="mt-4 flex justify-between items-center">
+                    </div>
+                </div>
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button type="button" onclick="confirmMediaSelection()" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none sm:ml-3 sm:w-auto sm:text-sm">
+                        Select
+                    </button>
+                    <button type="button" onclick="closeMediaModal()" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                        Cancel
+                    </button>
                 </div>
             </div>
         </div>
@@ -717,134 +717,194 @@
         });
     }
 
-    // Open media library
-    async function openMediaLibrary() {
+    // =============== MEDIA MANAGEMENT FUNCTIONS ===============
+
+    let currentMode = 'main'; // Only 'main' for category image
+    let selectedImages = [];
+    let currentMediaData = null;
+
+    function openMediaLibrary() {
+        // Function renamed to match button call, but internally uses product modal logic name
+        openMediaModal('main');
+    }
+
+    function openMediaModal(mode = 'main') {
+        currentMode = mode;
+        selectedImages = [];
+
+        let modalTitle = 'Select Category Image';
+        document.getElementById('modal-title').textContent = modalTitle;
+
+        document.getElementById('media-modal').classList.remove('hidden');
+        document.body.classList.add('overflow-hidden');
+
+        loadMedia(1);
+    }
+
+    function closeMediaModal() {
+        document.getElementById('media-modal').classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+        selectedImages = [];
+    }
+
+    async function loadMedia(page = 1, search = '') {
+        const grid = document.getElementById('media-grid');
+        const pagination = document.getElementById('media-pagination');
+
+        grid.innerHTML = '<div class="col-span-full text-center py-10 text-gray-500">Loading media...</div>';
+
         try {
+            // Use the same route as product create
             const response = await axiosInstance.get('/media', {
-                params: {
-                    per_page: 50,
-                    type: 'image'
-                }
+                params: { page, search, type: 'image' }
             });
 
-            console.log('Media API Response:', response.data);
-
-            if (response.data.success) {
-                let mediaItems = response.data.data || response.data;
-
-                // Handle pagination wrapper
-                if (mediaItems.data && Array.isArray(mediaItems.data)) {
-                    mediaItems = mediaItems.data;
-                }
-
-                if (!Array.isArray(mediaItems)) {
-                    console.error('Media items is not an array:', mediaItems);
-                    toastr.error('Invalid media data format');
-                    return;
-                }
-
-                const mediaGrid = document.getElementById('mediaGrid');
-                mediaGrid.innerHTML = '';
-
-                if (mediaItems.length === 0) {
-                    mediaGrid.innerHTML = `
-                        <div class="col-span-full text-center py-12">
-                            <i class="fas fa-inbox text-gray-400 text-4xl mb-3"></i>
-                            <p class="text-gray-500">No media found</p>
-                        </div>
-                    `;
-                    return;
-                }
-
-                mediaItems.forEach(media => {
-                    const mediaUrl = media.url || media.full_url || media.thumb_url || '/images/default-image.jpg';
-
-                    const mediaItem = document.createElement('div');
-                    mediaItem.className = 'relative group cursor-pointer';
-                    mediaItem.dataset.id = media.id;
-                    mediaItem.dataset.url = mediaUrl;
-
-                    mediaItem.innerHTML = `
-                        <div class="relative overflow-hidden rounded-lg border-2 border-transparent group-hover:border-indigo-500 transition-colors">
-                            <img src="${mediaUrl}"
-                                 alt="${media.name || 'Media'}"
-                                 class="w-full h-32 object-cover"
-                                 onerror="this.src='/images/default-image.jpg'">
-                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity"></div>
-                            <div class="absolute top-2 right-2 hidden group-hover:block">
-                                <div class="w-6 h-6 bg-indigo-500 rounded-full flex items-center justify-center">
-                                    <i class="fas fa-check text-white text-xs"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="mt-2 text-xs text-gray-600 truncate">${media.name || 'Untitled'}</p>
-                    `;
-
-                    mediaItem.addEventListener('click', function() {
-                        // Remove selection from all items
-                        document.querySelectorAll('#mediaGrid > div').forEach(item => {
-                            item.classList.remove('selected-media');
-                            item.querySelector('.border-2').classList.remove('border-indigo-500');
-                            item.querySelector('.border-2').classList.add('border-transparent');
-                        });
-
-                        // Select this item
-                        this.classList.add('selected-media');
-                        this.querySelector('.border-2').classList.remove('border-transparent');
-                        this.querySelector('.border-2').classList.add('border-indigo-500');
-
-                        selectedMediaId = this.dataset.id;
-                        selectedMediaUrl = this.dataset.url;
-                    });
-
-                    mediaGrid.appendChild(mediaItem);
-                });
-
-                // Show modal
-                document.getElementById('mediaLibraryModal').classList.remove('hidden');
-                document.body.classList.add('overflow-hidden');
+            // Standardize response structure handling
+            let mediaData = response.data;
+            // If wrapped in success/data
+            if (mediaData.success && mediaData.data) {
+                mediaData = mediaData.data;
             }
+            
+            currentMediaData = mediaData;
+            renderMediaGrid(mediaData.data || mediaData); // Handle if paginated or direct array
+            renderPagination(mediaData);
         } catch (error) {
-            console.error('Error loading media:', error);
-            toastr.error('Failed to load media library');
+            console.error('Media load error:', error);
+            grid.innerHTML = '<div class="col-span-full text-center py-10 text-red-500">Error loading media.</div>';
+            toastr.error('Failed to load media');
         }
     }
 
-    // Close media library
-    function closeMediaLibrary() {
-        document.getElementById('mediaLibraryModal').classList.add('hidden');
-        document.body.classList.remove('overflow-hidden');
-        selectedMediaId = null;
-        selectedMediaUrl = null;
+    function renderMediaGrid(media) {
+        const grid = document.getElementById('media-grid');
+        
+        if (!media || media.length === 0) {
+            grid.innerHTML = '<div class="col-span-full text-center py-10 text-gray-500">No media found.</div>';
+            return;
+        }
+
+        let html = '';
+        media.forEach(item => {
+            const isSelected = selectedImages.some(img => img.id === item.id);
+            const url = item.thumbnail_url || item.url || item.full_url || item.path;
+            const name = item.file_name || item.name || item.filename;
+
+            html += `
+            <div class="relative border rounded-lg overflow-hidden cursor-pointer group ${isSelected ? 'ring-2 ring-blue-500' : ''}" 
+                 onclick="toggleImageSelection(${item.id}, '${url}')" data-media='${JSON.stringify(item)}'>
+                <img src="${url}" class="w-full h-32 object-cover">
+                <div class="p-2 text-xs truncate">${name}</div>
+                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition"></div>
+                ${isSelected ? 
+                    '<div class="absolute top-2 right-2 bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center">✓</div>' 
+                    : ''}
+            </div>
+            `;
+        });
+
+        grid.innerHTML = html;
     }
 
-    // Select media
-    function selectMedia() {
-        if (selectedMediaId && selectedMediaUrl) {
-            document.getElementById('image_id').value = selectedMediaId;
+    function renderPagination(data) {
+        const pagination = document.getElementById('media-pagination');
+        if (!data || !data.links || data.links.length <= 1) {
+            pagination.innerHTML = '';
+            return;
+        }
 
-            // Update preview
+        let html = '<div class="flex space-x-2">';
+        
+        data.links.forEach(link => {
+            if (link.url) {
+                const active = link.active ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-700';
+                // Extract page number from URL
+                let page = 1;
+                try {
+                    const urlObj = new URL(link.url);
+                    page = urlObj.searchParams.get('page');
+                } catch(e) {
+                     // fallback for relative urls if needed
+                }
+                
+                html += `
+                <button type="button" onclick="loadMedia(${page}, document.getElementById('media-search').value)" 
+                        class="px-3 py-1 rounded ${active} hover:bg-blue-600 hover:text-white transition">
+                    ${link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
+                </button>
+                `;
+            }
+        });
+        
+        html += '</div>';
+        pagination.innerHTML = html;
+    }
+
+    function toggleImageSelection(id, url) {
+        // For category image, we only need single selection
+        selectedImages = [{ id, url }];
+        
+        // Re-render grid to show selection
+        const mediaData = currentMediaData.data || currentMediaData;
+        renderMediaGrid(mediaData);
+    }
+
+    function confirmMediaSelection() {
+        if (selectedImages.length > 0) {
+            const image = selectedImages[0];
+            document.getElementById('image_id').value = image.id;
+            
+            // Update Preview
             const preview = document.getElementById('imagePreview');
-            preview.innerHTML = `
+             preview.innerHTML = `
                 <div class="w-full h-64 rounded-lg overflow-hidden border">
-                    <img src="${selectedMediaUrl}"
-                         alt="Selected image"
-                         class="w-full h-full object-cover">
+                    <img src="${image.url}" class="w-full h-full object-cover">
                 </div>
             `;
-
-            closeMediaLibrary();
-            toastr.success('Image selected successfully');
+            
+            closeMediaModal();
         } else {
-            toastr.warning('Please select an image first');
+            toastr.warning('Please select an image');
         }
     }
+    
+    // Debounced search
+    document.getElementById('media-search').addEventListener('input', function(e) {
+         clearTimeout(window.searchTimeout);
+         window.searchTimeout = setTimeout(() => {
+             loadMedia(1, e.target.value);
+         }, 500);
+    });
+    
+    // Handle file upload
+    document.getElementById('media-upload').addEventListener('change', async function(e) {
+        const files = e.target.files;
+        if (!files.length) return;
 
-    // Clear image
+        const formData = new FormData();
+        for (let i = 0; i < files.length; i++) {
+            formData.append('files[]', files[i]);
+        }
+
+        try {
+            // Using route consistent with product page
+            await axiosInstance.post('/media/upload', formData, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            });
+
+            toastr.success('Files uploaded successfully');
+            loadMedia(1); 
+            e.target.value = ''; 
+        } catch (error) {
+            console.error('Upload error:', error);
+            toastr.error('Failed to upload files');
+        }
+    });
+
+    // Clear image function
     function clearImage() {
         document.getElementById('image_id').value = '';
-        const preview = document.getElementById('imagePreview');
-        preview.innerHTML = `
+        document.getElementById('imagePreview').innerHTML = `
             <div class="w-full h-64 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden border-2 border-dashed border-gray-300">
                 <div class="text-center">
                     <i class="fas fa-image text-gray-400 text-4xl mb-2"></i>
