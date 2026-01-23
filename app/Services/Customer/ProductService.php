@@ -668,6 +668,7 @@ class ProductService
 
         return [
             'id' => $product->id,
+            'default_variant_id' => $defaultVariant ? $defaultVariant->id : null,
             'slug' => $product->slug,
             'name' => $product->name,
             'short_description' => $product->short_description,

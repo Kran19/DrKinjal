@@ -57,7 +57,7 @@
         <!-- Icons - Only Account and Cart -->
         <div class="flex items-center gap-4">
             <!-- Account button -->
-            @auth
+            @auth('customer')
                 <a href="{{ route('customer.account.profile') }}" class="p-2 hover:bg-sky-50 rounded-full transition">
                     <i data-lucide="user" class="w-5 h-5 text-stone-700"></i>
                 </a>
@@ -105,7 +105,7 @@
            class="py-2 {{ request()->routeIs('customer.page.about') ? 'text-sky-500 font-semibold' : '' }}">
             Our Story
         </a>
-        @auth
+        @auth('customer')
             <a href="{{ route('customer.account.profile') }}" 
                class="py-2 {{ request()->routeIs('customer.account.*') ? 'text-sky-500 font-semibold' : '' }}">
                 My Account

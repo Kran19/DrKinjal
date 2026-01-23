@@ -289,7 +289,7 @@ class CartHelper
         'items_count' => isset($cart->items) ? (int) $cart->items->sum('quantity') : ($cart['items_count'] ?? 0),
         'subtotal' => (float) ($cart->subtotal ?? $cart['subtotal'] ?? 0),
         'tax_total' => (float) ($cart->tax_total ?? $cart['tax_total'] ?? 0),
-        'tax_breakdown' => isset($cart->tax_breakdown) ? $cart->tax_breakdown : ($cart['tax_breakdown'] ?? array_values($taxBreakdown)),
+        'tax_breakdown' => isset($cart->tax_breakdown) ? $cart->tax_breakdown : (isset($taxBreakdown) ? array_values($taxBreakdown) : ($cart['tax_breakdown'] ?? [])),
             'shipping_total' => (float) ($cart->shipping_total ?? $cart['shipping_total'] ?? 0),
             'discount_total' => (float) ($cart->discount_total ?? $cart['discount_total'] ?? 0),
             'grand_total' => (float) ($cart->grand_total ?? $cart['grand_total'] ?? 0),

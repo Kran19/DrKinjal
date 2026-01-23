@@ -103,8 +103,8 @@
                         </a>
                     </div>
                 @else
-                    @foreach($cart['items'] as $id => $item)
-                        <div class="group flex gap-5 py-8 border-b border-gray-100 last:border-0" id="item-{{ $id }}">
+                    @foreach($cart['items'] as $item)
+                        <div class="group flex gap-5 py-8 border-b border-gray-100 last:border-0" id="item-{{ $item['id'] }}">
                             <div class="h-32 w-28 shrink-0 overflow-hidden rounded-2xl bg-slate-50 border border-slate-100 relative">
                                 <img src="{{ $item['image'] ?? asset('assets/images/placeholder.jpg') }}" alt="{{ $item['name'] ?? $item['product_name'] ?? 'Product' }}" class="h-full w-full object-cover object-center group-hover:scale-110 transition-transform duration-700 ease-out">
                                 @if(isset($item['stock_quantity']) && $item['quantity'] >= $item['stock_quantity'])
@@ -127,16 +127,16 @@
 
                                 <div class="flex items-center justify-between mt-4">
                                     <div class="flex items-center rounded-full border border-slate-200 bg-white shadow-sm h-9">
-                                        <button onclick="updateQty('{{ $id }}', -1)" class="w-8 h-full flex items-center justify-center text-slate-400 hover:text-slate-900 transition-colors" {{ $item['quantity'] <= 1 ? 'disabled style="opacity:0.3;cursor:not-allowed"' : '' }}>
+                                        <button onclick="updateQty('{{ $item['id'] }}', -1)" class="w-8 h-full flex items-center justify-center text-slate-400 hover:text-slate-900 transition-colors" {{ $item['quantity'] <= 1 ? 'disabled style="opacity:0.3;cursor:not-allowed"' : '' }}>
                                             <i data-lucide="minus" class="w-3 h-3"></i>
                                         </button>
-                                        <span id="qty-{{ $id }}" class="w-6 text-center text-sm font-semibold text-gray-900 select-none">{{ $item['quantity'] }}</span>
-                                        <button onclick="updateQty('{{ $id }}', 1)" class="w-8 h-full flex items-center justify-center text-slate-400 hover:text-slate-900 transition-colors">
+                                        <span id="qty-{{ $item['id'] }}" class="w-6 text-center text-sm font-semibold text-gray-900 select-none">{{ $item['quantity'] }}</span>
+                                        <button onclick="updateQty('{{ $item['id'] }}', 1)" class="w-8 h-full flex items-center justify-center text-slate-400 hover:text-slate-900 transition-colors">
                                             <i data-lucide="plus" class="w-3 h-3"></i>
                                         </button>
                                     </div>
 
-                                    <button onclick="removeItem('{{ $id }}')" class="text-sm font-medium text-slate-400 hover:text-[#0ea5e9] transition-colors flex items-center gap-1.5 group/btn">
+                                    <button onclick="removeItem('{{ $item['id'] }}')" class="text-sm font-medium text-slate-400 hover:text-[#0ea5e9] transition-colors flex items-center gap-1.5 group/btn">
                                         <i data-lucide="trash-2" class="w-4 h-4 group-hover/btn:scale-110 transition-transform"></i>
                                         <span>Remove</span>
                                     </button>
@@ -201,7 +201,7 @@
 
                     <div class="flex justify-between items-center mb-8">
                         <span class="text-lg font-bold text-gray-900">Total</span>
-                        <span class="text-2xl font-bold tracking-tight text-gray-900" id="summary-total">₹{{ number_format($cart['total'] ?? 0, 2) }}</span>
+                        <span class="text-2xl font-bold tracking-tight text-gray-900" id="summary-total">₹{{ number_format($cart['grand_total'] ?? 0, 2) }}</span>
                     </div>
 
                     @if(!empty($cart['items']))
@@ -268,6 +268,7 @@
 @endsection
 
 @push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         lucide.createIcons();
@@ -303,16 +304,12 @@
             } else {
                 // Revert on failure
                 qtyEl.innerText = currentQty;
-                if (typeof Swal !== 'undefined') {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: data.message || 'Failed to update quantity',
-                        confirmButtonColor: '#0ea5e9'
-                    });
-                } else {
-                    alert(data.message || 'Failed to update quantity');
-                }
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: data.message || 'Failed to update quantity',
+                    confirmButtonColor: '#0ea5e9'
+                });
             }
         })
         .catch(error => {
@@ -322,49 +319,56 @@
     }
 
     function removeItem(itemId) {
-        if (!confirm('Are you sure you want to remove this item?')) return;
+        // Use SweetAlert for confirmation
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Do you want to remove this item from your cart?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#0ea5e9',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, remove it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Animate removal
+                const row = document.getElementById(`item-${itemId}`);
+                if (row) {
+                    row.style.opacity = '0.5';
+                }
 
-        // Animate removal
-        const row = document.getElementById(`item-${itemId}`);
-        if (row) {
-            row.style.opacity = '0.5';
+                fetch(`/cart/remove/${itemId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        if(row) row.remove();
+                        updateCartUI(data.data.cart);
+                        
+                        // Reload if cart is empty to show empty state
+                    if (!data.data.cart.items || Object.keys(data.data.cart.items).length === 0) {
+            window.location.reload();
         }
-
-        fetch(`/cart/remove/${itemId}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        
+                    } else {
+                        if(row) row.style.opacity = '1';
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: data.message || 'Failed to remove item',
+                            confirmButtonColor: '#0ea5e9'
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    if(row) row.style.opacity = '1';
+                });
             }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                if(row) row.remove();
-                updateCartUI(data.data.cart);
-                
-                // Reload if cart is empty to show empty state
-               if (!data.data.cart.items || Object.keys(data.data.cart.items).length === 0) {
-    window.location.reload();
-}
-
-            } else {
-                 if(row) row.style.opacity = '1';
-                 if (typeof Swal !== 'undefined') {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: data.message || 'Failed to remove item',
-                        confirmButtonColor: '#0ea5e9'
-                    });
-                 } else {
-                    alert(data.message || 'Failed to remove item');
-                 }
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-             if(row) row.style.opacity = '1';
         });
     }
 
@@ -383,31 +387,22 @@
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                if (typeof Swal !== 'undefined') {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Applied!',
-                        text: 'Coupon applied successfully!',
-                        timer: 2000,
-                        showConfirmButton: false
-                    }).then(() => {
-                        window.location.reload();
-                    });
-                } else {
-                    alert('Coupon applied successfully!');
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Applied!',
+                    text: 'Coupon applied successfully!',
+                    timer: 2000,
+                    showConfirmButton: false
+                }).then(() => {
                     window.location.reload();
-                }
+                });
             } else {
-                if (typeof Swal !== 'undefined') {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Invalid Coupon',
-                        text: data.message || 'Failed to apply coupon',
-                        confirmButtonColor: '#0ea5e9'
-                    });
-                } else {
-                    alert(data.message || 'Failed to apply coupon');
-                }
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Invalid Coupon',
+                    text: data.message || 'Failed to apply coupon',
+                    confirmButtonColor: '#0ea5e9'
+                });
             }
         })
         .catch(error => console.error('Error:', error));
@@ -419,13 +414,21 @@
         document.getElementById('item-count').innerText = count;
         
         // Update header cart count if exists
-        const headerCount = document.getElementById('cart-count');
-        if (headerCount) headerCount.innerText = count;
+        const headerCount = document.getElementById('cartCount');
+        if (headerCount) {
+             headerCount.innerText = count;
+             if (count > 0) {
+                 headerCount.classList.remove('hidden');
+             } else {
+                 headerCount.classList.add('hidden');
+             }
+        }
 
         // Update Summary
         document.getElementById('summary-subtotal').innerText = '₹' + parseFloat(cart.subtotal).toFixed(2);
         document.getElementById('summary-tax').innerText = '₹' + parseFloat(cart.tax_total).toFixed(2);
-        document.getElementById('summary-total').innerText = '₹' + parseFloat(cart.total).toFixed(2);
+        // Use grand_total as backend returns grand_total
+        document.getElementById('summary-total').innerText = '₹' + parseFloat(cart.grand_total).toFixed(2);
 
         // Update Discount
         const discountRow = document.getElementById('discount-row');

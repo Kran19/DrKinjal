@@ -17,11 +17,58 @@ class ProductController extends Controller
         $this->productService = $productService;
     }
 
-    public function bestsellers()
-{
-    // Logic to display best selling products
-    return view('customer.products.bestsellers');
-}
+    public function bestsellers(Request $request)
+    {
+        try {
+            $perPage = $request->get('per_page', 12);
+            $page = $request->get('page', 1);
+
+            $filters = [
+                'search' => $request->get('search', ''),
+                'sort_by' => $request->get('sort_by', 'popular'),
+                'min_price' => $request->get('min_price'),
+                'max_price' => $request->get('max_price'),
+                'category_id' => $request->get('category_id'),
+                'brand_id' => $request->get('brand_id'),
+                'in_stock' => $request->get('in_stock'),
+                'is_bestseller' => 1, // Force bestseller filter
+            ];
+
+            // If a specific category filter is clicked in the frontend (hash or param), 
+            // the frontend might send 'category_id' or we might need to handle 'slug' if the UI uses unique slugs.
+            // For now, standard filter compatibility.
+
+            $products = $this->productService->getProducts($filters, $perPage, $page);
+            $allFilters = $this->productService->getAllFilters();
+
+            return view('customer.products.bestsellers', [
+                'products' => $products->items(),
+                'paginator' => [
+                    'current_page' => $products->currentPage(),
+                    'per_page' => $products->perPage(),
+                    'total' => $products->total(),
+                    'last_page' => $products->lastPage(),
+                    'from' => $products->firstItem(),
+                    'to' => $products->lastItem(),
+                ],
+                'filters' => $allFilters,
+                'sortBy' => $filters['sort_by'],
+                'search' => $filters['search'],
+                'categoryId' => $filters['category_id'],
+                'title' => 'Bestsellers - Dr Kinjal Beauty',
+            ]);
+
+        } catch (\Exception $e) {
+            Log::error('Bestsellers page error: ' . $e->getMessage());
+            return view('customer.products.bestsellers', [
+                'products' => [],
+                'paginator' => [],
+                'filters' => $this->productService->getAllFilters(),
+                'error' => 'Failed to load products.',
+                'title' => 'Bestsellers - Error',
+            ]);
+        }
+    }
 
     /**
      * Product listing page

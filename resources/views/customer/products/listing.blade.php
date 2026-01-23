@@ -136,8 +136,8 @@
                                 onerror="this.src='{{ asset('assets/images/placeholder.jpg') }}'">
                             <button
                                 class="quick-add-btn absolute bottom-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg translate-y-14 group-hover:translate-y-0 transition-transform duration-300 z-20 hover:bg-stone-900 hover:text-white"
-                                data-product-id="{{ $product['id'] }}"
-                                onclick="addToCart(event, {{ $product['id'] }})">
+                                data-variant-id="{{ $product['default_variant_id'] ?? $product['id'] }}"
+                                onclick="addToCart(event, {{ $product['default_variant_id'] ?? $product['id'] }})">
                                 <i data-lucide="plus" class="w-5 h-5 stroke-[1.5]"></i>
                             </button>
                         </div>
@@ -243,7 +243,7 @@
                 "X-CSRF-TOKEN": "{{ csrf_token() }}",
             },
             body: JSON.stringify({
-                product_id: productId,
+                variant_id: productId,
                 quantity: 1
             }),
         })
@@ -251,7 +251,7 @@
         .then(data => {
             if (data.success) {
                 // Update cart count in header
-                const cartCountEl = document.getElementById('cart-count');
+                const cartCountEl = document.getElementById('cartCount');
                 if (cartCountEl) {
                     cartCountEl.textContent = data.cart_count;
                     cartCountEl.classList.remove('hidden');
@@ -325,41 +325,6 @@
     // Initialize Lucide icons
     document.addEventListener('DOMContentLoaded', function() {
         lucide.createIcons();
-        
-        // Quick add to cart functionality
-        document.querySelectorAll('.quick-add-btn').forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                
-                const productId = this.getAttribute('data-product-id');
-                
-                // Show loading state
-                const icon = this.querySelector('i');
-                const originalIcon = icon.getAttribute('data-lucide');
-                icon.setAttribute('data-lucide', 'loader');
-                lucide.createIcons();
-                
-                // Simulate API call
-                setTimeout(() => {
-                    // Restore icon
-                    icon.setAttribute('data-lucide', 'check');
-                    lucide.createIcons();
-                    
-                    // Update cart count
-                    updateCartCount(1);
-                    
-                    // Show success message
-                    showToast('Product added to cart!', 'success');
-                    
-                    // Revert icon after 2 seconds
-                    setTimeout(() => {
-                        icon.setAttribute('data-lucide', originalIcon);
-                        lucide.createIcons();
-                    }, 2000);
-                }, 800);
-            });
-        });
         
         // Product count update
         const productCount = document.querySelectorAll('.product-card').length;

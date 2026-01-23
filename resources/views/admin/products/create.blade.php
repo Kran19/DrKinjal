@@ -213,15 +213,7 @@
                                     <tr id="variant-row-{{ $idx }}">
                                         <td class="px-3 py-2 whitespace-nowrap text-sm text-gray-700">
                                             @php
-                                                // Reconstruct variant name from hidden inputs if possible, or just Show "Variant X"
-                                                // Since we don't have the attribute names easily accessible without parsing the array, 
-                                                // we can try to look at the attributes array.
                                                 $name = 'Variant ' . ($idx + 1);
-                                                if(isset($variant['attributes']) && is_array($variant['attributes'])) {
-                                                    // We might need to fetch attribute names from JS or server, but for now let's just loop
-                                                    // Actually, we can't easily get the human readable values here without passing them.
-                                                    // But we can keep the hidden inputs.
-                                                }
                                             @endphp
                                             {{ $name }}
                                             
@@ -246,12 +238,7 @@
                                         </td>
                                         <td class="px-3 py-2">
                                             <div id="variant-images-{{ $idx }}" class="flex gap-1 flex-wrap">
-                                                {{-- Re-render main image if exists --}}
                                                 @if(!empty($variant['main_image_id']))
-                                                    {{-- We don't have the URL easily unless we fetch it. 
-                                                         For now, just show a placeholder or count. 
-                                                         Ideally we pass URLs or let JS handle it. 
-                                                         But simply keeping the ID is enough to SAVE again. --}}
                                                     <div class="text-xs text-green-600 font-bold">Main Img Set</div>
                                                 @endif
                                             </div>
@@ -468,7 +455,6 @@
                 </div>
 
                 <div id="media-grid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 max-h-96 overflow-y-auto p-2 border rounded">
-                    <!-- Loaded dynamically -->
                     <div class="col-span-full text-center py-10 text-gray-500">Loading media...</div>
                 </div>
 
@@ -499,6 +485,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
+
 <script>
     // Global State
     let availableAttributes = [];
@@ -515,8 +503,30 @@
         // Set up media upload
         document.getElementById('media-upload').addEventListener('change', handleFileUpload);
 
-        // Load existing gallery images from old input
-        loadExistingGallery();
+        // Initialize CKEditor
+        if (document.querySelector('#description')) {
+            ClassicEditor
+                .create(document.querySelector('#description'), {
+                    toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
+                    heading: {
+                        options: [
+                            { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                            { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+                            { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' }
+                        ]
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+
+        // Show validation errors with toastr
+        @if($errors->any())
+            @foreach($errors->all() as $error)
+                toastr.error('{{ $error }}');
+            @endforeach
+        @endif
     });
 
     // =============== PRODUCT TYPE & CATEGORY FUNCTIONS ===============
@@ -604,7 +614,6 @@
                  html += `<input type="hidden" name="${fieldName}[specification_id]" value="${spec.id}">`;
                  html += `<label class="block text-sm text-gray-600 mb-1">${spec.name} ${spec.is_required ? '<span class="text-red-500">*</span>' : ''}</label>`;
 
-                 // Normalize input type
                  const inputType = (spec.input_type || '').toLowerCase().trim();
                  
                  if (['select', 'multiselect', 'multi-select', 'radio'].includes(inputType)) {
@@ -751,32 +760,35 @@
     function renderVariantsTable(combinations, selectedAttrs) {
         const container = document.getElementById('variants-container');
         if(combinations.length === 0) {
-            container.innerHTML = '';
+            container.innerHTML = '<p class="text-gray-500">No variants generated. Please check your attribute selections.</p>';
             return;
         }
 
-        let html = `
-        <table class="min-w-full divide-y divide-gray-200 border">
-            <thead class="bg-gray-50">
-                <tr>
-                    <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">Variant</th>
-                    <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase w-32">SKU</th>
-                    <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase w-24">Price</th>
-                    <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase w-24">Stock</th>
-                    <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase w-48">Images</th>
-                    <th class="px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase w-16">Default</th>
-                    <th class="px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase w-16">Action</th>
-                </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-        `;
+        const baseSku = document.getElementById('sku')?.value || 
+                       document.getElementById('product_code')?.value || 
+                       'PRD-' + Math.floor(Math.random() * 10000);
+        const basePrice = document.getElementById('price')?.value || '0';
 
-        const baseSku = document.getElementById('sku').value || document.getElementById('product_code').value || 'SKU';
-        const basePrice = document.getElementById('price').value || '';
+        let html = `
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200 border">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">Variant</th>
+                        <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase w-32">SKU</th>
+                        <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase w-24">Price</th>
+                        <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase w-24">Stock</th>
+                        <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase w-48">Images</th>
+                        <th class="px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase w-16">Default</th>
+                        <th class="px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase w-16">Action</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+        `;
 
         combinations.forEach((combo, idx) => {
             const variantName = combo.map(c => c.value).join(' / ');
-            const variantSku = `${baseSku}-${combo.map(c => c.value.substring(0,2).toUpperCase()).join('-')}`;
+            const variantSku = `${baseSku}-${combo.map(c => c.value.replace(/\s+/g, '-').substring(0,3).toUpperCase()).join('-')}`;
 
             html += `
             <tr id="variant-row-${idx}">
@@ -788,13 +800,13 @@
                     `).join('')}
                 </td>
                 <td class="px-3 py-2">
-                    <input type="text" name="variants[${idx}][sku]" value="${variantSku}" class="w-full px-2 py-1 border rounded text-sm">
+                    <input type="text" name="variants[${idx}][sku]" value="${variantSku}" class="w-full px-2 py-1 border rounded text-sm" required>
                 </td>
                 <td class="px-3 py-2">
-                    <input type="number" name="variants[${idx}][price]" value="${basePrice}" step="0.01" class="w-full px-2 py-1 border rounded text-sm">
+                    <input type="number" name="variants[${idx}][price]" value="${basePrice}" step="0.01" min="0" class="w-full px-2 py-1 border rounded text-sm" required>
                 </td>
                 <td class="px-3 py-2">
-                    <input type="number" name="variants[${idx}][stock_quantity]" value="0" class="w-full px-2 py-1 border rounded text-sm">
+                    <input type="number" name="variants[${idx}][stock_quantity]" value="0" min="0" class="w-full px-2 py-1 border rounded text-sm" required>
                 </td>
                 <td class="px-3 py-2">
                     <div id="variant-images-${idx}" class="flex gap-1 flex-wrap">
@@ -818,8 +830,11 @@
             `;
         });
 
-        html += `</tbody></table>`;
+        html += `</tbody></table></div>`;
         container.innerHTML = html;
+        
+        // Show success message
+        toastr.success(`Generated ${combinations.length} variant(s)`);
     }
 
     function removeVariant(idx) {
@@ -830,7 +845,7 @@
 
     function openMediaModal(mode = 'main') {
         currentMode = mode;
-        selectedImages = []; // Reset selection
+        selectedImages = [];
 
         // Set modal title based on mode
         let modalTitle = 'Select Media';
@@ -907,24 +922,29 @@
 
     function renderPagination(data) {
         const pagination = document.getElementById('media-pagination');
-        if (!data.links || data.links.length <= 3) {
+        if (!data || !data.links || data.links.length <= 1) {
             pagination.innerHTML = '';
             return;
         }
 
-        let html = '';
+        let html = '<div class="flex space-x-2">';
+        
         data.links.forEach(link => {
             if (link.url) {
                 const active = link.active ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-700';
+                const url = new URL(link.url, window.location.origin);
+                const page = url.searchParams.get('page') || link.label.replace('&laquo; Previous', '1').replace('Next &raquo;', data.last_page);
+                
                 html += `
-                <button onclick="loadMedia(${link.label}, document.getElementById('media-search').value)"
+                <button onclick="loadMedia(${page}, document.getElementById('media-search').value)"
                         class="px-3 py-1 rounded ${active} hover:bg-blue-600 hover:text-white transition">
                     ${link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
                 </button>
                 `;
             }
         });
-
+        
+        html += '</div>';
         pagination.innerHTML = html;
     }
 
@@ -1048,18 +1068,30 @@
 
         Swal.fire({
             title: 'Manage Variant Images',
-            showDenyButton: true,
+            html: `
+                <div class="text-left">
+                    <button onclick="setVariantMainImageModal(${idx})" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                        Set Main Image
+                    </button>
+                    <button onclick="addVariantGalleryImageModal(${idx})" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                        Add Gallery Images
+                    </button>
+                </div>
+            `,
             showCancelButton: true,
-            confirmButtonText: 'Set Main Image',
-            denyButtonText: 'Add Gallery Images',
-            cancelButtonText: 'Cancel'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                openMediaModal('variant-main');
-            } else if (result.isDenied) {
-                openMediaModal('variant-gallery');
-            }
+            cancelButtonText: 'Cancel',
+            showConfirmButton: false
         });
+    }
+
+    function setVariantMainImageModal(idx) {
+        Swal.close();
+        openMediaModal('variant-main');
+    }
+
+    function addVariantGalleryImageModal(idx) {
+        Swal.close();
+        openMediaModal('variant-gallery');
     }
 
     // =============== FILE UPLOAD FUNCTIONS ===============
@@ -1105,26 +1137,6 @@
     document.getElementById('media-search').addEventListener('input', debounce(function(e) {
         loadMedia(1, e.target.value);
     }, 500));
-</script>
-<script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        ClassicEditor
-            .create(document.querySelector('#description'), {
-                toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
-                heading: {
-                    options: [
-                        { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
-                        { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
-                        { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' }
-                    ]
-                }
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    });
-</script>
 
     // Handle Enter key in search
     document.getElementById('media-search').addEventListener('keypress', function(e) {
@@ -1149,13 +1161,5 @@
             }
         }
     });
-
-    // Show validation errors with toastr
-    @if($errors->any())
-        @foreach($errors->all() as $error)
-            toastr.error('{{ $error }}');
-        @endforeach
-    @endif
-
 </script>
 @endpush

@@ -627,31 +627,69 @@
             
             const btn = this;
             const originalContent = btn.innerHTML;
-            btn.innerHTML = '<i data-lucide="loader" class="w-5 h-5 animate-spin inline-block"></i>';
+            const variantId = btn.getAttribute('data-variant-id');
+            // quantity variable is already defined in the scope above
+            
+            // Loading state
+            btn.innerHTML = '<i data-lucide="loader" class="w-5 h-5 animate-spin inline-block"></i> Adding...';
             lucide.createIcons();
             btn.disabled = true;
             
-            // Simulate API call
-            setTimeout(() => {
-                // Show notification
-                const notification = document.getElementById('cartNotification');
-                notification.classList.remove('hidden');
-                notification.classList.add('flex');
-                
-                setTimeout(() => {
-                    notification.classList.add('hidden');
-                    notification.classList.remove('flex');
-                }, 3000);
-                
-                btn.innerHTML = '<i data-lucide="check" class="w-5 h-5 inline-block mr-2"></i> Added';
-                lucide.createIcons();
-                
-                setTimeout(() => {
+            fetch("{{ route('customer.cart.add') }}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                },
+                body: JSON.stringify({
+                    variant_id: variantId,
+                    quantity: quantity
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Update header cart count
+                    const cartCountEl = document.getElementById('cartCount'); // Ensure ID matches header
+                    if (cartCountEl) {
+                        cartCountEl.textContent = data.cart_count;
+                        cartCountEl.classList.remove('hidden');
+                    }
+
+                    // Show notification
+                    const notification = document.getElementById('cartNotification');
+                    if (notification) {
+                        notification.classList.remove('hidden');
+                        notification.classList.add('flex');
+                        
+                        setTimeout(() => {
+                            notification.classList.add('hidden');
+                            notification.classList.remove('flex');
+                        }, 3000);
+                    }
+                    
+                    btn.innerHTML = '<i data-lucide="check" class="w-5 h-5 inline-block mr-2"></i> Added';
+                    lucide.createIcons();
+                    
+                    setTimeout(() => {
+                        btn.innerHTML = originalContent;
+                        btn.disabled = false;
+                        lucide.createIcons();
+                    }, 2000);
+                } else {
+                    alert(data.message || 'Failed to add to cart');
                     btn.innerHTML = originalContent;
                     btn.disabled = false;
                     lucide.createIcons();
-                }, 2000);
-            }, 500);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while adding to cart.');
+                btn.innerHTML = originalContent;
+                btn.disabled = false;
+                lucide.createIcons();
+            });
         });
         
         // Wishlist

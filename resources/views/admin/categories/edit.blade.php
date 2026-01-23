@@ -730,7 +730,12 @@
             console.log('Media API Response:', response.data);
 
             if (response.data.success) {
-                const mediaItems = response.data.data || response.data;
+                let mediaItems = response.data.data || response.data;
+
+                // Handle pagination wrapper
+                if (mediaItems.data && Array.isArray(mediaItems.data)) {
+                    mediaItems = mediaItems.data;
+                }
 
                 if (!Array.isArray(mediaItems)) {
                     console.error('Media items is not an array:', mediaItems);
