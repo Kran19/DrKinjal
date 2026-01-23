@@ -90,7 +90,7 @@ class OrderController extends Controller
         }
 
 
-        return view('customer.account.orderdetails', compact(
+        return view('customer.account.order-details', compact(
             'order',
             'statusHistory',
             'shippingAddress',

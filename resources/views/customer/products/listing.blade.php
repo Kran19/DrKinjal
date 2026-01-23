@@ -50,9 +50,25 @@
                                 <i data-lucide="arrow-right" class="w-4 h-4 text-stone-900"></i>
                             </div>
                             @if(isset($category['image']) && $category['image'])
-                                <img src="{{ asset('storage/' . $category['image']) }}"
+                                @php
+                                    $catImgPath = $category['image'];
+                                    if (is_array($catImgPath)) {
+                                         $catImgPath = $catImgPath['file_path'] ?? null;
+                                    } elseif (is_object($catImgPath)) {
+                                         $catImgPath = $catImgPath->file_path ?? null;
+                                    } elseif (is_string($catImgPath)) {
+                                        // Check if it's a JSON string
+                                        if (\Illuminate\Support\Str::contains($catImgPath, 'file_path')) {
+                                             $catImgData = json_decode($catImgPath, true);
+                                             $catImgPath = $catImgData['file_path'] ?? $catImgPath;
+                                        }
+                                    }
+                                @endphp
+                                @if($catImgPath)
+                                <img src="{{ asset('storage/' . $catImgPath) }}"
                                     class="absolute bottom-0 right-0 w-24 h-24 object-contain rotate-[-10deg] group-hover:rotate-0 transition-transform duration-500"
                                     alt="{{ $category['name'] }}" loading="lazy">
+                                @endif
                             @endif
                         </a>
                     @endforeach
@@ -130,7 +146,14 @@
                                     {{ $badge }}
                                 </span>
                             @endif
-                            <img src="{{ asset('storage/' . $product['main_image']) }}"
+                            @php
+                                $prodImgPath = $product['main_image'];
+                                if (is_string($prodImgPath) && \Illuminate\Support\Str::startsWith($prodImgPath, '{')) {
+                                     $prodImgData = json_decode($prodImgPath, true);
+                                     $prodImgPath = $prodImgData['file_path'] ?? $prodImgPath;
+                                }
+                            @endphp
+                            <img src="{{ asset('storage/' . $prodImgPath) }}"
                                 class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 z-10"
                                 alt="{{ $product['name'] }}" loading="lazy"
                                 onerror="this.src='{{ asset('assets/images/placeholder.jpg') }}'">

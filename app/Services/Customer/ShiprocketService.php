@@ -253,10 +253,7 @@ class ShiprocketService
             $orderData = [
                 'order_id' => $order->order_number,
                 'order_date' => $order->created_at->format('Y-m-d'),
-                'order_id' => $order->order_number,
-                'order_date' => $order->created_at->format('Y-m-d'),
                 'pickup_location' => config('services.shiprocket.pickup_location', 'Primary'),
-                'channel_id' => '',
                 'channel_id' => '',
                 'comment' => '',
                 'reseller_name' => '',
@@ -308,15 +305,28 @@ class ShiprocketService
 
             $shiprocketData = $response->json();
 
+            // Check if API returned an error inside the 200 OK response
+            if (!isset($shiprocketData['order_id']) || !isset($shiprocketData['shipment_id'])) {
+                Log::error('Shiprocket API returned unexpected response structure', [
+                    'response' => $shiprocketData
+                ]);
+                // Try to extract error message if available
+                $msg = $shiprocketData['message'] ?? 'Invalid response from Shiprocket API';
+                if(isset($shiprocketData['errors'])) {
+                     $msg .= ': ' . json_encode($shiprocketData['errors']);
+                }
+                throw new Exception($msg);
+            }
+
             // Create shipment record
             $shipment = Shipment::create([
                 'order_id' => $order->id,
                 'shiprocket_order_id' => $shiprocketData['order_id'],
                 'shipment_id' => $shiprocketData['shipment_id'],
-                'status' => 'created',
-                'courier_id' => $shiprocketData['courier_company_id'],
-                'courier_name' => $shiprocketData['courier_name'],
-                'tracking_number' => $shiprocketData['awb_code'],
+                'status' => 'created', 
+                'courier_id' => $shiprocketData['courier_company_id'] ?? null,
+                'courier_name' => $shiprocketData['courier_name'] ?? null,
+                'tracking_number' => $shiprocketData['awb_code'] ?? null,
                 'shipping_label_url' => $shiprocketData['label_url'] ?? null,
                 'manifest_url' => $shiprocketData['manifest_url'] ?? null,
                 'shiprocket_response' => $shiprocketData,
