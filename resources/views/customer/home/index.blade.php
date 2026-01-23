@@ -31,7 +31,7 @@
                         @endphp
                         <img src="{{ $bannerUrl }}"
                             alt="{{ $banner->title ?? 'Banner' }}"
-                            class="w-full h-full object-cover">
+                            class="w-full h-full ">
                         <div class="absolute inset-0 bg-gradient-to-r from-black/40 to-black/20 md:to-transparent"></div>
                     </div>
                 </div>
