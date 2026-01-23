@@ -508,21 +508,52 @@
                  html += `<input type="hidden" name="${fieldName}[specification_id]" value="${spec.id}">`;
                  html += `<label class="block text-sm text-gray-600 mb-1">${spec.name} ${spec.is_required ? '<span class="text-red-500">*</span>' : ''}</label>`;
                  
-                 if (['select', 'multiselect', 'radio'].includes(spec.input_type)) {
-                     html += `<select name="${fieldName}[specification_value_id]" class="w-full px-3 py-2 border rounded-lg outline-none focus:ring-1 focus:ring-blue-500">`;
-                     html += `<option value="">Select ${spec.name}</option>`;
-                     html += `<option value="">None</option>`;
+                 // Normalize input type
+                 const inputType = (spec.input_type || '').toLowerCase().trim();
+                 
+                 if (['select', 'multiselect', 'multi-select', 'radio'].includes(inputType)) {
+                     const isMulti = inputType === 'multiselect' || inputType === 'multi-select';
+                     html += `<select name="${fieldName}[specification_value_id]${isMulti ? '[]' : ''}" ${isMulti ? 'multiple' : ''} class="w-full px-3 py-2 border rounded-lg outline-none focus:ring-1 focus:ring-blue-500">`;
+                     if (!isMulti) {
+                         html += `<option value="">Select ${spec.name}</option>`;
+                         html += `<option value="">None</option>`;
+                     }
                      if(spec.values) {
                          spec.values.forEach(val => {
-                             const selected = (existingValId == val.id) ? 'selected' : '';
+                             // Correctly check if value is selected (handling array for multiselect)
+                             let selected = '';
+                             if (isMulti) {
+                                  // For multiselect, existingValId might be an array or null
+                                  // BUT the existingSpecs map at the top of script needs to be checked carefully.
+                                  // Usually $s->pivot->specification_value_id is a single value if DB structure is standard pivot per row.
+                                  // But wait, our Service `getProductForEdit` logic returns unique specs. 
+                                  // If a product has multiple values for same spec_id, Eloquent `specifications` relation returns multiple rows.
+                                  // We need to aggregate them in `existingSpecs` JS array.
+                                  
+                                  // Let's check `existingSpecs` construction.
+                                  // Currently: existingSpecs = [{specification_id: 1, specification_value_id: 5, ...}, {specification_id: 1, specification_value_id: 6, ...}]
+                                  // So `match` logic below (finding FIRST match) is insufficient for multiselect.
+                                  
+                                  // Better logic: find ALL matches for this spec.id
+                                  const matches = existingSpecs.filter(s => s.specification_id === spec.id);
+                                  const selectedIds = matches.map(m => m.specification_value_id);
+                                  if (selectedIds.includes(val.id)) selected = 'selected';
+                             } else {
+                                  const match = existingSpecs.find(s => s.specification_id === spec.id);
+                                  if (match && match.specification_value_id == val.id) selected = 'selected';
+                             }
+                             
                              html += `<option value="${val.id}" ${selected}>${val.value}</option>`;
                          });
                      }
                      html += `</select>`;
-                 } else if (spec.input_type === 'textarea') {
+                     if (isMulti) {
+                         html += `<p class="text-xs text-gray-500 mt-1">Hold Ctrl (Windows) or Cmd (Mac) to select multiple values.</p>`;
+                     }
+                 } else if (inputType === 'textarea') {
                      const val = existingCustom || '';
                      html += `<textarea name="${fieldName}[custom_value]" rows="3" class="w-full px-3 py-2 border rounded-lg outline-none focus:ring-1 focus:ring-blue-500">${val}</textarea>`;
-                 } else if (spec.input_type === 'checkbox') {
+                 } else if (inputType === 'checkbox') {
                      const checked = existingCustom == '1' ? 'checked' : '';
                      html += `
                         <div class="flex items-center mt-2">
@@ -728,8 +759,39 @@
         }
     }
 
-    document.getElementById('media-search').addEventListener('input', _.debounce((e) => {
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+
+    document.getElementById('media-search').addEventListener('input', debounce((e) => {
         loadMedia(1, e.target.value);
     }, 500));
+</script>
+<script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        ClassicEditor
+            .create(document.querySelector('#description'), {
+                toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
+                heading: {
+                    options: [
+                        { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                        { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+                        { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' }
+                    ]
+                }
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    });
 </script>
 @endpush

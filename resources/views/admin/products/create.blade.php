@@ -604,18 +604,27 @@
                  html += `<input type="hidden" name="${fieldName}[specification_id]" value="${spec.id}">`;
                  html += `<label class="block text-sm text-gray-600 mb-1">${spec.name} ${spec.is_required ? '<span class="text-red-500">*</span>' : ''}</label>`;
 
-                 if (['select', 'multiselect', 'radio'].includes(spec.input_type)) {
-                     html += `<select name="${fieldName}[specification_value_id]" class="w-full px-3 py-2 border rounded-lg outline-none focus:ring-1 focus:ring-blue-500">`;
-                     html += `<option value="">Select ${spec.name}</option>`;
+                 // Normalize input type
+                 const inputType = (spec.input_type || '').toLowerCase().trim();
+                 
+                 if (['select', 'multiselect', 'multi-select', 'radio'].includes(inputType)) {
+                     const isMulti = inputType === 'multiselect' || inputType === 'multi-select';
+                     html += `<select name="${fieldName}[specification_value_id]${isMulti ? '[]' : ''}" ${isMulti ? 'multiple' : ''} class="w-full px-3 py-2 border rounded-lg outline-none focus:ring-1 focus:ring-blue-500">`;
+                     if (!isMulti) {
+                         html += `<option value="">Select ${spec.name}</option>`;
+                     }
                      if(spec.values) {
                          spec.values.forEach(val => {
                              html += `<option value="${val.id}">${val.value}</option>`;
                          });
                      }
                      html += `</select>`;
-                 } else if (spec.input_type === 'textarea') {
+                     if (isMulti) {
+                         html += `<p class="text-xs text-gray-500 mt-1">Hold Ctrl (Windows) or Cmd (Mac) to select multiple values.</p>`;
+                     }
+                 } else if (inputType === 'textarea') {
                      html += `<textarea name="${fieldName}[custom_value]" rows="3" class="w-full px-3 py-2 border rounded-lg outline-none focus:ring-1 focus:ring-blue-500"></textarea>`;
-                 } else if (spec.input_type === 'checkbox') {
+                 } else if (inputType === 'checkbox') {
                      html += `
                         <div class="flex items-center mt-2">
                             <input type="hidden" name="${fieldName}[custom_value]" value="0">
@@ -1079,16 +1088,43 @@
     }
 
     // =============== UTILITY FUNCTIONS ===============
-
-    function loadExistingGallery() {
-        // This function would load existing gallery images from localStorage or server
-        // For now, we'll just handle what's already in the DOM from old() input
+    
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
     }
 
     // Debounced search
-    document.getElementById('media-search').addEventListener('input', _.debounce(function(e) {
+    document.getElementById('media-search').addEventListener('input', debounce(function(e) {
         loadMedia(1, e.target.value);
     }, 500));
+</script>
+<script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        ClassicEditor
+            .create(document.querySelector('#description'), {
+                toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
+                heading: {
+                    options: [
+                        { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                        { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+                        { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' }
+                    ]
+                }
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    });
+</script>
 
     // Handle Enter key in search
     document.getElementById('media-search').addEventListener('keypress', function(e) {

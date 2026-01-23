@@ -573,22 +573,55 @@ class ProductService
         }
 
         // Get specifications
-        $specifications = [];
+        $groupedSpecs = [];
         foreach ($product->specifications as $spec) {
-            $value = null;
+            $extractedValues = [];
+            
             if ($spec->pivot->custom_value) {
-                $value = $spec->pivot->custom_value;
+                $cv = $spec->pivot->custom_value;
+                // Check if custom_value looks like a list of IDs (e.g. "44,45,60" or "44, 45")
+                if (preg_match('/^(\d+\s*,\s*)*\d+$/', $cv) && $spec->values->isNotEmpty()) {
+                    $ids = preg_split('/\s*,\s*/', $cv);
+                    $mapped = false;
+                    foreach ($ids as $id) {
+                        $found = $spec->values->firstWhere('id', $id);
+                        if ($found) {
+                            $extractedValues[] = $found->value;
+                            $mapped = true;
+                        }
+                    }
+                    // If no IDs could be mapped, treat it as a literal string value
+                    if (!$mapped) {
+                        $extractedValues[] = $cv;
+                    }
+                } else {
+                    $extractedValues[] = $cv;
+                }
             } else if ($spec->pivot->specification_value_id) {
                 $val = $spec->values->firstWhere('id', $spec->pivot->specification_value_id);
-                $value = $val ? $val->value : null;
+                if ($val) {
+                    $extractedValues[] = $val->value;
+                }
             }
 
-            if ($value) {
-                $specifications[] = [
-                    'name' => $spec->name,
-                    'value' => $value,
-                ];
+            if (!empty($extractedValues)) {
+                if (!isset($groupedSpecs[$spec->name])) {
+                    $groupedSpecs[$spec->name] = [];
+                }
+                foreach ($extractedValues as $v) {
+                    // Avoid duplicates
+                    if (!in_array($v, $groupedSpecs[$spec->name])) {
+                        $groupedSpecs[$spec->name][] = $v;
+                    }
+                }
             }
+        }
+
+        foreach ($groupedSpecs as $name => $values) {
+            $specifications[] = [
+                'name' => $name,
+                'value' => implode(', ', $values),
+            ];
         }
 
         // Process variants and group attributes

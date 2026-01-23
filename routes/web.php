@@ -360,6 +360,7 @@ Route::name('customer.')->group(function () {
     Route::get('/products', [CustomerProduct::class, 'listing'])->name('products.list');
     Route::get('/category/{slug}', [CustomerProduct::class, 'category'])->name('category.products');
     Route::get('/product/{slug}', [CustomerProduct::class, 'details'])->name('products.details');
+    Route::post('/product/{productId}/review', [CustomerProduct::class, 'storeReview'])->name('products.reviews.store');
     Route::get('/search', [CustomerProduct::class, 'search'])->name('products.search');
     Route::get('/products/{slug}/quick-view', [CustomerProduct::class, 'quickView'])->name('products.quick-view');
 

@@ -25,6 +25,13 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('css/customer/custom.css') }}">
     
+
+      <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest" ></script>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+    
     <!-- Page Specific Styles -->
     @stack('styles')
     
@@ -82,11 +89,7 @@
     <!-- Page Specific Scripts -->
     @stack('scripts')
 
-     <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest" defer></script>
-    
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
+   
     
 </body>
 </html>

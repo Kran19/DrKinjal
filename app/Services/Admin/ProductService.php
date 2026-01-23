@@ -128,20 +128,36 @@ class ProductService
      */
     private function syncSpecifications(Product $product, array $data): void
     {
-        $specificationsData = [];
+        // Detach all existing specifications first
+        $product->specifications()->detach();
+
         if (isset($data['specifications']) && is_array($data['specifications'])) {
             foreach ($data['specifications'] as $specData) {
-                if (!empty($specData['specification_id'])) {
-                    $specificationsData[$specData['specification_id']] = [
-                        'specification_value_id' => $specData['specification_value_id'] ?? null,
-                        'custom_value' => $specData['custom_value'] ?? null,
-                    ];
+                if (empty($specData['specification_id'])) {
+                    continue;
+                }
+
+                $specId = $specData['specification_id'];
+                $valId = $specData['specification_value_id'] ?? null;
+                $customVal = $specData['custom_value'] ?? null;
+
+                if (is_array($valId)) {
+                    // Handle multiselect - store IDs in custom_value as CSV to avoid unique constraint violation
+                    $product->specifications()->attach($specId, [
+                        'specification_value_id' => null,
+                        'custom_value' => implode(',', $valId)
+                    ]);
+                } else {
+                    // Handle single select or text input
+                    $product->specifications()->attach($specId, [
+                        'specification_value_id' => $valId,
+                        'custom_value' => $customVal
+                    ]);
                 }
             }
         }
 
-        $product->specifications()->sync($specificationsData);
-        Log::info('Specifications synced', ['product_id' => $product->id, 'count' => count($specificationsData)]);
+        Log::info('Specifications synced', ['product_id' => $product->id]);
     }
 
     /**

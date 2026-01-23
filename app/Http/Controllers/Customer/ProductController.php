@@ -284,4 +284,32 @@ class ProductController extends Controller
             ], 404);
         }
     }
+    public function storeReview(Request $request, $productId)
+    {
+        $request->validate([
+            'rating' => 'required|integer|min:1|max:5',
+            'title' => 'required|string|max:255',
+            'comment' => 'required|string|max:1000',
+            'customer_name' => 'required|string|max:255',
+            'customer_email' => 'required|email|max:255',
+        ]);
+
+        try {
+            \App\Models\Review::create([
+                'product_id' => $productId,
+                'rating' => $request->rating,
+                'title' => $request->title,
+                'comment' => $request->comment,
+                'customer_name' => $request->customer_name,
+                'customer_email' => $request->customer_email,
+                'status' => true,
+            ]);
+
+            return redirect()->back()->with('success', 'Review submitted successfully!');
+
+        } catch (\Exception $e) {
+            Log::error('Review submission error: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Failed to submit review.');
+        }
+    }
 }
