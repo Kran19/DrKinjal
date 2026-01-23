@@ -345,10 +345,8 @@ class ProductController extends Controller
             \App\Models\Review::create([
                 'product_id' => $productId,
                 'rating' => $request->rating,
-                'title' => $request->title,
-                'comment' => $request->comment,
-                'customer_name' => $request->customer_name,
-                'customer_email' => $request->customer_email,
+                'user_name' => $request->customer_name,
+                'review' => "{$request->title}\n\n{$request->comment}",
                 'status' => true,
             ]);
 

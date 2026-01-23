@@ -445,11 +445,18 @@
                                             @endif
                                         @endfor
                                     </div>
-                                    <span class="font-bold text-stone-900">{{ $review->title }}</span>
+                                    @php
+                                        $parts = explode("\n\n", $review->review ?? '', 2);
+                                        $title = count($parts) == 2 ? $parts[0] : '';
+                                        $comment = count($parts) == 2 ? $parts[1] : $parts[0];
+                                    @endphp
+                                    @if($title)
+                                    <span class="font-bold text-stone-900">{{ $title }}</span>
+                                    @endif
                                 </div>
-                                <p class="text-stone-600 mb-4">{{ $review->comment }}</p>
+                                <p class="text-stone-600 mb-4">{{ $comment }}</p>
                                 <div class="text-sm text-stone-500">
-                                    <span class="font-medium text-stone-900">{{ $review->customer_name }}</span>
+                                    <span class="font-medium text-stone-900">{{ $review->user_name }}</span>
                                     <span class="mx-2">•</span>
                                     <span>{{ $review->created_at->format('M d, Y') }}</span>
                                 </div>
