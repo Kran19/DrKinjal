@@ -100,10 +100,10 @@
                             <i data-lucide="user" class="w-8 h-8 text-rose-600"></i>
                         </div>
                         <div>
-                            <h2 class="text-xl font-bold text-stone-900">Alex Johnson</h2>
-                            <p class="text-stone-500">alex@example.com</p>
+                            <h2 class="text-xl font-bold text-stone-900">{{ Auth::guard('customer')->user()->name }}</h2>
+                            <p class="text-stone-500">{{ Auth::guard('customer')->user()->email }}</p>
                             <span class="inline-block mt-1 px-3 py-1 bg-rose-100 text-rose-700 text-xs font-semibold rounded-full">
-                                Premium Member
+                                Member
                             </span>
                         </div>
                     </div>
@@ -111,11 +111,11 @@
                     <!-- Stats -->
                     <div class="stats-grid grid grid-cols-2 gap-4 mb-6">
                         <div class="bg-stone-50 p-4 rounded-xl">
-                            <div class="text-2xl font-bold text-stone-900">12</div>
+                            <div class="text-2xl font-bold text-stone-900">{{ $wishlistCount }}</div>
                             <div class="text-sm text-stone-500">Wishlist Items</div>
                         </div>
                         <div class="bg-stone-50 p-4 rounded-xl">
-                            <div class="text-2xl font-bold text-stone-900">8</div>
+                            <div class="text-2xl font-bold text-stone-900">{{ $ordersCount ?? 0 }}</div>
                             <div class="text-sm text-stone-500">Total Orders</div>
                         </div>
                     </div>
@@ -163,20 +163,28 @@
                     <div class="space-y-4">
                         <div class="flex justify-between items-center">
                             <span class="text-sm">Total Items</span>
-                            <span class="text-lg font-bold">12</span>
+                            <span class="text-lg font-bold">{{ $wishlistCount }}</span>
                         </div>
                         <div class="flex justify-between items-center">
                             <span class="text-sm">Items in Stock</span>
-                            <span class="text-lg font-bold">10</span>
+                            @php
+                                $inStockCount = $wishlistItems->filter(function($item) {
+                                    return ($item->variant->stock_quantity ?? 0) > 0;
+                                })->count();
+                            @endphp
+                            <span class="text-lg font-bold">{{ $inStockCount }}</span>
                         </div>
                         <div class="flex justify-between items-center">
                             <span class="text-sm">Total Value</span>
-                            <span class="text-lg font-bold">₹8,450</span>
+                            <span class="text-lg font-bold">₹{{ number_format($totalPrice, 0) }}</span>
                         </div>
                     </div>
-                    <button class="w-full mt-6 bg-white text-rose-600 font-semibold py-3 rounded-full hover:bg-stone-50 transition-colors">
-                        Move All to Cart
-                    </button>
+                    <form action="{{ route('customer.wishlist.move-all-to-cart') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="w-full mt-6 bg-white text-rose-600 font-semibold py-3 rounded-full hover:bg-stone-50 transition-colors">
+                            Move All to Cart
+                        </button>
+                    </form>
                 </div>
             </div>
 
@@ -187,68 +195,116 @@
                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div>
                             <h3 class="text-lg font-semibold text-stone-900">Saved Products</h3>
-                            <p class="text-stone-500 text-sm">12 items • Last updated today</p>
+                            <p class="text-stone-500 text-sm">{{ $wishlistCount }} items • Last updated {{ $wishlistItems->first()?->created_at->diffForHumans() ?? 'today' }}</p>
                         </div>
                         
                         <div class="flex flex-wrap gap-3">
-                            <button id="selectAll" class="px-4 py-2 border border-stone-200 rounded-xl text-stone-700 hover:bg-stone-50 transition-colors">
+                            <!-- Select All functionality via JS (visual only if no bulk action) -->
+                            <!-- <button id="selectAll" class="px-4 py-2 border border-stone-200 rounded-xl text-stone-700 hover:bg-stone-50 transition-colors">
                                 Select All
-                            </button>
-                            <button id="moveSelectedToCart" class="px-4 py-2 bg-cyan-600 text-white rounded-xl hover:bg-cyan-700 transition-colors">
-                                Move Selected to Cart
-                            </button>
-                            <button id="clearWishlist" class="px-4 py-2 border border-red-200 text-red-600 rounded-xl hover:bg-red-50 transition-colors">
-                                Clear All
-                            </button>
+                            </button> -->
+                            
+                            <!-- Move All Form -->
+                            <form action="{{ route('customer.wishlist.move-all-to-cart') }}" method="POST" class="inline">
+                                @csrf
+                                <button type="submit" class="px-4 py-2 bg-cyan-600 text-white rounded-xl hover:bg-cyan-700 transition-colors" {{ $wishlistCount == 0 ? 'disabled' : '' }}>
+                                    Move All to Cart
+                                </button>
+                            </form>
+
+                            <!-- Clear All Form -->
+                            <form action="{{ route('customer.wishlist.clear') }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to clear your wishlist?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="px-4 py-2 border border-red-200 text-red-600 rounded-xl hover:bg-red-50 transition-colors" {{ $wishlistCount == 0 ? 'disabled' : '' }}>
+                                    Clear All
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
 
                 <!-- Wishlist Items Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="wishlistItems">
-                    <!-- Wishlist Item 1 -->
-                    <div class="wishlist-item bg-white rounded-3xl p-4 shadow-lg shadow-stone-200/50 border border-stone-100">
-                        <div class="relative">
-                            <div class="product-image aspect-square rounded-xl bg-stone-100 mb-4">
-                                <img src="{{ asset('storage/assets/images/16.png') }}"
-                                     alt="Glow Serum" 
-                                     class="w-full h-full object-cover rounded-xl">
-                                <div class="stock-badge">
-                                    <span class="px-3 py-1 bg-green-500 text-white text-xs font-semibold rounded-full">
-                                        In Stock
-                                    </span>
+                    @forelse($wishlistItems as $item)
+                        @php
+                            $product = $item->variant->product ?? null;
+                            $variant = $item->variant ?? null;
+                            $image = ($variant && $variant->images) ? json_decode($variant->images)[0] ?? null : null;
+                            // Fallback to product image if variant image missing? Or just blank.
+                            // Assuming product images are stored somehow if variant doesn't have one? 
+                            // Usually variants have images.
+                        @endphp
+                        @if($product && $variant)
+                        <div class="wishlist-item bg-white rounded-3xl p-4 shadow-lg shadow-stone-200/50 border border-stone-100" data-id="{{ $item->id }}">
+                            <div class="relative">
+                                <div class="product-image aspect-square rounded-xl bg-stone-100 mb-4">
+                                    @if($image)
+                                        <img src="{{ asset('storage/' . $image) }}"
+                                             alt="{{ $product->name }}" 
+                                             class="w-full h-full object-cover rounded-xl">
+                                    @else
+                                        <div class="w-full h-full flex items-center justify-center text-stone-300">
+                                            <i data-lucide="image-off" class="w-10 h-10"></i>
+                                        </div>
+                                    @endif
+                                    
+                                    <div class="stock-badge">
+                                        @if($variant->stock_quantity > 0)
+                                            <span class="px-3 py-1 bg-green-500 text-white text-xs font-semibold rounded-full">In Stock</span>
+                                        @else
+                                            <span class="px-3 py-1 bg-red-500 text-white text-xs font-semibold rounded-full">Out of Stock</span>
+                                        @endif
+                                    </div>
+                                    
+                                    <form action="{{ route('customer.wishlist.remove') }}" method="POST" class="absolute top-2 right-2">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="hidden" name="item_id" value="{{ $item->id }}">
+                                        <button type="submit" class="w-8 h-8 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white text-stone-700 hover:text-red-500 transition-colors">
+                                            <i data-lucide="x" class="w-4 h-4"></i>
+                                        </button>
+                                    </form>
                                 </div>
-                                <button class="remove-btn absolute top-2 right-2 w-8 h-8 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white">
-                                    <i data-lucide="x" class="w-4 h-4 text-stone-700"></i>
-                                </button>
-                            </div>
-                            
-                            <div class="flex items-start justify-between mb-3">
-                                <div>
-                                    <h4 class="font-semibold text-stone-900 mb-1">Brightening Face Wash</h4>
-                                    <p class="text-sm text-stone-500">Brightening & Anti-Pigmentation</p>
+                                
+                                <div class="flex items-start justify-between mb-3">
+                                    <div>
+                                        <h4 class="font-semibold text-stone-900 mb-1 line-clamp-1"><a href="{{ route('customer.products.details', $product->slug) }}">{{ $product->name }}</a></h4>
+                                        <p class="text-sm text-stone-500">{{ $variant->name ?? '' }}</p>
+                                    </div>
+                                    <label class="inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" name="selected_items[]" value="{{ $item->id }}" class="w-5 h-5 text-rose-500 rounded border-stone-300 focus:ring-rose-400">
+                                    </label>
                                 </div>
-                                <label class="inline-flex items-center cursor-pointer">
-                                    <input type="checkbox" class="w-5 h-5 text-rose-500 rounded border-stone-300 focus:ring-rose-400">
-                                </label>
-                            </div>
-                            
-                            <div class="flex items-center justify-between mb-4">
-                                <div class="flex items-center gap-2">
-                                    <span class="text-xl font-bold text-stone-900">₹399</span>
+                                
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-xl font-bold text-stone-900">₹{{ number_format($variant->price, 0) }}</span>
+                                        @if($variant->compare_price > $variant->price)
+                                            <span class="text-sm text-stone-400 line-through">₹{{ number_format($variant->compare_price, 0) }}</span>
+                                        @endif
+                                    </div>
                                 </div>
+                                
+                                <form action="{{ route('customer.wishlist.move-to-cart') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="item_id" value="{{ $item->id }}">
+                                    <button type="submit" class="w-full py-3 bg-cyan-600 text-white font-semibold rounded-xl hover:bg-cyan-700 transition-colors flex items-center justify-center gap-2" {{ $variant->stock_quantity <= 0 ? 'disabled' : '' }}>
+                                        <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+                                        Add to Cart
+                                    </button>
+                                </form>
                             </div>
-                            
-                            <button class="w-full py-3 bg-cyan-600 text-white font-semibold rounded-xl hover:bg-cyan-700 transition-colors flex items-center justify-center gap-2">
-                                <i data-lucide="shopping-cart" class="w-4 h-4"></i>
-                                Add to Cart
-                            </button>
                         </div>
-                    </div>
+                        @endif
+                    @empty
+                        <!-- Empty state handled by check in controller or just show it below if logic dictates -->
+                    @endforelse
                 </div>
 
-                <!-- Empty State (Hidden by default) -->
-                <div id="emptyWishlist" class="hidden">
+                <!-- Empty State -->
+                @if($wishlistItems->isEmpty())
+                <div id="emptyWishlist">
                     <div class="text-center py-16">
                         <div class="empty-state-illustration inline-block mb-8">
                             <i data-lucide="heart" class="w-24 h-24 text-rose-200"></i>
@@ -261,6 +317,7 @@
                         </a>
                     </div>
                 </div>
+                @endif
             </div>
         </div>
     </div>

@@ -41,11 +41,20 @@ class WishlistController extends Controller
             return $item->variant->price ?? $item->variant->product->price ?? 0;
         });
 
+        // Get cart items count
+        $cart = \App\Models\Cart::where('customer_id', $customer->id)->where('status', 1)->first();
+        $cartCount = $cart ? $cart->items()->sum('quantity') : 0;
+
+        // Get orders count
+        $ordersCount = \App\Models\Order::where('customer_id', $customer->id)->count();
+
         return view('customer.wishlist.index', compact(
             'wishlist',
             'wishlistItems',
             'wishlistCount',
-            'totalPrice'
+            'totalPrice',
+            'cartCount',
+            'ordersCount'
         ));
     }
 

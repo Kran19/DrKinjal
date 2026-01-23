@@ -182,32 +182,9 @@
     // Initialize Lucide icons
     lucide.createIcons();
     
-    // Form submission
+    // Skin type selection
     document.addEventListener('DOMContentLoaded', function() {
-        const saveButton = document.querySelector('button:contains("Save Changes")');
-        const cancelButton = document.querySelector('button:contains("Cancel")');
-        
-        if (saveButton) {
-            saveButton.addEventListener('click', function() {
-                this.innerHTML = '<span>Saving...</span>';
-                this.disabled = true;
-                
-                // Simulate API call
-                setTimeout(() => {
-                    alert('Profile updated successfully!');
-                    this.innerHTML = '<span>Save Changes</span>';
-                    this.disabled = false;
-                }, 1500);
-            });
-        }
-        
-        if (cancelButton) {
-            cancelButton.addEventListener('click', function() {
-                window.location.reload();
-            });
-        }
-        
-        // Skin type selection
+        // Skin type selection code preserved if needed, though hidden in current view
         const skinTypeRadios = document.querySelectorAll('input[name="skin-type"]');
         skinTypeRadios.forEach(radio => {
             radio.addEventListener('change', function() {

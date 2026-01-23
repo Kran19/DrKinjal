@@ -49,12 +49,19 @@ class OrderController extends Controller
             ->sum('grand_total');
         $averageOrder = $totalOrders > 0 ? round($totalSpent / $totalOrders, 2) : 0;
 
+        // Get counts for header
+        $wishlistCount = \App\Models\Wishlist::where('customer_id', $customer->id)->count();
+        $cart = \App\Models\Cart::where('customer_id', $customer->id)->where('status', 1)->first();
+        $cartCount = $cart ? $cart->items()->sum('quantity') : 0;
+
         return view('customer.account.orders', compact(
             'orders',
             'statusCounts',
             'totalOrders',
             'totalSpent',
-            'averageOrder'
+            'averageOrder',
+            'wishlistCount',
+            'cartCount'
         ));
     }
 
@@ -90,11 +97,18 @@ class OrderController extends Controller
         }
 
 
+        // Get counts for header
+        $wishlistCount = \App\Models\Wishlist::where('customer_id', $customer->id)->count();
+        $cart = \App\Models\Cart::where('customer_id', $customer->id)->where('status', 1)->first();
+        $cartCount = $cart ? $cart->items()->sum('quantity') : 0;
+
         return view('customer.account.order-details', compact(
             'order',
             'statusHistory',
             'shippingAddress',
-            'billingAddress'
+            'billingAddress',
+            'wishlistCount',
+            'cartCount'
         ));
     }
 
@@ -163,13 +177,20 @@ class OrderController extends Controller
             ->sum('grand_total');
         $averageOrder = $totalOrders > 0 ? round($totalSpent / $totalOrders, 2) : 0;
 
+        // Get counts for header
+        $wishlistCount = \App\Models\Wishlist::where('customer_id', $customer->id)->count();
+        $cart = \App\Models\Cart::where('customer_id', $customer->id)->where('is_active', 1)->first();
+        $cartCount = $cart ? $cart->items()->sum('quantity') : 0;
+
         return view('customer.account.orders', compact(
             'orders',
             'statusCounts',
             'totalOrders',
             'totalSpent',
             'averageOrder',
-            'status'
+            'status',
+            'wishlistCount',
+            'cartCount'
         ));
     }
 }

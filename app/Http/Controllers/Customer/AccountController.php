@@ -38,15 +38,16 @@ class AccountController extends Controller
         // Get wishlist count
         $wishlistCount = Wishlist::where('customer_id', $customer->id)->count();
 
-        // Get cart items count (from session or database)
-        $cartCount = 0; // You'll need to implement your cart logic
+        // Get cart items count
+        $cart = \App\Models\Cart::where('customer_id', $customer->id)->where('status', 1)->first();
+        $cartCount = $cart ? $cart->items()->sum('quantity') : 0;
 
         // Get orders count
         $ordersCount = Order::where('customer_id', $customer->id)->count();
 
         // Calculate total spent
         $totalSpent = Order::where('customer_id', $customer->id)
-            ->whereIn('status', ['delivered', 'shipped', 'processing', 'confirmed'])
+            ->whereIn('status', ['delivered', 'shipped', 'processing', 'confirmed', 'pending'])
             ->sum('grand_total');
 
         return view('customer.account.profile', compact(
@@ -65,9 +66,6 @@ class AccountController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:100',
-            // Email updates might require verification, typically we don't allow email change here or we send verification. 
-            // For now, let's allow name updates. Email is often read-only or handled separately.
-            // Based on view, email was readonly.
         ]);
 
         if ($validator->fails()) {
@@ -76,16 +74,6 @@ class AccountController extends Controller
 
         $customer->update([
             'name' => $request->name,
-            // 'mobile' => $request->mobile, // Mobile typically also requires OTP if changed. View had it readonly?
-            // Let's check view again. View had email and mobile as readonly?
-            // "Email Address" input has `readonly`. "Phone Number" input has `readonly`.
-            // Only "First Name" and "Last Name" (merged to `name`) are editable?
-            // The view has "First Name" and "Last Name" inputs in my first read (Step 341), but later I replaced them with just "Name" (Step 376).
-            // In Step 376 I made:
-            // <input type="text" name="name" value="{{ $customer->name }}" ...>
-            // <input type="email" name="email" ... readonly>
-            // <input type="tel" name="mobile" ... readonly>
-            // So only name is updatable.
         ]);
 
         return redirect()->back()->with('success', 'Profile updated successfully!');
@@ -101,10 +89,25 @@ class AccountController extends Controller
 
         $ordersCount = Order::where('customer_id', $customer->id)->count();
         $wishlistCount = Wishlist::where('customer_id', $customer->id)->count();
-        $cartCount = 0; // consistent with profile method
+        $cart = \App\Models\Cart::where('customer_id', $customer->id)->where('status', 1)->first();
+        $cartCount = $cart ? $cart->items()->sum('quantity') : 0;
+        
+        // Calculate total spent for sidebar consistency
+        $totalSpent = Order::where('customer_id', $customer->id)
+            ->whereIn('status', ['delivered', 'shipped', 'processing', 'confirmed', 'pending'])
+            ->sum('grand_total');
 
-        return view('customer.account.addresses', compact('customer', 'addresses', 'ordersCount', 'wishlistCount', 'cartCount'));
+        return view('customer.account.addresses', compact(
+            'customer', 
+            'addresses', 
+            'ordersCount', 
+            'wishlistCount', 
+            'cartCount',
+            'totalSpent'
+        ));
     }
+    
+    // ... (storeAddress and updateAddress methods are fine, skipping to changePassword)
 
     public function storeAddress(Request $request)
     {
@@ -172,7 +175,6 @@ class AccountController extends Controller
             ->where('id', $id)
             ->firstOrFail();
 
-        // If setting as default, unset other defaults
         if ($request->is_default) {
             CustomerAddress::where('customer_id', $customer->id)
                 ->where('id', '!=', $id)
@@ -233,7 +235,24 @@ class AccountController extends Controller
     public function changePassword()
     {
         $customer = Auth::guard('customer')->user();
-        return view('customer.account.change-password', compact('customer'));
+        
+        // Get counts for header and sidebar
+        $ordersCount = Order::where('customer_id', $customer->id)->count();
+        $wishlistCount = Wishlist::where('customer_id', $customer->id)->count();
+        $cart = \App\Models\Cart::where('customer_id', $customer->id)->where('status', 1)->first();
+        $cartCount = $cart ? $cart->items()->sum('quantity') : 0;
+        
+        $totalSpent = Order::where('customer_id', $customer->id)
+            ->whereIn('status', ['delivered', 'shipped', 'processing', 'confirmed', 'pending'])
+            ->sum('grand_total');
+            
+        return view('customer.account.change-password', compact(
+            'customer',
+            'ordersCount',
+            'wishlistCount',
+            'cartCount',
+            'totalSpent'
+        ));
     }
 
     public function updatePassword(Request $request)

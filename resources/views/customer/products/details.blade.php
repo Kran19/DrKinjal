@@ -693,11 +693,19 @@
         });
         
         // Wishlist
+        // Wishlist
         window.addToWishlist = function(productId) {
             const btn = event.currentTarget;
-            const icon = btn.querySelector('i');
+            // Lucide replaces <i> with <svg>, so check for both or use the first child
+            const icon = btn.querySelector('i') || btn.querySelector('svg');
+            
+            if (!icon) {
+                 console.warn('Wishlist icon not found');
+                 return;
+            }
             
             // Toggle heart fill
+            // Check based on class if it's an <i> tag or lucide svg styles
             if (icon.classList.contains('text-rose-500')) {
                 icon.classList.remove('text-rose-500', 'fill-current');
                 icon.classList.add('text-stone-400');
@@ -707,7 +715,12 @@
             }
             
             // Show feedback (optional)
-            alert('Added to wishlist!');
+            // In a real app, you would make an AJA call here
+            if (typeof window.showToast === 'function') {
+                window.showToast('Added to wishlist!', 'success');
+            } else {
+                alert('Added to wishlist!');
+            }
         }
 
         // Star Rating Interaction

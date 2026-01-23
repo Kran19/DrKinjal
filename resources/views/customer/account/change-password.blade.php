@@ -140,11 +140,11 @@
                     <!-- Stats -->
                     <div class="stats-grid grid grid-cols-2 gap-4 mb-6">
                         <div class="bg-stone-50 p-4 rounded-xl">
-                            <div class="text-2xl font-bold text-stone-900">₹12,450</div>
+                            <div class="text-2xl font-bold text-stone-900">₹{{ number_format($totalSpent, 0) }}</div>
                             <div class="text-sm text-stone-500">Total Spent</div>
                         </div>
                         <div class="bg-stone-50 p-4 rounded-xl">
-                            <div class="text-2xl font-bold text-stone-900">8</div>
+                            <div class="text-2xl font-bold text-stone-900">{{ $ordersCount }}</div>
                             <div class="text-sm text-stone-500">Total Orders</div>
                         </div>
                     </div>
