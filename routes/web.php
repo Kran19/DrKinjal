@@ -146,6 +146,8 @@ Route::prefix('admin')->group(function () {
         */
         Route::prefix('media')->group(function () {
             Route::get('/', [AdminMedia::class, 'index'])->name('admin.media.index');
+            Route::get('/data', [AdminMedia::class, 'getData'])->name('admin.media.data');
+            Route::post('/upload', [AdminMedia::class, 'upload'])->name('admin.media.upload');
         });
 
 

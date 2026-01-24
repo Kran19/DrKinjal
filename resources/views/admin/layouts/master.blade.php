@@ -35,7 +35,6 @@
         const BASE_URL = '{{ url('/') }}';
         const ADMIN_URL = '{{ url('/admin') }}';
         const ASSET_URL = '{{ asset('') }}';
-        window.ADMIN_API_TOKEN = "{{ session('admin_api_token') }}";
     </script>
 </head>
 
