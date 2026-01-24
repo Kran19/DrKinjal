@@ -172,7 +172,7 @@
                     </p>
 
                     <!-- Divider -->
-                    <div class="relative py-4">
+                    <!-- <div class="relative py-4">
                         <div class="absolute inset-0 flex items-center">
                             <div class="w-full border-t border-stone-200"></div>
                         </div>
@@ -181,10 +181,10 @@
                                 Or continue with
                             </span>
                         </div>
-                    </div>
+                    </div> -->
 
                     <!-- Social Login Buttons -->
-                    <div class="social-buttons grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+                    <!-- <div class="social-buttons grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
                         <button
                             type="button"
                             class="flex items-center justify-center gap-3 py-3 md:py-2.5 border border-stone-200 rounded-xl
@@ -211,7 +211,7 @@
                             </svg>
                             <span class="text-sm font-medium text-stone-700">Continue with Apple</span>
                         </button>
-                    </div>
+                    </div> -->
 
                     <!-- Trust Badges for Mobile -->
                     <div class="pt-6 border-t border-stone-200 lg:hidden">

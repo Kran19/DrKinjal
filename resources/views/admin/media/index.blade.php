@@ -18,6 +18,46 @@
         </div>
     </div>
 
+    <!-- Statistics Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex items-center">
+            <div class="w-12 h-12 rounded-full bg-indigo-50 flex items-center justify-center mr-4">
+                <i class="fas fa-layer-group text-indigo-600 text-xl"></i>
+            </div>
+            <div>
+                <p class="text-sm text-gray-500">Total Files</p>
+                <h3 class="text-2xl font-bold text-gray-800" id="statTotalFiles">-</h3>
+            </div>
+        </div>
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex items-center">
+            <div class="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center mr-4">
+                <i class="fas fa-hdd text-blue-600 text-xl"></i>
+            </div>
+            <div>
+                <p class="text-sm text-gray-500">Total Size</p>
+                <h3 class="text-2xl font-bold text-gray-800" id="statTotalSize">-</h3>
+            </div>
+        </div>
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex items-center">
+            <div class="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center mr-4">
+                <i class="fas fa-image text-green-600 text-xl"></i>
+            </div>
+            <div>
+                <p class="text-sm text-gray-500">Images</p>
+                <h3 class="text-2xl font-bold text-gray-800" id="statImageCount">-</h3>
+            </div>
+        </div>
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex items-center">
+            <div class="w-12 h-12 rounded-full bg-amber-50 flex items-center justify-center mr-4">
+                <i class="fas fa-file-alt text-amber-600 text-xl"></i>
+            </div>
+            <div>
+                <p class="text-sm text-gray-500">Documents</p>
+                <h3 class="text-2xl font-bold text-gray-800" id="statDocCount">-</h3>
+            </div>
+        </div>
+    </div>
+
     <!-- Upload Section -->
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
         <div class="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-xl p-8 hover:border-indigo-400 transition-colors duration-200"
@@ -337,8 +377,8 @@
             // Setup event listeners
             setupEventListeners();
 
-            // Load statistics (optional)
-            // loadStatistics();
+            // Load statistics
+            loadStatistics();
         });
 
         // Setup event listeners
@@ -604,10 +644,10 @@
                     search: currentSearch
                 });
 
-                const response = await axios.get(`/api/admin/media?${params}`, {
+                // Using Web Route (Session Auth) instead of API
+                const response = await axios.get(`{{ route('admin.media.data') }}?${params}`, {
                     headers: {
-                        'X-Requested-With': 'XMLHttpRequest',
-                        'Authorization': `Bearer ${window.ADMIN_API_TOKEN || "{{ session('admin_api_token') }}"}`
+                        'X-Requested-With': 'XMLHttpRequest'
                     }
                 });
 
@@ -780,6 +820,63 @@
         // The rest of your functions (handleFileSelect, uploadFiles, editMedia, deleteMedia, etc.)
         // ... [Keep all your existing functions for file handling, uploads, etc.] ...
 
+        // Load statistics
+        async function loadStatistics() {
+            try {
+                const response = await axios.get("{{ route('admin.media.stats') }}");
+                if (response.data.success) {
+                    const stats = response.data.data;
+                    document.getElementById('statTotalFiles').textContent = stats.total_files;
+                    document.getElementById('statTotalSize').textContent = stats.total_size;
+                    document.getElementById('statImageCount').textContent = stats.image_count;
+                    document.getElementById('statDocCount').textContent = stats.document_count;
+                }
+            } catch (error) {
+                console.error("Failed to load stats:", error);
+            }
+        }
+
+        // Confirm Bulk Delete
+        function confirmBulkDelete() {
+            const selectedData = mediaTable.getSelectedData();
+            if (selectedData.length === 0) return;
+
+            const ids = selectedData.map(item => item.id);
+            
+            Swal.fire({
+                title: 'Are you sure?',
+                text: `You are about to delete ${ids.length} files. This cannot be undone!`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete them!'
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    try {
+                        const response = await axios.post("{{ route('admin.media.bulk-delete') }}", {
+                            ids: ids
+                        });
+                        
+                        if (response.data.success) {
+                            toastr.success(response.data.message);
+                            loadMediaData();
+                            loadStatistics(); // Refresh stats
+                            mediaTable.deselectRow(); // Clear selection
+                        } else {
+                            toastr.error('Failed to delete files');
+                        }
+                    } catch (error) {
+                        toastr.error('Error deleting files');
+                        console.error(error);
+                    }
+                }
+            });
+        }
+        
+        // Uncomment loadStatistics in init
+        // loadStatistics(); // Replaced below in handleDrop context but usually good to have separate
+        
         // Handle file selection
         function handleFileSelect(e) {
             const files = e.target.files;
@@ -821,15 +918,14 @@
             }
 
             try {
-                const response = await axios.post('/api/admin/media/upload', formData, {
-
+                // Using Web Route (Session Auth)
+                const response = await axios.post("{{ route('admin.media.upload') }}", formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
-                        'Authorization': `Bearer ${window.ADMIN_API_TOKEN || "{{ session('admin_api_token') }}"}`,
+                        'X-Requested-With': 'XMLHttpRequest'
                     },
                     onUploadProgress: function(progressEvent) {
-                        const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent
-                            .total);
+                        const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
                         updateUploadProgress(percentCompleted, progressEvent.loaded, progressEvent.total);
                     }
                 });
@@ -879,11 +975,10 @@
         // Edit media
         async function editMedia(id) {
             try {
-                // First get media details
-                const response = await axios.get(`/api/admin/media/${id}`, {
+                // First get media details - Web Route
+                const response = await axios.get(`{{ route('admin.media.show', '') }}/${id}`, {
                     headers: {
-                        'Content-Type': 'multipart/form-data',
-                        'Authorization': `Bearer ${window.ADMIN_API_TOKEN || "{{ session('admin_api_token') }}"}`,
+                        'X-Requested-With': 'XMLHttpRequest'
                     },
                 });
 
@@ -921,13 +1016,13 @@
                     }).then(async (result) => {
                         if (result.isConfirmed) {
                             try {
-                                const updateResponse = await axios.put(`/api/admin/media/${id}`, result
-                                    .value, {
-                                        headers: {
-                                            'Content-Type': 'multipart/form-data',
-                                            'Authorization': `Bearer ${window.ADMIN_API_TOKEN || "{{ session('admin_api_token') }}"}`,
-                                        },
-                                    });
+                                // Update - Web Route
+                                const updateResponse = await axios.put(`{{ route('admin.media.update', '') }}/${id}`, result.value, {
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'X-Requested-With': 'XMLHttpRequest'
+                                    },
+                                });
 
                                 if (updateResponse.data.success) {
                                     toastr.success(updateResponse.data.message);
@@ -959,10 +1054,10 @@
 
             if (result.isConfirmed) {
                 try {
-                    const response = await axios.delete(`/api/admin/media/${id}`, {
+                    // Delete - Web Route
+                    const response = await axios.delete(`{{ route('admin.media.destroy', '') }}/${id}`, {
                         headers: {
-                            'Content-Type': 'multipart/form-data',
-                            'Authorization': `Bearer ${window.ADMIN_API_TOKEN || "{{ session('admin_api_token') }}"}`,
+                            'X-Requested-With': 'XMLHttpRequest'
                         }
                     });
 
@@ -1005,18 +1100,17 @@
 
             if (result.isConfirmed) {
                 try {
-                    const response = await axios.post('/api/admin/media/bulk-delete', {
+                    const response = await axios.post("{{ route('admin.media.bulk-delete') }}", {
                         ids: selectedIds
                     }, {
                         headers: {
-                            'Content-Type': 'multipart/form-data',
-                            'Authorization': `Bearer ${window.ADMIN_API_TOKEN || "{{ session('admin_api_token') }}"}`,
+                             'X-Requested-With': 'XMLHttpRequest'
                         }
                     });
 
                     if (response.data.success) {
-                        const deletedCount = response.data.data.deleted_count;
-                        toastr.success(`Successfully deleted ${deletedCount} file(s)`);
+                        const deletedCount = response.data.data ? response.data.data.deleted_count : 'Multiple';
+                        toastr.success(response.data.message);
                         refreshData();
                     }
                 } catch (error) {

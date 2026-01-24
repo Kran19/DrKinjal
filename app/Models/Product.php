@@ -40,6 +40,7 @@ class Product extends Model
         'canonical_url',
         'cod_available',
         'product_code',
+        'sort_order',
     ];
 
     protected $casts = [

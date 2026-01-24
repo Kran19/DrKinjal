@@ -199,15 +199,26 @@ class ProductController extends Controller
             $query->where('name', 'like', "%{$search}%")
                   ->orWhere('product_code', 'like', "%{$search}%");
         }
+        
+        // Debug Logging
+        \Illuminate\Support\Facades\Log::info('Product Search Query:', [
+            'search_term' => $request->q,
+            'sql' => $query->toSql(),
+            'bindings' => $query->getBindings()
+        ]);
 
-        $products = $query->latest()->limit(20)->get();
+        // Increased limit to 100
+        $products = $query->with(['defaultVariant.images']) 
+                  ->latest()
+                  ->limit(100)
+                  ->get();
 
         return response()->json([
             'success' => true,
             'data' => $products->map(function ($product) {
                 return [
                     'id' => $product->id,
-                    'name' => $product->name,
+                    'name' => $product->name . ' (' . $product->product_code . ')',
                     'image' => asset('storage/' . $product->main_image),
                 ];
             })

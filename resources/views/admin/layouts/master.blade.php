@@ -35,6 +35,7 @@
         const BASE_URL = '{{ url('/') }}';
         const ADMIN_URL = '{{ url('/admin') }}';
         const ASSET_URL = '{{ asset('') }}';
+        window.ADMIN_API_TOKEN = "{{ session('admin_api_token') }}";
     </script>
 </head>
 
@@ -58,6 +59,9 @@
 
     <!-- Tabulator JS -->
     <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script>
+
+    <!-- Lodash -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
 
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

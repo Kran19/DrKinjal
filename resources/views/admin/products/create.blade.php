@@ -377,6 +377,13 @@
                         </select>
                         <p class="text-xs text-gray-500 mt-1">Hold Ctrl (Windows) or Cmd (Mac) to select multiple tags.</p>
                     </div>
+
+                    <div>
+                        <label for="sort_order" class="block text-sm font-medium text-gray-700 mb-1">Sort Order</label>
+                        <input type="number" name="sort_order" id="sort_order" value="{{ old('sort_order', 0) }}"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-blue-500">
+                        <p class="text-xs text-gray-500 mt-1">Lower numbers will display first.</p>
+                    </div>
                 </div>
             </div>
 

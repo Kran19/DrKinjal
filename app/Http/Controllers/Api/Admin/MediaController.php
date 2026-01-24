@@ -232,6 +232,32 @@ class MediaController extends Controller
     }
 
     /**
+     * Show media details.
+     */
+    public function show($id): JsonResponse
+    {
+        try {
+            $media = Media::find($id);
+
+            if (!$media) {
+                return $this->apiResponse(false, null, 'Media not found', 404);
+            }
+
+            return $this->apiResponse(true, [
+                'id' => $media->id,
+                'file_name' => $media->file_name,
+                'alt_text' => $media->alt_text,
+                'url' => asset(Storage::url($media->file_path)),
+                'mime_type' => $media->mime_type,
+            ], 'Media retrieved successfully');
+
+        } catch (\Exception $e) {
+             \Log::error('Media show error: ' . $e->getMessage());
+            return $this->apiResponse(false, null, 'Failed to retrieve media', 500);
+        }
+    }
+
+    /**
      * Update media metadata.
      */
     public function update(MediaRequest $request, $id): JsonResponse

@@ -333,6 +333,19 @@ class ProductService
                 $query->where('is_bestseller', true);
             }
 
+            // Custom Product IDs filter (for Home Sections)
+            if (!empty($filters['product_ids']) && is_array($filters['product_ids'])) {
+                $query->whereIn('products.id', $filters['product_ids']);
+                
+                // Preserve the order of ids if provided
+                if (!empty($filters['product_ids'])) {
+                   $idsOrder = implode(',', array_filter($filters['product_ids'], 'is_numeric'));
+                   if ($idsOrder) {
+                       $query->orderByRaw("FIELD(products.id, $idsOrder)");
+                   }
+                }
+            }
+
             // Apply sorting
             $this->applySorting($query, $filters['sort_by'] ?? 'newest');
 
@@ -398,7 +411,9 @@ class ProductService
 
             case 'newest':
             default:
-                $query->orderBy('products.created_at', 'desc');
+                // Sort by manually defined order first (non-zeros top), then defined order, then newest
+                $query->orderByRaw('products.sort_order = 0, products.sort_order ASC')
+                      ->orderBy('products.created_at', 'desc');
                 break;
         }
     }
