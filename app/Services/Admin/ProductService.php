@@ -46,6 +46,7 @@ class ProductService
                 'meta_keywords' => $data['meta_keywords'] ?? null,
                 'canonical_url' => $data['canonical_url'] ?? null,
                 'product_code' => $data['product_code'] ?? null,
+                'sort_order' => $data['sort_order'] ?? 0,
             ]);
 
             Log::info('Product created', ['product_id' => $product->id]);
@@ -287,6 +288,7 @@ class ProductService
                 'meta_keywords' => $data['meta_keywords'] ?? null,
                 'canonical_url' => $data['canonical_url'] ?? null,
                 'product_code' => $data['product_code'] ?? null,
+                'sort_order' => $data['sort_order'] ?? 0,
             ]);
 
             Log::info('Product basic info updated', ['product_id' => $product->id]);

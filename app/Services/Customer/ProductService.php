@@ -411,8 +411,8 @@ class ProductService
 
             case 'newest':
             default:
-                // Sort by manually defined order first (non-zeros top), then defined order, then newest
-                $query->orderByRaw('products.sort_order = 0, products.sort_order ASC')
+                // Sort by sort_order ASC, then created_at DESC as fallback
+                $query->orderBy('products.sort_order', 'asc')
                       ->orderBy('products.created_at', 'desc');
                 break;
         }
