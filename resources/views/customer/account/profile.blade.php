@@ -73,7 +73,7 @@
                         </div>
                         <div>
                             <h2 class="text-xl font-bold text-stone-900">{{ $customer->name }}</h2>
-                            <p class="text-stone-500">{{ $customer->email }}</p>
+                            <p class="text-stone-500">{{ strtolower($customer->email) }}</p>
                             <span class="inline-block mt-1 px-3 py-1 bg-cyan-100 text-cyan-700 text-xs font-semibold rounded-full">
                                 Member
                             </span>
@@ -145,7 +145,7 @@
                             </div>
                             <div class="space-y-2">
                                 <label class="text-sm font-medium text-stone-700">Email Address</label>
-                                <input type="email" name="email" value="{{ $customer->email }}" class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-stone-900 focus:outline-none focus:ring-2 focus:ring-cyan-500/40 focus:border-cyan-400" readonly>
+                                <input type="email" name="email" value="{{ strtolower($customer->email) }}" class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-stone-900 focus:outline-none focus:ring-2 focus:ring-cyan-500/40 focus:border-cyan-400" readonly>
                             </div>
                         </div>
                         

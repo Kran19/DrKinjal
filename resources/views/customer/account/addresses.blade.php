@@ -55,7 +55,7 @@
                         </div>
                         <div>
                             <h2 class="text-xl font-bold text-stone-900">{{ $customer->name }}</h2>
-                            <p class="text-stone-500">{{ $customer->email }}</p>
+                            <p class="text-stone-500">{{ strtolower($customer->email) }}</p>
                             <span class="inline-block mt-1 px-3 py-1 bg-cyan-100 text-cyan-700 text-xs font-semibold rounded-full">
                                 Member
                             </span>

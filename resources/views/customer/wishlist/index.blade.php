@@ -101,7 +101,7 @@
                         </div>
                         <div>
                             <h2 class="text-xl font-bold text-stone-900">{{ Auth::guard('customer')->user()->name }}</h2>
-                            <p class="text-stone-500">{{ Auth::guard('customer')->user()->email }}</p>
+                            <p class="text-stone-500">{{ strtolower(Auth::guard('customer')->user()->email) }}</p>
                             <span class="inline-block mt-1 px-3 py-1 bg-rose-100 text-rose-700 text-xs font-semibold rounded-full">
                                 Member
                             </span>
@@ -230,10 +230,20 @@
                         @php
                             $product = $item->variant->product ?? null;
                             $variant = $item->variant ?? null;
-                            $image = ($variant && $variant->images) ? json_decode($variant->images)[0] ?? null : null;
-                            // Fallback to product image if variant image missing? Or just blank.
-                            // Assuming product images are stored somehow if variant doesn't have one? 
-                            // Usually variants have images.
+                            // Decode images and extract the file path properly
+                            $imageData = ($variant && $variant->images) ? json_decode($variant->images)[0] ?? null : null;
+                            // Handle both string and object cases
+                            if ($imageData) {
+                                if (is_object($imageData)) {
+                                    $image = $imageData->file_path ?? $imageData->url ?? null;
+                                } elseif (is_string($imageData)) {
+                                    $image = $imageData;
+                                } else {
+                                    $image = null;
+                                }
+                            } else {
+                                $image = null;
+                            }
                         @endphp
                         @if($product && $variant)
                         <div class="wishlist-item bg-white rounded-3xl p-4 shadow-lg shadow-stone-200/50 border border-stone-100" data-id="{{ $item->id }}">

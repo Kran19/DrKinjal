@@ -90,7 +90,7 @@
                         </div>
                         <div>
                             <h2 class="text-xl font-bold text-stone-900">{{ Auth::guard('customer')->user()->name }}</h2>
-                            <p class="text-stone-500">{{ Auth::guard('customer')->user()->email }}</p>
+                            <p class="text-stone-500">{{ strtolower(Auth::guard('customer')->user()->email) }}</p>
                             <span class="inline-block mt-1 px-3 py-1 bg-cyan-100 text-cyan-700 text-xs font-semibold rounded-full">
                                 Member
                             </span>
