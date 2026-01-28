@@ -41,9 +41,14 @@ class CartHelper
         }
 
         // Check if item already exists in cart
+        // Since there's a unique constraint on (cart_id, product_variant_id),
+        // we should try to find by variant_id first.
         $existingItem = $cart->items()
             ->where('product_variant_id', $variantId)
             ->first();
+
+        // If you want to differentiate by attributes, you would need to change the DB constraint.
+        // For now, if same variant is added, we merge.
 
         if ($existingItem) {
             // Update quantity
@@ -114,10 +119,13 @@ class CartHelper
 
         // Check if item already exists
         $itemExists = false;
+        $normalizedAttributes = $this->normalizeAttributes($attributes);
+        
         foreach ($cart['items'] as &$item) {
+            $itemAttributes = $this->normalizeAttributes($item['attributes'] ?? []);
             if (
                 $item['variant_id'] == $variantId &&
-                json_encode($item['attributes']) == json_encode($attributes)
+                $itemAttributes === $normalizedAttributes
             ) {
                 $item['quantity'] += $quantity;
                 $item['total'] = $item['unit_price'] * $item['quantity'];
@@ -327,6 +335,12 @@ class CartHelper
             }
         }
 
+        // Apply automatic 5% discount for orders above ₹999 
+        // if no other discount is applied or if we want it to be stackable/priority
+        if ($discountTotal == 0 && $subtotal > 999) {
+            $discountTotal = $subtotal * 0.05;
+        }
+
         // Calculate tax based on items (Tax Inclusive)
         $taxTotal = 0;
         $taxBreakdown = [];
@@ -397,6 +411,11 @@ class CartHelper
             } else {
                 unset($cart['offer_id'], $cart['offer_code'], $cart['offer_type'], $cart['discount_value']);
             }
+        }
+
+        // Apply automatic 5% discount for orders above ₹999
+        if ($discountTotal == 0 && $subtotal > 999) {
+            $discountTotal = $subtotal * 0.05;
         }
 
         $taxTotal = 0;
@@ -537,9 +556,10 @@ class CartHelper
                 $variant = ProductVariant::find($item['variant_id']);
 
                 if ($variant) {
-                    // Check if item already exists
+                    // Check if item already exists with matching attributes
                     $existingItem = $dbCart->items()
                         ->where('product_variant_id', $item['variant_id'])
+                        ->where('attributes', json_encode($item['attributes'] ?? []))
                         ->first();
 
                     if ($existingItem) {
@@ -879,5 +899,23 @@ class CartHelper
             'message' => 'Coupon removed',
             'cart' => $cart
         ];
+    }
+
+    private function normalizeAttributes($attributes): string
+    {
+        if (empty($attributes)) {
+            return '{}';
+        }
+        
+        if (is_string($attributes)) {
+            $attributes = json_decode($attributes, true) ?: [];
+        }
+        
+        if (!is_array($attributes)) {
+            return '{}';
+        }
+        
+        ksort($attributes);
+        return json_encode($attributes);
     }
 }

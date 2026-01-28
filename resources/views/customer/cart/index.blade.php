@@ -281,6 +281,10 @@
         const qtyEl = document.getElementById(`qty-${itemId}`);
         if (!qtyEl) return;
         
+        // Find the minus button
+        const row = document.getElementById(`item-${itemId}`);
+        const minusBtn = row ? row.querySelector('button[onclick*="-1"]') : null;
+        
         let currentQty = parseInt(qtyEl.innerText);
         let newQty = currentQty + change;
         
@@ -288,6 +292,19 @@
 
         // Optimistic UI update
         qtyEl.innerText = newQty;
+        
+        // Update minus button state immediately
+        if (minusBtn) {
+            if (newQty <= 1) {
+                minusBtn.disabled = true;
+                minusBtn.style.opacity = '0.3';
+                minusBtn.style.cursor = 'not-allowed';
+            } else {
+                minusBtn.disabled = false;
+                minusBtn.style.opacity = '1';
+                minusBtn.style.cursor = 'pointer';
+            }
+        }
         
         fetch(`/cart/update/${itemId}`, {
             method: 'PUT',
@@ -304,6 +321,18 @@
             } else {
                 // Revert on failure
                 qtyEl.innerText = currentQty;
+                // Revert minus button state
+                if (minusBtn) {
+                    if (currentQty <= 1) {
+                        minusBtn.disabled = true;
+                        minusBtn.style.opacity = '0.3';
+                        minusBtn.style.cursor = 'not-allowed';
+                    } else {
+                        minusBtn.disabled = false;
+                        minusBtn.style.opacity = '1';
+                        minusBtn.style.cursor = 'pointer';
+                    }
+                }
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',

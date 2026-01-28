@@ -280,9 +280,9 @@
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center gap-2">
                                         <span class="text-xl font-bold text-stone-900">₹{{ number_format($variant->price, 0) }}</span>
-                                        @if($variant->compare_price > $variant->price)
+                                        {{-- @if($variant->compare_price > $variant->price)
                                             <span class="text-sm text-stone-400 line-through">₹{{ number_format($variant->compare_price, 0) }}</span>
-                                        @endif
+                                        @endif --}}
                                     </div>
                                 </div>
                                 

@@ -100,9 +100,9 @@
                                 </h3>
                                 <div class="flex flex-col items-end">
                                     <span class="font-semibold text-stone-900">₹{{ number_format($product['price'], 0) }}</span>
-                                    @if(isset($product['compare_price']) && $product['compare_price'] > $product['price'])
+                                    {{-- @if(isset($product['compare_price']) && $product['compare_price'] > $product['price'])
                                         <span class="text-xs text-stone-400 line-through">₹{{ number_format($product['compare_price'], 0) }}</span>
-                                    @endif
+                                    @endif --}}
                                 </div>
                             </div>
                             <p class="text-xs text-stone-500 line-clamp-1">{{ $product['short_description'] ?? 'Premium Quality Product' }}</p>

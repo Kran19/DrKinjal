@@ -72,10 +72,10 @@
                     
                     <div class="flex items-baseline gap-3 mb-6">
                         <p class="text-3xl font-bold text-stone-900" id="priceDisplay">₹{{ number_format($product['price'], 0) }}</p>
-                        @if($product['compare_price'] && $product['compare_price'] > $product['price'])
+                        {{-- @if($product['compare_price'] && $product['compare_price'] > $product['price'])
                             <p class="text-lg text-stone-400 line-through">₹{{ number_format($product['compare_price'], 0) }}</p>
                             <span class="bg-rose-100 text-rose-600 text-xs font-bold px-2 py-1 rounded">{{ $product['discount_percent'] }}% OFF</span>
-                        @endif
+                        @endif --}}
                     </div>
                 </div>
 
@@ -703,31 +703,81 @@
         // Wishlist
         window.addToWishlist = function(productId) {
             const btn = event.currentTarget;
-            // Lucide replaces <i> with <svg>, so check for both or use the first child
+            const variantId = document.getElementById('addToCartBtn').getAttribute('data-variant-id');
             const icon = btn.querySelector('i') || btn.querySelector('svg');
             
-            if (!icon) {
-                 console.warn('Wishlist icon not found');
-                 return;
-            }
+            if (!icon) return;
             
-            // Toggle heart fill
-            // Check based on class if it's an <i> tag or lucide svg styles
-            if (icon.classList.contains('text-rose-500')) {
-                icon.classList.remove('text-rose-500', 'fill-current');
-                icon.classList.add('text-stone-400');
-            } else {
-                icon.classList.remove('text-stone-400');
-                icon.classList.add('text-rose-500', 'fill-current');
-            }
-            
-            // Show feedback (optional)
-            // In a real app, you would make an AJA call here
-            if (typeof window.showToast === 'function') {
-                window.showToast('Added to wishlist!', 'success');
-            } else {
-                alert('Added to wishlist!');
-            }
+            // Loading state
+            const originalContent = btn.innerHTML;
+            btn.innerHTML = '<i data-lucide="loader" class="w-4 h-4 animate-spin inline-block mr-2"></i> Processing...';
+            lucide.createIcons();
+            btn.disabled = true;
+
+            fetch("{{ route('customer.wishlist.add') }}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                },
+                body: JSON.stringify({
+                    product_variant_id: variantId
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                btn.disabled = false;
+                btn.innerHTML = originalContent;
+                lucide.createIcons();
+
+                if (data.success) {
+                    // Update header wishlist count if exists
+                    const wishlistCountEl = document.getElementById('wishlistCount');
+                    if (wishlistCountEl) {
+                        wishlistCountEl.textContent = data.count;
+                        wishlistCountEl.classList.remove('hidden');
+                    }
+
+                    // Visual feedback on button
+                    icon.classList.remove('text-stone-400');
+                    icon.classList.add('text-rose-500', 'fill-current');
+                    
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Added!',
+                        text: data.message,
+                        timer: 2000,
+                        showConfirmButton: false,
+                        toast: true,
+                        position: 'top-end'
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Note',
+                        text: data.message,
+                        confirmButtonColor: '#0ea5e9'
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                btn.disabled = false;
+                btn.innerHTML = originalContent;
+                lucide.createIcons();
+                
+                // If 401, redirect to login
+                if (error.status === 401) {
+                    window.location.href = "{{ route('customer.login') }}";
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Please login to add items to your wishlist.',
+                        confirmButtonColor: '#0ea5e9'
+                    });
+                }
+            });
         }
 
         // Star Rating Interaction

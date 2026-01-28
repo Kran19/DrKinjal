@@ -109,7 +109,7 @@
                         
                          <button
                             class="absolute bottom-4 right-4 z-20 flex h-10 w-10 translate-y-14 items-center justify-center rounded-full bg-white shadow-lg transition-transform duration-300 hover:bg-gray-900 hover:text-white group-hover:translate-y-0"
-                            onclick="addToCart(event, {{ $product['id'] }})">
+                            onclick="addToCart(event, {{ $product['default_variant_id'] }})">
                             <i data-lucide="plus" class="h-5 w-5"></i>
                         </button>
                     </div>
@@ -118,9 +118,9 @@
                             <h3 class="text-lg font-bold text-gray-900 group-hover:text-rose-500 line-clamp-1">{{ $product['name'] }}</h3>
                             <div class="flex flex-col items-end">
                                 <span class="font-semibold text-gray-900">₹{{ number_format($product['price'], 0) }}</span>
-                                @if($product['compare_price'] && $product['compare_price'] > $product['price'])
+                                {{-- @if($product['compare_price'] && $product['compare_price'] > $product['price'])
                                     <span class="text-xs text-stone-400 line-through">₹{{ number_format($product['compare_price'], 0) }}</span>
-                                @endif
+                                @endif --}}
                             </div>
                         </div>
                         <p class="text-xs text-gray-500 line-clamp-1">{{ $product['short_description'] ?? 'Premium Skincare' }}</p>
@@ -200,7 +200,7 @@
                 "X-CSRF-TOKEN": "{{ csrf_token() }}",
             },
             body: JSON.stringify({
-                product_id: productId,
+                variant_id: productId,
                 quantity: 1
             }),
         })
