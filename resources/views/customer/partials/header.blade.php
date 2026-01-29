@@ -8,7 +8,9 @@
 
         <!-- Logo -->
         <a href="{{ route('customer.home.index') }}" class="flex items-center gap-3 mx-auto lg:mx-0">
-            <img src="{{ asset('storage/assets/images/logo.png') }}" class="w-40 md:w-40 h-auto" alt="Dr Kinjal Logo">
+            <img src="{{ \App\Helpers\SettingsHelper::get('logo_url', asset('storage/assets/images/logo.png')) }}" 
+                 class="w-40 md:w-40 h-auto" 
+                 alt="{{ \App\Helpers\SettingsHelper::get('store_name', 'Dr Kinjal') }} Logo">
         </a>
 
         <!-- Desktop Menu -->

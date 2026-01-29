@@ -121,6 +121,10 @@ class SettingService
             }
         }
 
+        if ($updated > 0) {
+            \App\Helpers\SettingsHelper::clearCache();
+        }
+
         return $updated;
     }
 
@@ -160,6 +164,7 @@ class SettingService
             }
 
             DB::commit();
+            \App\Helpers\SettingsHelper::clearCache();
 
         } catch (\Exception $e) {
             DB::rollBack();

@@ -138,7 +138,7 @@
                                     <div class="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-teal-100 text-teal-900 font-bold rounded-full flex items-center justify-center text-xs sm:text-sm md:text-base">1</div>
                                     <div class="min-w-0">
                                         <h5 class="font-medium text-slate-800 mb-1 text-sm sm:text-base">Step 1 – Raise a replacement request</h5>
-                                        <p class="text-slate-600 text-sm sm:text-base">Within 3 days from the date of delivery by emailing us at <strong>DrKinjal.official@gmail.com</strong> or via WhatsApp at <strong>9428289077 / 6353283376</strong>, along with:</p>
+                                        <p class="text-slate-600 text-sm sm:text-base">Within 3 days from the date of delivery by emailing us at <strong>{{ \App\Helpers\SettingsHelper::get('store_email', 'DrKinjal.official@gmail.com') }}</strong> or via WhatsApp at <strong>{{ \App\Helpers\SettingsHelper::get('store_phone', '9428289077 / 6353283376') }}</strong>, along with:</p>
                                         <ul class="mt-2 space-y-1 text-slate-600 text-sm sm:text-base">
                                             <li>• Clear pictures of the wrong item received</li>
                                             <li>• Your Order ID</li>
@@ -207,7 +207,7 @@
                                     <div class="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-rose-100 text-rose-900 font-bold rounded-full flex items-center justify-center text-xs sm:text-sm md:text-base">1</div>
                                     <div class="min-w-0">
                                         <h5 class="font-medium text-slate-800 mb-1 text-sm sm:text-base">Step 1 – Raise a replacement request</h5>
-                                        <p class="text-slate-600 text-sm sm:text-base">Within 3 days from the date of delivery by emailing <strong>DrKinjal.official@gmail.com</strong> or WhatsApp <strong>9428289077 / 6353283376</strong>, with:</p>
+                                        <p class="text-slate-600 text-sm sm:text-base">Within 3 days from the date of delivery by emailing <strong>{{ \App\Helpers\SettingsHelper::get('store_email', 'DrKinjal.official@gmail.com') }}</strong> or WhatsApp <strong>{{ \App\Helpers\SettingsHelper::get('store_phone', '9428289077 / 6353283376') }}</strong>, with:</p>
                                         <ul class="mt-2 space-y-1 text-slate-600 text-sm sm:text-base">
                                             <li>• Clear pictures of the damaged product</li>
                                             <li>• Your Order ID</li>
@@ -423,29 +423,27 @@
                 <div class="bg-white/10 rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 backdrop-blur-sm">
                     <i data-lucide="mail" class="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 text-teal-300 mb-3 sm:mb-4"></i>
                     <h4 class="font-semibold text-base sm:text-lg md:text-xl mb-1.5 sm:mb-2">Email Support</h4>
-                    <a href="mailto:DrKinjal.official@gmail.com" class="text-teal-200 hover:text-white transition-colors text-sm sm:text-base break-all">
-                        DrKinjal.official@gmail.com
+                    <a href="mailto:{{ \App\Helpers\SettingsHelper::get('store_email', 'DrKinjal.official@gmail.com') }}" class="text-teal-200 hover:text-white transition-colors text-sm sm:text-base break-all">
+                        {{ \App\Helpers\SettingsHelper::get('store_email', 'DrKinjal.official@gmail.com') }}
                     </a>
                 </div>
                 <div class="bg-white/10 rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 backdrop-blur-sm">
                     <i data-lucide="phone" class="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 text-teal-300 mb-3 sm:mb-4"></i>
                     <h4 class="font-semibold text-base sm:text-lg md:text-xl mb-1.5 sm:mb-2">Phone & WhatsApp</h4>
                     <div class="space-y-1">
-                        <a href="tel:9428289077" class="block text-teal-200 hover:text-white transition-colors text-sm sm:text-base">
-                            9428289077
-                        </a>
-                        <a href="tel:6353283376" class="block text-teal-200 hover:text-white transition-colors text-sm sm:text-base">
-                            6353283376
+                        @php $phone = \App\Helpers\SettingsHelper::get('store_phone', '9428289077 / 6353283376'); @endphp
+                        <a href="tel:{{ $phone }}" class="block text-teal-200 hover:text-white transition-colors text-sm sm:text-base">
+                            {{ $phone }}
                         </a>
                     </div>
                 </div>
             </div>
             
             <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-                <a href="mailto:DrKinjal.official@gmail.com" class="px-6 py-3 sm:px-7 sm:py-3.5 md:px-8 md:py-4 bg-white text-slate-900 font-semibold rounded-full hover:scale-105 transition-transform inline-flex items-center justify-center text-sm sm:text-base">
+                <a href="mailto:{{ \App\Helpers\SettingsHelper::get('store_email', 'DrKinjal.official@gmail.com') }}" class="px-6 py-3 sm:px-7 sm:py-3.5 md:px-8 md:py-4 bg-white text-slate-900 font-semibold rounded-full hover:scale-105 transition-transform inline-flex items-center justify-center text-sm sm:text-base">
                     <i data-lucide="mail" class="inline w-4 h-4 sm:w-5 sm:h-5 mr-1.5 sm:mr-2"></i> Email Us
                 </a>
-                <a href="tel:9428289077" class="px-6 py-3 sm:px-7 sm:py-3.5 md:px-8 md:py-4 bg-transparent border-2 border-white text-white font-semibold rounded-full hover:bg-white/10 transition-colors inline-flex items-center justify-center text-sm sm:text-base">
+                <a href="tel:{{ \App\Helpers\SettingsHelper::get('store_phone', '9428289077') }}" class="px-6 py-3 sm:px-7 sm:py-3.5 md:px-8 md:py-4 bg-transparent border-2 border-white text-white font-semibold rounded-full hover:bg-white/10 transition-colors inline-flex items-center justify-center text-sm sm:text-base">
                     <i data-lucide="phone" class="inline w-4 h-4 sm:w-5 sm:h-5 mr-1.5 sm:mr-2"></i> Call Support
                 </a>
             </div>

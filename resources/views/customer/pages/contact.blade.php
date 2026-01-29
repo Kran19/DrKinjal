@@ -10,7 +10,7 @@
         <!-- Header -->
         <div class="text-center mb-8 md:mb-12 lg:mb-16 max-w-3xl mx-auto">
             <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
-                Contact Us – Dr. Kinjal
+                Contact Us – {{ \App\Helpers\SettingsHelper::get('store_name', 'Dr. Kinjal') }}
             </h1>
             <p class="text-base sm:text-lg md:text-xl text-slate-600 leading-relaxed">
                 We're here to help! Whether you have a query about your order, products, payments, or collaborations, 
@@ -28,8 +28,9 @@
                     <h3 class="text-xl font-bold text-slate-900 mb-2">Phone / WhatsApp</h3>
                     <p class="text-slate-600 mb-4">Speak directly with our customer support team</p>
                     <div class="space-y-3 w-full">
-                        <a href="tel:9428289077" class="block py-3 px-4 bg-sky-50 text-sky-700 rounded-lg hover:bg-sky-100 transition-colors font-medium">
-                            📞 Primary: 9428289077
+                        @php $phone = \App\Helpers\SettingsHelper::get('store_phone', '9428289077'); @endphp
+                        <a href="tel:{{ $phone }}" class="block py-3 px-4 bg-sky-50 text-sky-700 rounded-lg hover:bg-sky-100 transition-colors font-medium">
+                            📞 Primary: {{ $phone }}
                         </a>
                         <a href="tel:6353283376" class="block py-3 px-4 bg-sky-50 text-sky-700 rounded-lg hover:bg-sky-100 transition-colors font-medium">
                             📞 Alternate: 6353283376
@@ -50,8 +51,9 @@
                     </div>
                     <h3 class="text-xl font-bold text-slate-900 mb-2">Email Support</h3>
                     <p class="text-slate-600 mb-4">Send us your queries or collaboration proposals</p>
-                    <a href="mailto:DrKinjal.official@gmail.com" class="w-full py-3 px-4 bg-emerald-50 text-emerald-700 rounded-lg hover:bg-emerald-100 transition-colors font-medium truncate">
-                        📧 DrKinjal.official@gmail.com
+                    @php $store_email = \App\Helpers\SettingsHelper::get('store_email', 'DrKinjal.official@gmail.com'); @endphp
+                    <a href="mailto:{{ $store_email }}" class="w-full py-3 px-4 bg-emerald-50 text-emerald-700 rounded-lg hover:bg-emerald-100 transition-colors font-medium truncate">
+                        📧 {{ $store_email }}
                     </a>
                     <p class="text-sm text-slate-500 mt-4">
                         <i data-lucide="clock" class="w-4 h-4 inline mr-1"></i>
@@ -69,9 +71,7 @@
                     <h3 class="text-xl font-bold text-slate-900 mb-2">Our Office</h3>
                     <p class="text-slate-600 mb-4">Visit our headquarters in Rajkot</p>
                     <div class="text-left text-slate-700 bg-amber-50 rounded-lg p-4 w-full">
-                        <p class="font-medium">Golden Club A</p>
-                        <p class="text-sm">401,402 Nirmala Rd, Nr.Hanuman Madhi</p>
-                        <p class="text-sm">Rajkot, Gujarat, India</p>
+                        <p class="font-medium whitespace-pre-wrap">{{ \App\Helpers\SettingsHelper::get('store_address', "Golden Club A\n401,402 Nirmala Rd, Nr.Hanuman Madhi\nRajkot, Gujarat, India") }}</p>
                     </div>
                     <p class="text-sm text-slate-500 mt-4">
                         <i data-lucide="building" class="w-4 h-4 inline mr-1"></i>
@@ -318,7 +318,7 @@
                     <i data-lucide="phone" class="w-5 h-5"></i>
                     Call Us Now
                 </a>
-                <a href="mailto:DrKinjal.official@gmail.com" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-slate-800 font-semibold rounded-xl border-2 border-sky-600 hover:bg-sky-50 transition-colors">
+                <a href="mailto:{{ \App\Helpers\SettingsHelper::get('store_email', 'DrKinjal.official@gmail.com') }}" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-slate-800 font-semibold rounded-xl border-2 border-sky-600 hover:bg-sky-50 transition-colors">
                     <i data-lucide="mail" class="w-5 h-5"></i>
                     Send Email
                 </a>

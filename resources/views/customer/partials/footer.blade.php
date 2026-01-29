@@ -5,20 +5,32 @@
             <!-- Brand -->
             <div>
                 <a href="{{ route('customer.home.index') }}" class="flex items-center gap-2 mb-6">
-                    <span class="text-xl font-bold">Dr.Kinjal</span>
+                    <span class="text-xl font-bold">{{ \App\Helpers\SettingsHelper::get('store_name', 'Dr.Kinjal') }}</span>
                 </a>
-                <p class="text-stone-400 text-sm mb-6">clinically effective, result oriented products.</p>
+                <p class="text-stone-400 text-sm mb-6">{{ \App\Helpers\SettingsHelper::get('meta_description', 'clinically effective, result oriented products.') }}</p>
                 <div class="flex gap-4">
-                    <a href="https://www.instagram.com/dr.kinjal__?igsh=MW9pZTE4dnFoeXRk&utm_source=qr"
+                    @php
+                        $instagram = \App\Helpers\SettingsHelper::get('social_instagram');
+                        $facebook = \App\Helpers\SettingsHelper::get('social_facebook');
+                        $email = \App\Helpers\SettingsHelper::get('store_email', 'DrKinjal.official@gmail.com');
+                    @endphp
+
+                    @if($instagram)
+                    <a href="{{ $instagram }}" target="_blank"
                         class="w-10 h-10 bg-stone-800 rounded-full flex items-center justify-center hover:bg-sky-500 transition-colors">
                         <i data-lucide="instagram" class="w-5 h-5"></i>
                     </a>
-                    <a href="https://www.facebook.com/share/1GSBtSVcNb/"
+                    @endif
+
+                    @if($facebook)
+                    <a href="{{ $facebook }}" target="_blank"
                         class="w-10 h-10 bg-stone-800 rounded-full flex items-center justify-center hover:bg-sky-500 transition-colors">
                         <i data-lucide="facebook" class="w-5 h-5"></i>
                     </a>
+                    @endif
+
                     <!-- Email -->
-                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=DrKinjal.official@gmail.com" target="_blank"
+                    <a href="mailto:{{ $email }}" target="_blank"
                         class="w-10 h-10 bg-[#EA4335] rounded-full flex items-center justify-center hover:bg-[#d7372c] transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="white">
                             <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z" />

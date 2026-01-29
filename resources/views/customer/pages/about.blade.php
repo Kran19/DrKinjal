@@ -239,12 +239,10 @@
         <div class="mb-20 text-center">
             <div class="inline-block bg-gradient-to-r from-teal-500 to-cyan-500 rounded-3xl p-1 shadow-lg">
                 <div class="bg-white rounded-2xl p-10">
-                    <h2 class="text-4xl font-bold text-slate-900 mb-4">Abha Multi Speciality Clinic</h2>
+                    <h2 class="text-4xl font-bold text-slate-900 mb-4">{{ \App\Helpers\SettingsHelper::get('store_name', 'Abha Multi Speciality Clinic') }}</h2>
                     <div class="space-y-3 text-lg text-slate-700 mb-8">
-                        <p>A-401, Hanuman Madhi, Golden Club,</p>
-                        <p>402, Nirmala Convent Rd, Opp. Chetna Medical Store,</p>
-                        <p>Rajkot, Gujarat - 360007</p>
-                        <p class="font-bold">Voice - 9428289077</p>
+                        <p class="whitespace-pre-wrap">{{ \App\Helpers\SettingsHelper::get('store_address', "A-401, Hanuman Madhi, Golden Club,\n402, Nirmala Convent Rd, Opp. Chetna Medical Store,\nRajkot, Gujarat - 360007") }}</p>
+                        <p class="font-bold whitespace-pre-wrap">{{ \App\Helpers\SettingsHelper::get('store_phone', 'Voice - 9428289077') }}</p>
                     </div>
                     <div class="inline-block px-6 py-3 bg-teal-500 text-white font-semibold rounded-full">
                         Our aim is to cure

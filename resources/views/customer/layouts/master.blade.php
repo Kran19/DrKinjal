@@ -3,11 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Dr Kinjal')</title>
+    <title>@yield('title', \App\Helpers\SettingsHelper::get('store_name', 'Dr Kinjal'))</title>
     
     <!-- Meta Tags -->
-    <meta name="description" content="@yield('description', 'Clinically effective, result oriented products.')">
-    <meta name="keywords" content="@yield('keywords', 'skincare, beauty, natural, organic')">
+    <meta name="description" content="@yield('description', \App\Helpers\SettingsHelper::get('meta_description', 'Clinically effective, result oriented products.'))">
+    <meta name="keywords" content="@yield('keywords', \App\Helpers\SettingsHelper::get('meta_keywords', 'skincare, beauty, natural, organic'))">
+    
+    @php
+        $favicon = \App\Helpers\SettingsHelper::get('favicon_url');
+        $googleAnalytics = \App\Helpers\SettingsHelper::get('google_analytics');
+    @endphp
+
+    @if($favicon)
+        <link rel="icon" type="image/x-icon" href="{{ $favicon }}">
+    @endif
+
+    @if($googleAnalytics)
+        {!! $googleAnalytics !!}
+    @endif
     
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">

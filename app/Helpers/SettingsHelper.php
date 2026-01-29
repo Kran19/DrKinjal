@@ -72,6 +72,7 @@ class SettingsHelper
             foreach ($settings as $settingKey) {
                 Cache::forget("setting.{$settingKey}");
             }
+            Cache::forget('settings.public');
         }
     }
 

@@ -280,7 +280,7 @@
                                         </p>
                                         <ul class="space-y-1 text-slate-600">
                                             <li>• Using the unsubscribe link in emails</li>
-                                            <li>• Contacting DrKinjal.official@gmail.com</li>
+                                            <li>• Contacting {{ \App\Helpers\SettingsHelper::get('store_email', 'DrKinjal.official@gmail.com') }}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -423,7 +423,7 @@
                                 <div class="bg-teal-50 rounded-xl p-4">
                                     <p class="text-teal-800 font-medium flex items-center gap-2">
                                         <i data-lucide="mail" class="w-4 h-4"></i>
-                                        DrKinjal.official@gmail.com
+                                        {{ \App\Helpers\SettingsHelper::get('store_email', 'DrKinjal.official@gmail.com') }}
                                     </p>
                                 </div>
                             </div>
@@ -517,7 +517,7 @@
                                     </div>
                                     <h3 class="font-semibold text-lg">Email</h3>
                                 </div>
-                                <p class="opacity-90">DrKinjal.official@gmail.com</p>
+                                <p class="opacity-90">{{ \App\Helpers\SettingsHelper::get('store_email', 'DrKinjal.official@gmail.com') }}</p>
                             </div>
                             
                             <div class="bg-white/10 rounded-2xl p-6">
@@ -528,8 +528,7 @@
                                     <h3 class="font-semibold text-lg">Phone</h3>
                                 </div>
                                 <div class="space-y-1 opacity-90">
-                                    <p>9428289077</p>
-                                    <p>6353283376</p>
+                                    <p>{{ \App\Helpers\SettingsHelper::get('store_phone', '9428289077 / 6353283376') }}</p>
                                 </div>
                             </div>
                         </div>

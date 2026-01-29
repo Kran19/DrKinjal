@@ -766,7 +766,7 @@
         if (chatExpertBtn) {
             chatExpertBtn.addEventListener('click', function() {
                 // You can change this to your actual phone number
-                window.location.href = 'tel:+919876543210';
+                window.location.href = 'tel:{{ \App\Helpers\SettingsHelper::get('store_phone', '9428289077') }}';
             });
         }
 

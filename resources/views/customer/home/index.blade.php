@@ -1,7 +1,7 @@
 @extends('customer.layouts.master')
 
-@section('title', 'Dr Kinjal Beauty - Premium Skincare Products')
-@section('description', 'Discover clinically effective, result-oriented skincare products. Natural, clean formulas for radiant skin.')
+@section('title', \App\Helpers\SettingsHelper::get('store_name', 'Dr Kinjal Beauty') . ' - Premium Skincare Products')
+@section('description', \App\Helpers\SettingsHelper::get('meta_description', 'Discover clinically effective, result-oriented skincare products.'))
 
 @section('content')
 
@@ -160,7 +160,7 @@ function addToCart(e, variantId) {
     <!-- Marquee/USP -->
     <div class="bg-cyan-600 text-white overflow-hidden py-4">
         <div class="flex whitespace-nowrap gap-12 animate-[scroll_20s_linear_infinite] items-center text-sm font-bold tracking-widest uppercase">
-            <span>✨ Free Shipping on orders above ₹499</span>
+            <span>✨ Free Shipping on orders above ₹{{ number_format(\App\Helpers\SettingsHelper::get('free_shipping_min', 499), 0) }}</span>
             <span class="w-2 h-2 bg-white rounded-full"></span>
             <span>🌿 Clean Formulas</span>
             <span class="w-2 h-2 bg-white rounded-full"></span>
@@ -169,7 +169,7 @@ function addToCart(e, variantId) {
             <span>💸 5% OFF on Orders above ₹999</span>
             <span class="w-2 h-2 bg-white rounded-full"></span>
             <!-- Repeat for smooth infinite scroll -->
-            <span>✨ Free Shipping on orders above ₹499</span>
+            <span>✨ Free Shipping on orders above ₹{{ number_format(\App\Helpers\SettingsHelper::get('free_shipping_min', 499), 0) }}</span>
             <span class="w-2 h-2 bg-white rounded-full"></span>
             <span>🌿 Clean Formulas</span>
             <span class="w-2 h-2 bg-white rounded-full"></span>
