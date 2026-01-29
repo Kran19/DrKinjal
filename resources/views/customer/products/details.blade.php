@@ -152,11 +152,14 @@
                             {{ $product['is_in_stock'] ? 'Add to Cart' : 'Out of Stock' }} · ₹<span class="total-price">{{ $product['price'] }}</span>
                         </button>
                     </div>
-                    <button onclick="addToWishlist({{ $product['id'] }})" 
+                    <button onclick="addToWishlist({{ $product['id'] }})" id="wishlistBtn"
                             class="w-full px-8 py-4 bg-white text-stone-900 font-semibold rounded-full border border-stone-200 hover:border-rose-300 hover:bg-rose-50 transition-all duration-300 mb-4">
-                        <i data-lucide="heart" class="w-5 h-5 inline-block mr-2"></i>
-                        Add to Wishlist
+                        <i data-lucide="heart" class="w-5 h-5 inline-block mr-2 {{ $isInWishlist ? 'text-rose-500 fill-current' : 'text-stone-400' }}"></i>
+                        <span id="wishlistBtnText">{{ $isInWishlist ? 'Remove from Wishlist' : 'Add to Wishlist' }}</span>
                     </button>
+                    <div id="wishlist-login-message" class="hidden text-center text-red-500 text-sm font-medium mt-2 mb-4">
+                        You must log in for this feature
+                    </div>
                 </div>
 
                 <!-- Key Ingredients / Materials -->
@@ -701,83 +704,161 @@
         
         // Wishlist
         // Wishlist
+        const isUserLoggedIn = {{ auth('customer')->check() ? 'true' : 'false' }};
+        let isInWishlist = {{ $isInWishlist ? 'true' : 'false' }};
+        let wishlistItemId = {{ $wishlistItemId ?? 'null' }};
+
         window.addToWishlist = function(productId) {
-            const btn = event.currentTarget;
-            const variantId = document.getElementById('addToCartBtn').getAttribute('data-variant-id');
+            if (!isUserLoggedIn) {
+                document.getElementById('wishlist-login-message').classList.remove('hidden');
+                return;
+            }
+
+            const btn = document.getElementById('wishlistBtn');
+            // Lucide replaces <i> with <svg>, so we need to check for either
             const icon = btn.querySelector('i') || btn.querySelector('svg');
-            
-            if (!icon) return;
+            const textSpan = document.getElementById('wishlistBtnText');
+            const variantId = document.getElementById('addToCartBtn').getAttribute('data-variant-id');
             
             // Loading state
-            const originalContent = btn.innerHTML;
-            btn.innerHTML = '<i data-lucide="loader" class="w-4 h-4 animate-spin inline-block mr-2"></i> Processing...';
-            lucide.createIcons();
+            const originalIconClass = icon.getAttribute('class');
+            const originalText = textSpan.textContent;
+            
             btn.disabled = true;
 
-            fetch("{{ route('customer.wishlist.add') }}", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                },
-                body: JSON.stringify({
-                    product_variant_id: variantId
-                }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                btn.disabled = false;
-                btn.innerHTML = originalContent;
-                lucide.createIcons();
-
-                if (data.success) {
-                    // Update header wishlist count if exists
-                    const wishlistCountEl = document.getElementById('wishlistCount');
-                    if (wishlistCountEl) {
-                        wishlistCountEl.textContent = data.count;
-                        wishlistCountEl.classList.remove('hidden');
-                    }
-
-                    // Visual feedback on button
-                    icon.classList.remove('text-stone-400');
-                    icon.classList.add('text-rose-500', 'fill-current');
+            if (isInWishlist && wishlistItemId) {
+                // Remove from wishlist
+                fetch("{{ route('customer.wishlist.remove') }}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                    },
+                    body: JSON.stringify({
+                        item_id: wishlistItemId
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    btn.disabled = false;
                     
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Added!',
-                        text: data.message,
-                        timer: 2000,
-                        showConfirmButton: false,
-                        toast: true,
-                        position: 'top-end'
-                    });
-                } else {
-                    Swal.fire({
-                        icon: 'info',
-                        title: 'Note',
-                        text: data.message,
-                        confirmButtonColor: '#0ea5e9'
-                    });
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                btn.disabled = false;
-                btn.innerHTML = originalContent;
-                lucide.createIcons();
-                
-                // If 401, redirect to login
-                if (error.status === 401) {
-                    window.location.href = "{{ route('customer.login') }}";
-                } else {
+                    if (data.success) {
+                        isInWishlist = false;
+                        wishlistItemId = null;
+                        
+                        // Update UI
+                        icon.setAttribute('class', "w-5 h-5 inline-block mr-2 text-stone-400");
+                        textSpan.textContent = "Add to Wishlist";
+                        
+                        // Update header count if exists
+                        const wishlistCountEl = document.getElementById('wishlistCount');
+                        if (wishlistCountEl) {
+                            wishlistCountEl.textContent = data.count;
+                            if (data.count > 0) {
+                                wishlistCountEl.classList.remove('hidden');
+                            } else {
+                                wishlistCountEl.classList.add('hidden');
+                            }
+                        }
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Removed',
+                            text: 'Removed from wishlist',
+                            timer: 2000,
+                            showConfirmButton: false,
+                            toast: true,
+                            position: 'top-end'
+                        });
+                    } else {
+                        // Error handling
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: data.message,
+                            timer: 2000,
+                            showConfirmButton: false,
+                            toast: true,
+                            position: 'top-end'
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    btn.disabled = false;
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        text: 'Please login to add items to your wishlist.',
-                        confirmButtonColor: '#0ea5e9'
+                        text: 'Something went wrong!',
                     });
-                }
-            });
+                });
+
+            } else {
+                // Add to wishlist
+                fetch("{{ route('customer.wishlist.add') }}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                    },
+                    body: JSON.stringify({
+                        product_variant_id: variantId
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    btn.disabled = false;
+
+                    if (data.success) {
+                        isInWishlist = true;
+                        wishlistItemId = data.item_id;
+
+                        // Update UI
+                        icon.setAttribute('class', "w-5 h-5 inline-block mr-2 text-rose-500 fill-current");
+                        textSpan.textContent = "Remove from Wishlist";
+                        
+                        // Update header wishlist count if exists
+                        const wishlistCountEl = document.getElementById('wishlistCount');
+                        if (wishlistCountEl) {
+                            wishlistCountEl.textContent = data.count;
+                            wishlistCountEl.classList.remove('hidden');
+                        }
+                        
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Added!',
+                            text: data.message,
+                            timer: 2000,
+                            showConfirmButton: false,
+                            toast: true,
+                            position: 'top-end'
+                        });
+                    } else {
+                         Swal.fire({
+                            icon: 'info',
+                            title: 'Note',
+                            text: data.message,
+                            confirmButtonColor: '#0ea5e9'
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    btn.disabled = false;
+                    
+                    // If 401, redirect to login
+                    if (error.status === 401) {
+                        window.location.href = "{{ route('customer.login') }}";
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Please login to add items to your wishlist.',
+                            confirmButtonColor: '#0ea5e9'
+                        });
+                    }
+                });
+            }
         }
 
         // Star Rating Interaction

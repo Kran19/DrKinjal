@@ -7,6 +7,9 @@ use App\Services\Customer\ProductService;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+use App\Models\WishlistItem;
+use App\Models\Wishlist;
 
 class ProductController extends Controller
 {
@@ -220,10 +223,33 @@ class ProductController extends Controller
                         ->latest()
                         ->get();
 
+            // Check if product is in wishlist
+            $isInWishlist = false;
+            $wishlistItemId = null;
+
+            if (Auth::guard('customer')->check()) {
+                $user = Auth::guard('customer')->user();
+                $variantId = $product['default_variant_id'] ?? $product['id']; // Fallback to ID if no variant ID
+                
+                $wishlist = Wishlist::where('customer_id', $user->id)->first();
+                if ($wishlist) {
+                    $wishlistItem = WishlistItem::where('wishlist_id', $wishlist->id)
+                        ->where('product_variant_id', $variantId)
+                        ->first();
+                    
+                    if ($wishlistItem) {
+                        $isInWishlist = true;
+                        $wishlistItemId = $wishlistItem->id;
+                    }
+                }
+            }
+
             return view('customer.products.details', [
                 'product' => $product,
                 'relatedProducts' => $relatedProducts,
                 'reviews' => $reviews,
+                'isInWishlist' => $isInWishlist,
+                'wishlistItemId' => $wishlistItemId,
                 'title' => $product['name'] . ' - APIQO Fashion Jewelry',
                 'meta_title' => $product['meta_title'] ?? $product['name'],
                 'meta_description' => $product['meta_description'] ?? $product['short_description'],
