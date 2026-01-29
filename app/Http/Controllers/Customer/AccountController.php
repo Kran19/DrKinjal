@@ -234,25 +234,7 @@ class AccountController extends Controller
 
     public function changePassword()
     {
-        $customer = Auth::guard('customer')->user();
-        
-        // Get counts for header and sidebar
-        $ordersCount = Order::where('customer_id', $customer->id)->count();
-        $wishlistCount = Wishlist::where('customer_id', $customer->id)->count();
-        $cart = \App\Models\Cart::where('customer_id', $customer->id)->where('status', 1)->first();
-        $cartCount = $cart ? $cart->items()->sum('quantity') : 0;
-        
-        $totalSpent = Order::where('customer_id', $customer->id)
-            ->whereIn('status', ['delivered', 'shipped', 'processing', 'confirmed', 'pending'])
-            ->sum('grand_total');
-            
-        return view('customer.account.change-password', compact(
-            'customer',
-            'ordersCount',
-            'wishlistCount',
-            'cartCount',
-            'totalSpent'
-        ));
+        return redirect()->route('customer.forgot-password');
     }
 
     public function updatePassword(Request $request)

@@ -345,11 +345,21 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="space-y-2">
                             <label class="text-sm font-semibold text-gray-700">New Password</label>
-                            <input type="password" id="profilePassword" class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-indigo-500/20">
+                            <div class="relative">
+                                <input type="password" id="profilePassword" class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-indigo-500/20 pr-11">
+                                <button type="button" onclick="togglePasswordVisibility('profilePassword', this)" class="absolute inset-y-0 right-0 px-3.5 flex items-center text-gray-400 hover:text-indigo-600 transition-colors">
+                                    <i data-lucide="eye" class="w-4 h-4"></i>
+                                </button>
+                            </div>
                         </div>
                         <div class="space-y-2">
                             <label class="text-sm font-semibold text-gray-700">Confirm New Password</label>
-                            <input type="password" id="profilePasswordConfirm" class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-indigo-500/20">
+                            <div class="relative">
+                                <input type="password" id="profilePasswordConfirm" class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-indigo-500/20 pr-11">
+                                <button type="button" onclick="togglePasswordVisibility('profilePasswordConfirm', this)" class="absolute inset-y-0 right-0 px-3.5 flex items-center text-gray-400 hover:text-indigo-600 transition-colors">
+                                    <i data-lucide="eye" class="w-4 h-4"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -650,6 +660,22 @@ async function resetSettings() {
             toastr.error('Failed to restore defaults');
         }
     }
+}
+
+function togglePasswordVisibility(inputId, btn) {
+    const input = document.getElementById(inputId);
+    const icon = btn.querySelector('i');
+    
+    if (input.type === 'password') {
+        input.type = 'text';
+        icon.setAttribute('data-lucide', 'eye-off');
+    } else {
+        input.type = 'password';
+        icon.setAttribute('data-lucide', 'eye');
+    }
+    
+    // Re-initialize only the changed icon
+    lucide.createIcons();
 }
 
 async function handleFileUpload(event, key) {

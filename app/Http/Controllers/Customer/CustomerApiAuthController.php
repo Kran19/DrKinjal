@@ -13,7 +13,7 @@ class CustomerApiAuthController extends Controller
     {
         $customer = Customer::where('email', $request->email)->first();
 
-        if (!$customer || !Hash::check($request->password, $customer->password_hash)) {
+        if (!$customer || !Hash::check($request->password, $customer->password)) {
             return response()->json(['message' => 'Invalid credentials'], 401);
         }
 

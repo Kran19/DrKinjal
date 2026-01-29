@@ -131,7 +131,7 @@
                             <span class="font-medium">Wishlist</span>
                         </a>
 
-                        <a href="{{ route('customer.account.change-password') }}" class="block w-full text-left p-3 rounded-xl hover:bg-stone-50 flex items-center gap-3">
+                        <a href="{{ route('customer.forgot-password') }}" class="block w-full text-left p-3 rounded-xl hover:bg-stone-50 flex items-center gap-3">
                             <i data-lucide="lock" class="w-5 h-5 text-stone-400"></i>
                             <span class="font-medium">Change Password</span>
                         </a>

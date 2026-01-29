@@ -42,8 +42,8 @@
                 </p>
                 <div class="space-y-3">
                     <a href="{{ route('customer.category.products', ['slug' => 'facewash']) }}" class="block font-medium text-teal-600 hover:text-teal-700">Skin Brightening Face Wash →</a>
-                    <a href="{{ route('customer.category.products', ['slug' => 'soaps']) }}" class="block font-medium text-teal-600 hover:text-teal-700">Skin Brightening Soap →</a>
-                    <a href="{{ route('customer.category.products', ['slug' => 'sunscreen']) }}" class="block font-medium text-teal-600 hover:text-teal-700">Sunscreen →</a>
+                    <a href="{{ route('customer.category.products', ['slug' => 'soap']) }}" class="block font-medium text-teal-600 hover:text-teal-700">Skin Brightening Soap →</a>
+                    <a href="{{ route('customer.category.products', ['slug' => 'sunscreens']) }}" class="block font-medium text-teal-600 hover:text-teal-700">Sunscreen →</a>
                 </div>
             </div>
 
@@ -57,8 +57,8 @@
                     Deep hydration boosters that lock moisture for long-lasting glow.
                 </p>
                 <div class="space-y-3">
-                    <a href="{{ route('customer.category.products', ['slug' => 'soaps']) }}" class="block font-medium text-sky-600 hover:text-sky-700">Cleansing & Moisturizing Soap →</a>
-                    <a href="{{ route('customer.category.products', ['slug' => 'moisturizer']) }}" class="block font-medium text-sky-600 hover:text-sky-700">Moisturizer →</a>
+                    <a href="{{ route('customer.category.products', ['slug' => 'soap']) }}" class="block font-medium text-sky-600 hover:text-sky-700">Cleansing & Moisturizing Soap →</a>
+                    <a href="{{ route('customer.category.products', ['slug' => 'moisturizers']) }}" class="block font-medium text-sky-600 hover:text-sky-700">Moisturizer →</a>
                 </div>
             </div>
 
@@ -73,7 +73,7 @@
                 </p>
                 <div class="space-y-3">
                     <a href="{{ route('customer.category.products', ['slug' => 'facewash']) }}" class="block font-medium text-cyan-600 hover:text-cyan-700">Facewash →</a>
-                    <a href="{{ route('customer.category.products', ['slug' => 'serum']) }}" class="block font-medium text-cyan-600 hover:text-cyan-700">Face Serum →</a>
+                    <a href="{{ route('customer.category.products', ['slug' => 'serums']) }}" class="block font-medium text-cyan-600 hover:text-cyan-700">Face Serum →</a>
                     <a href="{{ route('customer.category.products', ['slug' => 'bodywash']) }}" class="block font-medium text-cyan-600 hover:text-cyan-700">Bodywash & Shower Gel →</a>
                 </div>
             </div>
@@ -88,7 +88,7 @@
                     Essential UV defense for daily protection against sun damage.
                 </p>
                 <div class="space-y-3">
-                    <a href="{{ route('customer.category.products', ['slug' => 'sunscreen']) }}" class="block font-medium text-amber-600 hover:text-amber-700">Sunscreen →</a>
+                    <a href="{{ route('customer.category.products', ['slug' => 'sunscreens']) }}" class="block font-medium text-amber-600 hover:text-amber-700">Sunscreen →</a>
                 </div>
             </div>
 

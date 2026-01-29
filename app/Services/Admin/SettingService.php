@@ -431,9 +431,9 @@ class SettingService
                 [
                     'key' => 'logo_url',
                     'label' => 'Logo URL',
-                    'value' => '/storage/assets/images/logo.png',
+                    'value' => 'storage/assets/images/logo.png',
                     'type' => 'text',
-                    'default' => '/storage/assets/images/logo.png',
+                    'default' => 'storage/assets/images/logo.png',
                     'description' => 'Store logo URL',
                     'is_encrypted' => false,
                     'is_public' => true,
@@ -442,9 +442,9 @@ class SettingService
                 [
                     'key' => 'favicon_url',
                     'label' => 'Favicon URL',
-                    'value' => '/storage/assets/images/favicon.ico',
+                    'value' => 'favicon.ico',
                     'type' => 'text',
-                    'default' => '/storage/assets/images/favicon.ico',
+                    'default' => 'favicon.ico',
                     'description' => 'Favicon URL',
                     'is_encrypted' => false,
                     'is_public' => true,

@@ -17,8 +17,8 @@ class RazorpayService
 
     public function __construct()
     {
-        $this->keyId = config('services.razorpay.key_id');
-        $this->keySecret = config('services.razorpay.key_secret');
+        $this->keyId = \App\Helpers\SettingsHelper::get('razorpay_key_id', config('services.razorpay.key_id'));
+        $this->keySecret = \App\Helpers\SettingsHelper::get('razorpay_key_secret', config('services.razorpay.key_secret'));
 
         if (empty($this->keyId) || empty($this->keySecret)) {
             throw new \Exception('Razorpay credentials not configured');

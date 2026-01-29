@@ -377,12 +377,12 @@ class CheckoutService
     {
         $methods = [
             'online' => [
-                'name' => 'Online Payment',
-                'available' => true
+                'name' => 'Online Payment (Razorpay)',
+                'available' => \App\Helpers\SettingsHelper::get('razorpay_enabled', true)
             ],
             'cod' => [
                 'name' => 'Cash on Delivery',
-                'available' => $this->isCODAvailable()
+                'available' => \App\Helpers\SettingsHelper::get('cod_enabled', true) && $this->isCODAvailable()
             ]
         ];
 

@@ -43,16 +43,16 @@
             <div>
                 <h3 class="font-bold text-lg mb-6">Shop</h3>
                 <ul class="space-y-3">
-                    <li><a href="{{ route('customer.category.products', ['slug' => 'serum']) }}"
+                    <li><a href="{{ route('customer.category.products', ['slug' => 'serums']) }}"
                             class="text-stone-400 hover:text-white transition-colors">Serum</a></li>
-                    <li><a href="{{ route('customer.category.products', ['slug' => 'moisturizer']) }}"
+                    <li><a href="{{ route('customer.category.products', ['slug' => 'moisturizers']) }}"
                             class="text-stone-400 hover:text-white transition-colors">Moisturizer</a></li>
                     <li><a href="{{ route('customer.category.products', ['slug' => 'facewash']) }}"
                             class="text-stone-400 hover:text-white transition-colors">Facewash</a></li>
-                    <li><a href="{{ route('customer.category.products', ['slug' => 'sunscreen']) }}"
+                    <li><a href="{{ route('customer.category.products', ['slug' => 'sunscreens']) }}"
                             class="text-stone-400 hover:text-white transition-colors">Sunscreen</a></li>
-                    <li><a href="{{ route('customer.category.products', ['slug' => 'combos']) }}"
-                            class="text-stone-400 hover:text-white transition-colors">Combos</a></li>
+                    <li><a href="{{ route('customer.category.products', ['slug' => 'shampoo']) }}"
+                            class="text-stone-400 hover:text-white transition-colors">Shampoo</a></li>
                 </ul>
             </div>
 

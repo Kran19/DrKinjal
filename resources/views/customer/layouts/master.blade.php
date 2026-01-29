@@ -14,9 +14,7 @@
         $googleAnalytics = \App\Helpers\SettingsHelper::get('google_analytics');
     @endphp
 
-    @if($favicon)
-        <link rel="icon" type="image/x-icon" href="{{ $favicon }}">
-    @endif
+    <link rel="icon" type="image/x-icon" href="{{ $favicon ? asset($favicon) : asset('favicon.ico') }}">
 
     @if($googleAnalytics)
         {!! $googleAnalytics !!}

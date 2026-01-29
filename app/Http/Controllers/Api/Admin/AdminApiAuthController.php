@@ -21,7 +21,7 @@ class AdminApiAuthController extends Controller
             ->where('status', 'active')
             ->first();
 
-        if (!$admin || !Hash::check($request->password, $admin->password_hash)) {
+        if (!$admin || !Hash::check($request->password, $admin->password)) {
             return response()->json([
                 'message' => 'Invalid login credentials'
             ], 401);
@@ -50,7 +50,11 @@ class AdminApiAuthController extends Controller
 
     public function updateProfile(Request $request)
     {
-        $user = $request->user();
+        $user = auth('admin_api')->user();
+
+        if (!$user) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
 
         $request->validate([
             'name' => 'required|string|max:255',
@@ -62,7 +66,7 @@ class AdminApiAuthController extends Controller
         $user->email = $request->email;
 
         if ($request->filled('password')) {
-            $user->password_hash = Hash::make($request->password);
+            $user->password = Hash::make($request->password);
         }
 
         $user->save();
