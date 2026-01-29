@@ -8,20 +8,8 @@
         lucide.createIcons();
     }
 
-    // Cart management functions
-    const isLoggedIn = {{ auth('customer')->check() ? 'true' : 'false' }};
-
-    function initializeCartCount() {
-        if (isLoggedIn) return;
-
-        // Get cart from localStorage or API
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        const totalItems = cart.reduce((total, item) => total + (item.quantity || 1), 0);
-        updateCartCountDisplay(totalItems);
-    }
-
-    // Update cart count display
-    function updateCartCountDisplay(count) {
+    // Global Cart Helper for dynamic updates
+    window.updateCartCount = function(count) {
         const cartCountElement = document.getElementById('cartCount');
         if (cartCountElement) {
             cartCountElement.textContent = count;
@@ -30,63 +18,13 @@
             } else {
                 cartCountElement.classList.add('hidden');
             }
-            
-            // Dispatch event for other components
+            // Dispatch event for other components if needed
             window.dispatchEvent(new CustomEvent('cartUpdated', { detail: { count } }));
         }
-    }
-
-    // Add item to cart function
-    window.addItemToCart = function(productId, productName, productPrice, productImage) {
-        // Get existing cart or create new one
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        
-        // Check if product already exists in cart
-        const existingItemIndex = cart.findIndex(item => item.id === productId);
-        
-        if (existingItemIndex > -1) {
-            // Update quantity if item exists
-            cart[existingItemIndex].quantity = (cart[existingItemIndex].quantity || 1) + 1;
-        } else {
-            // Add new item to cart
-            cart.push({
-                id: productId,
-                name: productName,
-                price: productPrice,
-                image: productImage,
-                quantity: 1
-            });
-        }
-        
-        // Save to localStorage
-        localStorage.setItem('cart', JSON.stringify(cart));
-        
-        // Update cart count display
-        const totalItems = cart.reduce((total, item) => total + (item.quantity || 1), 0);
-        updateCartCountDisplay(totalItems);
-        
-        // Show notification
-        if (window.showNotification) {
-            window.showNotification(`${productName} added to cart!`, 'success');
-        }
-        
-        return cart;
-    }
-
-    // Make functions globally available
-    window.updateCartCountDisplay = updateCartCountDisplay;
-    window.initializeCartCount = initializeCartCount;
-
-    // Listen for cart updates from other tabs
-    window.addEventListener('storage', function(e) {
-        if (e.key === 'cart') {
-            initializeCartCount();
-        }
-    });
+    };
 
     // Initialize cart on page load
     document.addEventListener('DOMContentLoaded', function() {
-        initializeCartCount();
         
         // Mobile menu functionality
         const menuBtn = document.getElementById("menu-btn");

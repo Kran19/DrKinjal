@@ -611,6 +611,7 @@
         } else {
             shippingMsg.innerHTML = `Add <span class="font-bold text-[#0ea5e9]">₹${remaining.toFixed(2)}</span> to unlock free shipping`;
         }
+    }
     // Auto-refresh logic when user returns to page
     window.addEventListener('pageshow', function(event) {
         // If persisted is true, the page was loaded from cache (e.g. back button)
