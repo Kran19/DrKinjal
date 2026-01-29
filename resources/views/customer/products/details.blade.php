@@ -533,7 +533,7 @@
                             <img src="{{ asset('storage/' . $related['main_image']) }}" 
                                  class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
                                  alt="{{ $related['name'] }}"
-                                 onerror="this.src='{{ asset('assets/images/placeholder.jpg') }}'">
+                                 onerror="this.src='{{ asset('storage/assets/images/placeholder.jpg') }}'">
                         </div>
                         <h3 class="font-bold text-stone-900 group-hover:text-rose-500 transition-colors line-clamp-1">{{ $related['name'] }}</h3>
                         <p class="text-stone-500 text-sm">₹{{ number_format($related['price'], 0) }}</p>

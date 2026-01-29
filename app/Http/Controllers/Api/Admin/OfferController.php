@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class OfferController extends Controller
 {
@@ -76,6 +77,59 @@ class OfferController extends Controller
     }
 
     /**
+     * Get offer statistics for dashboard.
+     */
+    public function statistics()
+    {
+        try {
+            $now = now();
+            
+            // Total offers (non-deleted)
+            $totalOffers = Offer::count();
+            
+            // Active offers (status=1 and within date range or no date restrictions)
+            $activeOffers = Offer::where('status', true)
+                ->where(function($q) use ($now) {
+                    $q->whereNull('starts_at')
+                      ->orWhere('starts_at', '<=', $now);
+                })
+                ->where(function($q) use ($now) {
+                    $q->whereNull('ends_at')
+                      ->orWhere('ends_at', '>=', $now);
+                })
+                ->count();
+            
+            // Expired offers (ends_at is in the past)
+            $expiredOffers = Offer::where('ends_at', '<', $now)->count();
+            
+            // Most used offer
+            $mostUsedOffer = Offer::where('used_count', '>', 0)
+                ->orderBy('used_count', 'desc')
+                ->first();
+            
+            return response()->json([
+                'success' => true,
+                'data' => [
+                    'total_offers' => $totalOffers,
+                    'active_offers' => $activeOffers,
+                    'expired_offers' => $expiredOffers,
+                    'most_used_offer' => $mostUsedOffer ? [
+                        'name' => $mostUsedOffer->name,
+                        'code' => $mostUsedOffer->code,
+                        'used_count' => $mostUsedOffer->used_count
+                    ] : null
+                ]
+            ]);
+            
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to retrieve statistics: ' . $e->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
      * Store a newly created offer.
      */
     public function store(Request $request)
@@ -84,9 +138,9 @@ class OfferController extends Controller
             // Validate request
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string|max:100',
-                'code' => 'nullable|string|max:50|unique:offers,code',
+                'code' => ['nullable', 'string', 'max:50', Rule::unique('offers')->whereNull('deleted_at')],
                 'status' => 'required|boolean',
-                'offer_type' => 'required|in:percentage,fixed,bogo,buy_x_get_y,free_shipping,tiered',
+                'offer_type' => 'required|in:percentage,fixed',
                 'discount_value' => 'nullable|numeric|min:0',
                 'buy_qty' => 'nullable|integer|min:1',
                 'get_qty' => 'nullable|integer|min:1',
@@ -199,9 +253,9 @@ class OfferController extends Controller
             // Validate request
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string|max:100',
-                'code' => 'nullable|string|max:50|unique:offers,code,' . $id,
+                'code' => ['nullable', 'string', 'max:50', Rule::unique('offers')->ignore($id)->whereNull('deleted_at')],
                 'status' => 'required|boolean',
-                'offer_type' => 'required|in:percentage,fixed,bogo,buy_x_get_y,free_shipping,tiered',
+                'offer_type' => 'required|in:percentage,fixed',
                 'discount_value' => 'nullable|numeric|min:0',
                 'buy_qty' => 'nullable|integer|min:1',
                 'get_qty' => 'nullable|integer|min:1',
@@ -286,12 +340,23 @@ class OfferController extends Controller
     public function destroy($id)
     {
         try {
-            $offer = Offer::findOrFail($id);
-            $offer->delete();
+            // Use withTrashed to also find soft-deleted offers
+            $offer = Offer::withTrashed()->findOrFail($id);
+            
+            // Manually delete related data BEFORE forceDelete
+            $offer->rewards()->delete();
+            $offer->variants()->detach();
+            $offer->categories()->detach();
+            
+            // Clear any carts referencing this offer
+            \App\Models\Cart::where('offer_id', $id)->update(['offer_id' => null]);
+            
+            // Permanently delete the offer
+            $offer->forceDelete();
 
             return response()->json([
                 'success' => true,
-                'message' => 'Offer deleted successfully'
+                'message' => 'Offer deleted permanently'
             ]);
 
         } catch (\Exception $e) {
@@ -418,8 +483,8 @@ class OfferController extends Controller
                     break;
 
                 case 'delete':
-                    Offer::whereIn('id', $request->ids)->delete();
-                    $message = 'Offers deleted successfully';
+                    Offer::withTrashed()->whereIn('id', $request->ids)->forceDelete();
+                    $message = 'Offers permanently deleted successfully';
                     break;
 
                 default:
@@ -453,7 +518,7 @@ class OfferController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 'ids' => 'required|array',
-                'ids.*' => 'exists:offers,id'
+                'ids.*' => 'integer' // Changed from exists to integer as withTrashed is used
             ]);
 
             if ($validator->fails()) {
@@ -464,11 +529,19 @@ class OfferController extends Controller
                 ], Response::HTTP_UNPROCESSABLE_ENTITY);
             }
 
-            $count = Offer::whereIn('id', $request->ids)->delete();
+            // Delete related data first
+            OfferReward::whereIn('offer_id', $request->ids)->delete();
+            DB::table('offer_variants')->whereIn('offer_id', $request->ids)->delete();
+            DB::table('offer_categories')->whereIn('offer_id', $request->ids)->delete();
+            
+            // Clear any carts referencing these offers
+            \App\Models\Cart::whereIn('offer_id', $request->ids)->update(['offer_id' => null]);
+
+            $count = Offer::withTrashed()->whereIn('id', $request->ids)->forceDelete();
 
             return response()->json([
                 'success' => true,
-                'message' => 'Offers deleted successfully',
+                'message' => 'Offers permanently deleted successfully',
                 'data' => [
                     'deleted_count' => $count
                 ]
@@ -478,53 +551,6 @@ class OfferController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to delete offers: ' . $e->getMessage()
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    /**
-     * Get offer statistics.
-     */
-    public function statistics()
-    {
-        try {
-            $totalOffers = Offer::count();
-            $activeOffers = Offer::where('status', 1)->count();
-            $expiredOffers = Offer::where('ends_at', '<', now())->count();
-            $upcomingOffers = Offer::where('starts_at', '>', now())->count();
-
-            // Most used offer
-            $mostUsedOffer = Offer::withCount('usages')
-                ->orderBy('usages_count', 'desc')
-                ->first();
-
-            // Offers by type
-            $offersByType = Offer::select('offer_type', DB::raw('count(*) as count'))
-                ->groupBy('offer_type')
-                ->get()
-                ->pluck('count', 'offer_type');
-
-            return response()->json([
-                'success' => true,
-                'data' => [
-                    'total_offers' => $totalOffers,
-                    'active_offers' => $activeOffers,
-                    'expired_offers' => $expiredOffers,
-                    'upcoming_offers' => $upcomingOffers,
-                    'most_used_offer' => $mostUsedOffer ? [
-                        'id' => $mostUsedOffer->id,
-                        'name' => $mostUsedOffer->name,
-                        'usages_count' => $mostUsedOffer->usages_count
-                    ] : null,
-                    'offers_by_type' => $offersByType
-                ],
-                'message' => 'Statistics retrieved successfully'
-            ]);
-
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Failed to retrieve statistics: ' . $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }

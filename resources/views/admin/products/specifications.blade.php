@@ -6,8 +6,8 @@
     <div class="mb-8">
         <div class="flex justify-between items-center">
             <div>
-                <h2 class="text-2xl font-bold text-gray-800 mb-2">Product Specifications Management</h2>
-                <p class="text-gray-600">Manage specifications and create groups for product details</p>
+                <h2 class="text-2xl font-bold text-stone-800 mb-2">Product Specifications Management</h2>
+                <p class="text-stone-500 font-medium">Manage specifications and create groups for product details</p>
             </div>
             <div class="flex space-x-3">
                 <button onclick="openAddSpecificationModal()" class="btn-secondary">
@@ -22,44 +22,44 @@
 
     <!-- Statistics Cards -->
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-stone-100 p-6">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm font-medium text-gray-600">Total Specifications</p>
-                    <p class="text-2xl font-bold text-gray-800 mt-1" id="totalSpecs">0</p>
+                    <p class="text-sm font-medium text-stone-500">Total Specifications</p>
+                    <p class="text-2xl font-bold text-stone-800 mt-1" id="totalSpecs">0</p>
                 </div>
-                <div class="p-3 bg-indigo-50 rounded-xl">
-                    <i class="fas fa-list-alt text-indigo-600 text-xl"></i>
+                <div class="p-3 bg-sky-50 rounded-xl">
+                    <i class="fas fa-list-alt text-sky-600 text-xl"></i>
                 </div>
             </div>
         </div>
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-stone-100 p-6">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm font-medium text-gray-600">Required Specs</p>
-                    <p class="text-2xl font-bold text-gray-800 mt-1" id="requiredSpecs">0</p>
+                    <p class="text-sm font-medium text-stone-500">Required Specs</p>
+                    <p class="text-2xl font-bold text-stone-800 mt-1" id="requiredSpecs">0</p>
                 </div>
                 <div class="p-3 bg-rose-50 rounded-xl">
                     <i class="fas fa-exclamation-circle text-rose-600 text-xl"></i>
                 </div>
             </div>
         </div>
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-stone-100 p-6">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm font-medium text-gray-600">Filterable</p>
-                    <p class="text-2xl font-bold text-gray-800 mt-1" id="filterableSpecs">0</p>
+                    <p class="text-sm font-medium text-stone-500">Filterable</p>
+                    <p class="text-2xl font-bold text-stone-800 mt-1" id="filterableSpecs">0</p>
                 </div>
                 <div class="p-3 bg-emerald-50 rounded-xl">
                     <i class="fas fa-filter text-emerald-600 text-xl"></i>
                 </div>
             </div>
         </div>
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-stone-100 p-6">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm font-medium text-gray-600">Total Groups</p>
-                    <p class="text-2xl font-bold text-gray-800 mt-1" id="totalGroups">0</p>
+                    <p class="text-sm font-medium text-stone-500">Total Groups</p>
+                    <p class="text-2xl font-bold text-stone-800 mt-1" id="totalGroups">0</p>
                 </div>
                 <div class="p-3 bg-blue-50 rounded-xl">
                     <i class="fas fa-layer-group text-blue-600 text-xl"></i>
@@ -69,18 +69,18 @@
     </div>
 
     <div class="mb-6">
-        <div class="border-b border-gray-200">
+        <div class="border-b border-stone-200">
             <nav class="-mb-px flex space-x-8">
                 <button id="specsTab"
-                    class="tab-button active border-indigo-500 text-indigo-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                    class="tab-button active border-sky-500 text-sky-600 whitespace-nowrap py-4 px-1 border-b-2 font-bold text-sm transition-all">
                     <i class="fas fa-list-alt mr-2"></i>Specifications
                 </button>
                 <button id="groupsTab"
-                    class="tab-button border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                    class="tab-button border-transparent text-stone-400 hover:text-stone-600 hover:border-stone-300 whitespace-nowrap py-4 px-1 border-b-2 font-bold text-sm transition-all">
                     <i class="fas fa-layer-group mr-2"></i>Groups
                 </button>
                 <button id="valuesTab"
-                    class="tab-button border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                    class="tab-button border-transparent text-stone-400 hover:text-stone-600 hover:border-stone-300 whitespace-nowrap py-4 px-1 border-b-2 font-bold text-sm transition-all">
                     <i class="fas fa-list mr-2"></i>Values
                 </button>
             </nav>
@@ -92,26 +92,26 @@
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-6">
             <div class="px-6 py-4 border-b border-gray-200">
                 <div class="flex justify-between items-center">
-                    <h3 class="text-lg font-semibold text-gray-800">All Specifications</h3>
+                    <h3 class="text-lg font-semibold text-stone-800">All Specifications</h3>
                     <div class="flex space-x-2">
                         <button id="specsBulkActionsBtn" class="btn-secondary">
-                            <i class="fas fa-bolt mr-2"></i>Bulk Actions
+                            <i class="fas fa-bolt mr-2 text-xs"></i>Bulk Actions
                         </button>
                         <button id="specsColumnVisibilityBtn" class="btn-secondary">
-                            <i class="fas fa-columns mr-2"></i>Columns
+                            <i class="fas fa-columns mr-2 text-xs"></i>Columns
                         </button>
                         <div class="relative group">
                             <button id="specsExportBtn" class="btn-primary">
-                                <i class="fas fa-file-export mr-2"></i>Export
+                                <i class="fas fa-file-export mr-2 text-xs"></i>Export
                             </button>
-                            <div class="absolute mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50 hidden group-hover:block right-0">
-                                <button data-export="csv" class="export-btn w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-indigo-600 text-sm">
+                            <div class="absolute mt-2 w-48 bg-white rounded-xl shadow-xl border border-stone-100 py-2 z-50 hidden group-hover:block right-0">
+                                <button data-export="csv" class="export-btn w-full text-left px-4 py-2 text-stone-600 hover:bg-sky-50 hover:text-sky-600 text-sm font-medium transition-all">
                                     <i class="fas fa-file-csv mr-2"></i>CSV
                                 </button>
-                                <button data-export="xlsx" class="export-btn w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-indigo-600 text-sm">
+                                <button data-export="xlsx" class="export-btn w-full text-left px-4 py-2 text-stone-600 hover:bg-sky-50 hover:text-sky-600 text-sm font-medium transition-all">
                                     <i class="fas fa-file-excel mr-2"></i>Excel
                                 </button>
-                                <button data-export="print" class="export-btn w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-indigo-600 text-sm">
+                                <button data-export="print" class="export-btn w-full text-left px-4 py-2 text-stone-600 hover:bg-sky-50 hover:text-sky-600 text-sm font-medium transition-all">
                                     <i class="fas fa-print mr-2"></i>Print
                                 </button>
                             </div>
@@ -122,10 +122,10 @@
             <div class="p-6">
                 <!-- Search Bar -->
                 <div class="mb-4">
-                    <div class="relative">
+                    <div class="relative max-w-md">
                         <input type="text" id="searchSpecsInput" placeholder="Search specifications..."
-                            class="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent w-full">
-                        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                            class="pl-10 pr-4 py-2 rounded-xl border border-stone-200 bg-stone-50 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all w-full">
+                        <i class="fas fa-search absolute left-3.5 top-3 text-stone-400"></i>
                     </div>
                 </div>
 
@@ -139,15 +139,15 @@
     <div id="groupsSection" class="tab-content hidden">
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <div class="px-6 py-4 border-b border-gray-200">
-                <h3 class="text-lg font-semibold text-gray-800">All Specification Groups</h3>
+                <h3 class="text-lg font-semibold text-stone-800">All Specification Groups</h3>
             </div>
             <div class="p-6">
                 <!-- Search Bar -->
                 <div class="mb-4">
-                    <div class="relative">
+                    <div class="relative max-w-md">
                         <input type="text" id="searchGroupsInput" placeholder="Search groups..."
-                            class="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent w-full">
-                        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                            class="pl-10 pr-4 py-2 rounded-xl border border-stone-200 bg-stone-50 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all w-full">
+                        <i class="fas fa-search absolute left-3.5 top-3 text-stone-400"></i>
                     </div>
                 </div>
 
@@ -163,8 +163,8 @@
             <div class="px-6 py-4 border-b border-gray-200">
                 <div class="flex justify-between items-center">
                     <div>
-                        <h3 class="text-lg font-semibold text-gray-800" id="valuesTitle">Specification Values</h3>
-                        <p class="text-sm text-gray-500" id="valuesSubtitle">Select a specification to view its values</p>
+                        <h3 class="text-lg font-semibold text-stone-800" id="valuesTitle">Specification Values</h3>
+                        <p class="text-sm text-stone-400 font-medium" id="valuesSubtitle">Select a specification to view its values</p>
                     </div>
                     <div class="flex space-x-2">
                         <button onclick="goBackToSpecs()" class="btn-secondary" id="backToSpecsBtn" style="display: none;">
@@ -182,16 +182,16 @@
             <div class="p-6">
                 <!-- Specification Selector -->
                 <div id="specSelector" class="mb-6">
-                    <div class="bg-gray-50 rounded-xl p-6">
-                        <h4 class="text-lg font-medium text-gray-900 mb-4">Select a Specification</h4>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-stone-50 rounded-2xl p-8 border border-stone-100">
+                        <h4 class="text-lg font-bold text-stone-800 mb-6">Select a Specification</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <div class="md:col-span-2">
-                                <select id="specificationSelector" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                <select id="specificationSelector" class="w-full border border-stone-200 rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-sky-500 bg-white transition-all font-medium">
                                     <option value="">Select a specification to view its values</option>
                                 </select>
                             </div>
                             <div>
-                                <button onclick="loadSpecificationValues()" class="btn-primary w-full h-full">
+                                <button onclick="loadSpecificationValues()" class="btn-primary w-full h-[54px] justify-center text-base">
                                     <i class="fas fa-search mr-2"></i>Load Values
                                 </button>
                             </div>
@@ -202,10 +202,10 @@
                 <!-- Values Table -->
                 <div id="valuesContent" class="hidden">
                     <div class="mb-4">
-                        <div class="relative">
+                        <div class="relative max-w-md">
                             <input type="text" id="searchValuesInput" placeholder="Search values..."
-                                class="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent w-full">
-                            <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                                class="pl-10 pr-4 py-2 rounded-xl border border-stone-200 bg-stone-50 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all w-full">
+                            <i class="fas fa-search absolute left-3.5 top-3 text-stone-400"></i>
                         </div>
                     </div>
                     <div id="valuesTable" class="w-full overflow-x-auto"></div>
@@ -216,10 +216,13 @@
 
     <!-- Add/Edit Specification Modal -->
     <div id="specificationModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-hidden">
-            <div class="flex justify-between items-center px-6 py-4 border-b border-gray-200">
-                <h3 class="text-lg font-semibold text-gray-800" id="modalTitle">Add New Specification</h3>
-                <button onclick="closeSpecificationModal()" class="text-gray-400 hover:text-gray-600">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden border border-stone-100">
+            <div class="flex justify-between items-center px-8 py-6 border-b border-stone-100">
+                <div>
+                    <h3 class="text-xl font-bold text-stone-800" id="modalTitle">Add New Specification</h3>
+                    <p class="text-sm text-stone-500">Define a new product specification</p>
+                </div>
+                <button onclick="closeSpecificationModal()" class="text-stone-400 hover:text-stone-600 p-2 hover:bg-stone-50 rounded-full transition-all">
                     <i class="fas fa-times text-xl"></i>
                 </button>
             </div>
@@ -229,27 +232,27 @@
 
                     <div class="space-y-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Specification Name *</label>
+                            <label class="block text-sm font-semibold text-stone-700 mb-2">Specification Name <span class="text-rose-500">*</span></label>
                             <input type="text" id="specificationName" name="name"
-                                class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                class="w-full border border-stone-200 bg-stone-50 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all font-medium"
                                 placeholder="e.g., Gender, Material, Warranty" required>
-                            <p class="text-xs text-red-500 mt-1 hidden" id="nameError"></p>
+                            <p class="text-[10px] text-rose-500 mt-1 italic hidden" id="nameError"></p>
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Code *</label>
+                            <label class="block text-sm font-semibold text-stone-700 mb-2">Code <span class="text-rose-500">*</span></label>
                             <input type="text" id="specificationCode" name="code"
-                                class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                class="w-full border border-stone-200 bg-stone-50 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all font-mono text-sm"
                                 placeholder="e.g., gender, material, warranty" required>
-                            <p class="text-xs text-gray-500 mt-1">Unique identifier (lowercase, underscores only)</p>
-                            <p class="text-xs text-red-500 mt-1 hidden" id="codeError"></p>
+                            <p class="text-[10px] text-stone-400 mt-1 uppercase tracking-wider font-bold">Unique identifier (lowercase, underscores only)</p>
+                            <p class="text-[10px] text-rose-500 mt-1 italic hidden" id="codeError"></p>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Input Type *</label>
+                                <label class="block text-sm font-semibold text-stone-700 mb-2">Input Type <span class="text-rose-500">*</span></label>
                                 <select id="specificationInputType" name="input_type"
-                                    class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" required>
+                                    class="w-full border border-stone-200 bg-stone-50 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all font-medium" required>
                                     <option value="">Select type</option>
                                     <option value="text">Text</option>
                                     <option value="textarea">Text Area</option>
@@ -261,42 +264,42 @@
                             </div>
 
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Sort Order</label>
+                                <label class="block text-sm font-semibold text-stone-700 mb-2">Sort Order</label>
                                 <input type="number" id="specificationSortOrder" name="sort_order" value="0"
-                                    class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                    class="w-full border border-stone-200 bg-stone-50 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all"
                                     placeholder="0" min="0">
                             </div>
                         </div>
 
-                        <div class="space-y-3">
+                        <div class="space-y-4 pt-2">
                             <div class="flex items-center">
                                 <input type="checkbox" id="specificationIsRequired" name="is_required"
-                                    class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                <label for="specificationIsRequired" class="ml-2 text-sm text-gray-700">Required Field</label>
+                                    class="rounded border-stone-300 text-sky-500 focus:ring-sky-500 h-4 w-4">
+                                <label for="specificationIsRequired" class="ml-3 text-sm font-semibold text-stone-700">Required Field</label>
                             </div>
-                            <p class="text-xs text-gray-500 ml-6">This specification is required for products</p>
+                            <p class="text-[10px] text-stone-400 ml-7 uppercase tracking-wider font-bold">This specification is required for products</p>
 
                             <div class="flex items-center">
                                 <input type="checkbox" id="specificationIsFilterable" name="is_filterable"
-                                    class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                <label for="specificationIsFilterable" class="ml-2 text-sm text-gray-700">Use in Filters</label>
+                                    class="rounded border-stone-300 text-sky-500 focus:ring-sky-500 h-4 w-4">
+                                <label for="specificationIsFilterable" class="ml-3 text-sm font-semibold text-stone-700">Use in Filters</label>
                             </div>
-                            <p class="text-xs text-gray-500 ml-6">Show in product filter options</p>
+                            <p class="text-[10px] text-stone-400 ml-7 uppercase tracking-wider font-bold">Show in product filter options</p>
 
                             <div class="flex items-center">
                                 <input type="checkbox" id="specificationStatus" name="status" checked
-                                    class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                <label for="specificationStatus" class="ml-2 text-sm text-gray-700">Active</label>
+                                    class="rounded border-stone-300 text-sky-500 focus:ring-sky-500 h-4 w-4">
+                                <label for="specificationStatus" class="ml-3 text-sm font-semibold text-stone-700">Active</label>
                             </div>
-                            <p class="text-xs text-gray-500 ml-6">Specification will be available for use</p>
+                            <p class="text-[10px] text-stone-400 ml-7 uppercase tracking-wider font-bold">Specification will be available for use</p>
                         </div>
 
-                        <div class="mt-6 pt-6 border-t border-gray-200">
+                        <div class="mt-8 pt-6 border-t border-stone-100">
                             <div class="flex justify-end space-x-3">
-                                <button type="button" onclick="closeSpecificationModal()" class="btn-secondary">
+                                <button type="button" onclick="closeSpecificationModal()" class="btn-secondary min-w-[120px] justify-center">
                                     Cancel
                                 </button>
-                                <button type="submit" class="btn-primary">
+                                <button type="submit" class="btn-primary min-w-[150px] justify-center">
                                     <i class="fas fa-save mr-2"></i>
                                     <span id="submitText">Save Specification</span>
                                 </button>
@@ -310,10 +313,13 @@
 
     <!-- Add/Edit Specification Value Modal -->
     <div id="valueModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-hidden">
-            <div class="flex justify-between items-center px-6 py-4 border-b border-gray-200">
-                <h3 class="text-lg font-semibold text-gray-800" id="valueModalTitle">Add Value</h3>
-                <button onclick="closeValueModal()" class="text-gray-400 hover:text-gray-600">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden border border-stone-100">
+            <div class="flex justify-between items-center px-8 py-6 border-b border-stone-100">
+                <div>
+                    <h3 class="text-xl font-bold text-stone-800" id="valueModalTitle">Add Value</h3>
+                    <p class="text-sm text-stone-500">Define a new value for the specification</p>
+                </div>
+                <button onclick="closeValueModal()" class="text-stone-400 hover:text-stone-600 p-2 hover:bg-stone-50 rounded-full transition-all">
                     <i class="fas fa-times text-xl"></i>
                 </button>
             </div>
@@ -324,11 +330,11 @@
 
                     <div class="space-y-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Value *</label>
+                            <label class="block text-sm font-semibold text-stone-700 mb-2">Value <span class="text-rose-500">*</span></label>
                             <input type="text" id="valueValue" name="value"
-                                class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                class="w-full border border-stone-200 bg-stone-50 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all font-medium"
                                 placeholder="e.g., Male, Cotton, 1 Year" required>
-                            <p class="text-xs text-red-500 mt-1 hidden" id="valueError"></p>
+                            <p class="text-[10px] text-rose-500 mt-1 italic hidden" id="valueError"></p>
                         </div>
 
                         <div id="quickAddCommonValues" class="hidden">
@@ -337,28 +343,28 @@
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Sort Order</label>
+                                <label class="block text-sm font-semibold text-stone-700 mb-2">Sort Order</label>
                                 <input type="number" id="valueSortOrder" name="sort_order" value="0"
-                                    class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                    class="w-full border border-stone-200 bg-stone-50 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all font-medium"
                                     placeholder="0" min="0">
                             </div>
 
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
+                                <label class="block text-sm font-semibold text-stone-700 mb-2">Status</label>
                                 <div class="flex items-center mt-2">
                                     <input type="checkbox" id="valueStatus" name="status" checked
-                                        class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                    <label for="valueStatus" class="ml-2 text-sm text-gray-700">Active</label>
+                                        class="rounded border-stone-300 text-sky-500 focus:ring-sky-500 h-4 w-4">
+                                    <label for="valueStatus" class="ml-3 text-sm font-semibold text-stone-700">Active</label>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="mt-6 pt-6 border-t border-gray-200">
+                        <div class="mt-8 pt-6 border-t border-stone-100">
                             <div class="flex justify-end space-x-3">
-                                <button type="button" onclick="closeValueModal()" class="btn-secondary">
+                                <button type="button" onclick="closeValueModal()" class="btn-secondary min-w-[120px] justify-center">
                                     Cancel
                                 </button>
-                                <button type="submit" class="btn-primary">
+                                <button type="submit" class="btn-primary min-w-[150px] justify-center">
                                     <i class="fas fa-save mr-2"></i>
                                     <span id="valueSubmitText">Save Value</span>
                                 </button>
@@ -372,10 +378,13 @@
 
     <!-- Add/Edit Group Modal -->
     <div id="groupModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-hidden">
-            <div class="flex justify-between items-center px-6 py-4 border-b border-gray-200">
-                <h3 class="text-lg font-semibold text-gray-800" id="groupModalTitle">Create New Group</h3>
-                <button onclick="closeGroupModal()" class="text-gray-400 hover:text-gray-600">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden border border-stone-100">
+            <div class="flex justify-between items-center px-8 py-6 border-b border-stone-100">
+                <div>
+                    <h3 class="text-xl font-bold text-stone-800" id="groupModalTitle">Create New Group</h3>
+                    <p class="text-sm text-stone-500">Organize specifications into groups</p>
+                </div>
+                <button onclick="closeGroupModal()" class="text-stone-400 hover:text-stone-600 p-2 hover:bg-stone-50 rounded-full transition-all">
                     <i class="fas fa-times text-xl"></i>
                 </button>
             </div>
@@ -385,45 +394,45 @@
 
                     <div class="space-y-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Group Name *</label>
+                            <label class="block text-sm font-semibold text-stone-700 mb-2">Group Name <span class="text-rose-500">*</span></label>
                             <input type="text" id="groupName" name="name"
-                                class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                class="w-full border border-stone-200 bg-stone-50 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all font-medium"
                                 placeholder="e.g., General Specifications" required>
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Specifications</label>
+                            <label class="block text-sm font-semibold text-stone-700 mb-2">Specifications</label>
                             <select id="groupSpecificationIds" name="specification_ids[]" multiple
-                                class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                                class="w-full border border-stone-200 bg-stone-50 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all font-medium h-48">
                                 <!-- Specifications will be loaded dynamically -->
                             </select>
-                            <p class="text-xs text-gray-500 mt-1">Hold Ctrl/Cmd to select multiple specifications</p>
+                            <p class="text-[10px] text-stone-400 mt-1 uppercase tracking-wider font-bold">Hold Ctrl/Cmd to select multiple specifications</p>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Sort Order</label>
+                                <label class="block text-sm font-semibold text-stone-700 mb-2">Sort Order</label>
                                 <input type="number" id="groupSortOrder" name="sort_order" value="0"
-                                    class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                    class="w-full border border-stone-200 bg-stone-50 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all font-medium"
                                     placeholder="0" min="0">
                             </div>
 
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
+                                <label class="block text-sm font-semibold text-stone-700 mb-2">Status</label>
                                 <div class="flex items-center mt-2">
                                     <input type="checkbox" id="groupStatus" name="status" checked
-                                        class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                    <label for="groupStatus" class="ml-2 text-sm text-gray-700">Active</label>
+                                        class="rounded border-stone-300 text-sky-500 focus:ring-sky-500 h-4 w-4">
+                                    <label for="groupStatus" class="ml-3 text-sm font-semibold text-stone-700">Active</label>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="mt-6 pt-6 border-t border-gray-200">
+                        <div class="mt-8 pt-6 border-t border-stone-100">
                             <div class="flex justify-end space-x-3">
-                                <button type="button" onclick="closeGroupModal()" class="btn-secondary">
+                                <button type="button" onclick="closeGroupModal()" class="btn-secondary min-w-[120px] justify-center">
                                     Cancel
                                 </button>
-                                <button type="submit" class="btn-primary">
+                                <button type="submit" class="btn-primary min-w-[150px] justify-center">
                                     <i class="fas fa-save mr-2"></i>
                                     <span id="groupSubmitText">Create Group</span>
                                 </button>
@@ -437,34 +446,34 @@
 
     <!-- Bulk Actions Modal -->
     <div id="bulkActionsModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-xl max-w-md w-full">
-            <div class="p-6">
-                <h3 class="text-lg font-semibold text-gray-900 mb-4 text-center">Bulk Actions</h3>
+        <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full border border-stone-100 overflow-hidden">
+            <div class="p-8">
+                <h3 class="text-xl font-bold text-stone-800 mb-6 text-center">Bulk Actions</h3>
                 <div class="space-y-3">
-                    <button onclick="applyBulkAction('activate')" class="w-full btn-secondary text-left">
-                        <i class="fas fa-toggle-on mr-2 text-emerald-600"></i>Activate Selected
+                    <button onclick="applyBulkAction('activate')" class="w-full btn-secondary text-left group">
+                        <i class="fas fa-toggle-on mr-3 text-emerald-500 group-hover:scale-110 transition-transform"></i>Activate Selected
                     </button>
-                    <button onclick="applyBulkAction('deactivate')" class="w-full btn-secondary text-left">
-                        <i class="fas fa-toggle-off mr-2 text-rose-600"></i>Deactivate Selected
+                    <button onclick="applyBulkAction('deactivate')" class="w-full btn-secondary text-left group">
+                        <i class="fas fa-toggle-off mr-3 text-stone-400 group-hover:scale-110 transition-transform"></i>Deactivate Selected
                     </button>
-                    <button onclick="applyBulkAction('required')" class="w-full btn-secondary text-left">
-                        <i class="fas fa-check-circle mr-2 text-blue-600"></i>Mark as Required
+                    <button onclick="applyBulkAction('required')" class="w-full btn-secondary text-left group">
+                        <i class="fas fa-check-circle mr-3 text-rose-500 group-hover:scale-110 transition-transform"></i>Mark as Required
                     </button>
-                    <button onclick="applyBulkAction('not-required')" class="w-full btn-secondary text-left">
-                        <i class="fas fa-times-circle mr-2 text-gray-500"></i>Mark as Not Required
+                    <button onclick="applyBulkAction('not-required')" class="w-full btn-secondary text-left group">
+                        <i class="fas fa-times-circle mr-3 text-stone-400 group-hover:scale-110 transition-transform"></i>Mark as Not Required
                     </button>
-                    <button onclick="applyBulkAction('filterable')" class="w-full btn-secondary text-left">
-                        <i class="fas fa-filter mr-2 text-indigo-600"></i>Mark as Filterable
+                    <button onclick="applyBulkAction('filterable')" class="w-full btn-secondary text-left group">
+                        <i class="fas fa-filter mr-3 text-sky-500 group-hover:scale-110 transition-transform"></i>Mark as Filterable
                     </button>
-                    <button onclick="applyBulkAction('not-filterable')" class="w-full btn-secondary text-left">
-                        <i class="fas fa-filter mr-2 text-gray-500"></i>Mark as Not Filterable
+                    <button onclick="applyBulkAction('not-filterable')" class="w-full btn-secondary text-left group">
+                        <i class="fas fa-filter mr-3 text-stone-400 group-hover:scale-110 transition-transform"></i>Mark as Not Filterable
                     </button>
-                    <button onclick="applyBulkAction('delete')" class="w-full btn-secondary text-left border-rose-200 text-rose-600 hover:bg-rose-50">
-                        <i class="fas fa-trash mr-2"></i>Delete Selected
+                    <button onclick="applyBulkAction('delete')" class="w-full btn-secondary text-left border-rose-100 text-rose-600 hover:bg-rose-50 group">
+                        <i class="fas fa-trash mr-3 group-hover:scale-110 transition-transform"></i>Delete Selected
                     </button>
                 </div>
-                <div class="mt-6 flex justify-center">
-                    <button onclick="closeBulkActions()" class="btn-secondary">
+                <div class="mt-8 flex justify-center">
+                    <button onclick="closeBulkActions()" class="btn-secondary min-w-[120px] justify-center">
                         Cancel
                     </button>
                 </div>
@@ -474,14 +483,14 @@
 
     <!-- View Group Details Modal -->
     <div id="viewGroupModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-xl max-w-2xl w-full">
-            <div class="p-6">
-                <h3 class="text-lg font-semibold text-gray-900 mb-4" id="viewGroupTitle"></h3>
-                <div id="groupSpecsList" class="space-y-2 max-h-96 overflow-y-auto">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full border border-stone-100 overflow-hidden">
+            <div class="p-8">
+                <h3 class="text-xl font-bold text-stone-800 mb-6" id="viewGroupTitle"></h3>
+                <div id="groupSpecsList" class="space-y-2 max-h-96 overflow-y-auto pr-2 custom-scrollbar">
                     <!-- Specifications will be listed here -->
                 </div>
-                <div class="mt-6 flex justify-center">
-                    <button onclick="closeViewGroupModal()" class="btn-secondary">
+                <div class="mt-8 flex justify-center">
+                    <button onclick="closeViewGroupModal()" class="btn-secondary min-w-[120px] justify-center">
                         Close
                     </button>
                 </div>

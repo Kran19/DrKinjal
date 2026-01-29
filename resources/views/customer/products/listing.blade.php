@@ -156,7 +156,7 @@
                             <img src="{{ asset('storage/' . $prodImgPath) }}"
                                 class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 z-10"
                                 alt="{{ $product['name'] }}" loading="lazy"
-                                onerror="this.src='{{ asset('assets/images/placeholder.jpg') }}'">
+                                onerror="this.src='{{ asset('storage/assets/images/placeholder.jpg') }}'">
                             <button
                                 class="quick-add-btn absolute bottom-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg translate-y-14 group-hover:translate-y-0 transition-transform duration-300 z-20 hover:bg-stone-900 hover:text-white"
                                 data-variant-id="{{ $product['default_variant_id'] ?? $product['id'] }}"

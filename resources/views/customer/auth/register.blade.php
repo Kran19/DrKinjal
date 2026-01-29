@@ -1,8 +1,8 @@
 @extends('customer.layouts.master')
 
-@section('title', 'Sign Up - Dr Kinjal Beauty')
+@section('title', 'Sign Up - Dr Kinjal')
 
-@section('description', 'Join Dr Kinjal Beauty for personalized skincare recommendations, exclusive rewards, and member-only benefits.')
+@section('description', 'Join Dr Kinjal for personalized skincare recommendations, exclusive rewards, and member-only benefits.')
 
 @section('content')
 <div class="bg-stone-50 text-stone-900 antialiased min-h-screen pt-6 md:pt-8">
@@ -261,24 +261,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Welcome Offer Card -->
-                    <div class="bg-gradient-to-br from-sky-500 to-cyan-500 rounded-2xl p-6 text-white relative overflow-hidden">
-                        <div class="absolute -right-6 -top-6 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
-                        <div class="relative z-10">
-                            <h3 class="text-lg font-semibold mb-2">Welcome Offer! 🎉</h3>
-                            <p class="text-sm opacity-90 mb-4">Get 15% off your first purchase when you sign up today.</p>
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <span class="text-xs opacity-80">Use code:</span>
-                                    <div class="text-lg font-bold tracking-wider mt-1 bg-white/20 px-3 py-1 rounded-lg inline-block">WELCOME15</div>
-                                </div>
-                                <div class="bg-white/20 p-3 rounded-full backdrop-blur-sm">
-                                    <i data-lucide="tag" class="w-5 h-5"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <!-- Community Stats -->
@@ -319,20 +301,6 @@
             <div class="lg:hidden mt-8">
                 <div class="bg-white rounded-3xl p-6 shadow-xl shadow-stone-200/50 border border-stone-100">
                     <h3 class="font-bold text-lg text-stone-900 mb-3">Sign Up Benefits</h3>
-                    
-                    <!-- Welcome Offer Mobile -->
-                    <div class="bg-gradient-to-br from-sky-500 to-cyan-500 rounded-2xl p-5 text-white mb-6">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <h4 class="font-semibold mb-1">Welcome Offer! 🎉</h4>
-                                <p class="text-sm opacity-90">Get 15% off your first purchase</p>
-                                <div class="text-lg font-bold mt-2">WELCOME15</div>
-                            </div>
-                            <div class="bg-white/20 p-3 rounded-full">
-                                <i data-lucide="tag" class="w-5 h-5"></i>
-                            </div>
-                        </div>
-                    </div>
                     
                     <div class="space-y-3">
                         <div class="flex items-start gap-3">

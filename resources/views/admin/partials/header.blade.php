@@ -1,19 +1,23 @@
 <!-- Top Navigation -->
-<nav class="bg-white shadow-sm border-b border-gray-200 px-4 py-3  z-100">
-    <div class="flex justify-between items-center  gap-4">
+<nav class="bg-gradient-to-r from-white/95 via-sky-50/95 to-stone-50/95 backdrop-blur-lg border-b border-sky-100/50 shadow-lg px-4 py-3 z-100"
+    style="box-shadow: 0 4px 20px rgba(14, 165, 233, 0.08), 0 2px 8px rgba(28, 25, 23, 0.04);">
+    <div class="flex justify-between items-center gap-4">
         <div class="flex items-center">
-            <button id="sidebarToggle" class="text-gray-500 focus:outline-none md:hidden">
+            <button id="sidebarToggle" class="text-stone-500 hover:text-sky-600 focus:outline-none md:hidden transition-colors duration-200 hover:bg-sky-50/50 p-2 rounded-lg">
                 <i class="fas fa-bars text-xl"></i>
             </button>
-            <h1 class="text-xl font-semibold text-gray-800 ml-4 capitalize">
+            <h1 class="text-xl font-bold bg-gradient-to-r from-stone-800 to-stone-600 bg-clip-text text-transparent ml-4 capitalize">
                 {{ str_replace('_', ' ', Request::segment(2) ?? 'Dashboard') }}
             </h1>
         </div>
         <div class="flex items-center space-x-4">
             <div class="relative hidden sm:block">
                 <input type="text" placeholder="Search..."
-                    class="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
-                <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                    class="pl-10 pr-4 py-2 rounded-xl border-2 border-sky-100/80 bg-white/80 text-stone-900 placeholder-stone-400 
+                           focus:outline-none focus:ring-4 focus:ring-sky-500/20 focus:border-sky-500 focus:bg-white
+                           transition-all duration-200 font-medium"
+                    style="box-shadow: 0 2px 8px rgba(14, 165, 233, 0.06);">
+                <i class="fas fa-search absolute left-3 top-3 text-stone-400"></i>
             </div>
             <!-- <div class="relative block">
                 <a href="{{ route('admin.notifications.index') }}"
@@ -26,31 +30,37 @@
             <div class="relative block">
                 <div class="relative group">
                     <button
-                        class="flex items-center space-x-2 text-gray-700 hover:text-indigo-600 admin-menu-toggle">
+                        class="flex items-center space-x-2 text-stone-700 hover:text-sky-600 admin-menu-toggle 
+                               px-3 py-2 rounded-xl hover:bg-white/60 transition-all duration-200">
                         <div
-                            class="w-8 h-8 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
+                            class="w-8 h-8 bg-gradient-to-br from-sky-500 to-sky-600 rounded-full flex items-center justify-center text-white font-bold shadow-md"
+                            style="box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);">
                             {{ strtoupper(substr(Auth::guard('admin')->user()->name ?? 'A', 0, 1)) }}
                         </div>
-                        <span>{{ Auth::guard('admin')->user()->name ?? 'Admin' }}</span>
-                        <i class="fas fa-chevron-down text-sm"></i>
+                        <span class="font-semibold">{{ Auth::guard('admin')->user()->name ?? 'Admin' }}</span>
+                        <i class="fas fa-chevron-down text-sm transition-transform duration-200 group-hover:rotate-180"></i>
                     </button>
 
                     <!-- Dropdown Menu -->
                     <div
-                        class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50 hidden admin-menu">
+                        class="absolute right-0 mt-2 w-48 bg-white/95 backdrop-blur-lg rounded-xl shadow-lg border border-sky-100/50 py-2 z-50 hidden admin-menu"
+                        style="box-shadow: 0 8px 24px rgba(14, 165, 233, 0.12), 0 4px 12px rgba(28, 25, 23, 0.06);">
                         <a href="{{ route('admin.settings.index') }}"
-                            class="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
-                            <i class="fas fa-user mr-2"></i> Profile
+                            class="block px-4 py-2.5 text-stone-700 hover:bg-gradient-to-r hover:from-sky-50 hover:to-stone-50 hover:text-sky-600 
+                                   transition-all duration-200 font-medium rounded-lg mx-2">
+                            <i class="fas fa-user mr-2 text-sky-500"></i> Profile
                         </a>
                         <a href="{{ route('admin.settings.index') }}"
-                            class="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-indigo-600">
-                            <i class="fas fa-cog mr-2"></i> Settings
+                            class="block px-4 py-2.5 text-stone-700 hover:bg-gradient-to-r hover:from-sky-50 hover:to-stone-50 hover:text-sky-600 
+                                   transition-all duration-200 font-medium rounded-lg mx-2">
+                            <i class="fas fa-cog mr-2 text-sky-500"></i> Settings
                         </a>
-                        <div class="border-t border-gray-200 my-2"></div>
+                        <div class="border-t border-sky-100/50 my-2"></div>
                         <form method="POST" action="{{ route('admin.logout') }}" id="logoutForm">
                             @csrf
                             <button type="submit"
-                                class="block w-full text-left px-4 py-2 text-rose-600 hover:bg-rose-50">
+                                class="block w-full text-left px-4 py-2.5 text-rose-600 hover:bg-gradient-to-r hover:from-rose-50 hover:to-red-50 
+                                       transition-all duration-200 font-bold rounded-lg mx-2">
                                 <i class="fas fa-sign-out-alt mr-2"></i> Logout
                             </button>
                         </form>

@@ -5,23 +5,27 @@
 @section('content')
 <div class="mb-8">
     <div class="flex justify-between items-center">
-        <h2 class="text-2xl font-bold text-gray-800">Products</h2>
-        <a href="{{ route('admin.products.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition duration-200 flex items-center">
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+        <div>
+            <h2 class="text-2xl font-bold text-stone-800 mb-2">Products</h2>
+            <p class="text-stone-600">Manage your store inventory and variants</p>
+        </div>
+        <a href="{{ route('admin.products.create') }}" class="btn-primary flex items-center shadow-lg shadow-sky-100">
+            <i class="fas fa-plus mr-2"></i>
             Add Product
         </a>
     </div>
 </div>
 
 <!-- Filters -->
-<div class="bg-white rounded-xl shadow-sm p-4 border border-gray-100 mb-6">
-    <form action="{{ route('admin.products.index') }}" method="GET" class="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div class="col-span-1 md:col-span-2">
+<div class="bg-white rounded-2xl shadow-sm p-5 border border-stone-100 mb-8">
+    <form action="{{ route('admin.products.index') }}" method="GET" class="grid grid-cols-1 md:grid-cols-4 gap-5">
+        <div class="col-span-1 md:col-span-2 relative">
             <input type="text" name="search" value="{{ request('search') }}" placeholder="Search by name, SKU..." 
-                class="w-full px-4 py-2 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-blue-500">
+                class="w-full pl-11 pr-4 py-2 bg-stone-50 border border-stone-200 rounded-xl outline-none focus:ring-2 focus:ring-sky-500 focus:bg-white transition-all text-stone-900 placeholder-stone-400">
+            <i class="fas fa-search absolute left-4 top-3 text-stone-400"></i>
         </div>
         <div>
-            <select name="status" class="w-full px-4 py-2 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-blue-500">
+            <select name="status" class="w-full px-4 py-2 bg-stone-50 border border-stone-200 rounded-xl outline-none focus:ring-2 focus:ring-sky-500 focus:bg-white transition-all text-stone-900">
                 <option value="">All Statuses</option>
                 <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Active</option>
                 <option value="draft" {{ request('status') == 'draft' ? 'selected' : '' }}>Draft</option>
@@ -29,78 +33,88 @@
             </select>
         </div>
         <div>
-            <button type="submit" class="w-full bg-gray-800 hover:bg-gray-900 text-white px-4 py-2 rounded-lg transition duration-200">
-                Filter
+            <button type="submit" class="btn-secondary w-full py-2.5 justify-center">
+                <i class="fas fa-filter mr-2 text-xs"></i>Filter
             </button>
         </div>
     </form>
 </div>
 
 <!-- Table -->
-<div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+<div class="bg-white rounded-2xl shadow-sm border border-stone-100 overflow-hidden">
     <div class="overflow-x-auto">
-        <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-50">
+        <table class="min-w-full divide-y divide-stone-200">
+            <thead class="bg-stone-50/50">
                 <tr>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">SKU</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stock</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tax Class</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                    <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    <th class="px-6 py-4 text-left text-xs font-semibold text-stone-500 uppercase tracking-wider">Product Info</th>
+                    <th class="px-6 py-4 text-left text-xs font-semibold text-stone-500 uppercase tracking-wider">SKU</th>
+                    <th class="px-6 py-4 text-left text-xs font-semibold text-stone-500 uppercase tracking-wider">Price</th>
+                    <th class="px-6 py-4 text-left text-xs font-semibold text-stone-500 uppercase tracking-wider text-center">Inventory</th>
+                    <th class="px-6 py-4 text-left text-xs font-semibold text-stone-500 uppercase tracking-wider text-center">Status</th>
+                    <th class="px-6 py-4 text-right text-xs font-semibold text-stone-500 uppercase tracking-wider">Actions</th>
                 </tr>
             </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
+            <tbody class="bg-white divide-y divide-stone-100">
                 @forelse($products as $product)
-                <tr class="hover:bg-gray-50 transition">
+                <tr class="hover:bg-stone-50/80 transition-colors">
                     <td class="px-6 py-4 whitespace-nowrap">
-                        @if($product->main_image)
-                            <img src="{{ asset('storage/' . $product->main_image) }}" alt="{{ $product->name }}" class="h-12 w-12 object-cover rounded shadow-sm border">
-                        @else
-                            <div class="h-12 w-12 bg-gray-100 rounded flex items-center justify-center text-gray-400 text-xs shadow-sm border">No Img</div>
-                        @endif
+                        <div class="flex items-center">
+                            <div class="h-12 w-12 flex-shrink-0">
+                                @if($product->main_image)
+                                    <img src="{{ asset('storage/' . $product->main_image) }}" alt="{{ $product->name }}" class="h-12 w-12 object-cover rounded-lg shadow-sm border border-stone-200">
+                                @else
+                                    <div class="h-12 w-12 bg-stone-100 rounded-lg flex items-center justify-center text-stone-400 text-[10px] shadow-sm border border-stone-200 font-medium">NO IMG</div>
+                                @endif
+                            </div>
+                            <div class="ml-4">
+                                <div class="text-sm font-bold text-stone-800">{{ $product->name }}</div>
+                                <div class="text-xs text-stone-500 uppercase tracking-wider mt-0.5">{{ $product->product_type }}</div>
+                                @if($product->is_featured)
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-700 mt-1 uppercase">Featured</span>
+                                @endif
+                            </div>
+                        </div>
                     </td>
-                    <td class="px-6 py-4">
-                        <div class="text-sm font-medium text-gray-900">{{ $product->name }}</div>
-                        <div class="text-xs text-gray-500">{{ $product->product_type }}</div>
-                        @if($product->is_featured)
-                            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-yellow-100 text-yellow-800">Featured</span>
-                        @endif
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-stone-600 font-medium">
                         {{ $product->sku ?? 'N/A' }}
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-stone-800 font-bold">
                         ₹{{ number_format($product->price, 2) }}
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $product->stock_quantity > 0 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
-                            {{ $product->stock_quantity }}
+                    <td class="px-6 py-4 whitespace-nowrap text-center">
+                        <span class="px-2.5 py-1 inline-flex text-xs leading-5 font-bold rounded-lg {{ $product->stock_quantity > 0 ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700' }}">
+                            {{ $product->stock_quantity }} in stock
                         </span>
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {{ $product->taxClass->name ?? 'None' }}
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $product->status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' }}">
-                            {{ ucfirst($product->status) }}
+                    <td class="px-6 py-4 whitespace-nowrap text-center">
+                         <span class="px-3 py-1 inline-flex text-[10px] leading-5 font-bold rounded-full uppercase tracking-widest {{ $product->status === 'active' ? 'bg-sky-100 text-sky-700' : 'bg-stone-100 text-stone-600' }}">
+                            {{ $product->status }}
                         </span>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <a href="{{ route('admin.products.edit', $product->id) }}" class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</a>
-                        <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Are you sure?');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
-                        </form>
+                        <div class="flex justify-end space-x-2">
+                            <a href="{{ route('admin.products.edit', $product->id) }}" 
+                               class="p-2 text-stone-400 hover:text-sky-600 hover:bg-sky-50 rounded-lg transition-all" title="Edit">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Are you sure you want to delete this product?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="p-2 text-stone-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-all" title="Delete">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="7" class="px-6 py-10 text-center text-gray-500">
-                        No products found.
+                    <td colspan="6" class="px-6 py-12 text-center text-stone-500">
+                        <div class="flex flex-col items-center">
+                            <i class="fas fa-box-open text-4xl text-stone-200 mb-4"></i>
+                            <p class="font-medium text-stone-600">No products found</p>
+                            <p class="text-sm text-stone-400 mt-1">Start by adding your first product to the store</p>
+                        </div>
                     </td>
                 </tr>
                 @endforelse
@@ -109,8 +123,10 @@
     </div>
     
     <!-- Pagination -->
-    <div class="px-6 py-4 border-t border-gray-200">
+    @if($products->hasPages())
+    <div class="px-6 py-4 border-t border-stone-100 bg-stone-50/30">
         {{ $products->links() }}
     </div>
+    @endif
 </div>
 @endsection

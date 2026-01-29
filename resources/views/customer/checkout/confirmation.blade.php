@@ -42,7 +42,7 @@
                     <div class="flex gap-4 items-start">
                          <!-- Ideally order items should have image URL stored, or relation to product variant images -->
                          @php
-                            $image = asset('assets/images/placeholder.jpg');
+                            $image = asset('storage/assets/images/placeholder.jpg');
                             if($item->variant && $item->variant->product && $item->variant->product->main_image) {
                                 $image = asset('storage/' . $item->variant->product->main_image);
                             }

@@ -260,7 +260,7 @@
                         @foreach($cart['items'] as $item)
                         <div class="flex items-center gap-3">
                             <div class="w-12 h-12 rounded-lg bg-slate-100 overflow-hidden shrink-0">
-                                <img src="{{ $item['image'] ?? asset('assets/images/placeholder.jpg') }}" class="w-full h-full object-cover">
+                                <img src="{{ $item['image'] ?? asset('storage/assets/images/placeholder.jpg') }}" class="w-full h-full object-cover">
                             </div>
                             <div class="flex-1 min-w-0">
                                 <p class="text-sm font-medium text-gray-900 truncate">{{ $item['name'] }}</p>

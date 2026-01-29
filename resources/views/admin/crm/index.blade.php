@@ -6,18 +6,18 @@
 <div class="mb-8">
     <div class="flex justify-between items-center">
         <div>
-            <h2 class="text-2xl font-bold text-gray-800 mb-2">Home Page Manager</h2>
-            <p class="text-gray-600">Manage content and layout of your home page</p>
+            <h2 class="text-2xl font-bold text-stone-800 mb-2">Home Page Manager</h2>
+            <p class="text-stone-600">Manage content and layout of your home page</p>
         </div>
     </div>
 </div>
 
-<div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-8">
-    <div class="px-6 py-4 border-b border-gray-200">
+<div class="bg-white rounded-2xl shadow-sm border border-stone-100 overflow-hidden mb-8">
+    <div class="px-6 py-4 border-b border-stone-200">
         <div class="flex justify-between items-center">
             <div>
-                <h3 class="text-lg font-semibold text-gray-800">Hero Carousel (Fixed Position)</h3>
-                <p class="text-sm text-gray-600 mt-1">This section is always at the top of your home page. You can add multiple buttons per slide.</p>
+                <h3 class="text-lg font-semibold text-stone-800">Hero Carousel (Fixed Position)</h3>
+                <p class="text-sm text-stone-600 mt-1">This section is always at the top of your home page. You can add multiple buttons per slide.</p>
             </div>
             <button onclick="addNewSlide()" class="btn-primary">
                 <i class="fas fa-plus mr-2"></i>Add New Slide
@@ -69,9 +69,9 @@
                 @endphp
                 
                 @foreach($slides as $index => $slide)
-                <div class="border border-gray-200 rounded-xl p-5 slide-container" data-index="{{ $index }}">
+                <div class="border border-stone-200 rounded-xl p-5 slide-container" data-index="{{ $index }}">
                     <div class="flex justify-between items-center mb-4">
-                        <h4 class="font-semibold text-gray-800">Slide {{ $index + 1 }}</h4>
+                        <h4 class="font-semibold text-stone-800">Slide {{ $index + 1 }}</h4>
                         <div class="flex space-x-2">
                             <button type="button" onclick="addButtonToSlide({{ $index }})" 
                                     class="btn-secondary text-sm">
@@ -89,17 +89,17 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Image -->
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Image *</label>
+                            <label class="block text-sm font-medium text-stone-700 mb-2">Image *</label>
                             <div class="space-y-3">
-                                <div class="w-full h-48 bg-gray-100 border-2 border-dashed border-gray-300 rounded-xl flex flex-col items-center justify-center cursor-pointer overflow-hidden"
+                                <div class="w-full h-48 bg-stone-100 border-2 border-dashed border-stone-300 rounded-xl flex flex-col items-center justify-center cursor-pointer overflow-hidden"
                                      onclick="openImagePicker('hero_carousel', {{ $index }})">
                                     @if(!empty($slide['image']))
                                     <img src="https://picsum.photos/600/400?random={{ $index + 1 }}" 
                                          class="w-full h-full object-cover rounded-lg" 
                                          id="heroImagePreview_{{ $index }}">
                                     @else
-                                    <i class="fas fa-image text-gray-400 text-3xl mb-2"></i>
-                                    <span class="text-gray-500">Click to select image</span>
+                                    <i class="fas fa-image text-stone-400 text-3xl mb-2"></i>
+                                    <span class="text-stone-500">Click to select image</span>
                                     @endif
                                 </div>
                                 <input type="hidden" 
@@ -128,16 +128,16 @@
                             
                             <!-- Buttons Section -->
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-3">Buttons</label>
+                                <label class="block text-sm font-medium text-stone-700 mb-3">Buttons</label>
                                 <div id="buttonsContainer_{{ $index }}" class="space-y-4">
                                     @php
                                     $buttons = $slide['buttons'] ?? [];
                                     @endphp
                                     
                                     @foreach($buttons as $btnIndex => $button)
-                                    <div class="border border-gray-200 rounded-lg p-4 bg-gray-50">
+                                    <div class="border border-stone-200 rounded-lg p-4 bg-stone-50">
                                         <div class="flex justify-between items-center mb-3">
-                                            <span class="text-sm font-medium text-gray-700">Button {{ $btnIndex + 1 }}</span>
+                                            <span class="text-sm font-medium text-stone-700">Button {{ $btnIndex + 1 }}</span>
                                             @if(count($buttons) > 1)
                                             <button type="button" 
                                                     onclick="removeButtonFromSlide({{ $index }}, {{ $btnIndex }})" 
@@ -148,26 +148,26 @@
                                         </div>
                                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             <div>
-                                                <label class="block text-xs font-medium text-gray-600 mb-1">Button Text</label>
+                                                <label class="block text-xs font-medium text-stone-600 mb-1">Button Text</label>
                                                 <input type="text" 
                                                        name="slides[{{ $index }}][buttons][{{ $btnIndex }}][text]" 
                                                        value="{{ $button['text'] ?? '' }}"
-                                                       class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+                                                       class="w-full border border-stone-300 rounded-lg px-3 py-2 text-sm"
                                                        placeholder="Button text">
                                             </div>
                                             <div>
-                                                <label class="block text-xs font-medium text-gray-600 mb-1">Button Link</label>
+                                                <label class="block text-xs font-medium text-stone-600 mb-1">Button Link</label>
                                                 <input type="text" 
                                                        name="slides[{{ $index }}][buttons][{{ $btnIndex }}][link]" 
                                                        value="{{ $button['link'] ?? '' }}"
-                                                       class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+                                                       class="w-full border border-stone-300 rounded-lg px-3 py-2 text-sm"
                                                        placeholder="/path">
                                             </div>
                                         </div>
                                     </div>
                                     @endforeach
                                 </div>
-                                <p class="text-xs text-gray-500 mt-2">
+                                <p class="text-xs text-stone-500 mt-2">
                                     You can add up to 3 buttons per slide.
                                 </p>
                             </div>
@@ -189,12 +189,12 @@
 
 <!-- Home Page Sections -->
 
-<div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-    <div class="px-6 py-4 border-b border-gray-200">
+<div class="bg-white rounded-2xl shadow-sm border border-stone-100 overflow-hidden">
+    <div class="px-6 py-4 border-b border-stone-200">
         <div class="flex justify-between items-center">
             <div>
-                <h3 class="text-lg font-semibold text-gray-800">Home Page Sections</h3>
-                <p class="text-sm text-gray-600 mt-1">Drag to reorder sections and edit content</p>
+                <h3 class="text-lg font-semibold text-stone-800">Home Page Sections</h3>
+                <p class="text-sm text-stone-600 mt-1">Drag to reorder sections and edit content</p>
             </div>
             <div class="flex space-x-3">
                 <button onclick="addNewBanner()" class="btn-secondary">
@@ -212,11 +212,11 @@
     
     <div class="p-6">
         <!-- Instructions -->
-        <div class="mb-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+        <div class="mb-6 p-4 bg-sky-50 rounded-lg border border-sky-200">
             <div class="flex items-center">
-                <i class="fas fa-info-circle text-blue-500 mr-3 text-xl"></i>
+                <i class="fas fa-info-circle text-sky-500 mr-3 text-xl"></i>
                 <div>
-                    <p class="text-sm text-blue-800">
+                    <p class="text-sm text-sky-800">
                         <strong>Instructions:</strong> Drag sections to reorder. Click "Edit" to change content. 
                         Click "Save Order" when you're done rearranging. Use "Add Banner" or "Add Product Section" to create new sections.
                     </p>
@@ -301,29 +301,29 @@
             @endphp
             
             @foreach($homeSections as $section)
-            <div class="section-item border border-gray-200 rounded-xl p-5 bg-white hover:bg-gray-50" data-id="{{ $section['id'] }}">
+            <div class="section-item border border-stone-200 rounded-xl p-5 bg-white hover:bg-stone-50" data-id="{{ $section['id'] }}">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center space-x-4">
                         <!-- Drag Handle -->
-                        <div class="drag-handle cursor-move text-gray-400 hover:text-gray-600">
+                        <div class="drag-handle cursor-move text-stone-400 hover:text-stone-600">
                             <i class="fas fa-grip-vertical text-xl"></i>
                         </div>
                         
                         <!-- Section Info -->
                         <div class="flex items-center space-x-3">
                             <!-- Icon -->
-                            <div class="w-10 h-10 rounded-lg flex items-center justify-center {{ $section['type'] === 'product_grid' ? 'bg-blue-100' : 'bg-indigo-100' }}">
+                            <div class="w-10 h-10 rounded-lg flex items-center justify-center {{ $section['type'] === 'product_grid' ? 'bg-sky-100' : 'bg-sky-50' }}">
                                 @if($section['type'] === 'product_grid')
-                                    <i class="fas fa-cube text-blue-600"></i>
+                                    <i class="fas fa-cube text-sky-600"></i>
                                 @else
-                                    <i class="fas fa-image text-indigo-600"></i>
+                                    <i class="fas fa-image text-sky-600"></i>
                                 @endif
                             </div>
                             
                             <!-- Details -->
                             <div>
-                                <h4 class="font-semibold text-gray-800">{{ $section['title'] }}</h4>
-                                <div class="flex items-center space-x-3 text-sm text-gray-600 mt-1">
+                                <h4 class="font-semibold text-stone-800">{{ $section['title'] }}</h4>
+                                <div class="flex items-center space-x-3 text-sm text-stone-600 mt-1">
                                     <span class="flex items-center">
                                         <i class="fas fa-sort-numeric-up mr-1.5 text-xs"></i>
                                         Order: <span class="order-display ml-1">{{ $section['order'] }}</span>
@@ -359,25 +359,25 @@
                 </div>
                 
                 <!-- Current Content Preview -->
-                <div class="mt-4 pl-14 border-t border-gray-100 pt-4">
+                <div class="mt-4 pl-14 border-t border-stone-100 pt-4">
                     <div class="text-sm">
                         @if($section['type'] === 'product_grid')
                             <div class="flex items-center justify-between">
                                 <div>
-                                    <span class="text-gray-500">Heading:</span>
-                                    <span class="font-medium text-gray-800 ml-2">
+                                    <span class="text-stone-500">Heading:</span>
+                                    <span class="font-medium text-stone-800 ml-2">
                                         {{ $section['data']['heading'] }}
                                     </span>
                                 </div>
                                 <div class="flex items-center space-x-4">
                                     @if(isset($section['data']['card_style']))
-                                    <span class="text-gray-500">Style:</span>
-                                    <span class="font-medium text-gray-800">
+                                    <span class="text-stone-500">Style:</span>
+                                    <span class="font-medium text-stone-800">
                                         {{ $productCardStyles[$section['data']['card_style']]['name'] ?? 'Default' }}
                                     </span>
                                     @endif
                                     <button onclick="editSection('{{ $section['id'] }}')" 
-                                            class="text-sm text-indigo-600 hover:text-indigo-800">
+                                            class="text-sm text-sky-600 hover:text-sky-800">
                                         Change Products
                                     </button>
                                 </div>
@@ -385,23 +385,23 @@
                         @else
                             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                                 <div>
-                                    <span class="text-gray-500">Heading:</span>
-                                    <span class="font-medium text-gray-800 ml-2">
+                                    <span class="text-stone-500">Heading:</span>
+                                    <span class="font-medium text-stone-800 ml-2">
                                         {{ $section['data']['heading'] }}
                                     </span>
                                 </div>
                                 @if(isset($section['data']['subheading']))
                                 <div>
-                                    <span class="text-gray-500">Subheading:</span>
-                                    <span class="font-medium text-gray-800 ml-2">
+                                    <span class="text-stone-500">Subheading:</span>
+                                    <span class="font-medium text-stone-800 ml-2">
                                         {{ $section['data']['subheading'] }}
                                     </span>
                                 </div>
                                 @endif
                                 @if(isset($section['data']['button_text']))
                                 <div>
-                                    <span class="text-gray-500">Button:</span>
-                                    <span class="font-medium text-gray-800 ml-2">
+                                    <span class="text-stone-500">Button:</span>
+                                    <span class="font-medium text-stone-800 ml-2">
                                         {{ $section['data']['button_text'] }}
                                     </span>
                                 </div>
@@ -419,17 +419,17 @@
 <!-- Edit Section Modal -->
 <div id="sectionModal" class="fixed inset-0 z-[9999] hidden bg-black bg-opacity-50 flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl shadow-xl max-w-6xl w-full max-h-[90vh] overflow-hidden flex flex-col">
-        <div class="flex justify-between items-center px-6 py-4 border-b border-gray-200">
-            <h2 class="text-xl font-semibold text-gray-800" id="modalTitle">Edit Section</h2>
+        <div class="flex justify-between items-center px-6 py-4 border-b border-stone-200">
+            <h2 class="text-xl font-semibold text-stone-800" id="modalTitle">Edit Section</h2>
             <button onclick="closeSectionModal()"
-                class="text-gray-500 hover:text-gray-700 text-2xl leading-none">&times;</button>
+                class="text-stone-500 hover:text-stone-700 text-2xl leading-none">&times;</button>
         </div>
         
         <div class="p-6 overflow-y-auto" id="modalContent">
              <!-- Content will be loaded here  -->
         </div>
         
-        <div class="px-6 py-4 border-t border-gray-200 flex justify-end space-x-3">
+        <div class="px-6 py-4 border-t border-stone-200 flex justify-end space-x-3">
             <button onclick="closeSectionModal()" class="btn-secondary">Cancel</button>
             <button onclick="saveSection()" class="btn-primary">
                 <i class="fas fa-save mr-2"></i>Save Changes
@@ -441,17 +441,17 @@
 <!-- Add New Section Modal -->
 <div id="addSectionModal" class="fixed inset-0 z-[10000] hidden bg-black bg-opacity-50 flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col">
-        <div class="flex justify-between items-center px-6 py-4 border-b border-gray-200">
-            <h2 class="text-xl font-semibold text-gray-800" id="addModalTitle">Add New Section</h2>
+        <div class="flex justify-between items-center px-6 py-4 border-b border-stone-200">
+            <h2 class="text-xl font-semibold text-stone-800" id="addModalTitle">Add New Section</h2>
             <button onclick="closeAddSectionModal()"
-                class="text-gray-500 hover:text-gray-700 text-2xl leading-none">&times;</button>
+                class="text-stone-500 hover:text-stone-700 text-2xl leading-none">&times;</button>
         </div>
         
         <div class="p-6 overflow-y-auto" id="addModalContent">
             <!-- Content will be loaded here -->
         </div>
         
-        <div class="px-6 py-4 border-t border-gray-200 flex justify-end space-x-3">
+        <div class="px-6 py-4 border-t border-stone-200 flex justify-end space-x-3">
             <button onclick="closeAddSectionModal()" class="btn-secondary">Cancel</button>
             <button onclick="createNewSection()" class="btn-primary" id="createSectionBtn">
                 <i class="fas fa-plus mr-2"></i>Create Section
@@ -463,10 +463,10 @@
 <!-- Product Search Modal -->
 <div id="productSearchModal" class="fixed inset-0 z-[10000] hidden bg-black bg-opacity-50 flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col">
-        <div class="flex justify-between items-center px-6 py-4 border-b border-gray-200">
-            <h2 class="text-xl font-semibold text-gray-800">Search Products</h2>
+        <div class="flex justify-between items-center px-6 py-4 border-b border-stone-200">
+            <h2 class="text-xl font-semibold text-stone-800">Search Products</h2>
             <button onclick="closeProductSearchModal()"
-                class="text-gray-500 hover:text-gray-700 text-2xl leading-none">&times;</button>
+                class="text-stone-500 hover:text-stone-700 text-2xl leading-none">&times;</button>
         </div>
         
         <div class="p-6 overflow-y-auto">
@@ -477,14 +477,14 @@
                         <input type="text" 
                                id="productSearchInput" 
                                placeholder="Search by product name or SKU..."
-                               class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                               class="w-full border border-stone-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500"
                                onkeyup="searchProducts(event)">
                     </div>
                     <button onclick="searchProducts()" class="btn-primary">
                         <i class="fas fa-search mr-2"></i>Search
                     </button>
                 </div>
-                <p class="text-sm text-gray-500 mt-2">
+                <p class="text-sm text-stone-500 mt-2">
                     Tip: Search by product name or SKU. Press Enter to search.
                 </p>
             </div>
@@ -492,21 +492,21 @@
             <!-- Search Results -->
             <div id="searchResults" class="space-y-3 max-h-96 overflow-y-auto">
                 <!-- Results will appear here -->
-                <p class="text-gray-500 text-center py-8">Enter search terms to find products</p>
+                <p class="text-stone-500 text-center py-8">Enter search terms to find products</p>
             </div>
             
             <!-- Selected Products Preview -->
-            <div id="selectedProductsPreview" class="mt-6 pt-6 border-t border-gray-200 hidden">
-                <h4 class="text-md font-semibold text-gray-700 mb-3">Selected Products</h4>
+            <div id="selectedProductsPreview" class="mt-6 pt-6 border-t border-stone-200 hidden">
+                <h4 class="text-md font-semibold text-stone-700 mb-3">Selected Products</h4>
                 <div id="selectedProductsList" class="space-y-2">
                     <!-- Selected products will appear here -->
                 </div>
             </div>
         </div>
         
-        <div class="px-6 py-4 border-t border-gray-200 flex justify-between items-center">
+        <div class="px-6 py-4 border-t border-stone-200 flex justify-between items-center">
             <div>
-                <span id="selectedCount" class="text-sm text-gray-700">0 products selected</span>
+                <span id="selectedCount" class="text-sm text-stone-700">0 products selected</span>
             </div>
             <div class="flex space-x-3">
                 <button onclick="closeProductSearchModal()" class="btn-secondary">Cancel</button>
@@ -521,10 +521,10 @@
 <!-- Image Picker Modal -->
 <div id="imagePickerModal" class="fixed inset-0 z-[10000] hidden bg-black bg-opacity-50 flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col">
-        <div class="flex justify-between items-center px-6 py-4 border-b border-gray-200">
-            <h2 class="text-xl font-semibold text-gray-800">Select Image</h2>
+        <div class="flex justify-between items-center px-6 py-4 border-b border-stone-200">
+            <h2 class="text-xl font-semibold text-stone-800">Select Image</h2>
             <button onclick="closeImagePicker()"
-                class="text-gray-500 hover:text-gray-700 text-2xl leading-none">&times;</button>
+                class="text-stone-500 hover:text-stone-700 text-2xl leading-none">&times;</button>
         </div>
         
         <div class="p-6 overflow-y-auto">
@@ -540,8 +540,8 @@
                 @foreach($sampleImages as $image)
                 <div class="cursor-pointer" onclick="selectImage('{{ $image }}')">
                     <img src="https://picsum.photos/400/300?random={{ rand(1, 20) }}" 
-                         class="w-full h-32 object-cover rounded-lg border border-gray-300 hover:opacity-80">
-                    <p class="text-sm text-gray-700 mt-2 text-center">{{ $image }}</p>
+                         class="w-full h-32 object-cover rounded-lg border border-stone-300 hover:opacity-80">
+                    <p class="text-sm text-stone-700 mt-2 text-center">{{ $image }}</p>
                 </div>
                 @endforeach
             </div>
@@ -678,9 +678,9 @@ function addNewSlide() {
     const slideId = `slide_${Date.now()}`;
     
     const slideHtml = `
-        <div class="border border-gray-200 rounded-xl p-5 slide-container" data-index="${slideIndex}">
+        <div class="border border-stone-200 rounded-xl p-5 slide-container" data-index="${slideIndex}">
             <div class="flex justify-between items-center mb-4">
-                <h4 class="font-semibold text-gray-800">New Slide ${slideIndex + 1}</h4>
+                <h4 class="font-semibold text-stone-800">New Slide ${slideIndex + 1}</h4>
                 <div class="flex space-x-2">
                     <button type="button" onclick="addButtonToSlide(${slideIndex})" 
                             class="btn-secondary text-sm">
@@ -696,12 +696,12 @@ function addNewSlide() {
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Image -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Image *</label>
+                    <label class="block text-sm font-medium text-stone-700 mb-2">Image *</label>
                     <div class="space-y-3">
-                        <div class="w-full h-48 bg-gray-100 border-2 border-dashed border-gray-300 rounded-xl flex flex-col items-center justify-center cursor-pointer overflow-hidden"
+                        <div class="w-full h-48 bg-stone-100 border-2 border-dashed border-stone-300 rounded-xl flex flex-col items-center justify-center cursor-pointer overflow-hidden"
                              onclick="openImagePicker('hero_carousel', ${slideIndex})">
-                            <i class="fas fa-image text-gray-400 text-3xl mb-2"></i>
-                            <span class="text-gray-500">Click to select image</span>
+                            <i class="fas fa-image text-stone-400 text-3xl mb-2"></i>
+                            <span class="text-stone-500">Click to select image</span>
                         </div>
                         <input type="hidden" 
                                name="slides[${slideIndex}][image]" 
@@ -713,51 +713,51 @@ function addNewSlide() {
                 <!-- Content -->
                 <div class="space-y-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Heading</label>
+                        <label class="block text-sm font-medium text-stone-700 mb-2">Heading</label>
                         <input type="text" 
                                name="slides[${slideIndex}][heading]" 
                                value=""
-                               class="w-full border border-gray-300 rounded-lg px-4 py-3"
+                               class="w-full border border-stone-300 rounded-lg px-4 py-3"
                                placeholder="Enter heading">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Subheading</label>
+                        <label class="block text-sm font-medium text-stone-700 mb-2">Subheading</label>
                         <input type="text" 
                                name="slides[${slideIndex}][subheading]" 
                                value=""
-                               class="w-full border border-gray-300 rounded-lg px-4 py-3"
+                               class="w-full border border-stone-300 rounded-lg px-4 py-3"
                                placeholder="Enter subheading">
                     </div>
                     
                     <!-- Buttons Section -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-3">Buttons</label>
+                        <label class="block text-sm font-medium text-stone-700 mb-3">Buttons</label>
                         <div id="buttonsContainer_${slideIndex}" class="space-y-4">
-                            <div class="border border-gray-200 rounded-lg p-4 bg-gray-50">
+                            <div class="border border-stone-200 rounded-lg p-4 bg-stone-50">
                                 <div class="flex justify-between items-center mb-3">
-                                    <span class="text-sm font-medium text-gray-700">Button 1</span>
+                                    <span class="text-sm font-medium text-stone-700">Button 1</span>
                                 </div>
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
-                                        <label class="block text-xs font-medium text-gray-600 mb-1">Button Text</label>
+                                        <label class="block text-xs font-medium text-stone-600 mb-1">Button Text</label>
                                         <input type="text" 
                                                name="slides[${slideIndex}][buttons][0][text]" 
                                                value=""
-                                               class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+                                               class="w-full border border-stone-300 rounded-lg px-3 py-2 text-sm"
                                                placeholder="Button text">
                                     </div>
                                     <div>
-                                        <label class="block text-xs font-medium text-gray-600 mb-1">Button Link</label>
+                                        <label class="block text-xs font-medium text-stone-600 mb-1">Button Link</label>
                                         <input type="text" 
                                                name="slides[${slideIndex}][buttons][0][link]" 
                                                value=""
-                                               class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+                                               class="w-full border border-stone-300 rounded-lg px-3 py-2 text-sm"
                                                placeholder="/path">
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <p class="text-xs text-gray-500 mt-2">
+                        <p class="text-xs text-stone-500 mt-2">
                             You can add up to 3 buttons per slide.
                         </p>
                     </div>
@@ -872,21 +872,21 @@ function addNewBanner() {
     const content = `
         <form id="newSectionForm" class="space-y-6">
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Section Title *</label>
+                <label class="block text-sm font-medium text-stone-700 mb-2">Section Title *</label>
                 <input type="text" id="newSectionTitle" 
                        value="New Banner"
-                       class="w-full border border-gray-300 rounded-lg px-4 py-3"
+                       class="w-full border border-stone-300 rounded-lg px-4 py-3"
                        placeholder="Enter section title">
-                <p class="text-xs text-gray-500 mt-1">This title is only visible in the admin panel.</p>
+                <p class="text-xs text-stone-500 mt-1">This title is only visible in the admin panel.</p>
             </div>
             
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Banner Image *</label>
+                <label class="block text-sm font-medium text-stone-700 mb-2">Banner Image *</label>
                 <div class="space-y-3">
-                    <div class="w-full h-48 bg-gray-100 border-2 border-dashed border-gray-300 rounded-xl flex flex-col items-center justify-center cursor-pointer"
+                    <div class="w-full h-48 bg-stone-100 border-2 border-dashed border-stone-300 rounded-xl flex flex-col items-center justify-center cursor-pointer"
                          onclick="openImagePicker('new_banner')">
-                        <i class="fas fa-image text-gray-400 text-3xl mb-2"></i>
-                        <span class="text-gray-500">Click to select image</span>
+                        <i class="fas fa-image text-stone-400 text-3xl mb-2"></i>
+                        <span class="text-stone-500">Click to select image</span>
                     </div>
                     <input type="hidden" id="newBannerImage" value="">
                 </div>
@@ -894,34 +894,34 @@ function addNewBanner() {
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Heading</label>
+                    <label class="block text-sm font-medium text-stone-700 mb-2">Heading</label>
                     <input type="text" id="newBannerHeading" 
                            value=""
-                           class="w-full border border-gray-300 rounded-lg px-4 py-3"
+                           class="w-full border border-stone-300 rounded-lg px-4 py-3"
                            placeholder="Enter heading">
                 </div>
                 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Subheading</label>
+                    <label class="block text-sm font-medium text-stone-700 mb-2">Subheading</label>
                     <input type="text" id="newBannerSubheading" 
                            value=""
-                           class="w-full border border-gray-300 rounded-lg px-4 py-3"
+                           class="w-full border border-stone-300 rounded-lg px-4 py-3"
                            placeholder="Enter subheading">
                 </div>
                 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Button Text</label>
+                    <label class="block text-sm font-medium text-stone-700 mb-2">Button Text</label>
                     <input type="text" id="newBannerButtonText" 
                            value=""
-                           class="w-full border border-gray-300 rounded-lg px-4 py-3"
+                           class="w-full border border-stone-300 rounded-lg px-4 py-3"
                            placeholder="Button text">
                 </div>
                 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Button Link</label>
+                    <label class="block text-sm font-medium text-stone-700 mb-2">Button Link</label>
                     <input type="text" id="newBannerButtonLink" 
                            value=""
-                           class="w-full border border-gray-300 rounded-lg px-4 py-3" 
+                           class="w-full border border-stone-300 rounded-lg px-4 py-3" 
                            placeholder="/path">
                 </div>
             </div>
@@ -940,30 +940,30 @@ function addNewProductSection() {
     const content = `
         <form id="newSectionForm" class="space-y-6">
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Section Title *</label>
+                <label class="block text-sm font-medium text-stone-700 mb-2">Section Title *</label>
                 <input type="text" id="newSectionTitle" 
                        value="New Product Section"
-                       class="w-full border border-gray-300 rounded-lg px-4 py-3"
+                       class="w-full border border-stone-300 rounded-lg px-4 py-3"
                        placeholder="Enter section title">
-                <p class="text-xs text-gray-500 mt-1">This title is only visible in the admin panel.</p>
+                <p class="text-xs text-stone-500 mt-1">This title is only visible in the admin panel.</p>
             </div>
             
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Section Heading *</label>
+                <label class="block text-sm font-medium text-stone-700 mb-2">Section Heading *</label>
                 <input type="text" id="newProductHeading" 
                        value="Featured Products"
-                       class="w-full border border-gray-300 rounded-lg px-4 py-3"
+                       class="w-full border border-stone-300 rounded-lg px-4 py-3"
                        placeholder="Enter heading for this section">
             </div>
             
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Product Card Style *</label>
-                <select id="selectedCardStyle" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                <label class="block text-sm font-medium text-stone-700 mb-2">Product Card Style *</label>
+                <select id="selectedCardStyle" class="w-full border border-stone-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500">
                     ${Object.entries(productCardStyles).map(([key, style]) => `
                         <option value="${key}">${style.name}</option>
                     `).join('')}
                 </select>
-                <p class="text-xs text-gray-500 mt-1">Choose the style for product cards in this section</p>
+                <p class="text-xs text-stone-500 mt-1">Choose the style for product cards in this section</p>
             </div>
         </form>
     `;
@@ -1032,9 +1032,9 @@ function editSection(sectionId) {
     
     const content = `
         <div class="text-center py-8">
-            <i class="fas fa-edit text-4xl text-gray-300 mb-3"></i>
-            <p class="text-gray-500">Section editing would be implemented here</p>
-            <p class="text-sm text-gray-400 mt-1">In a real application, this would load section data</p>
+            <i class="fas fa-edit text-4xl text-stone-300 mb-3"></i>
+            <p class="text-stone-500">Section editing would be implemented here</p>
+            <p class="text-sm text-stone-400 mt-1">In a real application, this would load section data</p>
         </div>
     `;
     
@@ -1109,17 +1109,17 @@ function searchProducts(event = null) {
     resultsContainer.innerHTML = filteredProducts.map(product => {
         const isSelected = selectedProducts.some(p => p.id === product.id);
         return `
-            <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50">
+            <div class="flex items-center justify-between p-4 border border-stone-200 rounded-lg hover:bg-stone-50">
                 <div class="flex items-center space-x-4">
-                    <div class="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-box text-gray-400"></i>
+                    <div class="w-12 h-12 bg-stone-100 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-box text-stone-400"></i>
                     </div>
                     <div>
-                        <h5 class="font-medium text-gray-800">${product.name}</h5>
-                        <div class="flex items-center space-x-4 text-sm text-gray-500">
+                        <h5 class="font-medium text-stone-800">${product.name}</h5>
+                        <div class="flex items-center space-x-4 text-sm text-stone-500">
                             <span>SKU: ${product.sku}</span>
                             <span>ID: ${product.id}</span>
-                            <span class="font-semibold text-indigo-600">$${product.price.toFixed(2)}</span>
+                            <span class="font-semibold text-sky-600">$${product.price.toFixed(2)}</span>
                         </div>
                     </div>
                 </div>
@@ -1168,9 +1168,9 @@ function addButtonToSlide(slideIndex) {
     // Create new button element
     const buttonId = Date.now();
     const buttonHtml = `
-        <div class="border border-gray-200 rounded-lg p-4 bg-gray-50">
+        <div class="border border-stone-200 rounded-lg p-4 bg-stone-50">
             <div class="flex justify-between items-center mb-3">
-                <span class="text-sm font-medium text-gray-700">Button ${currentButtons + 1}</span>
+                <span class="text-sm font-medium text-stone-700">Button ${currentButtons + 1}</span>
                 <button type="button" 
                         onclick="removeButtonFromSlide(${slideIndex}, ${currentButtons})" 
                         class="text-rose-600 hover:text-rose-800 text-sm">
@@ -1179,19 +1179,19 @@ function addButtonToSlide(slideIndex) {
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <label class="block text-xs font-medium text-gray-600 mb-1">Button Text</label>
+                    <label class="block text-xs font-medium text-stone-600 mb-1">Button Text</label>
                     <input type="text" 
                            name="slides[${slideIndex}][buttons][${currentButtons}][text]" 
                            value=""
-                           class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+                           class="w-full border border-stone-300 rounded-lg px-3 py-2 text-sm"
                            placeholder="Button text">
                 </div>
                 <div>
-                    <label class="block text-xs font-medium text-gray-600 mb-1">Button Link</label>
+                    <label class="block text-xs font-medium text-stone-600 mb-1">Button Link</label>
                     <input type="text" 
                            name="slides[${slideIndex}][buttons][${currentButtons}][link]" 
                            value=""
-                           class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+                           class="w-full border border-stone-300 rounded-lg px-3 py-2 text-sm"
                            placeholder="/path">
                 </div>
             </div>
@@ -1227,9 +1227,9 @@ function updateButtonNumbers(slideIndex) {
     const container = document.getElementById(`buttonsContainer_${slideIndex}`);
     if (!container) return;
     
-    const buttons = container.querySelectorAll('.border.border-gray-200');
+    const buttons = container.querySelectorAll('.border.border-stone-200');
     buttons.forEach((button, index) => {
-        const label = button.querySelector('.text-sm.font-medium.text-gray-700');
+        const label = button.querySelector('.text-sm.font-medium.text-stone-700');
         if (label) {
             label.textContent = `Button ${index + 1}`;
         }
@@ -1284,11 +1284,11 @@ function saveHeroCarousel() {
 <style>
 .sortable-ghost {
     opacity: 0.4;
-    background-color: #e5e7eb;
+    background-color: #f1f5f9;
 }
 
 .sortable-chosen {
-    background-color: #f3f4f6;
+    background-color: #f8fafc;
 }
 </style>
 @endpush

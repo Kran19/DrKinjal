@@ -6,8 +6,8 @@
     <div class="mb-8">
         <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
             <div>
-                <h2 class="text-xl sm:text-2xl font-bold text-gray-800 mb-2">Category Management</h2>
-                <p class="text-gray-600 text-sm sm:text-base">Organize your products with categories and subcategories</p>
+                <h2 class="text-xl sm:text-2xl font-bold text-stone-800 mb-2">Category Management</h2>
+                <p class="text-stone-600 text-sm sm:text-base">Organize your products with categories and subcategories</p>
             </div>
             <a href="{{ route('admin.categories.create') }}" class="btn-primary">
     <i class="fas fa-plus mr-2"></i>Add New Category
@@ -17,56 +17,56 @@
 
     <!-- Statistics Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-sky-100 p-6">
             <div class="flex items-center">
-                <div class="p-3 rounded-lg bg-indigo-100 text-indigo-600 mr-4">
+                <div class="p-3 rounded-lg bg-sky-100 text-sky-600 mr-4">
                     <i class="fas fa-folder text-xl"></i>
                 </div>
                 <div>
-                    <p class="text-sm text-gray-600">Total Categories</p>
-                    <h3 class="text-2xl font-bold text-gray-800" id="totalCategories">0</h3>
+                    <p class="text-sm text-stone-600">Total Categories</p>
+                    <h3 class="text-2xl font-bold text-stone-800" id="totalCategories">0</h3>
                 </div>
             </div>
         </div>
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-sky-100 p-6">
             <div class="flex items-center">
                 <div class="p-3 rounded-lg bg-emerald-100 text-emerald-600 mr-4">
                     <i class="fas fa-check-circle text-xl"></i>
                 </div>
                 <div>
-                    <p class="text-sm text-gray-600">Active Categories</p>
-                    <h3 class="text-2xl font-bold text-gray-800" id="activeCategories">0</h3>
+                    <p class="text-sm text-stone-600">Active Categories</p>
+                    <h3 class="text-2xl font-bold text-stone-800" id="activeCategories">0</h3>
                 </div>
             </div>
         </div>
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-sky-100 p-6">
             <div class="flex items-center">
-                <div class="p-3 rounded-lg bg-blue-100 text-blue-600 mr-4">
+                <div class="p-3 rounded-lg bg-sky-100 text-sky-600 mr-4">
                     <i class="fas fa-sitemap text-xl"></i>
                 </div>
                 <div>
-                    <p class="text-sm text-gray-600">Main Categories</p>
-                    <h3 class="text-2xl font-bold text-gray-800" id="mainCategories">0</h3>
+                    <p class="text-sm text-stone-600">Main Categories</p>
+                    <h3 class="text-2xl font-bold text-stone-800" id="mainCategories">0</h3>
                 </div>
             </div>
         </div>
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-sky-100 p-6">
             <div class="flex items-center">
                 <div class="p-3 rounded-lg bg-amber-100 text-amber-600 mr-4">
                     <i class="fas fa-crown text-xl"></i>
                 </div>
                 <div>
-                    <p class="text-sm text-gray-600">Top Category</p>
-                    <h3 class="text-lg font-semibold text-gray-800 truncate" id="popularCategory">-</h3>
+                    <p class="text-sm text-stone-600">Top Category</p>
+                    <h3 class="text-lg font-semibold text-stone-800 truncate" id="popularCategory">-</h3>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Categories Table - Tabulator -->
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-        <div class="px-6 py-4 border-b border-gray-200">
-            <h3 class="text-lg font-semibold text-gray-800">All Categories</h3>
+    <div class="bg-white rounded-2xl shadow-sm border border-sky-100 overflow-hidden">
+        <div class="px-6 py-4 border-b border-stone-200 bg-stone-50/50">
+            <h3 class="text-lg font-semibold text-stone-800">All Categories</h3>
         </div>
         <div class="p-6">
             <!-- Tabulator Toolbar -->
@@ -74,8 +74,8 @@
                 <div class="order-2 sm:order-1">
                     <div class="relative" style="width: 260px;">
                         <input type="text" id="searchInput" placeholder="Search categories..."
-                            class="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent w-full">
-                        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                            class="pl-10 pr-4 py-2 rounded-lg border border-stone-300 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent w-full text-stone-900 placeholder-stone-400">
+                        <i class="fas fa-search absolute left-3 top-3 text-stone-400"></i>
                     </div>
                 </div>
                 <div class="flex flex-wrap gap-2 order-1 sm:order-2">
@@ -97,19 +97,19 @@
                             <i class="fas fa-file-export mr-2"></i>Export
                         </button>
                         <div
-                            class="absolute mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50 hidden group-hover:block
+                            class="absolute mt-2 w-48 bg-white rounded-lg shadow-lg border border-stone-200 py-2 z-50 hidden group-hover:block
                right-0 md:right-0 md:left-auto
                left-0 md:left-auto">
                             <button data-export="csv"
-                                class="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-indigo-600 text-sm">
+                                class="w-full text-left px-4 py-2 text-stone-700 hover:bg-stone-50 hover:text-sky-600 text-sm">
                                 <i class="fas fa-file-csv mr-2"></i>CSV
                             </button>
                             <button data-export="xlsx"
-                                class="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-indigo-600 text-sm">
+                                class="w-full text-left px-4 py-2 text-stone-700 hover:bg-stone-50 hover:text-sky-600 text-sm">
                                 <i class="fas fa-file-excel mr-2"></i>Excel
                             </button>
                             <button data-export="print"
-                                class="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-indigo-600 text-sm">
+                                class="w-full text-left px-4 py-2 text-stone-700 hover:bg-stone-50 hover:text-sky-600 text-sm">
                                 <i class="fas fa-print mr-2"></i>Print
                             </button>
                         </div>
@@ -123,12 +123,12 @@
     </div>
 
     <!-- Create/Edit Category Modal -->
-    <div id="categoryModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 hidden">
-        <div class="relative top-20 mx-auto p-6 border w-11/12 md:w-3/4 lg:w-1/2 shadow-lg rounded-2xl bg-white"
+    <div id="categoryModal" class="fixed inset-0 bg-stone-900 bg-opacity-50 overflow-y-auto h-full w-full z-50 hidden backdrop-blur-sm">
+        <div class="relative top-20 mx-auto p-6 border border-sky-100 w-11/12 md:w-3/4 lg:w-1/2 shadow-2xl rounded-2xl bg-white"
             style="max-height: 90vh; overflow-y: auto;">
             <div class="flex justify-between items-center mb-6">
-                <h3 class="text-xl font-bold text-gray-800" id="modalTitle">Add New Category</h3>
-                <button onclick="closeCategoryModal()" class="text-gray-400 hover:text-gray-600">
+                <h3 class="text-xl font-bold text-stone-800" id="modalTitle">Add New Category</h3>
+                <button onclick="closeCategoryModal()" class="text-stone-400 hover:text-stone-600">
                     <i class="fas fa-times text-xl"></i>
                 </button>
             </div>
@@ -158,27 +158,27 @@
                     <!-- Basic Information -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Category Name
+                            <label for="name" class="block text-sm font-medium text-stone-700 mb-1">Category Name
                                 *</label>
                             <input type="text" id="name" name="name" required
-                                class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                class="w-full border border-stone-300 rounded-lg px-4 py-2 focus:ring-sky-500 focus:border-sky-500 text-stone-900">
                             <div id="nameError" class="hidden mt-1 text-sm text-rose-600"></div>
                         </div>
 
                         <div>
-                            <label for="slug" class="block text-sm font-medium text-gray-700 mb-1">Slug *</label>
+                            <label for="slug" class="block text-sm font-medium text-stone-700 mb-1">Slug *</label>
                             <input type="text" id="slug" name="slug" required
-                                class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                class="w-full border border-stone-300 rounded-lg px-4 py-2 focus:ring-sky-500 focus:border-sky-500 text-stone-900">
                             <div id="slugError" class="hidden mt-1 text-sm text-rose-600"></div>
                         </div>
                     </div>
 
                     <!-- Parent Category -->
                     <div>
-                        <label for="parent_id" class="block text-sm font-medium text-gray-700 mb-1">Parent
+                        <label for="parent_id" class="block text-sm font-medium text-stone-700 mb-1">Parent
                             Category</label>
                         <select id="parent_id" name="parent_id"
-                            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            class="w-full border border-stone-300 rounded-lg px-4 py-2 focus:ring-sky-500 focus:border-sky-500 text-stone-900">
                             <option value="">No Parent (Main Category)</option>
                             <!-- Options will be populated by JavaScript -->
                         </select>
@@ -186,9 +186,9 @@
 
                     <!-- Description -->
                     <div>
-                        <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                        <label for="description" class="block text-sm font-medium text-stone-700 mb-1">Description</label>
                         <textarea id="description" name="description" rows="3"
-                            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+                            class="w-full border border-stone-300 rounded-lg px-4 py-2 focus:ring-sky-500 focus:border-sky-500 text-stone-900"></textarea>
                     </div>
 
                     <!-- SEO Section -->
@@ -229,17 +229,17 @@
                     <!-- Settings -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label for="sort_order" class="block text-sm font-medium text-gray-700 mb-1">Sort
+                            <label for="sort_order" class="block text-sm font-medium text-stone-700 mb-1">Sort
                                 Order</label>
                             <input type="number" id="sort_order" name="sort_order" value="0" min="0"
-                                class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                class="w-full border border-stone-300 rounded-lg px-4 py-2 focus:ring-sky-500 focus:border-sky-500 text-stone-900">
                         </div>
 
                         <div>
                             <label class="flex items-center space-x-2">
                                 <input type="checkbox" id="status" name="status" checked
-                                    class="rounded border-gray-300 text-indigo-600">
-                                <span class="text-sm text-gray-700">Active Category</span>
+                                    class="rounded border-stone-300 text-sky-600 focus:ring-sky-500">
+                                <span class="text-sm text-stone-700">Active Category</span>
                             </label>
                         </div>
                     </div>
@@ -362,7 +362,7 @@
         }
 
         input:checked+.slider {
-            background-color: #4f46e5;
+            background-color: #0ea5e9;
         }
 
         input:checked+.slider:before {
@@ -381,34 +381,44 @@
         .tabulator {
             border: none !important;
             background-color: transparent !important;
+            font-family: inherit !important;
         }
 
         .tabulator .tabulator-header {
-            border-bottom: 1px solid #e5e7eb !important;
-            background-color: #f9fafb !important;
+            border-bottom: 1px solid #e0f2fe !important;
+            background-color: #fafaf9 !important;
         }
 
         .tabulator .tabulator-header .tabulator-col {
             border-right: none !important;
             background-color: transparent !important;
             font-weight: 600 !important;
-            color: #374151 !important;
+            color: #1c1917 !important;
+            padding: 12px 4px !important;
         }
 
         .tabulator .tabulator-tableholder .tabulator-table {
             background-color: white !important;
+            color: #44403c !important;
         }
 
         .tabulator-row {
-            border-bottom: 1px solid #f3f4f6 !important;
+            border-bottom: 1px solid #f5f5f4 !important;
+            min-height: 60px !important;
+            display: flex !important;
+            align-items: center !important;
         }
 
         .tabulator-row:hover {
-            background-color: #f9fafb !important;
+            background-color: #f0f9ff !important;
+        }
+
+        .tabulator-row.tabulator-selected {
+            background-color: #e0f2fe !important;
         }
 
         .selected-media .border-2 {
-            border-color: #4f46e5 !important;
+            border-color: #0ea5e9 !important;
         }
     </style>
 @endpush

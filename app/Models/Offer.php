@@ -168,11 +168,7 @@ class Offer extends Model
     {
         $types = [
             'percentage' => 'Percentage Discount',
-            'fixed' => 'Fixed Amount',
-            'bogo' => 'Buy One Get One',
-            'buy_x_get_y' => 'Buy X Get Y',
-            'free_shipping' => 'Free Shipping',
-            'tiered' => 'Tiered Discount'
+            'fixed' => 'Fixed Amount'
         ];
 
         return $types[$this->offer_type] ?? $this->offer_type;

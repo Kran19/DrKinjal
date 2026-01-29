@@ -5,8 +5,8 @@
 @section('content')
 
     <div class="mb-6 lg:mb-8">
-        <h2 class="text-xl lg:text-2xl font-bold text-gray-800 mb-2">Dashboard Overview</h2>
-        <p class="text-sm lg:text-base text-gray-600">
+        <h2 class="text-xl lg:text-2xl font-bold text-stone-800 mb-2">Dashboard Overview</h2>
+        <p class="text-sm lg:text-base text-stone-600">
             Welcome back, {{ Auth::guard('admin')->user()->name ?? 'Admin' }}!
             Here's what's happening today.
         </p>
@@ -17,12 +17,12 @@
         ============================= -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-6 lg:mb-8">
         <!-- Today's Orders -->
-        <div class="bg-white rounded-xl lg:rounded-2xl shadow-sm border border-gray-100 p-4 lg:p-6 card-hover">
+        <div class="bg-white rounded-xl lg:rounded-2xl shadow-sm border border-sky-100 p-4 lg:p-6 card-hover">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-xs lg:text-sm font-medium text-gray-600">Today's Orders</p>
-                    <p class="text-xl lg:text-2xl font-bold text-gray-900 mt-1">{{ number_format($stats['today_orders']) }}</p>
-                    <p class="text-xs lg:text-sm text-gray-500 mt-1">
+                    <p class="text-xs lg:text-sm font-medium text-stone-600">Today's Orders</p>
+                    <p class="text-xl lg:text-2xl font-bold text-stone-900 mt-1">{{ number_format($stats['today_orders']) }}</p>
+                    <p class="text-xs lg:text-sm text-stone-500 mt-1">
                         @if($stats['yesterday_orders'] > 0)
                             @php $change = (($stats['today_orders'] - $stats['yesterday_orders']) / $stats['yesterday_orders']) * 100 @endphp
                             <span class="{{ $change >= 0 ? 'text-emerald-600' : 'text-rose-600' }}">
@@ -39,19 +39,19 @@
                         @endif
                     </p>
                 </div>
-                <div class="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-r from-blue-400 to-blue-600 rounded-lg lg:rounded-xl flex items-center justify-center">
+                <div class="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-r from-sky-400 to-sky-600 rounded-lg lg:rounded-xl flex items-center justify-center">
                     <i class="fas fa-shopping-cart text-white text-base lg:text-lg"></i>
                 </div>
             </div>
         </div>
 
         <!-- Today's Revenue -->
-        <div class="bg-white rounded-xl lg:rounded-2xl shadow-sm border border-gray-100 p-4 lg:p-6 card-hover">
+        <div class="bg-white rounded-xl lg:rounded-2xl shadow-sm border border-sky-100 p-4 lg:p-6 card-hover">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-xs lg:text-sm font-medium text-gray-600">Today's Revenue</p>
-                    <p class="text-xl lg:text-2xl font-bold text-gray-900 mt-1">₹{{ number_format($stats['today_revenue'], 2) }}</p>
-                    <p class="text-xs lg:text-sm text-gray-500 mt-1">
+                    <p class="text-xs lg:text-sm font-medium text-stone-600">Today's Revenue</p>
+                    <p class="text-xl lg:text-2xl font-bold text-stone-900 mt-1">₹{{ number_format($stats['today_revenue'], 2) }}</p>
+                    <p class="text-xs lg:text-sm text-stone-500 mt-1">
                         @if($stats['yesterday_revenue'] > 0)
                             @php $change = (($stats['today_revenue'] - $stats['yesterday_revenue']) / $stats['yesterday_revenue']) * 100 @endphp
                             <span class="{{ $change >= 0 ? 'text-emerald-600' : 'text-rose-600' }}">
@@ -75,11 +75,11 @@
         </div>
 
         <!-- Pending Orders -->
-        <div class="bg-white rounded-xl lg:rounded-2xl shadow-sm border border-gray-100 p-4 lg:p-6 card-hover">
+        <div class="bg-white rounded-xl lg:rounded-2xl shadow-sm border border-sky-100 p-4 lg:p-6 card-hover">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-xs lg:text-sm font-medium text-gray-600">Pending Orders</p>
-                    <p class="text-xl lg:text-2xl font-bold text-gray-900 mt-1">{{ number_format($stats['pending_orders']) }}</p>
+                    <p class="text-xs lg:text-sm font-medium text-stone-600">Pending Orders</p>
+                    <p class="text-xl lg:text-2xl font-bold text-stone-900 mt-1">{{ number_format($stats['pending_orders']) }}</p>
                     <p class="text-xs lg:text-sm text-emerald-600 mt-1">
                         <i class="fas fa-clock mr-1"></i>
                         Needs attention
@@ -92,11 +92,11 @@
         </div>
 
         <!-- Low Stock -->
-        <div class="bg-white rounded-xl lg:rounded-2xl shadow-sm border border-gray-100 p-4 lg:p-6 card-hover">
+        <div class="bg-white rounded-xl lg:rounded-2xl shadow-sm border border-sky-100 p-4 lg:p-6 card-hover">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-xs lg:text-sm font-medium text-gray-600">Low Stock</p>
-                    <p class="text-xl lg:text-2xl font-bold text-gray-900 mt-1">{{ number_format($stats['low_stock_products']) }}</p>
+                    <p class="text-xs lg:text-sm font-medium text-stone-600">Low Stock</p>
+                    <p class="text-xl lg:text-2xl font-bold text-stone-900 mt-1">{{ number_format($stats['low_stock_products']) }}</p>
                     <p class="text-xs lg:text-sm text-rose-600 mt-1">
                         <i class="fas fa-exclamation-triangle mr-1"></i>
                         {{ $stats['out_of_stock_products'] }} out of stock
@@ -128,7 +128,7 @@
                 'value' => number_format($stats['total_orders']),
                 'change' => $stats['orders_change'],
                 'icon' => 'fas fa-shopping-cart',
-                'color' => 'from-blue-400 to-blue-600',
+                'color' => 'from-sky-400 to-sky-600',
                 'change_color' => $stats['orders_change'] >= 0 ? 'text-emerald-600' : 'text-rose-600',
                 'period' => 'This month',
             ],
@@ -137,7 +137,7 @@
                 'value' => number_format($stats['total_products']),
                 'change' => $stats['products_change'],
                 'icon' => 'fas fa-box',
-                'color' => 'from-purple-400 to-purple-600',
+                'color' => 'from-sky-400 to-sky-600',
                 'change_color' => $stats['products_change'] >= 0 ? 'text-emerald-600' : 'text-rose-600',
                 'period' => 'New this month',
             ],
@@ -155,17 +155,17 @@
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-6 lg:mb-8">
         @foreach ($cards as $item)
-            <div class="bg-white rounded-xl lg:rounded-2xl shadow-sm border border-gray-100 p-4 lg:p-6 card-hover">
+            <div class="bg-white rounded-xl lg:rounded-2xl shadow-sm border border-sky-100 p-4 lg:p-6 card-hover">
                 <div class="flex items-center justify-between">
                     <div class="min-w-0 flex-1">
-                        <p class="text-xs lg:text-sm font-medium text-gray-600 truncate">{{ $item['title'] }}</p>
-                        <p class="text-xl lg:text-2xl font-bold text-gray-900 mt-1 truncate">{{ $item['value'] }}</p>
+                        <p class="text-xs lg:text-sm font-medium text-stone-600 truncate">{{ $item['title'] }}</p>
+                        <p class="text-xl lg:text-2xl font-bold text-stone-900 mt-1 truncate">{{ $item['value'] }}</p>
                         <div class="flex items-center mt-1">
                             <p class="text-xs lg:text-sm {{ $item['change_color'] }} mr-2 whitespace-nowrap">
                                 <i class="fas fa-arrow-{{ $item['change'] >= 0 ? 'up' : 'down' }} mr-1"></i>
                                 {{ abs($item['change']) }}%
                             </p>
-                            <p class="text-xs text-gray-500 truncate">{{ $item['period'] }}</p>
+                            <p class="text-xs text-stone-500 truncate">{{ $item['period'] }}</p>
                         </div>
                     </div>
                     <div class="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-r {{ $item['color'] }} rounded-lg lg:rounded-xl flex items-center justify-center ml-3 flex-shrink-0">
@@ -182,14 +182,14 @@
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 mb-6 lg:mb-8">
 
         <!-- Revenue Trend -->
-        <div class="bg-white rounded-xl lg:rounded-2xl shadow-sm border border-gray-100 p-4 lg:p-6">
+        <div class="bg-white rounded-xl lg:rounded-2xl shadow-sm border border-sky-100 p-4 lg:p-6">
             <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 lg:mb-6 gap-2">
-                <h3 class="text-base lg:text-lg font-semibold text-gray-800">Revenue Trend</h3>
+                <h3 class="text-base lg:text-lg font-semibold text-stone-800">Revenue Trend</h3>
                 <div class="flex space-x-2">
-                    <button class="px-3 py-1 text-xs font-medium rounded-lg bg-indigo-50 text-indigo-600 weekly-btn">
+                    <button class="px-3 py-1 text-xs font-medium rounded-lg bg-sky-50 text-sky-600 weekly-btn">
                         Weekly
                     </button>
-                    <button class="px-3 py-1 text-xs font-medium rounded-lg text-gray-500 hover:bg-gray-100 monthly-btn">
+                    <button class="px-3 py-1 text-xs font-medium rounded-lg text-stone-500 hover:bg-stone-100 monthly-btn">
                         Monthly
                     </button>
                 </div>
@@ -200,14 +200,14 @@
         </div>
 
         <!-- Order Distribution -->
-        <div class="bg-white rounded-xl lg:rounded-2xl shadow-sm border border-gray-100 p-4 lg:p-6">
+        <div class="bg-white rounded-xl lg:rounded-2xl shadow-sm border border-sky-100 p-4 lg:p-6">
             <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 lg:mb-6 gap-2">
-                <h3 class="text-base lg:text-lg font-semibold text-gray-800">Order Distribution</h3>
+                <h3 class="text-base lg:text-lg font-semibold text-stone-800">Order Distribution</h3>
                 <div class="flex space-x-2">
-                    <button class="px-3 py-1 text-xs font-medium rounded-lg bg-indigo-50 text-indigo-600 status-btn">
+                    <button class="px-3 py-1 text-xs font-medium rounded-lg bg-sky-50 text-sky-600 status-btn">
                         By Status
                     </button>
-                    <button class="px-3 py-1 text-xs font-medium rounded-lg text-gray-500 hover:bg-gray-100 category-btn">
+                    <button class="px-3 py-1 text-xs font-medium rounded-lg text-stone-500 hover:bg-stone-100 category-btn">
                         By Category
                     </button>
                 </div>
@@ -223,23 +223,23 @@
         ============================= -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 mb-6 lg:mb-8">
         <!-- Recent Orders -->
-        <div class="bg-white rounded-xl lg:rounded-2xl shadow-sm border border-gray-100 p-4 lg:p-6">
+        <div class="bg-white rounded-xl lg:rounded-2xl shadow-sm border border-sky-100 p-4 lg:p-6">
             <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 lg:mb-6 gap-2">
-                <h3 class="text-base lg:text-lg font-semibold text-gray-800">Recent Orders</h3>
+                <h3 class="text-base lg:text-lg font-semibold text-stone-800">Recent Orders</h3>
                 <a href="{{ route('admin.orders.index') }}"
-                    class="text-indigo-600 hover:text-indigo-800 text-sm font-medium whitespace-nowrap">View All</a>
+                    class="text-sky-600 hover:text-sky-800 text-sm font-medium whitespace-nowrap">View All</a>
             </div>
 
             <div class="space-y-3 lg:space-y-4">
                 @foreach ($recentOrders as $order)
-                    <div class="flex items-center justify-between p-3 lg:p-4 bg-gray-50 rounded-lg lg:rounded-xl hover:bg-gray-100 transition">
+                    <div class="flex items-center justify-between p-3 lg:p-4 bg-stone-50 rounded-lg lg:rounded-xl hover:bg-stone-100 transition border border-stone-50 hover:border-sky-100">
                         <div class="flex items-center space-x-3 lg:space-x-4 min-w-0 flex-1">
-                            <div class="w-8 h-8 lg:w-10 lg:h-10 bg-indigo-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-shopping-bag text-indigo-600 text-sm lg:text-base"></i>
+                            <div class="w-8 h-8 lg:w-10 lg:h-10 bg-sky-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-shopping-bag text-sky-600 text-sm lg:text-base"></i>
                             </div>
                             <div class="min-w-0 flex-1">
-                                <p class="font-medium text-gray-900 truncate text-sm lg:text-base">{{ $order['id'] }}</p>
-                                <div class="flex flex-col xs:flex-row xs:items-center xs:space-x-2 text-xs lg:text-sm text-gray-500 mt-1">
+                                <p class="font-medium text-stone-900 truncate text-sm lg:text-base">{{ $order['id'] }}</p>
+                                <div class="flex flex-col xs:flex-row xs:items-center xs:space-x-2 text-xs lg:text-sm text-stone-500 mt-1">
                                     <span class="truncate">{{ $order['customer'] }}</span>
                                     <span class="hidden xs:inline">•</span>
                                     <span>₹{{ number_format($order['amount'], 2) }}</span>
@@ -254,8 +254,8 @@
                     </div>
                 @endforeach
                 @if(empty($recentOrders))
-                    <div class="text-center py-8 text-gray-500">
-                        <i class="fas fa-shopping-cart text-2xl lg:text-3xl mb-2"></i>
+                    <div class="text-center py-8 text-stone-400">
+                        <i class="fas fa-shopping-cart text-2xl lg:text-3xl mb-2 text-sky-200"></i>
                         <p class="text-sm lg:text-base">No recent orders</p>
                     </div>
                 @endif
@@ -263,23 +263,23 @@
         </div>
 
         <!-- Top Products -->
-        <div class="bg-white rounded-xl lg:rounded-2xl shadow-sm border border-gray-100 p-4 lg:p-6">
+        <div class="bg-white rounded-xl lg:rounded-2xl shadow-sm border border-sky-100 p-4 lg:p-6">
             <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 lg:mb-6 gap-2">
-                <h3 class="text-base lg:text-lg font-semibold text-gray-800">Top Products</h3>
+                <h3 class="text-base lg:text-lg font-semibold text-stone-800">Top Products</h3>
                 <a href="{{ route('admin.products.index') }}"
-                    class="text-indigo-600 hover:text-indigo-800 text-sm font-medium whitespace-nowrap">View All</a>
+                    class="text-sky-600 hover:text-sky-800 text-sm font-medium whitespace-nowrap">View All</a>
             </div>
 
             <div class="space-y-3 lg:space-y-4">
                 @foreach ($topProducts as $product)
-                    <div class="flex items-center justify-between p-3 lg:p-4 bg-gray-50 rounded-lg lg:rounded-xl hover:bg-gray-100 transition">
+                    <div class="flex items-center justify-between p-3 lg:p-4 bg-stone-50 rounded-lg lg:rounded-xl hover:bg-stone-100 transition border border-stone-50 hover:border-sky-100">
                         <div class="flex items-center space-x-3 lg:space-x-4 min-w-0 flex-1">
-                            <div class="w-8 h-8 lg:w-10 lg:h-10 bg-gradient-to-r from-purple-100 to-purple-200 rounded-lg flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-box text-purple-600 text-sm lg:text-base"></i>
+                            <div class="w-8 h-8 lg:w-10 lg:h-10 bg-gradient-to-r from-sky-100 to-sky-200 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-box text-sky-600 text-sm lg:text-base"></i>
                             </div>
                             <div class="min-w-0 flex-1">
-                                <p class="font-medium text-gray-900 truncate text-sm lg:text-base">{{ $product['name'] }}</p>
-                                <div class="flex flex-col xs:flex-row xs:items-center xs:space-x-2 lg:space-x-4 text-xs lg:text-sm text-gray-500 mt-1">
+                                <p class="font-medium text-stone-900 truncate text-sm lg:text-base">{{ $product['name'] }}</p>
+                                <div class="flex flex-col xs:flex-row xs:items-center xs:space-x-2 lg:space-x-4 text-xs lg:text-sm text-stone-500 mt-1">
                                     <span>{{ $product['sales'] }} sales</span>
                                     <span class="hidden xs:inline">•</span>
                                     <span>₹{{ number_format($product['revenue'], 2) }} revenue</span>
@@ -304,24 +304,24 @@
         ============================= -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 mb-6 lg:mb-8">
         <!-- Recent Customers -->
-        <div class="lg:col-span-2 bg-white rounded-xl lg:rounded-2xl shadow-sm border border-gray-100 p-4 lg:p-6">
+        <div class="lg:col-span-2 bg-white rounded-xl lg:rounded-2xl shadow-sm border border-sky-100 p-4 lg:p-6">
             <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 lg:mb-6 gap-2">
-                <h3 class="text-base lg:text-lg font-semibold text-gray-800">Recent Customers</h3>
+                <h3 class="text-base lg:text-lg font-semibold text-stone-800">Recent Customers</h3>
                 <a href="{{ route('admin.users.index') }}"
-                    class="text-indigo-600 hover:text-indigo-800 text-sm font-medium whitespace-nowrap">View All</a>
+                    class="text-sky-600 hover:text-sky-800 text-sm font-medium whitespace-nowrap">View All</a>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4">
                 @foreach ($recentCustomers as $customer)
-                    <div class="flex items-center p-3 lg:p-4 bg-gray-50 rounded-lg lg:rounded-xl hover:bg-gray-100 transition">
-                        <div class="w-8 h-8 lg:w-10 lg:h-10 bg-gradient-to-r from-amber-400 to-amber-600 rounded-full flex items-center justify-center text-white font-bold text-sm lg:text-base mr-3 lg:mr-4 flex-shrink-0">
+                    <div class="flex items-center p-3 lg:p-4 bg-stone-50 rounded-lg lg:rounded-xl hover:bg-stone-100 transition border border-stone-50 hover:border-sky-100">
+                        <div class="w-8 h-8 lg:w-10 lg:h-10 bg-gradient-to-r from-sky-400 to-sky-600 rounded-full flex items-center justify-center text-white font-bold text-sm lg:text-base mr-3 lg:mr-4 flex-shrink-0 shadow-sm">
                             {{ $customer['avatar'] }}
                         </div>
                         <div class="min-w-0 flex-1">
-                            <p class="font-medium text-gray-900 truncate text-sm lg:text-base">{{ $customer['name'] }}</p>
-                            <p class="text-xs lg:text-sm text-gray-500 truncate">{{ $customer['email'] }}</p>
+                            <p class="font-medium text-stone-900 truncate text-sm lg:text-base">{{ $customer['name'] }}</p>
+                            <p class="text-xs lg:text-sm text-stone-500 truncate">{{ $customer['email'] }}</p>
                         </div>
-                        <span class="text-xs text-gray-500 whitespace-nowrap ml-2">{{ $customer['joined'] }}</span>
+                        <span class="text-xs text-stone-400 whitespace-nowrap ml-2">{{ $customer['joined'] }}</span>
                     </div>
                 @endforeach
                 @if(empty($recentCustomers))
@@ -334,29 +334,29 @@
         </div>
 
         <!-- Sales by Payment Method -->
-        <div class="bg-white rounded-xl lg:rounded-2xl shadow-sm border border-gray-100 p-4 lg:p-6">
+        <div class="bg-white rounded-xl lg:rounded-2xl shadow-sm border border-sky-100 p-4 lg:p-6">
             <div class="flex justify-between items-center mb-4 lg:mb-6">
-                <h3 class="text-base lg:text-lg font-semibold text-gray-800">Sales by Payment</h3>
+                <h3 class="text-base lg:text-lg font-semibold text-stone-800">Sales by Payment</h3>
             </div>
 
             <div class="space-y-3 lg:space-y-4">
                 @foreach ($salesByPaymentMethod as $method)
-                    <div class="flex items-center justify-between">
+                    <div class="flex items-center justify-between p-2 hover:bg-stone-50 rounded-lg transition-colors">
                         <div class="flex items-center min-w-0 flex-1">
-                            <div class="w-6 h-6 lg:w-8 lg:h-8 bg-blue-100 rounded-lg flex items-center justify-center mr-2 lg:mr-3 flex-shrink-0">
-                                <i class="fas fa-credit-card text-blue-600 text-xs lg:text-sm"></i>
+                            <div class="w-6 h-6 lg:w-8 lg:h-8 bg-sky-100 rounded-lg flex items-center justify-center mr-2 lg:mr-3 flex-shrink-0">
+                                <i class="fas fa-credit-card text-sky-600 text-xs lg:text-sm"></i>
                             </div>
-                            <span class="font-medium text-gray-700 text-sm lg:text-base truncate">{{ $method['name'] }}</span>
+                            <span class="font-medium text-stone-700 text-sm lg:text-base truncate">{{ $method['name'] }}</span>
                         </div>
                         <div class="text-right ml-2 flex-shrink-0">
-                            <p class="font-bold text-gray-900 text-sm lg:text-base">₹{{ number_format($method['total_amount'], 2) }}</p>
-                            <p class="text-xs text-gray-500">{{ $method['order_count'] }} orders</p>
+                            <p class="font-bold text-stone-900 text-sm lg:text-base">₹{{ number_format($method['total_amount'], 2) }}</p>
+                            <p class="text-xs text-stone-500">{{ $method['order_count'] }} orders</p>
                         </div>
                     </div>
                 @endforeach
                 @if(empty($salesByPaymentMethod))
-                    <div class="text-center py-8 text-gray-500">
-                        <i class="fas fa-credit-card text-2xl lg:text-3xl mb-2"></i>
+                    <div class="text-center py-8 text-stone-400">
+                        <i class="fas fa-credit-card text-2xl lg:text-3xl mb-2 text-sky-200"></i>
                         <p class="text-sm lg:text-base">No payment data</p>
                     </div>
                 @endif
@@ -558,12 +558,12 @@
         const weeklyBtn = document.querySelector('.weekly-btn');
         const monthlyBtn = document.querySelector('.monthly-btn');
         const statusBtn = document.querySelector('.status-btn');
-        const categoryBtn = document.querySelector('.category-btn');
+        const categoryBtn = document.querySelector('.category-btn');Symbol
 
         // Revenue chart toggle
         weeklyBtn?.addEventListener('click', function() {
-            this.classList.add('bg-indigo-50', 'text-indigo-600');
-            monthlyBtn?.classList.remove('bg-indigo-50', 'text-indigo-600');
+            this.classList.add('bg-sky-50', 'text-sky-600');
+            monthlyBtn?.classList.remove('bg-sky-50', 'text-sky-600');
 
             // Update to weekly data
             revenueChart.data.labels = @json($revenueChartData['labels'] ?? []);
@@ -572,8 +572,8 @@
         });
 
         monthlyBtn?.addEventListener('click', function() {
-            this.classList.add('bg-indigo-50', 'text-indigo-600');
-            weeklyBtn?.classList.remove('bg-indigo-50', 'text-indigo-600');
+            this.classList.add('bg-sky-50', 'text-sky-600');
+            weeklyBtn?.classList.remove('bg-sky-50', 'text-sky-600');
 
             // Update to monthly data
             revenueChart.data.labels = @json($monthlyRevenue['labels'] ?? []);
@@ -583,8 +583,8 @@
 
         // Order chart toggle - Status view (default)
         statusBtn?.addEventListener('click', function() {
-            this.classList.add('bg-indigo-50', 'text-indigo-600');
-            categoryBtn?.classList.remove('bg-indigo-50', 'text-indigo-600');
+            this.classList.add('bg-sky-50', 'text-sky-600');
+            categoryBtn?.classList.remove('bg-sky-50', 'text-sky-600');
 
             // Update to status distribution
             orderChart.data.labels = @json(array_keys($orderStatusDistribution ?? []));
@@ -593,8 +593,8 @@
         });
 
         categoryBtn?.addEventListener('click', async function() {
-            this.classList.add('bg-indigo-50', 'text-indigo-600');
-            statusBtn?.classList.remove('bg-indigo-50', 'text-indigo-600');
+            this.classList.add('bg-sky-50', 'text-sky-600');
+            statusBtn?.classList.remove('bg-sky-50', 'text-sky-600');
 
             try {
                 // Fetch category data via AJAX

@@ -7,68 +7,80 @@
     <div class="mb-8">
         <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
             <div>
-                <h2 class="text-2xl font-bold text-gray-800 mb-2">Media Library</h2>
-                <p class="text-gray-600">Upload and manage your media files</p>
+                <h2 class="text-2xl font-bold text-stone-800 mb-2">Media Library</h2>
+                <p class="text-stone-500 font-medium">Upload and manage your media files</p>
             </div>
             <div class="flex space-x-3">
                 <button id="topUploadBtn" class="btn-primary">
-                    <i class="fas fa-upload mr-2"></i>Upload Files
+                    <i class="fas fa-upload mr-2 text-xs"></i>Upload Files
                 </button>
             </div>
         </div>
     </div>
 
     <!-- Upload Section -->
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
-        <div class="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-xl p-8 hover:border-indigo-400 transition-colors duration-200"
-            id="dropzone">
-            <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-4"></i>
-            <p class="text-lg font-medium text-gray-800 mb-2">Drag & drop files here</p>
-            <p class="text-gray-500 mb-4">or</p>
-            <button onclick="document.getElementById('fileInput').click()" class="btn-primary mb-2">
-                <i class="fas fa-folder-open mr-2"></i>Browse Files
-            </button>
-            <p class="text-sm text-gray-500">Supports: JPG, PNG, GIF, WEBP, SVG (Max 3MB)</p>
+    <div class="bg-white rounded-3xl shadow-sm border border-stone-100 p-8 mb-8">
+        <div class="flex flex-col items-center justify-center border-2 border-dashed border-stone-200 rounded-3xl p-12 hover:border-sky-400 hover:bg-sky-50/30 transition-all duration-300 group cursor-pointer"
+            id="dropzone" onclick="document.getElementById('fileInput').click()">
+            <div class="w-20 h-20 bg-sky-50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <i class="fas fa-cloud-upload-alt text-4xl text-sky-600"></i>
+            </div>
+            <p class="text-xl font-bold text-stone-800 mb-2">Drag & drop files here</p>
+            <p class="text-stone-500 mb-6 font-medium">or click to browse your computer</p>
+            <div class="flex space-x-2 items-center text-sm text-stone-400 font-bold uppercase tracking-widest">
+                <span>JPG</span>
+                <span class="w-1 h-1 bg-stone-300 rounded-full"></span>
+                <span>PNG</span>
+                <span class="w-1 h-1 bg-stone-300 rounded-full"></span>
+                <span>WEBP</span>
+                <span class="w-1 h-1 bg-stone-300 rounded-full"></span>
+                <span>SVG</span>
+            </div>
             <input type="file" id="fileInput" multiple class="hidden" accept=".jpg,.jpeg,.png,.gif,.webp,.svg">
         </div>
 
         <!-- Upload Progress -->
-        <div id="uploadProgress" class="hidden mt-4">
-            <div class="flex items-center justify-between mb-2">
-                <span class="text-sm font-medium text-gray-700">Uploading...</span>
-                <span id="uploadCount" class="text-sm text-gray-500">0/0</span>
-            </div>
-            <div class="w-full bg-gray-200 rounded-full h-2">
-                <div id="uploadBar" class="bg-indigo-600 h-2 rounded-full transition-all duration-300" style="width: 0%">
+        <div id="uploadProgress" class="hidden mt-8 max-w-2xl mx-auto">
+            <div class="bg-stone-50 rounded-2xl p-6 border border-stone-100">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="animate-spin w-5 h-5 border-2 border-sky-500 border-t-transparent rounded-full"></div>
+                        <span class="text-sm font-bold text-stone-800 uppercase tracking-wider">Uploading...</span>
+                    </div>
+                    <span id="uploadCount" class="text-sm font-bold text-sky-600">0/0</span>
                 </div>
+                <div class="w-full bg-stone-200 rounded-full h-3 overflow-hidden">
+                    <div id="uploadBar" class="bg-gradient-to-r from-sky-400 to-sky-600 h-full rounded-full transition-all duration-300 shadow-[0_0_10px_rgba(14,165,233,0.3)]" style="width: 0%">
+                    </div>
+                </div>
+                <div id="uploadList" class="mt-4 space-y-2 max-h-40 overflow-y-auto custom-scrollbar"></div>
             </div>
-            <div id="uploadList" class="mt-3 space-y-2 max-h-40 overflow-y-auto"></div>
         </div>
 
         <!-- Bulk Alt Text (Optional) -->
-        <div id="bulkAltContainer" class="hidden mt-4">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Alternative Text for All Files</label>
+        <div id="bulkAltContainer" class="hidden mt-6 max-w-2xl mx-auto">
+            <label class="block text-sm font-semibold text-stone-700 mb-2">Alternative Text for All Files</label>
             <div class="flex space-x-2">
                 <input type="text" id="bulkAltText" placeholder="Describe all images (optional)"
-                    class="flex-1 rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
-                <button onclick="clearBulkAltText()" class="btn-secondary">
+                    class="flex-1 rounded-xl border border-stone-200 bg-stone-50 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all font-medium">
+                <button onclick="clearBulkAltText()" class="btn-secondary px-4">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-            <p class="text-xs text-gray-500 mt-1">This text will be applied to all uploaded files</p>
+            <p class="text-[10px] text-stone-400 mt-2 uppercase tracking-wider font-bold">This text will be applied to all uploaded files</p>
         </div>
     </div>
 
     <!-- Media Library Table -->
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-        <div class="px-6 py-4 border-b border-gray-200">
-            <h3 class="text-lg font-semibold text-gray-800">Media Files</h3>
+    <div class="bg-white rounded-3xl shadow-sm border border-stone-100 overflow-hidden">
+        <div class="px-8 py-6 border-b border-stone-100">
+            <h3 class="text-xl font-bold text-stone-800">Media Files</h3>
         </div>
-        <div class="p-6">
+        <div class="p-8">
             <!-- Loading State -->
             <div id="loadingState" class="hidden text-center py-8">
-                <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
-                <p class="mt-2 text-gray-500">Loading media files...</p>
+                <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-sky-600"></div>
+                <p class="mt-2 text-stone-500">Loading media files...</p>
             </div>
 
             <!-- Toolbar -->
@@ -76,53 +88,53 @@
                 <div class="order-2 sm:order-1">
                     <div class="relative" style="width: 260px;">
                         <input type="text" id="searchInput" placeholder="Search media..."
-                            class="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent w-full">
-                        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                            class="pl-10 pr-4 py-2 rounded-lg border border-stone-300 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent w-full">
+                        <i class="fas fa-search absolute left-3 top-3 text-stone-400"></i>
                     </div>
                 </div>
                 <div class="flex flex-wrap gap-2 order-1 sm:order-2">
                     <!-- Sort Dropdown -->
                     <div class="relative">
                         <button id="sortBtn" class="btn-secondary">
-                            <i class="fas fa-sort mr-2"></i>Sort
+                            <i class="fas fa-sort mr-2 text-xs"></i>Sort
                         </button>
                         <div id="sortMenu"
-                            class="absolute mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50 hidden">
+                            class="absolute mt-2 w-48 bg-white rounded-xl shadow-xl border border-stone-100 py-2 z-50 hidden right-0">
                             <button data-sort="created_at_desc"
-                                class="sort-option w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 text-sm flex items-center">
-                                <i class="fas fa-check mr-2 text-indigo-600"></i>Newest First
+                                class="sort-option w-full text-left px-4 py-2 text-stone-600 hover:bg-sky-50 hover:text-sky-600 text-sm font-medium flex items-center transition-all">
+                                <i class="fas fa-check mr-2 text-sky-600"></i>Newest First
                             </button>
                             <button data-sort="created_at_asc"
-                                class="sort-option w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 text-sm flex items-center">
+                                class="sort-option w-full text-left px-4 py-2 text-stone-600 hover:bg-sky-50 hover:text-sky-600 text-sm font-medium flex items-center transition-all">
                                 <i class="fas fa-check mr-2 opacity-0"></i>Oldest First
                             </button>
                             <button data-sort="name_asc"
-                                class="sort-option w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 text-sm flex items-center">
+                                class="sort-option w-full text-left px-4 py-2 text-stone-600 hover:bg-sky-50 hover:text-sky-600 text-sm font-medium flex items-center transition-all">
                                 <i class="fas fa-check mr-2 opacity-0"></i>Name A → Z
                             </button>
                             <button data-sort="name_desc"
-                                class="sort-option w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 text-sm flex items-center">
+                                class="sort-option w-full text-left px-4 py-2 text-stone-600 hover:bg-sky-50 hover:text-sky-600 text-sm font-medium flex items-center transition-all">
                                 <i class="fas fa-check mr-2 opacity-0"></i>Name Z → A
                             </button>
                             <button data-sort="size_desc"
-                                class="sort-option w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 text-sm flex items-center">
+                                class="sort-option w-full text-left px-4 py-2 text-stone-600 hover:bg-sky-50 hover:text-sky-600 text-sm font-medium flex items-center transition-all">
                                 <i class="fas fa-check mr-2 opacity-0"></i>Size: Large → Small
                             </button>
                             <button data-sort="size_asc"
-                                class="sort-option w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 text-sm flex items-center">
+                                class="sort-option w-full text-left px-4 py-2 text-stone-600 hover:bg-sky-50 hover:text-sky-600 text-sm font-medium flex items-center transition-all">
                                 <i class="fas fa-check mr-2 opacity-0"></i>Size: Small → Large
                             </button>
                         </div>
                     </div>
 
                     <!-- Bulk Actions -->
-                    <button id="bulkDeleteBtn" class="btn-danger hidden">
-                        <i class="fas fa-trash mr-2"></i>Delete Selected
+                    <button id="bulkDeleteBtn" class="btn-secondary text-rose-600 border-rose-100 bg-rose-50 hover:bg-rose-100 hidden">
+                        <i class="fas fa-trash mr-2 text-xs"></i>Delete Selected
                     </button>
 
                     <!-- Refresh -->
                     <button onclick="refreshData()" class="btn-secondary">
-                        <i class="fas fa-redo mr-2"></i>Refresh
+                        <i class="fas fa-redo mr-2 text-xs"></i>Refresh
                     </button>
                 </div>
             </div>
@@ -131,37 +143,38 @@
             <div id="mediaTable"></div>
 
             <!-- Custom Pagination -->
-            <div id="customPagination" class="mt-4 flex items-center justify-between">
-                <div class="text-sm text-gray-700" id="paginationInfo">
+            <div id="customPagination" class="mt-8 flex items-center justify-between border-t border-stone-100 pt-6">
+                <div class="text-sm font-bold text-stone-400 uppercase tracking-wider" id="paginationInfo">
                     Showing 0 to 0 of 0 entries
                 </div>
-                <div class="flex space-x-2">
-                    <button onclick="changePage(1)" id="firstPageBtn"
-                        class="px-3 py-1 rounded border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
-                        <i class="fas fa-angle-double-left"></i>
-                    </button>
-                    <button onclick="changePage(currentPage - 1)" id="prevPageBtn"
-                        class="px-3 py-1 rounded border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
-                        <i class="fas fa-angle-left"></i>
-                    </button>
-                    <div id="pageNumbers" class="flex space-x-1">
-                        <!-- Page numbers will be inserted here -->
+                <div class="flex items-center space-x-2">
+                    <div class="flex bg-stone-50 rounded-xl p-1 border border-stone-200">
+                        <button onclick="changePage(1)" id="firstPageBtn"
+                            class="w-10 h-10 flex items-center justify-center rounded-lg text-stone-400 hover:text-sky-600 hover:bg-white transition-all disabled:opacity-30 disabled:pointer-events-none">
+                            <i class="fas fa-angle-double-left"></i>
+                        </button>
+                        <button onclick="changePage(currentPage - 1)" id="prevPageBtn"
+                            class="w-10 h-10 flex items-center justify-center rounded-lg text-stone-400 hover:text-sky-600 hover:bg-white transition-all disabled:opacity-30 disabled:pointer-events-none">
+                            <i class="fas fa-angle-left"></i>
+                        </button>
+                        <div id="pageNumbers" class="flex space-x-1 px-1">
+                            <!-- Page numbers will be inserted here -->
+                        </div>
+                        <button onclick="changePage(currentPage + 1)" id="nextPageBtn"
+                            class="w-10 h-10 flex items-center justify-center rounded-lg text-stone-400 hover:text-sky-600 hover:bg-white transition-all disabled:opacity-30 disabled:pointer-events-none">
+                            <i class="fas fa-angle-right"></i>
+                        </button>
+                        <button onclick="changePage(totalPages)" id="lastPageBtn"
+                            class="w-10 h-10 flex items-center justify-center rounded-lg text-stone-400 hover:text-sky-600 hover:bg-white transition-all disabled:opacity-30 disabled:pointer-events-none">
+                            <i class="fas fa-angle-double-right"></i>
+                        </button>
                     </div>
-                    <button onclick="changePage(currentPage + 1)" id="nextPageBtn"
-                        class="px-3 py-1 rounded border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
-                        <i class="fas fa-angle-right"></i>
-                    </button>
-                    <button onclick="changePage(totalPages)" id="lastPageBtn"
-                        class="px-3 py-1 rounded border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
-                        <i class="fas fa-angle-double-right"></i>
-                    </button>
-                </div>
-                <div class="text-sm">
-                    <select id="pageSizeSelect" class="border border-gray-300 rounded px-2 py-1 text-sm">
-                        <option value="10">10 per page</option>
-                        <option value="25">25 per page</option>
-                        <option value="50">50 per page</option>
-                        <option value="100">100 per page</option>
+
+                    <select id="pageSizeSelect" class="bg-stone-50 border border-stone-200 rounded-xl px-4 py-2 text-sm font-bold text-stone-700 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all">
+                        <option value="10">10 / Page</option>
+                        <option value="25">25 / Page</option>
+                        <option value="50">50 / Page</option>
+                        <option value="100">100 / Page</option>
                     </select>
                 </div>
             </div>
@@ -173,7 +186,7 @@
         <div class="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
             <div class="flex justify-between items-center p-4 border-b">
                 <h3 class="font-semibold text-lg" id="previewTitle">Preview</h3>
-                <button onclick="hidePreview()" class="text-gray-500 hover:text-gray-700">
+                <button onclick="hidePreview()" class="text-stone-500 hover:text-stone-700">
                     <i class="fas fa-times text-xl"></i>
                 </button>
             </div>
@@ -182,8 +195,8 @@
                     <img id="previewImage" src="" alt=""
                         class="max-w-full max-h-[70vh] mx-auto rounded-lg hidden">
                     <div id="previewNonImage" class="hidden">
-                        <div class="w-48 h-48 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                            <i class="fas fa-file text-gray-400 text-6xl"></i>
+                        <div class="w-48 h-48 bg-stone-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-file text-stone-400 text-6xl"></i>
                         </div>
                         <div class="text-left max-w-md mx-auto">
                             <p><strong>File Name:</strong> <span id="previewFileName"></span></p>
@@ -216,15 +229,15 @@
         /* Header styling */
         .tabulator .tabulator-header {
             border: none !important;
-            border-bottom: 1px solid #e5e7eb !important;
-            background-color: #f9fafb !important;
+            border-bottom: 1px solid #f1f5f9 !important;
+            background-color: #fafaf9 !important;
             font-weight: 600;
-            color: #374151;
+            color: #1c1917;
         }
 
         .tabulator .tabulator-col {
-            background-color: #f9fafb !important;
-            border-right: 1px solid #e5e7eb !important;
+            background-color: #fafaf9 !important;
+            border-right: 1px solid #f1f5f9 !important;
             padding: 12px 8px !important;
         }
 
@@ -234,22 +247,22 @@
 
         /* Row styling */
         .tabulator-row {
-            border-bottom: 1px solid #f3f4f6 !important;
+            border-bottom: 1px solid #fafaf9 !important;
             transition: background-color 0.2s ease;
         }
 
         .tabulator-row.tabulator-selectable:hover {
-            background-color: #f9fafb !important;
+            background-color: #f0f9ff !important;
         }
 
         .tabulator-row.tabulator-selected {
-            background-color: #e0e7ff !important;
+            background-color: #e0f2fe !important;
         }
 
         /* Cell styling */
         .tabulator-cell {
             padding: 12px 8px !important;
-            border-right: 1px solid #f3f4f6 !important;
+            border-right: 1px solid #fafaf9 !important;
             vertical-align: middle !important;
         }
 
@@ -273,7 +286,7 @@
         /* Custom pagination styling */
         #customPagination {
             padding: 16px 0;
-            border-top: 1px solid #e5e7eb;
+            border-top: 1px solid #f1f5f9;
         }
 
         .page-number {
@@ -282,7 +295,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid #d1d5db;
+            border: 1px solid #e7e5e4;
             border-radius: 6px;
             font-size: 14px;
             cursor: pointer;
@@ -290,14 +303,14 @@
         }
 
         .page-number:hover {
-            background-color: #f3f4f6;
-            border-color: #9ca3af;
+            background-color: #f5f5f4;
+            border-color: #a8a29e;
         }
 
         .page-number.active {
-            background-color: #4f46e5;
+            background-color: #0ea5e9;
             color: white;
-            border-color: #4f46e5;
+            border-color: #0ea5e9;
         }
 
         .page-number.disabled {
@@ -368,11 +381,11 @@
             });
 
             function highlight(e) {
-                dropzone.classList.add('border-indigo-400', 'bg-indigo-50');
+                dropzone.classList.add('border-sky-400', 'bg-sky-50');
             }
 
             function unhighlight(e) {
-                dropzone.classList.remove('border-indigo-400', 'bg-indigo-50');
+                dropzone.classList.remove('border-sky-400', 'bg-sky-50');
             }
 
             dropzone.addEventListener('drop', handleDrop, false);
@@ -403,10 +416,10 @@
                         const icon = opt.querySelector('.fas.fa-check');
                         if (opt.getAttribute('data-sort') === currentSort) {
                             icon.classList.remove('opacity-0');
-                            icon.classList.add('text-indigo-600');
+                            icon.classList.add('text-sky-600');
                         } else {
                             icon.classList.add('opacity-0');
-                            icon.classList.remove('text-indigo-600');
+                            icon.classList.remove('text-sky-600');
                         }
                     });
 
@@ -491,10 +504,10 @@
                         formatter: function(cell) {
                             const data = cell.getRow().getData();
                             return `
-                                <div class="w-12 h-12 mx-auto overflow-hidden rounded-lg bg-gray-100 flex items-center justify-center cursor-pointer hover:opacity-90" onclick="previewMedia(${data.id})">
+                                <div class="w-12 h-12 mx-auto overflow-hidden rounded-lg bg-stone-100 flex items-center justify-center cursor-pointer hover:opacity-90" onclick="previewMedia(${data.id})">
                                     ${data.mime_type.startsWith('image/') ?
                                         `<img src="${data.thumbnail_url}" alt="${data.alt_text || data.file_name}" class="w-full h-full object-cover">` :
-                                        `<i class="fas fa-file text-gray-400 text-xl"></i>`
+                                        `<i class="fas fa-file text-stone-400 text-xl"></i>`
                                     }
                                 </div>
                             `;
@@ -508,9 +521,9 @@
                             const data = cell.getRow().getData();
                             return `
                                 <div class="flex flex-col">
-                                    <span class="font-medium text-gray-900 truncate" title="${data.file_name}">${data.file_name}</span>
+                                    <span class="font-medium text-stone-900 truncate" title="${data.file_name}">${data.file_name}</span>
                                     ${data.alt_text ?
-                                        `<span class="text-xs text-gray-500 truncate" title="${data.alt_text}">${data.alt_text}</span>` :
+                                        `<span class="text-xs text-stone-500 truncate" title="${data.alt_text}">${data.alt_text}</span>` :
                                         ''
                                     }
                                 </div>
@@ -524,7 +537,7 @@
                         formatter: function(cell) {
                             const type = cell.getValue();
                             const icon = type.startsWith('image/') ? 'fa-image' : 'fa-file';
-                            const color = type.startsWith('image/') ? 'text-blue-500' : 'text-gray-500';
+                            const color = type.startsWith('image/') ? 'text-sky-500' : 'text-stone-500';
                             return `
                                 <div class="flex items-center space-x-2">
                                     <i class="fas ${icon} ${color}"></i>
@@ -570,7 +583,7 @@
                 ],
                 rowFormatter: function(row) {
                     const rowEl = row.getElement();
-                    rowEl.classList.add('hover:bg-gray-50');
+                    rowEl.classList.add('hover:bg-sky-50');
                 },
                 rowSelectionChanged: function(data, rows) {
                     updateBulkActions(data.length);
@@ -895,11 +908,11 @@
                         html: `
                             <div class="text-left">
                                 <div class="mb-4">
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">File Name</label>
+                                    <label class="block text-sm font-medium text-stone-700 mb-1">File Name</label>
                                     <input type="text" id="editFileName" class="swal2-input" value="${media.file_name}" readonly>
                                 </div>
                                 <div class="mb-4">
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Alternative Text</label>
+                                    <label class="block text-sm font-medium text-stone-700 mb-1">Alternative Text</label>
                                     <input type="text" id="editAltText" class="swal2-input" value="${media.alt_text || ''}" placeholder="Describe this image...">
                                 </div>
                                 ${media.url ? `

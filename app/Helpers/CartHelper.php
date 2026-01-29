@@ -190,9 +190,19 @@ class CartHelper
             ->where('status', 'active')
             ->first();
 
+
         if (!$cart) {
             return $this->createEmptyCartResponse();
         }
+
+        // Recalculate if offer is present to ensure it's still valid (expiry/status)
+        if ($cart->offer_id) {
+            $this->recalculateCartTotals($cart);
+            $cart = $cart->fresh();
+        }
+
+        // Auto-apply eligible offers (DISABLED: User must select manually)
+        // $this->applyAutoOffers($cart);
 
         return $this->formatCartResponse($cart);
     }
@@ -227,6 +237,12 @@ class CartHelper
                         $item['attributes_text'] = $this->formatAttributesText($item['attributes'] ?? []);
                     }
                 }
+            }
+            
+            // Recalculate if offer is present to ensure it's still valid
+            if (isset($cart['offer_id'])) {
+                $cart = $this->recalculateLocalCartTotals($cart);
+                $this->saveLocalCart($cart);
             }
         }
 
@@ -300,6 +316,7 @@ class CartHelper
         'tax_breakdown' => isset($cart->tax_breakdown) ? $cart->tax_breakdown : (isset($taxBreakdown) ? array_values($taxBreakdown) : ($cart['tax_breakdown'] ?? [])),
             'shipping_total' => (float) ($cart->shipping_total ?? $cart['shipping_total'] ?? 0),
             'discount_total' => (float) ($cart->discount_total ?? $cart['discount_total'] ?? 0),
+            'discount_breakdown' => $this->getDiscountBreakdown($cart, $offer, (float) ($cart->discount_total ?? $cart['discount_total'] ?? 0)),
             'grand_total' => (float) ($cart->grand_total ?? $cart['grand_total'] ?? 0),
             'offer' => $offer ? [
                 'id' => $offer->id,
@@ -309,6 +326,54 @@ class CartHelper
             ] : null,
             'is_logged_in' => Auth::guard('customer')->check()
         ];
+    }
+
+    private function getDiscountBreakdown($cart, $offer, $discountTotal)
+    {
+        $breakdown = [];
+        $subtotal = (float) ($cart->subtotal ?? $cart['subtotal'] ?? 0);
+
+        if ($discountTotal > 0) {
+            // Check if it's an offer
+            if ($offer) {
+                if ($offer->is_auto_apply) {
+                    $label = 'Auto Applied: ' . $offer->name;
+                    $type = 'auto';
+                } else {
+                    $label = 'Promo Code (' . $offer->code . ')';
+                    $type = 'coupon';
+                }
+
+                if ($offer->offer_type == 'percentage') {
+                    $label .= ' - ' . round($offer->discount_value) . '% Off';
+                } elseif ($offer->offer_type == 'fixed') {
+                    $label .= ' - ₹' . round($offer->discount_value) . ' Off';
+                }
+                
+                $breakdown[] = [
+                    'label' => $label,
+                    'amount' => $discountTotal,
+                    'type' => $type
+                ];
+            } 
+            // Check if it's the automatic 5% discount
+            elseif ($subtotal > 999 && abs($discountTotal - ($subtotal * 0.05)) < 1.0) {
+                 $breakdown[] = [
+                    'label' => 'Bulk Order Discount (5% off for orders > ₹999)',
+                    'amount' => $discountTotal,
+                    'type' => 'bulk'
+                ];
+            }
+            // Fallback
+            else {
+                 $breakdown[] = [
+                    'label' => 'Discount',
+                    'amount' => $discountTotal,
+                    'type' => 'other'
+                ];
+            }
+        }
+        return $breakdown;
     }
 
     // Public method for recalculating cart totals
@@ -325,18 +390,23 @@ class CartHelper
         $discountTotal = 0;
         $offer = null;
 
-        // Apply offer discount if exists
+        // Apply offer discount if exists and is still valid
         if ($cart->offer_id) {
             $offer = \App\Models\Offer::find($cart->offer_id);
-            if ($offer && $offer->isActive()) {
+            
+            // Validate offer still exists and is active
+            if ($offer && $offer->status && $offer->isActive()) {
                 $discountTotal = $this->calculateDiscount($offer, $subtotal, $cart->items);
             } else {
+                // Offer deleted, deactivated, or expired - remove from cart
                 $cart->offer_id = null;
+                $cart->save();
             }
         }
 
         // Apply automatic 5% discount for orders above ₹999 
         // if no other discount is applied or if we want it to be stackable/priority
+        // NOTE: If changing this logic, update getDiscountBreakdown logic too
         if ($discountTotal == 0 && $subtotal > 999) {
             $discountTotal = $subtotal * 0.05;
         }
@@ -372,7 +442,7 @@ class CartHelper
         }
 
         // Calculate shipping
-        $shippingTotal = ($offer && $offer->offer_type === 'free_shipping') ? 0 : $this->calculateShipping($subtotal - $discountTotal);
+        $shippingTotal = $this->calculateShipping($subtotal - $discountTotal);
 
         // Grand Total = Subtotal (Inclusive) - Discount + Shipping
         // Tax is already in Subtotal, so we don't add it again.
@@ -406,9 +476,12 @@ class CartHelper
         $discountTotal = 0;
         if (isset($cart['offer_id'])) {
             $offer = \App\Models\Offer::find($cart['offer_id']);
-            if ($offer && $offer->isActive()) {
+            
+            // Validate offer still exists, is active, and not expired
+            if ($offer && $offer->status && $offer->isActive()) {
                 $discountTotal = $this->calculateDiscount($offer, $subtotal, collect($cart['items']));
             } else {
+                // Offer deleted, deactivated, or expired - remove from cart
                 unset($cart['offer_id'], $cart['offer_code'], $cart['offer_type'], $cart['discount_value']);
             }
         }
@@ -444,7 +517,7 @@ class CartHelper
             }
         }
 
-        $shippingTotal = isset($cart['offer_type']) && $cart['offer_type'] === 'free_shipping' ? 0 : $this->calculateShipping($subtotal - $discountTotal);
+        $shippingTotal = $this->calculateShipping($subtotal - $discountTotal);
 
         $cart['subtotal'] = round($subtotal, 2);
         $cart['discount_total'] = round($discountTotal, 2);
@@ -468,9 +541,37 @@ class CartHelper
             return 0;
         }
 
+        // Check if offer is exclusive (product-specific)
+        $eligibleTotal = $subtotal;
+        if ($offer->is_exclusive) {
+            // Get variant IDs that this offer applies to
+            $offerVariantIds = $offer->variants()->pluck('id')->toArray();
+            
+            if (empty($offerVariantIds)) {
+                // No specific products selected, can't apply exclusive discount
+                return 0;
+            }
+
+            // Calculate total only for eligible products
+            $eligibleTotal = 0;
+            foreach ($items as $item) {
+                $variantId = isset($item->product_variant_id) ? $item->product_variant_id : ($item['variant_id'] ?? null);
+                if (in_array($variantId, $offerVariantIds)) {
+                    $itemTotal = isset($item->total) ? $item->total : ($item['price'] * $item['quantity']);
+                    $eligibleTotal += $itemTotal;
+                }
+            }
+
+            if ($eligibleTotal == 0) {
+                // No eligible products in cart
+                return 0;
+            }
+        }
+
+        // Calculate discount based on offer type (only percentage and fixed supported)
         switch ($offer->offer_type) {
             case 'percentage':
-                $discount = $subtotal * ($offer->discount_value / 100);
+                $discount = $eligibleTotal * ($offer->discount_value / 100);
                 if ($offer->max_discount && $discount > $offer->max_discount) {
                     $discount = $offer->max_discount;
                 }
@@ -478,13 +579,14 @@ class CartHelper
 
             case 'fixed':
                 $discount = $offer->discount_value;
-                break;
-
-            case 'free_shipping':
-                $discount = 0;
+                // For exclusive offers, don't let discount exceed eligible total
+                if ($offer->is_exclusive) {
+                    $discount = min($discount, $eligibleTotal);
+                }
                 break;
 
             default:
+                // Only percentage and fixed are supported
                 $discount = 0;
         }
 
@@ -788,15 +890,23 @@ class CartHelper
             ->where('status', 'active')
             ->first();
 
+
         if (!$cart || $cart->items->isEmpty()) {
             throw new \Exception('Your cart is empty');
         }
+
+        // Check if same coupon is already applied
+        if ($cart->offer_id == $offer->id) {
+            throw new \Exception('This coupon is already applied');
+        }
+
+        // Simple logic: Only one promo code at a time (no stacking)
+        $cart->offer_id = $offer->id;
 
         if ($offer->min_cart_amount && $cart->subtotal < $offer->min_cart_amount) {
             throw new \Exception('Minimum cart amount of ₹' . $offer->min_cart_amount . ' required');
         }
 
-        $cart->offer_id = $offer->id;
         $cart->save();
 
         $this->recalculateCartTotals($cart);
@@ -816,14 +926,19 @@ class CartHelper
             throw new \Exception('Your cart is empty');
         }
 
-        if ($offer->min_cart_amount && $cart['subtotal'] < $offer->min_cart_amount) {
-            throw new \Exception('Minimum cart amount of ₹' . $offer->min_cart_amount . ' required');
+        if (isset($cart['offer_id']) && $cart['offer_id'] == $offer->id) {
+             throw new \Exception('This coupon is already applied');
         }
 
+        // Simple logic: Only one promo code at a time (no stacking)
         $cart['offer_id'] = $offer->id;
         $cart['offer_code'] = $offer->code;
         $cart['offer_type'] = $offer->offer_type;
         $cart['discount_value'] = $offer->discount_value;
+
+        if ($offer->min_cart_amount && $cart['subtotal'] < $offer->min_cart_amount) {
+            throw new \Exception('Minimum cart amount of ₹' . $offer->min_cart_amount . ' required');
+        }
 
         $cart = $this->recalculateLocalCartTotals($cart);
         $this->saveLocalCart($cart);
@@ -917,5 +1032,53 @@ class CartHelper
         
         ksort($attributes);
         return json_encode($attributes);
+    }
+
+    /**
+     * Auto-apply eligible offers to the cart
+     */
+    private function applyAutoOffers($cart)
+    {
+        // Skip if cart is empty
+        if ($cart->items->isEmpty()) {
+            return;
+        }
+
+        $subtotal = $cart->subtotal ?? 0;
+        
+        // Find eligible auto-apply offers
+        $autoOffers = \App\Models\Offer::where('status', true)
+            ->where('is_auto_apply', true)
+            ->where(function($q) {
+                $q->where('starts_at', '<=', now())
+                  ->orWhereNull('starts_at');
+            })
+            ->where(function($q) {
+                $q->where('ends_at', '>=', now())
+                  ->orWhereNull('ends_at');
+            })
+            ->get();
+
+        foreach ($autoOffers as $offer) {
+            // Check if offer meets minimum cart amount
+            if ($offer->min_cart_amount && $subtotal < $offer->min_cart_amount) {
+                continue;
+            }
+
+            // Check usage limits
+            $customerId = Auth::guard('customer')->id();
+            if (!$offer->canApply($customerId)) {
+                continue;
+            }
+
+            // Apply the first eligible offer
+            // TODO: Handle stackable logic when implementing multi-offer support
+            if (!$cart->offer_id) {
+                $cart->offer_id = $offer->id;
+                $cart->save();
+                $this->recalculateCartTotals($cart);
+                break; // Apply only first eligible auto offer for now
+            }
+        }
     }
 }

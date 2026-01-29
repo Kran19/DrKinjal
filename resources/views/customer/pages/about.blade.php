@@ -1,6 +1,6 @@
 @extends('customer.layouts.master')
 
-@section('title', 'Our Story - Dr Kinjal Beauty')
+@section('title', 'Our Story - Dr Kinjal')
 @section('description', 'From clinical expertise to trusted skincare solutions. Discover the journey behind Dr. Kinjal Products.')
 
 @section('content')

@@ -103,10 +103,74 @@
                 <input type="text" data-key="meta_keywords"
                     class="setting-input w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
             </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Google Analytics Code</label>
+                <textarea data-key="google_analytics"
+                    placeholder="<!-- Global site tag (gtag.js) - Google Analytics -->"
+                    class="setting-input w-full border border-gray-300 rounded-lg px-4 py-3 min-h-[100px] focus:ring-2 focus:ring-indigo-500 focus:outline-none"></textarea>
+            </div>
         </div>
     </div>
 
     {{-- PAYMENT --}}
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+        <div class="px-6 py-4 border-b border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-800">Payment Gateways</h3>
+            <p class="text-sm text-gray-500 mt-1">Configure your payment methods and credentials</p>
+        </div>
+        <div class="p-6 space-y-8">
+            {{-- Razorpay --}}
+            <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-indigo-50 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-credit-card text-indigo-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-800">Razorpay</h4>
+                            <p class="text-xs text-gray-500">Accept UPI, Cards, and Netbanking in India</p>
+                        </div>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" data-key="razorpay_enabled" name="razorpay_enabled" class="setting-input sr-only peer">
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                    </label>
+                </div>
+
+                <div id="razorpayFields" class="grid grid-cols-1 md:grid-cols-2 gap-6 p-4 bg-gray-50 rounded-xl hidden">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Key ID</label>
+                        <input type="text" data-key="razorpay_key_id"
+                            class="setting-input w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Key Secret</label>
+                        <input type="password" data-key="razorpay_key_secret"
+                            class="setting-input w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                    </div>
+                </div>
+            </div>
+
+            <hr class="border-gray-100">
+
+            {{-- COD --}}
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-money-bill-wave text-green-600"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-medium text-gray-800">Cash on Delivery</h4>
+                        <p class="text-xs text-gray-500">Allow customers to pay at the time of delivery</p>
+                    </div>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" data-key="cod_enabled" class="setting-input sr-only peer">
+                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
+                </label>
+            </div>
+        </div>
+    </div>
     
     {{-- SOCIAL MEDIA --}}
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
@@ -163,6 +227,37 @@
                     <input type="number" data-key="tax_rate" step="0.1"
                         class="setting-input w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
                 </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- APPEARANCE --}}
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+        <div class="px-6 py-4 border-b border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-800">Appearance</h3>
+            <p class="text-sm text-gray-500 mt-1">Customize your store's look and feel</p>
+        </div>
+        <div class="p-6 space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Theme Color</label>
+                    <div class="flex space-x-2">
+                        <input type="color" data-key="theme_color" name="theme_color"
+                            class="setting-input h-12 w-20 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                        <input type="text" name="theme_color_text" placeholder="#001234"
+                            class="flex-1 border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Logo URL</label>
+                    <input type="text" data-key="logo_url" placeholder="https://example.com/logo.png"
+                        class="setting-input w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                </div>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Favicon URL</label>
+                <input type="text" data-key="favicon_url" placeholder="https://example.com/favicon.ico"
+                    class="setting-input w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
             </div>
         </div>
     </div>
@@ -236,6 +331,18 @@ const axiosInstance = axios.create({
         'Accept': 'application/json'
     }
 });
+
+// Add response interceptor for auth errors
+axiosInstance.interceptors.response.use(
+    response => response,
+    error => {
+        if (error.response && error.response.status === 401) {
+            toastr.error('Session expired. Redirecting to login...');
+            setTimeout(() => window.location.href = '{{ url('/admin/login') }}', 2000);
+        }
+        return Promise.reject(error);
+    }
+);
 
 // Global variables
 let settingsData = {};
@@ -354,10 +461,11 @@ function populateForm(data) {
     }
 
     // Show/hide razorpay fields based on checkbox state
-    const razorpayEnabled = document.querySelector('input[name="razorpay_enabled"]')?.checked;
+    const razorpayCheckbox = document.querySelector('input[name="razorpay_enabled"]');
+    const razorpayFields = document.getElementById('razorpayFields');
 
-    if (razorpayEnabled !== undefined) {
-        document.getElementById('razorpayFields').classList.toggle('hidden', !razorpayEnabled);
+    if (razorpayCheckbox && razorpayFields) {
+        razorpayFields.classList.toggle('hidden', !razorpayCheckbox.checked);
     }
 }
 

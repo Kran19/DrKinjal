@@ -70,7 +70,7 @@
                         <img src="{{ asset('storage/' . $product['main_image']) }}"
                                 class="absolute inset-0 z-10 h-full w-full object-cover p-0 group-hover:scale-110 transition-transform duration-700" 
                                 alt="{{ $product['name'] }}" loading="lazy"
-                                onerror="this.src='{{ asset('assets/images/placeholder.jpg') }}'">
+                                onerror="this.src='{{ asset('storage/assets/images/placeholder.jpg') }}'">
                         
                          <button
                             class="absolute bottom-4 right-4 z-20 flex h-10 w-10 translate-y-14 items-center justify-center rounded-full bg-white shadow-lg transition-transform duration-300 hover:bg-gray-900 hover:text-white group-hover:translate-y-0"

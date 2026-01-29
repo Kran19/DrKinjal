@@ -6,8 +6,8 @@
     <div class="mb-8">
         <div class="flex justify-between items-center">
             <div>
-                <h2 class="text-2xl font-bold text-gray-800 mb-2">Create New Offer</h2>
-                <p class="text-gray-600">Create special offers and promotions for your products</p>
+                <h2 class="text-2xl font-bold text-stone-800 mb-2">Create New Offer</h2>
+                <p class="text-stone-600">Create special offers and promotions for your products</p>
             </div>
             <a href="{{ route('admin.offers.index') }}" class="btn-secondary">
                 <i class="fas fa-arrow-left mr-2"></i>Back to Offers
@@ -16,9 +16,9 @@
     </div>
 
     <!-- Offer Form -->
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-        <div class="px-6 py-4 border-b border-gray-200">
-            <h3 class="text-lg font-semibold text-gray-800">Offer Information</h3>
+    <div class="bg-white rounded-2xl shadow-sm border border-sky-100 overflow-hidden">
+        <div class="px-6 py-4 border-b border-stone-200 bg-stone-50/50">
+            <h3 class="text-lg font-semibold text-stone-800">Offer Information</h3>
         </div>
 
         <form id="offerForm" class="p-6" method="POST" action="javascript:void(0);">
@@ -27,32 +27,32 @@
             <!-- Basic Information -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Offer Name *</label>
+                    <label class="block text-sm font-medium text-stone-700 mb-2">Offer Name *</label>
                     <input type="text" id="name" name="name" required
-                        class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                        class="w-full border border-stone-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-stone-900 placeholder-stone-400"
                         placeholder="Summer Sale 2024">
                     <div id="nameError" class="hidden mt-1 text-sm text-rose-600"></div>
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Offer Code</label>
+                    <label class="block text-sm font-medium text-stone-700 mb-2">Offer Code</label>
                     <div class="flex space-x-2">
                         <input type="text" id="code" name="code"
-                            class="flex-1 border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                            class="flex-1 border border-stone-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-stone-900 placeholder-stone-400"
                             placeholder="SUMMER24">
                         <button type="button" onclick="generateOfferCode()" class="btn-secondary whitespace-nowrap">
                             Generate
                         </button>
                     </div>
                     <div id="codeError" class="hidden mt-1 text-sm text-rose-600"></div>
-                    <p class="text-xs text-gray-500 mt-1">Leave empty for auto-generated code</p>
+                    <p class="text-xs text-stone-500 mt-1">Leave empty for auto-generated code</p>
                 </div>
             </div>
 
             <!-- Offer Type -->
             <div class="mb-8">
-                <label class="block text-sm font-medium text-gray-700 mb-2">Offer Type *</label>
+                <label class="block text-sm font-medium text-stone-700 mb-2">Offer Type *</label>
                 <select id="offer_type" name="offer_type" required
-                    class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    class="w-full border border-stone-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-stone-900"
                     onchange="updateOfferFields()">
                     <option value="">Select Offer Type</option>
                     <option value="percentage">Percentage Discount</option>
@@ -69,25 +69,25 @@
             <div id="percentageFields" class="hidden mb-8">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                        <label class="block text-sm font-medium text-stone-700 mb-2">
                             Discount Percentage *
                         </label>
                         <div class="relative">
                             <input type="number" id="discount_value" name="discount_value" min="0" max="100"
                                 step="0.01" required
-                                class="w-full border border-gray-300 rounded-lg pl-4 pr-10 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                class="w-full border border-stone-300 rounded-lg pl-4 pr-10 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-stone-900 placeholder-stone-400"
                                 placeholder="10">
-                            <span class="absolute right-3 top-3.5 text-gray-500">%</span>
+                            <span class="absolute right-3 top-3.5 text-stone-500">%</span>
                         </div>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                        <label class="block text-sm font-medium text-stone-700 mb-2">
                             Maximum Discount Amount
                         </label>
                         <div class="relative">
-                            <span class="absolute left-3 top-3.5 text-gray-500">₹</span>
+                            <span class="absolute left-3 top-3.5 text-stone-500">₹</span>
                             <input type="number" id="max_discount" name="max_discount" min="0" step="0.01"
-                                class="w-full border border-gray-300 rounded-lg pl-8 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                class="w-full border border-stone-300 rounded-lg pl-8 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-stone-900 placeholder-stone-400"
                                 placeholder="50">
                         </div>
                     </div>
@@ -96,14 +96,14 @@
 
             <div id="fixedFields" class="hidden mb-8">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                    <label class="block text-sm font-medium text-stone-700 mb-2">
                         Discount Amount *
                     </label>
                     <div class="relative">
-                        <span class="absolute left-3 top-3.5 text-gray-500">₹</span>
+                        <span class="absolute left-3 top-3.5 text-stone-500">₹</span>
                         <input type="number" id="discount_value_fixed" name="discount_value" min="0" step="0.01"
                             required
-                            class="w-full border border-gray-300 rounded-lg pl-8 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                            class="w-full border border-stone-300 rounded-lg pl-8 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-stone-900"
                             placeholder="10">
                     </div>
                 </div>
@@ -112,18 +112,18 @@
             <div id="bogoFields" class="hidden mb-8">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                        <label class="block text-sm font-medium text-stone-700 mb-2">
                             Buy Quantity *
                         </label>
                         <input type="number" id="buy_qty" name="buy_qty" min="1" value="1" required
-                            class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                            class="w-full border border-stone-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-stone-900">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                        <label class="block text-sm font-medium text-stone-700 mb-2">
                             Get Quantity *
                         </label>
                         <input type="number" id="get_qty" name="get_qty" min="1" value="1" required
-                            class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                            class="w-full border border-stone-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-stone-900">
                     </div>
                 </div>
             </div>
@@ -131,18 +131,18 @@
             <div id="buyXGetYFields" class="hidden mb-8">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                        <label class="block text-sm font-medium text-stone-700 mb-2">
                             Buy Quantity *
                         </label>
                         <input type="number" id="buy_qty_xy" name="buy_qty" min="1" value="2" required
-                            class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                            class="w-full border border-stone-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-stone-900">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                        <label class="block text-sm font-medium text-stone-700 mb-2">
                             Get Quantity *
                         </label>
                         <input type="number" id="get_qty_xy" name="get_qty" min="1" value="1" required
-                            class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                            class="w-full border border-stone-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-stone-900">
                     </div>
                 </div>
             </div>
@@ -150,24 +150,24 @@
             <!-- Cart Amount Limits -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                    <label class="block text-sm font-medium text-stone-700 mb-2">
                         Minimum Cart Amount
                     </label>
                     <div class="relative">
-                        <span class="absolute left-3 top-3.5 text-gray-500">₹</span>
+                        <span class="absolute left-3 top-3.5 text-stone-500">₹</span>
                         <input type="number" id="min_cart_amount" name="min_cart_amount" min="0" step="0.01"
-                            class="w-full border border-gray-300 rounded-lg pl-8 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                            class="w-full border border-stone-300 rounded-lg pl-8 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-stone-900"
                             placeholder="0.00">
                     </div>
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                    <label class="block text-sm font-medium text-stone-700 mb-2">
                         Maximum Cart Amount
                     </label>
                     <div class="relative">
-                        <span class="absolute left-3 top-3.5 text-gray-500">₹</span>
+                        <span class="absolute left-3 top-3.5 text-stone-500">₹</span>
                         <input type="number" id="max_cart_amount" name="max_cart_amount" min="0" step="0.01"
-                            class="w-full border border-gray-300 rounded-lg pl-8 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                            class="w-full border border-stone-300 rounded-lg pl-8 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-stone-900"
                             placeholder="0.00">
                     </div>
                 </div>
@@ -190,19 +190,19 @@
             <!-- Usage Limits -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                    <label class="block text-sm font-medium text-stone-700 mb-2">
                         Maximum Total Uses
                     </label>
                     <input type="number" id="max_uses" name="max_uses" min="1"
-                        class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                        class="w-full border border-stone-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-stone-900"
                         placeholder="Unlimited">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                    <label class="block text-sm font-medium text-stone-700 mb-2">
                         Uses Per Customer
                     </label>
                     <input type="number" id="uses_per_customer" name="uses_per_customer" min="1"
-                        class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                        class="w-full border border-stone-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-stone-900"
                         placeholder="Unlimited">
                 </div>
             </div>
@@ -211,29 +211,29 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 <div class="flex items-center space-x-3">
                     <input type="checkbox" id="status" name="status" checked
-                        class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-                    <label for="status" class="text-sm text-gray-700">Active</label>
+                        class="h-4 w-4 text-sky-600 border-stone-300 rounded focus:ring-sky-500">
+                    <label for="status" class="text-sm text-stone-700">Active</label>
                 </div>
                 <div class="flex items-center space-x-3">
                     <input type="checkbox" id="is_auto_apply" name="is_auto_apply"
-                        class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-                    <label for="is_auto_apply" class="text-sm text-gray-700">Auto Apply</label>
+                        class="h-4 w-4 text-sky-600 border-stone-300 rounded focus:ring-sky-500">
+                    <label for="is_auto_apply" class="text-sm text-stone-700">Auto Apply</label>
                 </div>
                 <div class="flex items-center space-x-3">
                     <input type="checkbox" id="is_stackable" name="is_stackable"
-                        class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-                    <label for="is_stackable" class="text-sm text-gray-700">Stackable</label>
+                        class="h-4 w-4 text-sky-600 border-stone-300 rounded focus:ring-sky-500">
+                    <label for="is_stackable" class="text-sm text-stone-700">Stackable</label>
                 </div>
             </div>
 
             <!-- Categories -->
             <div class="mb-8">
-                <label class="block text-sm font-medium text-gray-700 mb-2">Apply to Categories</label>
-                <div class="border border-gray-300 rounded-lg p-4 max-h-64 overflow-y-auto">
+                <label class="block text-sm font-medium text-stone-700 mb-2">Apply to Categories</label>
+                <div class="border border-stone-300 rounded-lg p-4 max-h-64 overflow-y-auto bg-stone-50/30">
                     <div id="categoriesContainer" class="space-y-3">
                         <!-- Categories will be loaded dynamically -->
-                        <div class="text-center py-8 text-gray-500">
-                            <i class="fas fa-spinner fa-spin mr-2"></i>Loading categories...
+                        <div class="text-center py-8 text-stone-400">
+                            <i class="fas fa-spinner fa-spin mr-2 text-sky-500"></i>Loading categories...
                         </div>
                     </div>
                 </div>

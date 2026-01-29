@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // 2️⃣ SIDEBAR ELEMENTS
     // ============================================
     const sidebar = document.getElementById("sidebar");
-    
+
     // Fix Tabulator layout when sidebar changes
     if (sidebar) {
         sidebar.addEventListener("mouseenter", function () {
@@ -166,9 +166,9 @@ function fixTabulatorLayout() {
         // Redraw all Tabulator tables on the page
         if (typeof Tabulator !== 'undefined') {
             // Check for global table instances
-           if (window.productsTable && typeof window.productsTable.redraw === "function") {
-    window.productsTable.redraw(true);
-}
+            if (window.productsTable && typeof window.productsTable.redraw === "function") {
+                window.productsTable.redraw(true);
+            }
 
             if (window.categoriesTable) {
                 window.categoriesTable.redraw(true);

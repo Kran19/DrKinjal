@@ -6,8 +6,8 @@
     <div class="mb-8">
         <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
             <div>
-                <h2 class="text-2xl font-bold text-gray-800 mb-2">Brand Management</h2>
-                <p class="text-gray-600">Manage your product brands and manufacturers</p>
+                <h2 class="text-2xl font-bold text-stone-800 mb-2">Brand Management</h2>
+                <p class="text-stone-600">Manage your product brands and manufacturers</p>
             </div>
             <div class="flex space-x-3">
                 <button onclick="showCreateBrandModal()" class="btn-primary">
@@ -19,47 +19,47 @@
 
     <!-- Statistics Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-sky-100 p-6">
             <div class="flex items-center">
-                <div class="p-3 rounded-lg bg-indigo-100 text-indigo-600 mr-4">
+                <div class="p-3 rounded-lg bg-sky-100 text-sky-600 mr-4">
                     <i class="fas fa-tags text-xl"></i>
                 </div>
                 <div>
-                    <p class="text-sm text-gray-600">Total Brands</p>
-                    <h3 class="text-2xl font-bold text-gray-800" id="totalBrands">0</h3>
+                    <p class="text-sm text-stone-600">Total Brands</p>
+                    <h3 class="text-2xl font-bold text-stone-800" id="totalBrands">0</h3>
                 </div>
             </div>
         </div>
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-sky-100 p-6">
             <div class="flex items-center">
                 <div class="p-3 rounded-lg bg-emerald-100 text-emerald-600 mr-4">
                     <i class="fas fa-check-circle text-xl"></i>
                 </div>
                 <div>
-                    <p class="text-sm text-gray-600">Active Brands</p>
-                    <h3 class="text-2xl font-bold text-gray-800" id="activeBrands">0</h3>
+                    <p class="text-sm text-stone-600">Active Brands</p>
+                    <h3 class="text-2xl font-bold text-stone-800" id="activeBrands">0</h3>
                 </div>
             </div>
         </div>
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-sky-100 p-6">
             <div class="flex items-center">
                 <div class="p-3 rounded-lg bg-amber-100 text-amber-600 mr-4">
                     <i class="fas fa-star text-xl"></i>
                 </div>
                 <div>
-                    <p class="text-sm text-gray-600">Featured Brands</p>
-                    <h3 class="text-2xl font-bold text-gray-800" id="featuredBrands">0</h3>
+                    <p class="text-sm text-stone-600">Featured Brands</p>
+                    <h3 class="text-2xl font-bold text-stone-800" id="featuredBrands">0</h3>
                 </div>
             </div>
         </div>
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-sky-100 p-6">
             <div class="flex items-center">
                 <div class="p-3 rounded-lg bg-rose-100 text-rose-600 mr-4">
                     <i class="fas fa-crown text-xl"></i>
                 </div>
                 <div>
-                    <p class="text-sm text-gray-600">Top Brand</p>
-                    <h3 class="text-lg font-semibold text-gray-800 truncate" id="popularBrand">-</h3>
+                    <p class="text-sm text-stone-600">Top Brand</p>
+                    <h3 class="text-lg font-semibold text-stone-800 truncate" id="popularBrand">-</h3>
                 </div>
             </div>
         </div>
@@ -67,7 +67,7 @@
 
     <!-- Bulk Actions Bar -->
     <div id="bulkActionsBar"
-        class="hidden fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-white rounded-xl shadow-lg border border-gray-200 p-4 z-50 w-full max-w-lg">
+        class="hidden fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-white rounded-xl shadow-lg border border-stone-200 p-4 z-50 w-full max-w-lg">
         <div class="flex items-center justify-between">
             <div class="flex items-center space-x-4">
                 <div class="flex items-center">
@@ -96,9 +96,9 @@
     </div>
 
     <!-- Brands Table - Tabulator -->
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-        <div class="px-6 py-4 border-b border-gray-200">
-            <h3 class="text-lg font-semibold text-gray-800">All Brands</h3>
+    <div class="bg-white rounded-2xl shadow-sm border border-sky-100 overflow-hidden">
+        <div class="px-6 py-4 border-b border-stone-200 bg-stone-50/50">
+            <h3 class="text-lg font-semibold text-stone-800">All Brands</h3>
         </div>
         <div class="p-6">
             <!-- Tabulator Toolbar -->
@@ -106,8 +106,8 @@
                 <div class="order-2 sm:order-1">
                     <div class="relative" style="width: 260px;">
                         <input type="text" id="brandsSearchInput" placeholder="Search brands..."
-                            class="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent w-full">
-                        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                            class="pl-10 pr-4 py-2 rounded-lg border border-stone-300 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent w-full text-stone-900 placeholder-stone-400">
+                        <i class="fas fa-search absolute left-3 top-3 text-stone-400"></i>
                     </div>
                 </div>
                 <div class="flex flex-wrap gap-2 order-1 sm:order-2">
@@ -129,19 +129,19 @@
                             <i class="fas fa-file-export mr-2"></i>Export
                         </button>
                         <div
-                            class="absolute mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50 hidden group-hover:block
+                            class="absolute mt-2 w-48 bg-white rounded-lg shadow-lg border border-stone-200 py-2 z-50 hidden group-hover:block
                right-0 md:right-0 md:left-auto
                left-0 md:left-auto">
                             <button data-export="csv"
-                                class="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-indigo-600 text-sm">
+                                class="w-full text-left px-4 py-2 text-stone-700 hover:bg-stone-50 hover:text-sky-600 text-sm">
                                 <i class="fas fa-file-csv mr-2"></i>CSV
                             </button>
                             <button data-export="xlsx"
-                                class="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-indigo-600 text-sm">
+                                class="w-full text-left px-4 py-2 text-stone-700 hover:bg-stone-50 hover:text-sky-600 text-sm">
                                 <i class="fas fa-file-excel mr-2"></i>Excel
                             </button>
                             <button data-export="print"
-                                class="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-indigo-600 text-sm">
+                                class="w-full text-left px-4 py-2 text-stone-700 hover:bg-stone-50 hover:text-sky-600 text-sm">
                                 <i class="fas fa-print mr-2"></i>Print
                             </button>
                         </div>
@@ -164,11 +164,11 @@
     </div>
 
     <!-- Create/Edit Brand Modal -->
-    <div id="brandModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 hidden">
-        <div class="relative top-20 mx-auto p-6 border w-11/12 md:w-3/4 lg:w-1/2 shadow-lg rounded-2xl bg-white">
+    <div id="brandModal" class="fixed inset-0 bg-stone-900 bg-opacity-50 overflow-y-auto h-full w-full z-50 hidden backdrop-blur-sm">
+        <div class="relative top-20 mx-auto p-6 border border-sky-100 w-11/12 md:w-3/4 lg:w-1/2 shadow-2xl rounded-2xl bg-white">
             <div class="flex justify-between items-center mb-6">
-                <h3 class="text-xl font-bold text-gray-800" id="modalTitle">Add New Brand</h3>
-                <button onclick="closeBrandModal()" class="text-gray-400 hover:text-gray-600">
+                <h3 class="text-xl font-bold text-stone-800" id="modalTitle">Add New Brand</h3>
+                <button onclick="closeBrandModal()" class="text-stone-400 hover:text-stone-600">
                     <i class="fas fa-times text-xl"></i>
                 </button>
             </div>
@@ -376,15 +376,15 @@
 
         .tabulator .tabulator-header {
             border: none !important;
-            border-bottom: 1px solid #e5e7eb !important;
-            background-color: #f9fafb !important;
+            border-bottom: 1px solid #e0f2fe !important;
+            background-color: #fafaf9 !important;
             font-weight: 600;
-            color: #374151;
+            color: #1c1917;
         }
 
         .tabulator .tabulator-col {
-            background-color: #f9fafb !important;
-            border-right: 1px solid #e5e7eb !important;
+            background-color: #fafaf9 !important;
+            border-right: 1px solid #f3f4f6 !important;
             padding: 12px 8px !important;
         }
 
@@ -393,21 +393,21 @@
         }
 
         .tabulator-row {
-            border-bottom: 1px solid #f3f4f6 !important;
+            border-bottom: 1px solid #f5f5f4 !important;
             transition: background-color 0.2s ease;
         }
 
         .tabulator-row.tabulator-selectable:hover {
-            background-color: #f9fafb !important;
+            background-color: #f0f9ff !important;
         }
 
         .tabulator-row.tabulator-selected {
-            background-color: #e0e7ff !important;
+            background-color: #e0f2fe !important;
         }
 
         .tabulator-cell {
             padding: 12px 8px !important;
-            border-right: 1px solid #f3f4f6 !important;
+            border-right: 1px solid #f5f5f4 !important;
             vertical-align: middle !important;
         }
 
@@ -452,7 +452,7 @@
         }
 
         input:checked + .slider {
-            background-color: #10b981;
+            background-color: #0ea5e9;
         }
 
         input:checked + .slider:before {
@@ -468,8 +468,8 @@
         }
 
         .tabulator-footer {
-            border-top: 1px solid #e5e7eb !important;
-            background-color: #f9fafb !important;
+            border-top: 1px solid #e0f2fe !important;
+            background-color: #fafaf9 !important;
             padding: 12px !important;
         }
 
@@ -533,11 +533,11 @@
 
         /* Selection styles */
         .tabulator-row.tabulator-selected {
-            background-color: #e0e7ff !important;
+            background-color: #e0f2fe !important;
         }
 
         .tabulator-row.tabulator-selected:hover {
-            background-color: #c7d2fe !important;
+            background-color: #bae6fd !important;
         }
 
         /* Checkbox styling for select all */

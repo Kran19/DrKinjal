@@ -6,8 +6,8 @@
     <div class="mb-8">
         <div class="flex justify-between items-center">
             <div>
-                <h2 class="text-2xl font-bold text-gray-800 mb-2">Product Tags Management</h2>
-                <p class="text-gray-600">Manage tags for categorizing and organizing products</p>
+                <h2 class="text-2xl font-bold text-stone-800 mb-2">Product Tags Management</h2>
+                <p class="text-stone-500 font-medium">Manage tags for categorizing and organizing products</p>
             </div>
             <a href="{{ route('admin.products.index') }}" class="btn-secondary">
                 <i class="fas fa-arrow-left mr-2"></i>Back to Products
@@ -16,44 +16,44 @@
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-stone-100 p-6">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm font-medium text-gray-600">Total Tags</p>
-                    <p class="text-2xl font-bold text-gray-800 mt-1" id="totalTags">0</p>
+                    <p class="text-sm font-medium text-stone-500">Total Tags</p>
+                    <p class="text-2xl font-bold text-stone-800 mt-1" id="totalTags">0</p>
                 </div>
-                <div class="p-3 bg-indigo-50 rounded-xl">
-                    <i class="fas fa-tags text-indigo-600 text-xl"></i>
+                <div class="p-3 bg-sky-50 rounded-xl">
+                    <i class="fas fa-tags text-sky-600 text-xl"></i>
                 </div>
             </div>
         </div>
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-stone-100 p-6">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm font-medium text-gray-600">Active Tags</p>
-                    <p class="text-2xl font-bold text-gray-800 mt-1" id="activeTags">0</p>
+                    <p class="text-sm font-medium text-stone-500">Active Tags</p>
+                    <p class="text-2xl font-bold text-stone-800 mt-1" id="activeTags">0</p>
                 </div>
                 <div class="p-3 bg-emerald-50 rounded-xl">
                     <i class="fas fa-check-circle text-emerald-600 text-xl"></i>
                 </div>
             </div>
         </div>
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-stone-100 p-6">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm font-medium text-gray-600">Featured Tags</p>
-                    <p class="text-2xl font-bold text-gray-800 mt-1" id="featuredTags">0</p>
+                    <p class="text-sm font-medium text-stone-500">Featured Tags</p>
+                    <p class="text-2xl font-bold text-stone-800 mt-1" id="featuredTags">0</p>
                 </div>
                 <div class="p-3 bg-amber-50 rounded-xl">
                     <i class="fas fa-star text-amber-600 text-xl"></i>
                 </div>
             </div>
         </div>
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-stone-100 p-6">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm font-medium text-gray-600">Popular Tag</p>
-                    <p class="text-2xl font-bold text-gray-800 mt-1" id="popularTag">-</p>
+                    <p class="text-sm font-medium text-stone-500">Popular Tag</p>
+                    <p class="text-2xl font-bold text-stone-800 mt-1" id="popularTag">-</p>
                 </div>
                 <div class="p-3 bg-rose-50 rounded-xl">
                     <i class="fas fa-fire text-rose-600 text-xl"></i>
@@ -64,35 +64,35 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div class="lg:col-span-2">
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                <div class="px-6 py-4 border-b border-gray-200">
+            <div class="bg-white rounded-3xl shadow-sm border border-stone-100 overflow-hidden">
+                <div class="px-8 py-6 border-b border-stone-100">
                     <div class="flex justify-between items-center">
-                        <h3 class="text-lg font-semibold text-gray-800">All Tags</h3>
+                        <h3 class="text-xl font-bold text-stone-800">All Tags</h3>
                         <div class="flex space-x-2">
                             <button id="tagsBulkActionsBtn" class="btn-secondary">
-                                <i class="fas fa-bolt mr-2"></i>Bulk Actions
+                                <i class="fas fa-bolt mr-2 text-xs"></i>Bulk Actions
                             </button>
                             <button id="tagsColumnVisibilityBtn" class="btn-secondary">
-                                <i class="fas fa-columns mr-2"></i>Columns
+                                <i class="fas fa-columns mr-2 text-xs"></i>Columns
                             </button>
                             <div class="relative group">
                                 <button id="tagsExportBtn" class="btn-primary">
-                                    <i class="fas fa-file-export mr-2"></i>Export
+                                    <i class="fas fa-file-export mr-2 text-xs"></i>Export
                                 </button>
                                 <div
-                                    class="absolute mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50 hidden group-hover:block
+                                    class="absolute mt-2 w-48 bg-white rounded-xl shadow-xl border border-stone-100 py-2 z-50 hidden group-hover:block
                                 right-0 md:right-0 md:left-auto
                                 left-0 md:left-auto">
                                     <button data-export="csv"
-                                        class="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-indigo-600 text-sm">
+                                        class="w-full text-left px-4 py-2 text-stone-600 hover:bg-sky-50 hover:text-sky-600 text-sm font-medium transition-all">
                                         <i class="fas fa-file-csv mr-2"></i>CSV
                                     </button>
                                     <button data-export="xlsx"
-                                        class="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-indigo-600 text-sm">
+                                        class="w-full text-left px-4 py-2 text-stone-600 hover:bg-sky-50 hover:text-sky-600 text-sm font-medium transition-all">
                                         <i class="fas fa-file-excel mr-2"></i>Excel
                                     </button>
                                     <button data-export="print"
-                                        class="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-indigo-600 text-sm">
+                                        class="w-full text-left px-4 py-2 text-stone-600 hover:bg-sky-50 hover:text-sky-600 text-sm font-medium transition-all">
                                         <i class="fas fa-print mr-2"></i>Print
                                     </button>
                                 </div>
@@ -100,13 +100,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="p-6">
+                <div class="p-8">
                     <!-- Search Bar -->
-                    <div class="mb-4">
-                        <div class="relative">
+                    <div class="mb-6">
+                        <div class="relative max-w-md">
                             <input type="text" id="tagsSearchInput" placeholder="Search tags..."
-                                class="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent w-full">
-                            <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                                class="pl-11 pr-4 py-3 rounded-xl border border-stone-200 bg-stone-50 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all w-full font-medium">
+                            <i class="fas fa-search absolute left-4 top-4 text-stone-400"></i>
                         </div>
                     </div>
 
@@ -117,58 +117,58 @@
         </div>
 
         <div>
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-8">
-                <div class="px-6 py-4 border-b border-gray-200">
-                    <h3 class="text-lg font-semibold text-gray-800" id="formTitle">Add New Tag</h3>
+            <div class="bg-white rounded-3xl shadow-sm border border-stone-100 overflow-hidden mb-8">
+                <div class="px-8 py-6 border-b border-stone-100">
+                    <h3 class="text-xl font-bold text-stone-800" id="formTitle">Add New Tag</h3>
                 </div>
-                <form id="tagForm" class="p-6">
+                <form id="tagForm" class="p-8">
                     <input type="hidden" id="tagId" name="id" value="">
 
-                    <div class="space-y-4">
+                    <div class="space-y-6">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Tag Name *</label>
+                            <label class="block text-sm font-semibold text-stone-700 mb-2">Tag Name <span class="text-rose-500">*</span></label>
                             <input type="text" id="tagName" name="name"
-                                class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                class="w-full border border-stone-200 bg-stone-50 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all font-medium"
                                 placeholder="e.g., Summer Sale, New Arrival, Bestseller" required>
-                            <p class="text-xs text-red-500 mt-1 hidden" id="nameError"></p>
+                            <p class="text-[10px] text-rose-500 mt-1 italic hidden" id="nameError"></p>
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Slug *</label>
+                            <label class="block text-sm font-semibold text-stone-700 mb-2">Slug <span class="text-rose-500">*</span></label>
                             <input type="text" id="tagSlug" name="slug"
-                                class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                class="w-full border border-stone-200 bg-stone-50 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all font-mono text-sm"
                                 placeholder="summer-sale" required>
-                            <p class="text-xs text-red-500 mt-1 hidden" id="slugError"></p>
+                            <p class="text-[10px] text-rose-500 mt-1 italic hidden" id="slugError"></p>
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                            <label class="block text-sm font-semibold text-stone-700 mb-2">Description</label>
                             <textarea id="tagDescription" name="description" rows="3"
-                                class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                class="w-full border border-stone-200 bg-stone-50 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all font-medium"
                                 placeholder="Brief description about this tag"></textarea>
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Color</label>
+                                <label class="block text-sm font-semibold text-stone-700 mb-2">Color</label>
                                 <div class="flex space-x-2">
                                     <div class="relative">
                                         <input type="color" id="tagColor" name="color" value="#3b82f6"
-                                            class="w-12 h-12 cursor-pointer rounded-lg border border-gray-300">
+                                            class="w-12 h-12 cursor-pointer rounded-xl border border-stone-200 bg-stone-50">
                                     </div>
                                     <div class="flex-1">
                                         <input type="text" id="colorHex" value="#3b82f6"
-                                            class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+                                            class="w-full border border-stone-200 bg-stone-50 rounded-xl px-3 py-3 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all"
                                             placeholder="#3b82f6">
-                                        <p class="text-xs text-gray-500 mt-1">Hex code</p>
+                                        <p class="text-[10px] text-stone-400 mt-1 uppercase tracking-wider font-bold">Hex code</p>
                                     </div>
                                 </div>
                             </div>
 
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Icon</label>
+                                <label class="block text-sm font-semibold text-stone-700 mb-2">Icon</label>
                                 <select id="tagIcon" name="icon"
-                                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                    class="w-full border border-stone-200 bg-stone-50 rounded-xl px-3 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all font-medium">
                                     <option value="">No Icon</option>
                                     <option value="fas fa-tag">Tag</option>
                                     <option value="fas fa-star">Star</option>
@@ -184,33 +184,33 @@
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label class="flex items-center">
+                                <label class="flex items-center group cursor-pointer">
                                     <input type="checkbox" id="tagFeatured" name="featured"
-                                        class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                    <span class="ml-2 text-sm text-gray-700">Featured Tag</span>
+                                        class="rounded border-stone-300 text-sky-500 focus:ring-sky-500 h-4 w-4 transition-all">
+                                    <span class="ml-3 text-sm font-semibold text-stone-700 group-hover:text-stone-900 transition-colors">Featured Tag</span>
                                 </label>
-                                <p class="text-xs text-gray-500 mt-1 ml-6">Show in featured section</p>
+                                <p class="text-[10px] text-stone-400 mt-1 ml-7 uppercase tracking-wider font-bold">Show in featured section</p>
                             </div>
 
                             <div>
-                                <label class="flex items-center">
+                                <label class="flex items-center group cursor-pointer">
                                     <input type="checkbox" id="tagStatus" name="status" checked
-                                        class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                    <span class="ml-2 text-sm text-gray-700">Active</span>
+                                        class="rounded border-stone-300 text-sky-500 focus:ring-sky-500 h-4 w-4 transition-all">
+                                    <span class="ml-3 text-sm font-semibold text-stone-700 group-hover:text-stone-900 transition-colors">Active</span>
                                 </label>
-                                <p class="text-xs text-gray-500 mt-1 ml-6">Tag will be visible</p>
+                                <p class="text-[10px] text-stone-400 mt-1 ml-7 uppercase tracking-wider font-bold">Tag will be visible</p>
                             </div>
                         </div>
 
-                        <div class="pt-4 border-t border-gray-200">
+                        <div class="pt-6 border-t border-stone-100">
                             <div class="flex justify-end space-x-3">
                                 <button type="button" id="cancelBtn" onclick="resetForm()"
-                                    class="btn-secondary hidden">
+                                    class="btn-secondary hidden min-w-[100px] justify-center">
                                     Cancel
                                 </button>
-                                <button type="submit" class="btn-primary">
+                                <button type="submit" class="btn-primary min-w-[140px] justify-center">
                                     <i class="fas fa-save mr-2"></i>
                                     <span id="submitText">Save Tag</span>
                                 </button>
@@ -220,15 +220,15 @@
                 </form>
             </div>
 
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                <div class="px-6 py-4 border-b border-gray-200">
-                    <h3 class="text-lg font-semibold text-gray-800">Popular Tags</h3>
+            <div class="bg-white rounded-3xl shadow-sm border border-stone-100 overflow-hidden">
+                <div class="px-8 py-6 border-b border-stone-100">
+                    <h3 class="text-xl font-bold text-stone-800">Popular Tags</h3>
                 </div>
-                <div class="p-6">
+                <div class="p-8">
                     <div id="popularTags" class="flex flex-wrap gap-2">
-                        <div class="text-center py-4 text-gray-500 w-full">
-                            <div class="animate-spin inline-block w-8 h-8 border-4 border-indigo-600 border-t-transparent rounded-full mb-2"></div>
-                            <p class="text-sm">Loading popular tags...</p>
+                        <div class="text-center py-6 text-stone-400 w-full bg-stone-50 rounded-2xl border border-dashed border-stone-200">
+                            <div class="animate-spin inline-block w-8 h-8 border-4 border-sky-500 border-t-transparent rounded-full mb-3"></div>
+                            <p class="text-sm font-bold uppercase tracking-widest">Loading popular tags...</p>
                         </div>
                     </div>
                 </div>
@@ -236,32 +236,31 @@
         </div>
     </div>
 
-    <!-- Bulk Actions Modal -->
     <div id="bulkActionsModal"
         class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-xl max-w-md w-full">
-            <div class="p-6">
-                <h3 class="text-lg font-semibold text-gray-900 mb-4 text-center">Bulk Actions</h3>
+        <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full border border-stone-100 overflow-hidden">
+            <div class="p-8">
+                <h3 class="text-xl font-bold text-stone-800 mb-6 text-center">Bulk Actions</h3>
                 <div class="space-y-3">
-                    <button onclick="applyBulkAction('activate')" class="w-full btn-secondary text-left">
-                        <i class="fas fa-toggle-on mr-2 text-emerald-600"></i>Activate Selected
+                    <button onclick="applyBulkAction('activate')" class="w-full btn-secondary text-left group">
+                        <i class="fas fa-toggle-on mr-3 text-emerald-500 group-hover:scale-110 transition-transform"></i>Activate Selected
                     </button>
-                    <button onclick="applyBulkAction('deactivate')" class="w-full btn-secondary text-left">
-                        <i class="fas fa-toggle-off mr-2 text-rose-600"></i>Deactivate Selected
+                    <button onclick="applyBulkAction('deactivate')" class="w-full btn-secondary text-left group">
+                        <i class="fas fa-toggle-off mr-3 text-stone-400 group-hover:scale-110 transition-transform"></i>Deactivate Selected
                     </button>
-                    <button onclick="applyBulkAction('feature')" class="w-full btn-secondary text-left">
-                        <i class="fas fa-star mr-2 text-amber-500"></i>Mark as Featured
+                    <button onclick="applyBulkAction('feature')" class="w-full btn-secondary text-left group">
+                        <i class="fas fa-star mr-3 text-amber-500 group-hover:scale-110 transition-transform"></i>Mark as Featured
                     </button>
-                    <button onclick="applyBulkAction('unfeature')" class="w-full btn-secondary text-left">
-                        <i class="far fa-star mr-2 text-gray-500"></i>Remove from Featured
+                    <button onclick="applyBulkAction('unfeature')" class="w-full btn-secondary text-left group">
+                        <i class="far fa-star mr-3 text-stone-300 group-hover:scale-110 transition-transform"></i>Remove from Featured
                     </button>
                     <button onclick="applyBulkAction('delete')"
-                        class="w-full btn-secondary text-left border-rose-200 text-rose-600 hover:bg-rose-50">
-                        <i class="fas fa-trash mr-2"></i>Delete Selected
+                        class="w-full btn-secondary text-left border-rose-100 text-rose-600 hover:bg-rose-50 group">
+                        <i class="fas fa-trash mr-3 group-hover:scale-110 transition-transform"></i>Delete Selected
                     </button>
                 </div>
-                <div class="mt-6 flex justify-center">
-                    <button onclick="closeBulkActions()" class="btn-secondary">
+                <div class="mt-8 flex justify-center">
+                    <button onclick="closeBulkActions()" class="btn-secondary min-w-[120px] justify-center">
                         Cancel
                     </button>
                 </div>
@@ -543,16 +542,16 @@
 
                         return `
                             <div class="flex items-center space-x-3">
-                                <div class="w-10 h-10 rounded-lg flex items-center justify-center"
+                                <div class="w-10 h-10 rounded-xl flex items-center justify-center transition-transform hover:scale-110"
                                      style="background-color: ${color}22">
                                     ${rowData.icon ?
-                                        `<i class="${rowData.icon}" style="color: ${color}"></i>` :
-                                        `<i class="fas fa-tag" style="color: ${color}"></i>`
+                                        `<i class="${rowData.icon} text-sm" style="color: ${color}"></i>` :
+                                        `<i class="fas fa-tag text-sm" style="color: ${color}"></i>`
                                     }
                                 </div>
                                 <div>
-                                    <p class="font-medium text-gray-900">${rowData.name}</p>
-                                    <p class="text-sm text-gray-500 truncate max-w-xs">${rowData.description || ''}</p>
+                                    <p class="font-bold text-stone-800">${rowData.name}</p>
+                                    <p class="text-xs text-stone-500 truncate max-w-xs font-medium">${rowData.description || ''}</p>
                                 </div>
                             </div>
                         `;
@@ -575,7 +574,7 @@
                     hozAlign: "center",
                     formatter: function(cell) {
                         const count = cell.getValue() || 0;
-                        return `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+                        return `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-sky-50 text-sky-700 border border-sky-100">
                             ${count}
                         </span>`;
                     },
@@ -654,12 +653,14 @@
                         return `
                             <div class="flex space-x-2 justify-center">
                                 <button onclick="editTag(${id})"
-                                        class="w-8 h-8 flex items-center justify-center bg-indigo-50 text-indigo-600 rounded-lg hover:bg-indigo-100 transition-colors">
-                                    <i class="fas fa-edit"></i>
+                                        class="w-8 h-8 flex items-center justify-center bg-sky-50 text-sky-600 rounded-lg hover:bg-sky-100 transition-all hover:scale-110"
+                                        title="Edit">
+                                    <i class="fas fa-edit text-xs"></i>
                                 </button>
                                 <button onclick="deleteTag(${id})"
-                                        class="w-8 h-8 flex items-center justify-center bg-rose-50 text-rose-600 rounded-lg hover:bg-rose-100 transition-colors">
-                                    <i class="fas fa-trash"></i>
+                                        class="w-8 h-8 flex items-center justify-center bg-rose-50 text-rose-600 rounded-lg hover:bg-rose-100 transition-all hover:scale-110"
+                                        title="Delete">
+                                    <i class="fas fa-trash text-xs"></i>
                                 </button>
                             </div>
                         `;

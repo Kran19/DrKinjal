@@ -7,11 +7,11 @@
 <div class="mb-8">
     <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <div>
-            <h2 class="text-2xl font-bold text-gray-800 mb-2">Customer Management</h2>
-            <p class="text-gray-600">Manage your customer accounts and profiles</p>
+            <h2 class="text-2xl font-bold text-stone-800 mb-2">Customer Management</h2>
+            <p class="text-stone-600">Manage your customer accounts and profiles</p>
         </div>
         <div class="flex flex-wrap gap-3">
-            <select id="statusFilter" class="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm">
+            <select id="statusFilter" class="border border-stone-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm text-stone-900">
                 <option value="">All Status</option>
                 <option value="active">Active</option>
                 <option value="inactive">Inactive</option>
@@ -25,9 +25,9 @@
 </div>
 
 <!-- Users Table -->
-<div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-    <div class="px-6 py-4 border-b border-gray-200">
-        <h3 class="text-lg font-semibold text-gray-800">All Customers</h3>
+<div class="bg-white rounded-2xl shadow-sm border border-sky-100 overflow-hidden">
+    <div class="px-6 py-4 border-b border-stone-200 bg-stone-50/50">
+        <h3 class="text-lg font-semibold text-stone-800">All Customers</h3>
     </div>
     <div class="p-6">
         <!-- Toolbar -->
@@ -35,8 +35,8 @@
             <div class="order-2 sm:order-1">
                 <div class="relative" style="width: 260px;">
                     <input type="text" id="searchUsersInput" placeholder="Search customers..."
-                        class="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent w-full">
-                    <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                        class="pl-10 pr-4 py-2 rounded-lg border border-stone-300 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent w-full text-stone-900 placeholder-stone-400">
+                    <i class="fas fa-search absolute left-3 top-3 text-stone-400"></i>
                 </div>
             </div>
             <div class="flex flex-wrap gap-2 order-1 sm:order-2">
@@ -59,21 +59,21 @@
 
         <!-- Table Container -->
         <div class="overflow-x-auto">
-            <table id="customersTable" class="min-w-full divide-y divide-gray-200">
+            <table id="customersTable" class="min-w-full divide-y divide-stone-200">
                 <thead>
                     <tr>
-                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            <input type="checkbox" id="selectAll" onclick="toggleSelectAll(this)">
+                        <th class="px-6 py-3 bg-stone-50 text-left text-xs font-medium text-stone-500 uppercase tracking-wider text-center">
+                            <input type="checkbox" id="selectAll" onclick="toggleSelectAll(this)" class="rounded text-sky-600 focus:ring-sky-500">
                         </th>
-                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
-                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone</th>
-                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Orders</th>
-                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Spent</th>
-                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Joined</th>
-                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        <th class="px-6 py-3 bg-stone-50 text-left text-xs font-medium text-stone-500 uppercase tracking-wider">ID</th>
+                        <th class="px-6 py-3 bg-stone-50 text-left text-xs font-medium text-stone-500 uppercase tracking-wider">Customer</th>
+                        <th class="px-6 py-3 bg-stone-50 text-left text-xs font-medium text-stone-500 uppercase tracking-wider">Email</th>
+                        <th class="px-6 py-3 bg-stone-50 text-left text-xs font-medium text-stone-500 uppercase tracking-wider text-center">Phone</th>
+                        <th class="px-6 py-3 bg-stone-50 text-left text-xs font-medium text-stone-500 uppercase tracking-wider text-center">Orders</th>
+                        <th class="px-6 py-3 bg-stone-50 text-left text-xs font-medium text-stone-500 uppercase tracking-wider">Total Spent</th>
+                        <th class="px-6 py-3 bg-stone-50 text-left text-xs font-medium text-stone-500 uppercase tracking-wider text-center">Status</th>
+                        <th class="px-6 py-3 bg-stone-50 text-left text-xs font-medium text-stone-500 uppercase tracking-wider text-center">Joined</th>
+                        <th class="px-6 py-3 bg-stone-50 text-right text-xs font-medium text-stone-500 uppercase tracking-wider">Actions</th>
                     </tr>
                 </thead>
                 <tbody id="customersTableBody" class="bg-white divide-y divide-gray-200">
@@ -90,8 +90,8 @@
 </div>
 
 <!-- Loading Spinner -->
-<div id="loadingSpinner" class="hidden fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50">
-    <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-indigo-600"></div>
+<div id="loadingSpinner" class="hidden fixed inset-0 bg-stone-900 bg-opacity-50 flex items-center justify-center z-50 backdrop-blur-sm">
+    <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-sky-600"></div>
 </div>
 @endsection
 
@@ -313,7 +313,7 @@
                 <td class="px-6 py-4 whitespace-nowrap">
                     <div class="flex items-center">
                         <div class="h-10 w-10 flex-shrink-0">
-                            <div class="h-10 w-10 rounded-full bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center text-white font-semibold">
+                            <div class="h-10 w-10 rounded-full bg-gradient-to-br from-sky-400 to-sky-600 flex items-center justify-center text-white font-semibold shadow-sm">
                                 ${customer.name.charAt(0).toUpperCase()}
                             </div>
                         </div>
@@ -327,16 +327,16 @@
                         </div>
                     </div>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    <a href="mailto:${customer.email}" class="text-indigo-600 hover:text-indigo-900">
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-stone-500">
+                    <a href="mailto:${customer.email}" class="text-sky-600 hover:text-sky-900 font-medium">
                         ${customer.email}
                     </a>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     ${customer.mobile || 'N/A'}
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
-                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${customer.orders_count > 10 ? 'bg-emerald-100 text-emerald-800' : 'bg-blue-100 text-blue-800'}">
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-stone-500 text-center">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${customer.orders_count > 10 ? 'bg-emerald-100 text-emerald-800' : 'bg-sky-100 text-sky-800'}">
                         <i class="fas fa-shopping-bag mr-1"></i>${customer.orders_count}
                     </span>
                 </td>
@@ -351,18 +351,18 @@
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     ${formattedDate}
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium flex justify-end">
                     <div class="flex space-x-2">
-                        <button onclick="viewCustomer(${customer.id})" class="text-blue-600 hover:text-blue-900">
+                        <button onclick="viewCustomer(${customer.id})" class="p-2 bg-sky-50 text-sky-600 rounded-lg hover:bg-sky-100 transition-colors" title="View Details">
                             <i class="fas fa-eye"></i>
                         </button>
-                        <button onclick="editCustomer(${customer.id})" class="text-indigo-600 hover:text-indigo-900">
+                        <button onclick="editCustomer(${customer.id})" class="p-2 bg-amber-50 text-amber-600 rounded-lg hover:bg-amber-100 transition-colors" title="Edit Customer">
                             <i class="fas fa-edit"></i>
                         </button>
-                        <button onclick="toggleBlock(${customer.id})" class="${customer.is_block ? 'text-green-600 hover:text-green-900' : 'text-yellow-600 hover:text-yellow-900'}">
+                        <button onclick="toggleBlock(${customer.id})" class="p-2 ${customer.is_block ? 'bg-emerald-50 text-emerald-600 hover:bg-emerald-100' : 'bg-rose-50 text-rose-600 hover:bg-rose-100'} rounded-lg transition-colors" title="${customer.is_block ? 'Unblock' : 'Block'}">
                             <i class="fas ${customer.is_block ? 'fa-unlock' : 'fa-ban'}"></i>
                         </button>
-                        <button onclick="deleteCustomer(${customer.id})" class="text-red-600 hover:text-red-900">
+                        <button onclick="deleteCustomer(${customer.id})" class="p-2 bg-stone-100 text-stone-600 rounded-lg hover:bg-stone-200 transition-colors" title="Delete Customer">
                             <i class="fas fa-trash"></i>
                         </button>
                     </div>
@@ -401,7 +401,7 @@
             if (i === 1 || i === pagination.last_page || (i >= currentPage - 2 && i <= currentPage + 2)) {
                 html += `
                     <button onclick="changePage(${i})"
-                            class="relative inline-flex items-center px-4 py-2 border ${currentPage === i ? 'border-indigo-500 bg-indigo-50 text-indigo-600' : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'} text-sm font-medium">
+                            class="relative inline-flex items-center px-4 py-2 border ${currentPage === i ? 'border-sky-500 bg-sky-50 text-sky-600' : 'border-stone-300 bg-white text-stone-700 hover:bg-stone-50'} text-sm font-medium">
                         ${i}
                     </button>
                 `;
@@ -466,39 +466,39 @@
                 <form id="addCustomerForm" class="text-left space-y-4">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Name *</label>
-                            <input type="text" name="name" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+                            <label class="block text-sm font-medium text-stone-700 mb-1">Name *</label>
+                            <input type="text" name="name" class="w-full border border-stone-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500" required>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Email *</label>
-                            <input type="email" name="email" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+                            <label class="block text-sm font-medium text-stone-700 mb-1">Email *</label>
+                            <input type="email" name="email" class="w-full border border-stone-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500" required>
                         </div>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Mobile</label>
-                        <input type="tel" name="mobile" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <label class="block text-sm font-medium text-stone-700 mb-1">Mobile</label>
+                        <input type="tel" name="mobile" class="w-full border border-stone-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500">
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Password *</label>
-                            <input type="password" name="password" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+                            <label class="block text-sm font-medium text-stone-700 mb-1">Password *</label>
+                            <input type="password" name="password" class="w-full border border-stone-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500" required>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Confirm Password *</label>
-                            <input type="password" name="password_confirmation" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+                            <label class="block text-sm font-medium text-stone-700 mb-1">Confirm Password *</label>
+                            <input type="password" name="password_confirmation" class="w-full border border-stone-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500" required>
                         </div>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label class="flex items-center">
-                                <input type="checkbox" name="status" checked class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                <span class="ml-2 text-sm text-gray-700">Active Account</span>
+                                <input type="checkbox" name="status" checked class="rounded border-stone-300 text-sky-600 focus:ring-sky-500">
+                                <span class="ml-2 text-sm text-stone-700">Active Account</span>
                             </label>
                         </div>
                         <div>
                             <label class="flex items-center">
-                                <input type="checkbox" name="is_block" class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                <span class="ml-2 text-sm text-gray-700">Block Account</span>
+                                <input type="checkbox" name="is_block" class="rounded border-stone-300 text-sky-600 focus:ring-sky-500">
+                                <span class="ml-2 text-sm text-stone-700">Block Account</span>
                             </label>
                         </div>
                     </div>
@@ -587,13 +587,13 @@
                     title: 'Customer Details',
                     html: `
                         <div class="text-left space-y-4">
-                            <div class="flex items-center space-x-4 pb-4 border-b">
-                                <div class="w-16 h-16 bg-gradient-to-br from-indigo-400 to-purple-500 rounded-full flex items-center justify-center text-white font-bold text-2xl">
+                            <div class="flex items-center space-x-4 pb-4 border-b border-stone-100">
+                                <div class="w-16 h-16 bg-gradient-to-br from-sky-400 to-sky-600 rounded-full flex items-center justify-center text-white font-bold text-2xl shadow-md">
                                     ${customer.name.charAt(0).toUpperCase()}
                                 </div>
                                 <div>
-                                    <p class="text-xl font-semibold text-gray-900">${customer.name}</p>
-                                    <p class="text-sm text-gray-500">Customer ID: #${customer.id}</p>
+                                    <p class="text-xl font-semibold text-stone-900">${customer.name}</p>
+                                    <p class="text-sm text-stone-500">Customer ID: #${customer.id}</p>
                                 </div>
                             </div>
 

@@ -6,12 +6,12 @@
 <div class="mb-8">
     <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <div>
-            <h2 class="text-2xl font-bold text-gray-800 mb-1">Reports Dashboard</h2>
-            <p class="text-gray-600">Comprehensive overview of your store performance and analytics</p>
+            <h2 class="text-2xl font-bold text-stone-800 mb-2">Reports Dashboard</h2>
+            <p class="text-stone-500 font-medium">Comprehensive overview of your store performance and analytics</p>
         </div>
 
         <div class="flex flex-wrap gap-3">
-            <select class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500">
+            <select class="bg-white border border-stone-200 rounded-xl px-4 py-2 text-sm font-bold text-stone-700 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all shadow-sm">
                 <option>Last 30 Days</option>
                 <option>Last 90 Days</option>
                 <option>This Year</option>
@@ -19,7 +19,7 @@
             </select>
 
             <button class="btn-primary">
-                <i class="fas fa-download mr-2"></i>Export All Reports
+                <i class="fas fa-file-export mr-2 text-xs"></i>Export All Reports
             </button>
         </div>
     </div>
@@ -28,57 +28,65 @@
 <!-- KPIs -->
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
     <!-- KPI Card -->
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 card-hover">
-        <div class="flex justify-between items-center">
+    <div class="bg-white rounded-3xl shadow-sm border border-stone-100 p-8 hover:shadow-md transition-all duration-300 group">
+        <div class="flex justify-between items-start">
             <div>
-                <p class="text-sm text-gray-600">Total Revenue</p>
-                <p class="text-2xl font-bold text-gray-900 mt-1">$24,568</p>
-                <p class="text-sm text-emerald-600 mt-1"><i class="fas fa-arrow-up mr-1"></i>12.5% increase</p>
+                <p class="text-sm font-bold text-stone-400 uppercase tracking-widest mb-1">Total Revenue</p>
+                <p class="text-3xl font-black text-stone-800">$24,568</p>
+                <div class="flex items-center mt-3 text-emerald-500 font-bold text-xs bg-emerald-50 px-2 py-1 rounded-lg w-fit">
+                    <i class="fas fa-arrow-up mr-1.5"></i>12.5%
+                </div>
             </div>
-            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center">
-                <i class="fas fa-dollar-sign text-white text-lg"></i>
+            <div class="w-14 h-14 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-600 group-hover:scale-110 transition-transform duration-300">
+                <i class="fas fa-dollar-sign text-2xl"></i>
             </div>
         </div>
     </div>
 
     <!-- KPI Card -->
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 card-hover">
-        <div class="flex justify-between items-center">
+    <div class="bg-white rounded-3xl shadow-sm border border-stone-100 p-8 hover:shadow-md transition-all duration-300 group">
+        <div class="flex justify-between items-start">
             <div>
-                <p class="text-sm text-gray-600">Total Orders</p>
-                <p class="text-2xl font-bold text-gray-900 mt-1">1,248</p>
-                <p class="text-sm text-emerald-600 mt-1"><i class="fas fa-arrow-up mr-1"></i>8.2% increase</p>
+                <p class="text-sm font-bold text-stone-400 uppercase tracking-widest mb-1">Total Orders</p>
+                <p class="text-3xl font-black text-stone-800">1,248</p>
+                <div class="flex items-center mt-3 text-emerald-500 font-bold text-xs bg-emerald-50 px-2 py-1 rounded-lg w-fit">
+                    <i class="fas fa-arrow-up mr-1.5"></i>8.2%
+                </div>
             </div>
-            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center">
-                <i class="fas fa-shopping-cart text-white text-lg"></i>
+            <div class="w-14 h-14 rounded-2xl bg-sky-50 flex items-center justify-center text-sky-600 group-hover:scale-110 transition-transform duration-300">
+                <i class="fas fa-shopping-cart text-2xl"></i>
             </div>
         </div>
     </div>
 
     <!-- KPI Card -->
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 card-hover">
-        <div class="flex justify-between items-center">
+    <div class="bg-white rounded-3xl shadow-sm border border-stone-100 p-8 hover:shadow-md transition-all duration-300 group">
+        <div class="flex justify-between items-start">
             <div>
-                <p class="text-sm text-gray-600">Avg. Order Value</p>
-                <p class="text-2xl font-bold text-gray-900 mt-1">$89.50</p>
-                <p class="text-sm text-emerald-600 mt-1"><i class="fas fa-arrow-up mr-1"></i>5.3% increase</p>
+                <p class="text-sm font-bold text-stone-400 uppercase tracking-widest mb-1">Avg. Order Value</p>
+                <p class="text-3xl font-black text-stone-800">$89.50</p>
+                <div class="flex items-center mt-3 text-emerald-500 font-bold text-xs bg-emerald-50 px-2 py-1 rounded-lg w-fit">
+                    <i class="fas fa-arrow-up mr-1.5"></i>5.3%
+                </div>
             </div>
-            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center">
-                <i class="fas fa-chart-line text-white text-lg"></i>
+            <div class="w-14 h-14 rounded-2xl bg-purple-50 flex items-center justify-center text-purple-600 group-hover:scale-110 transition-transform duration-300">
+                <i class="fas fa-chart-line text-2xl"></i>
             </div>
         </div>
     </div>
 
     <!-- KPI Card -->
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 card-hover">
-        <div class="flex justify-between items-center">
+    <div class="bg-white rounded-3xl shadow-sm border border-stone-100 p-8 hover:shadow-md transition-all duration-300 group">
+        <div class="flex justify-between items-start">
             <div>
-                <p class="text-sm text-gray-600">Conversion Rate</p>
-                <p class="text-2xl font-bold text-gray-900 mt-1">3.2%</p>
-                <p class="text-sm text-rose-600 mt-1"><i class="fas fa-arrow-down mr-1"></i>0.8% decrease</p>
+                <p class="text-sm font-bold text-stone-400 uppercase tracking-widest mb-1">Conversion Rate</p>
+                <p class="text-3xl font-black text-stone-800">3.2%</p>
+                <div class="flex items-center mt-3 text-rose-500 font-bold text-xs bg-rose-50 px-2 py-1 rounded-lg w-fit">
+                    <i class="fas fa-arrow-down mr-1.5"></i>0.8%
+                </div>
             </div>
-            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center">
-                <i class="fas fa-percentage text-white text-lg"></i>
+            <div class="w-14 h-14 rounded-2xl bg-amber-50 flex items-center justify-center text-amber-600 group-hover:scale-110 transition-transform duration-300">
+                <i class="fas fa-percentage text-2xl"></i>
             </div>
         </div>
     </div>
@@ -87,62 +95,98 @@
 <!-- Overview Grid -->
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-10">
     <!-- Sales Report Summary -->
-    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 card-hover">
-        <div class="flex justify-between items-center mb-4">
-            <h3 class="text-lg font-semibold text-gray-800">Sales Report</h3>
+    <div class="bg-white rounded-3xl border border-stone-100 shadow-sm p-8 hover:shadow-md transition-all duration-300">
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="text-xl font-bold text-stone-800">Sales Report</h3>
             <a href="{{ route('admin.reports.sales') }}"
-               class="text-indigo-600 hover:text-indigo-800 text-sm font-medium">View Details</a>
+               class="text-sky-600 hover:text-sky-800 text-sm font-bold uppercase tracking-wider">Details <i class="fas fa-chevron-right text-[10px] ml-1"></i></a>
         </div>
 
-        <div class="space-y-3">
-            <div class="flex justify-between"><span>Total Sales</span><span class="font-semibold">$24,568</span></div>
-            <div class="flex justify-between"><span>Orders</span><span class="font-semibold">1,248</span></div>
-            <div class="flex justify-between"><span>Avg. Daily Sales</span><span class="font-semibold">$819</span></div>
-            <div class="flex justify-between"><span>Refund Rate</span><span class="font-semibold text-rose-600">2.3%</span></div>
+        <div class="space-y-4">
+            <div class="flex justify-between items-center py-2 border-b border-stone-50">
+                <span class="text-stone-500 font-medium text-sm">Total Sales</span>
+                <span class="font-bold text-stone-800">$24,568</span>
+            </div>
+            <div class="flex justify-between items-center py-2 border-b border-stone-50">
+                <span class="text-stone-500 font-medium text-sm">Orders</span>
+                <span class="font-bold text-stone-800">1,248</span>
+            </div>
+            <div class="flex justify-between items-center py-2 border-b border-stone-50">
+                <span class="text-stone-500 font-medium text-sm">Avg. Daily Sales</span>
+                <span class="font-bold text-stone-800">$819</span>
+            </div>
+            <div class="flex justify-between items-center py-2">
+                <span class="text-stone-500 font-medium text-sm">Refund Rate</span>
+                <span class="font-bold text-rose-500 bg-rose-50 px-2 py-0.5 rounded-lg">2.3%</span>
+            </div>
         </div>
 
-        <div class="mt-4 pt-4 border-t border-gray-200 text-sm text-gray-500 flex items-center">
-            <i class="fas fa-chart-line mr-2"></i>Last updated: Today, 9:42 AM
+        <div class="mt-8 pt-6 border-t border-stone-50 text-[11px] text-stone-400 font-bold uppercase tracking-widest flex items-center">
+            <i class="fas fa-clock mr-2 text-sky-400"></i>Updated: Today, 9:42 AM
         </div>
     </div>
 
     <!-- Customers Report Summary -->
-    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 card-hover">
-        <div class="flex justify-between items-center mb-4">
-            <h3 class="text-lg font-semibold text-gray-800">Customers Report</h3>
+    <div class="bg-white rounded-3xl border border-stone-100 shadow-sm p-8 hover:shadow-md transition-all duration-300">
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="text-xl font-bold text-stone-800">Customers</h3>
             <a href="{{ route('admin.reports.customers') }}"
-               class="text-indigo-600 hover:text-indigo-800 text-sm font-medium">View Details</a>
+               class="text-sky-600 hover:text-sky-800 text-sm font-bold uppercase tracking-wider">Details <i class="fas fa-chevron-right text-[10px] ml-1"></i></a>
         </div>
 
-        <div class="space-y-3">
-            <div class="flex justify-between"><span>Total Customers</span><span class="font-semibold">5,423</span></div>
-            <div class="flex justify-between"><span>New This Month</span><span class="font-semibold">248</span></div>
-            <div class="flex justify-between"><span>Repeat Rate</span><span class="font-semibold">42%</span></div>
-            <div class="flex justify-between"><span>Avg. Lifetime Value</span><span class="font-semibold">$450</span></div>
+        <div class="space-y-4">
+            <div class="flex justify-between items-center py-2 border-b border-stone-50">
+                <span class="text-stone-500 font-medium text-sm">Total Customers</span>
+                <span class="font-bold text-stone-800">5,423</span>
+            </div>
+            <div class="flex justify-between items-center py-2 border-b border-stone-50">
+                <span class="text-stone-500 font-medium text-sm">New This Month</span>
+                <span class="font-bold text-stone-800">248</span>
+            </div>
+            <div class="flex justify-between items-center py-2 border-b border-stone-50">
+                <span class="text-stone-500 font-medium text-sm">Repeat Rate</span>
+                <span class="font-bold text-sky-500 bg-sky-50 px-2 py-0.5 rounded-lg">42%</span>
+            </div>
+            <div class="flex justify-between items-center py-2">
+                <span class="text-stone-500 font-medium text-sm">Avg. Lifetime Value</span>
+                <span class="font-bold text-stone-800">$450</span>
+            </div>
         </div>
 
-        <div class="mt-4 pt-4 border-t border-gray-200 text-sm text-gray-500 flex items-center">
-            <i class="fas fa-users mr-2"></i>Customer growth: +15.3% this month
+        <div class="mt-8 pt-6 border-t border-stone-50 text-[11px] text-stone-400 font-bold uppercase tracking-widest flex items-center">
+            <i class="fas fa-users mr-2 text-sky-400"></i>Growth: +15.3% this month
         </div>
     </div>
 
     <!-- Products Report Summary -->
-    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 card-hover">
-        <div class="flex justify-between items-center mb-4">
-            <h3 class="text-lg font-semibold text-gray-800">Products Report</h3>
+    <div class="bg-white rounded-3xl border border-stone-100 shadow-sm p-8 hover:shadow-md transition-all duration-300">
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="text-xl font-bold text-stone-800">Products</h3>
             <a href="{{ route('admin.reports.products') }}"
-               class="text-indigo-600 hover:text-indigo-800 text-sm font-medium">View Details</a>
+               class="text-sky-600 hover:text-sky-800 text-sm font-bold uppercase tracking-wider">Details <i class="fas fa-chevron-right text-[10px] ml-1"></i></a>
         </div>
 
-        <div class="space-y-3">
-            <div class="flex justify-between"><span>Total Products</span><span class="font-semibold">856</span></div>
-            <div class="flex justify-between"><span>Products Sold</span><span class="font-semibold">12,458</span></div>
-            <div class="flex justify-between"><span>Out of Stock</span><span class="font-semibold text-rose-600">23</span></div>
-            <div class="flex justify-between"><span>Low Stock</span><span class="font-semibold text-amber-600">45</span></div>
+        <div class="space-y-4">
+            <div class="flex justify-between items-center py-2 border-b border-stone-50">
+                <span class="text-stone-500 font-medium text-sm">Total Products</span>
+                <span class="font-bold text-stone-800">856</span>
+            </div>
+            <div class="flex justify-between items-center py-2 border-b border-stone-50">
+                <span class="text-stone-500 font-medium text-sm">Products Sold</span>
+                <span class="font-bold text-stone-800">12,458</span>
+            </div>
+            <div class="flex justify-between items-center py-2 border-b border-stone-50">
+                <span class="text-stone-500 font-medium text-sm">Out of Stock</span>
+                <span class="font-bold text-rose-500 bg-rose-50 px-2 py-0.5 rounded-lg">23</span>
+            </div>
+            <div class="flex justify-between items-center py-2">
+                <span class="text-stone-500 font-medium text-sm">Low Stock</span>
+                <span class="font-bold text-amber-500 bg-amber-50 px-2 py-0.5 rounded-lg">45</span>
+            </div>
         </div>
 
-        <div class="mt-4 pt-4 border-t border-gray-200 text-sm text-gray-500 flex items-center">
-            <i class="fas fa-box mr-2"></i>Inventory value: $189,250
+        <div class="mt-8 pt-6 border-t border-stone-50 text-[11px] text-stone-400 font-bold uppercase tracking-widest flex items-center">
+            <i class="fas fa-box mr-2 text-sky-400"></i>Inv. Value: $189,250
         </div>
     </div>
 </div>
@@ -150,58 +194,59 @@
 <!-- Performance Charts -->
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
     <!-- Revenue Trend -->
-    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-        <div class="flex justify-between items-center mb-6">
-            <h3 class="text-lg font-semibold text-gray-800">Revenue Trend</h3>
-            <select class="border border-gray-300 rounded-lg px-3 py-1 text-sm focus:ring-2 focus:ring-indigo-500">
+    <div class="bg-white rounded-3xl border border-stone-100 shadow-sm p-8">
+        <div class="flex justify-between items-center mb-8">
+            <h3 class="text-xl font-bold text-stone-800">Revenue Trend</h3>
+            <select class="bg-stone-50 border border-stone-200 rounded-xl px-3 py-1.5 text-xs font-bold text-stone-600 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all">
                 <option>Last 7 Days</option>
                 <option>Last 30 Days</option>
                 <option>Last 90 Days</option>
             </select>
         </div>
 
-        <div class="h-64 bg-gray-50 rounded-xl flex items-center justify-center">
-            <div class="text-center">
-                <i class="fas fa-chart-bar text-4xl text-gray-300 mb-3"></i>
-                <p class="text-gray-500">Revenue trend chart</p>
-                <p class="text-sm text-gray-400">Showing daily revenue for the last 30 days</p>
+        <div class="h-64 bg-stone-50 rounded-3xl border border-stone-100 flex flex-col items-center justify-center">
+            <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-sm mb-4">
+                <i class="fas fa-chart-area text-sky-400 text-2xl"></i>
             </div>
+            <p class="text-stone-400 font-bold uppercase tracking-widest text-xs">Revenue Trend Data</p>
+            <p class="text-[10px] text-stone-400 mt-1">Showing daily revenue for the last 30 days</p>
         </div>
     </div>
 
     <!-- Top Categories -->
-    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-        <div class="flex justify-between items-center mb-6">
-            <h3 class="text-lg font-semibold text-gray-800">Top Categories</h3>
-            <span class="text-sm text-gray-500">By Revenue</span>
+    <div class="bg-white rounded-3xl border border-stone-100 shadow-sm p-8">
+        <div class="flex justify-between items-center mb-8">
+            <h3 class="text-xl font-bold text-stone-800">Top Categories</h3>
+            <span class="text-[10px] font-bold text-stone-400 uppercase tracking-widest bg-stone-50 px-2 py-1 rounded-lg">By Revenue</span>
         </div>
 
-        <div class="space-y-4">
+        <div class="space-y-6">
             @php
             $categories = [
-                ['name'=>'Electronics','revenue'=>12500,'percentage'=>35,'growth'=>12],
-                ['name'=>'Clothing','revenue'=>8900,'percentage'=>25,'growth'=>8],
-                ['name'=>'Home & Kitchen','revenue'=>7200,'percentage'=>20,'growth'=>15],
-                ['name'=>'Accessories','revenue'=>5400,'percentage'=>15,'growth'=>5],
-                ['name'=>'Books','revenue'=>1800,'percentage'=>5,'growth'=>-2]
+                ['name'=>'Electronics','revenue'=>12500,'percentage'=>35,'growth'=>12, 'color' => 'sky'],
+                ['name'=>'Clothing','revenue'=>8900,'percentage'=>25,'growth'=>8, 'color' => 'purple'],
+                ['name'=>'Home & Kitchen','revenue'=>7200,'percentage'=>20,'growth'=>15, 'color' => 'emerald'],
+                ['name'=>'Accessories','revenue'=>5400,'percentage'=>15,'growth'=>5, 'color' => 'amber'],
+                ['name'=>'Books','revenue'=>1800,'percentage'=>5,'growth'=>-2, 'color' => 'rose']
             ];
             @endphp
             
             @foreach($categories as $c)
-            <div class="flex items-center justify-between">
-                <div class="flex items-center gap-3 flex-1">
-                    <div class="w-3 h-3 bg-indigo-500 rounded-full"></div>
-                    <span class="text-sm font-medium text-gray-700 flex-1">{{ $c['name'] }}</span>
-                </div>
-
-                <div class="flex items-center gap-4 w-48">
-                    <div class="w-24 bg-gray-200 rounded-full h-2">
-                        <div class="bg-indigo-600 h-2 rounded-full" style="width: {{ $c['percentage'] }}%"></div>
+            <div>
+                <div class="flex items-center justify-between mb-2">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-2 h-2 bg-{{ $c['color'] }}-500 rounded-full"></div>
+                        <span class="text-sm font-bold text-stone-700">{{ $c['name'] }}</span>
                     </div>
-                    <span class="text-sm font-medium w-16 text-right">${{ number_format($c['revenue']) }}</span>
-                    <span class="text-sm {{ $c['growth']>=0?'text-emerald-600':'text-rose-600' }} w-12">
-                        {{ ($c['growth']>=0?'+':'').$c['growth'] }}%
-                    </span>
+                    <div class="flex items-center space-x-3">
+                        <span class="text-sm font-bold text-stone-800">${{ number_format($c['revenue']) }}</span>
+                        <span class="text-[10px] font-bold {{ $c['growth']>=0?'text-emerald-500':'text-rose-500' }}">
+                            {{ ($c['growth']>=0?'+':'').$c['growth'] }}%
+                        </span>
+                    </div>
+                </div>
+                <div class="w-full bg-stone-100 rounded-full h-2">
+                    <div class="bg-{{ $c['color'] }}-500 h-2 rounded-full shadow-sm" style="width: {{ $c['percentage'] }}%"></div>
                 </div>
             </div>
             @endforeach
@@ -212,56 +257,56 @@
 <!-- Quick Stats -->
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
     <!-- Quick Metrics -->
-    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-        <h3 class="text-lg font-semibold text-gray-800 mb-6">Key Performance Metrics</h3>
+    <div class="bg-white rounded-3xl border border-stone-100 shadow-sm p-8">
+        <h3 class="text-xl font-bold text-stone-800 mb-8">Key Metrics</h3>
 
         <div class="grid grid-cols-2 gap-4">
             @php
             $metrics = [
-                ['$89.50','Average Order Value','emerald'],
-                ['2.4','Items per Order','blue'],
-                ['42%','Repeat Customer Rate','purple'],
-                ['18.3%','Cart Abandonment','amber'],
+                ['$89.50','Average Order','emerald'],
+                ['2.4','Items / Order','sky'],
+                ['42%','Repeat Rate','purple'],
+                ['18.3%','Cart Abandon','amber'],
                 ['2.3%','Refund Rate','rose']
             ];
             @endphp
             
             @foreach($metrics as $m)
-            <div class="text-center p-4 bg-gray-50 rounded-xl">
-                <p class="text-2xl font-bold text-{{ $m[2] }}-600">{{ $m[0] }}</p>
-                <p class="text-sm text-gray-600">{{ $m[1] }}</p>
+            <div class="text-center p-6 bg-stone-50 rounded-2xl border border-stone-100 hover:bg-white hover:shadow-sm transition-all duration-300">
+                <p class="text-2xl font-black text-{{ $m[2] }}-500">{{ $m[0] }}</p>
+                <p class="text-[10px] font-bold text-stone-400 uppercase tracking-widest mt-1">{{ $m[1] }}</p>
             </div>
             @endforeach
         </div>
     </div>
 
     <!-- Recent Activity -->
-    <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-        <h3 class="text-lg font-semibold text-gray-800 mb-6">Recent Report Activity</h3>
+    <div class="bg-white rounded-3xl border border-stone-100 shadow-sm p-8">
+        <h3 class="text-xl font-bold text-stone-800 mb-8">Recent Activity</h3>
         <div class="space-y-4">
             @php
             $activity = [
                 ['icon'=>'file-export','color'=>'emerald','title'=>'Sales Report Exported','time'=>'Today, 9:30 AM','badge'=>'Completed'],
-                ['icon'=>'chart-bar','color'=>'blue','title'=>'Customer Analytics Generated','time'=>'Yesterday, 3:15 PM','badge'=>'Processed'],
-                ['icon'=>'exclamation-triangle','color'=>'amber','title'=>'Low Stock Alert Report','time'=>'2 days ago','badge'=>'Warning'],
+                ['icon'=>'chart-bar','color'=>'sky','title'=>'Analytics Generated','time'=>'Yesterday, 3:15 PM','badge'=>'Processed'],
+                ['icon'=>'exclamation-triangle','color'=>'amber','title'=>'Low Stock Alert','time'=>'2 days ago','badge'=>'Warning'],
                 ['icon'=>'file-pdf','color'=>'purple','title'=>'Monthly Report PDF','time'=>'3 days ago','badge'=>'Generated']
             ];
             @endphp
             
             @foreach($activity as $a)
-            <div class="flex justify-between items-center p-3 bg-gray-50 rounded-xl">
-                <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 bg-{{ $a['color'] }}-100 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-{{ $a['icon'] }} text-{{ $a['color'] }}-600"></i>
+            <div class="flex justify-between items-center p-4 bg-stone-50 rounded-2xl border border-stone-100">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm text-{{ $a['color'] }}-500">
+                        <i class="fas fa-{{ $a['icon'] }} text-sm"></i>
                     </div>
 
                     <div>
-                        <p class="text-sm font-medium text-gray-900">{{ $a['title'] }}</p>
-                        <p class="text-xs text-gray-500">{{ $a['time'] }}</p>
+                        <p class="text-sm font-bold text-stone-800">{{ $a['title'] }}</p>
+                        <p class="text-[10px] font-medium text-stone-400 uppercase tracking-widest">{{ $a['time'] }}</p>
                     </div>
                 </div>
 
-                <span class="text-xs text-{{ $a['color'] }}-600 bg-{{ $a['color'] }}-50 px-2 py-1 rounded-full">
+                <span class="text-[10px] font-black uppercase tracking-widest text-{{ $a['color'] }}-500 bg-white px-2.5 py-1 rounded-lg shadow-sm border border-stone-50">
                     {{ $a['badge'] }}
                 </span>
             </div>
@@ -271,24 +316,24 @@
 </div>
 
 <!-- Quick Actions -->
-<div class="bg-white mt-10 rounded-2xl border border-gray-100 shadow-sm p-6">
-    <h3 class="text-lg font-semibold text-gray-800 mb-4">Quick Report Actions</h3>
+<div class="bg-white mt-10 rounded-3xl border border-stone-100 shadow-sm p-8">
+    <h3 class="text-xl font-bold text-stone-800 mb-6">Quick Actions</h3>
 
-    <div class="flex flex-wrap gap-3">
-        <button onclick="generateCustomReport()" class="btn-primary">
-            <i class="fas fa-plus mr-2"></i>Create Custom Report
+    <div class="flex flex-wrap gap-4">
+        <button onclick="generateCustomReport()" class="btn-primary min-w-[180px]">
+            <i class="fas fa-plus mr-2 text-xs"></i>Custom Report
         </button>
 
-        <button onclick="scheduleReport()" class="btn-secondary">
-            <i class="fas fa-clock mr-2"></i>Schedule Report
+        <button onclick="scheduleReport()" class="btn-secondary min-w-[180px]">
+            <i class="fas fa-clock mr-2 text-xs"></i>Schedule Report
         </button>
 
-        <button onclick="exportAllReports()" class="btn-success">
-            <i class="fas fa-file-export mr-2"></i>Export All
+        <button onclick="exportAllReports()" class="btn-secondary text-emerald-600 border-emerald-100 bg-emerald-50 hover:bg-emerald-100 min-w-[150px]">
+            <i class="fas fa-file-export mr-2 text-xs"></i>Export All
         </button>
 
-        <button onclick="viewReportHistory()" class="btn-secondary">
-            <i class="fas fa-history mr-2"></i>History
+        <button onclick="viewReportHistory()" class="btn-secondary min-w-[150px]">
+            <i class="fas fa-history mr-2 text-xs"></i>Report History
         </button>
     </div>
 </div>
@@ -302,10 +347,10 @@ function generateCustomReport() {
         title: "Generate Custom Report",
         width: 600,
         html: `
-            <div class="text-left space-y-4">
+            <div class="text-left space-y-5 p-2">
                 <div>
-                    <label class="block text-sm font-medium mb-1">Report Type</label>
-                    <select class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500">
+                    <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Report Type</label>
+                    <select class="w-full border border-stone-200 bg-stone-50 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all font-medium">
                         <option>Sales Report</option>
                         <option>Customer Report</option>
                         <option>Product Report</option>
@@ -315,29 +360,42 @@ function generateCustomReport() {
 
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-sm mb-1 font-medium">Start Date</label>
-                        <input type="date" class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500">
+                        <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Start Date</label>
+                        <input type="date" class="w-full border border-stone-200 bg-stone-50 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all font-medium">
                     </div>
 
                     <div>
-                        <label class="block text-sm mb-1 font-medium">End Date</label>
-                        <input type="date" class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500">
+                        <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">End Date</label>
+                        <input type="date" class="w-full border border-stone-200 bg-stone-50 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all font-medium">
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium mb-1">Format</label>
-                    <div class="flex gap-4">
-                        <label class="flex items-center"><input type="radio" name="format" checked> <span class="ml-2">PDF</span></label>
-                        <label class="flex items-center"><input type="radio" name="format"> <span class="ml-2">Excel</span></label>
-                        <label class="flex items-center"><input type="radio" name="format"> <span class="ml-2">CSV</span></label>
+                    <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Export Format</label>
+                    <div class="flex gap-6">
+                        <label class="flex items-center cursor-pointer group">
+                            <input type="radio" name="format" checked class="w-4 h-4 text-sky-500 focus:ring-sky-500 border-stone-300">
+                            <span class="ml-2 text-sm font-bold text-stone-700 group-hover:text-stone-900 transition-colors">PDF</span>
+                        </label>
+                        <label class="flex items-center cursor-pointer group">
+                            <input type="radio" name="format" class="w-4 h-4 text-sky-500 focus:ring-sky-500 border-stone-300">
+                            <span class="ml-2 text-sm font-bold text-stone-700 group-hover:text-stone-900 transition-colors">Excel</span>
+                        </label>
+                        <label class="flex items-center cursor-pointer group">
+                            <input type="radio" name="format" class="w-4 h-4 text-sky-500 focus:ring-sky-500 border-stone-300">
+                            <span class="ml-2 text-sm font-bold text-stone-700 group-hover:text-stone-900 transition-colors">CSV</span>
+                        </label>
                     </div>
                 </div>
             </div>
         `,
         showCancelButton: true,
         confirmButtonText: "Generate Report",
-        customClass: { confirmButton: 'btn-primary', cancelButton: 'btn-secondary' }
+        customClass: { 
+            popup: 'rounded-3xl',
+            confirmButton: 'btn-primary px-8', 
+            cancelButton: 'btn-secondary px-8' 
+        }
     }).then(res => {
         if (res.isConfirmed) toastr.success("Custom report generation started!");
     });
@@ -349,10 +407,10 @@ function scheduleReport() {
         title: "Schedule Report",
         width: 550,
         html: `
-            <div class="text-left space-y-4">
+            <div class="text-left space-y-5 p-2">
                 <div>
-                    <label class="block text-sm font-medium mb-1">Report Type</label>
-                    <select class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500">
+                    <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Report Type</label>
+                    <select class="w-full border border-stone-200 bg-stone-50 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all font-medium">
                         <option>Daily Sales</option>
                         <option>Weekly Summary</option>
                         <option>Monthly Overview</option>
@@ -360,8 +418,8 @@ function scheduleReport() {
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium mb-1">Frequency</label>
-                    <select class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500">
+                    <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Frequency</label>
+                    <select class="w-full border border-stone-200 bg-stone-50 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all font-medium">
                         <option>Daily</option>
                         <option>Weekly</option>
                         <option>Monthly</option>
@@ -369,16 +427,20 @@ function scheduleReport() {
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium mb-1">Email Recipient</label>
-                    <input type="email" placeholder="Enter email" class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500">
+                    <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Email Recipient</label>
+                    <input type="email" placeholder="manager@example.com" class="w-full border border-stone-200 bg-stone-50 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all font-medium">
                 </div>
             </div>
         `,
         showCancelButton: true,
-        confirmButtonText: "Schedule",
-        customClass: { confirmButton: 'btn-primary', cancelButton: 'btn-secondary' }
+        confirmButtonText: "Schedule Now",
+        customClass: { 
+            popup: 'rounded-3xl',
+            confirmButton: 'btn-primary px-8', 
+            cancelButton: 'btn-secondary px-8' 
+        }
     }).then(res => {
-        if (res.isConfirmed) toastr.success("Report scheduled!");
+        if (res.isConfirmed) toastr.success("Report scheduled successfully!");
     });
 }
 
@@ -386,13 +448,17 @@ function scheduleReport() {
 function exportAllReports() {
     Swal.fire({
         title: "Export All Reports",
-        text: "Exports Sales, Customers, Products & Inventory reports in ZIP.",
+        text: "This will prepare a ZIP archive containing Sales, Customers, Products, and Inventory reports.",
         icon: "info",
         showCancelButton: true,
-        confirmButtonText: "Export All",
-        customClass: { confirmButton: 'btn-primary', cancelButton: 'btn-secondary' }
+        confirmButtonText: "Start Export",
+        customClass: { 
+            popup: 'rounded-3xl',
+            confirmButton: 'btn-primary px-8 border-emerald-500 bg-emerald-500 hover:bg-emerald-600', 
+            cancelButton: 'btn-secondary px-8' 
+        }
     }).then(res => {
-        if (res.isConfirmed) toastr.success("Export started!");
+        if (res.isConfirmed) toastr.success("Bulk export has been initiated!");
     });
 }
 
@@ -400,25 +466,37 @@ function exportAllReports() {
 function viewReportHistory() {
     Swal.fire({
         title: "Report History",
-        width: 500,
+        width: 600,
         html: `
-            <div class="max-h-80 overflow-y-auto space-y-3">
+            <div class="max-h-96 overflow-y-auto space-y-3 p-2 custom-scrollbar">
                 ${[1,2,3,4,5].map(i => `
-                    <div class="flex justify-between items-center p-3 border rounded-lg">
-                        <div class="flex items-center gap-3">
-                            <i class="fas fa-file-pdf text-rose-500 text-lg"></i>
-                            <div>
-                                <p class="font-medium text-sm">Sales Report ${i}</p>
-                                <p class="text-xs text-gray-500">${i} days ago</p>
+                    <div class="flex justify-between items-center p-4 bg-stone-50 border border-stone-100 rounded-2xl">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm">
+                                <i class="fas fa-file-pdf text-rose-500 text-lg"></i>
+                            </div>
+                            <div class="text-left">
+                                <p class="font-bold text-stone-800 text-sm">Sales Report Q${i}_2024</p>
+                                <p class="text-[10px] font-bold text-stone-400 uppercase tracking-widest">${i} days ago • 2.4 MB</p>
                             </div>
                         </div>
-                        <button class="text-indigo-600 hover:text-indigo-900">Download</button>
+                        <button class="text-sky-600 hover:text-sky-800 font-bold text-xs uppercase tracking-widest bg-white px-3 py-1.5 rounded-lg border border-stone-50 shadow-sm transition-all hover:scale-105">Download</button>
                     </div>
                 `).join('')}
             </div>
         `,
-        confirmButtonText: "Close",
+        showConfirmButton: false,
+        showCloseButton: true,
+        customClass: { 
+            popup: 'rounded-3xl'
+        }
     });
 }
 </script>
+<style>
+.custom-scrollbar::-webkit-scrollbar { width: 6px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: #e7e5e4; border-radius: 10px; }
+.custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #d6d3d1; }
+</style>
 @endpush

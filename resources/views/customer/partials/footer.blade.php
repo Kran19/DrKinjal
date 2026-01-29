@@ -73,7 +73,7 @@
         
         <!-- Copyright -->
         <div class="pt-8 border-t border-stone-800 text-center text-stone-400 text-sm">
-            <p>&copy; {{ date('Y') }} Dr Kinjal Beauty. All rights reserved.</p>
+            <p>&copy; {{ date('Y') }} Dr Kinjal. All rights reserved.</p>
         </div>
     </div>
 </footer>

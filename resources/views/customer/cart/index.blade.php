@@ -106,7 +106,7 @@
                     @foreach($cart['items'] as $item)
                         <div class="group flex gap-5 py-8 border-b border-gray-100 last:border-0" id="item-{{ $item['id'] }}">
                             <div class="h-32 w-28 shrink-0 overflow-hidden rounded-2xl bg-slate-50 border border-slate-100 relative">
-                                <img src="{{ $item['image'] ?? asset('assets/images/placeholder.jpg') }}" alt="{{ $item['name'] ?? $item['product_name'] ?? 'Product' }}" class="h-full w-full object-cover object-center group-hover:scale-110 transition-transform duration-700 ease-out">
+                                <img src="{{ $item['image'] ?? asset('storage/assets/images/placeholder.jpg') }}" alt="{{ $item['name'] ?? $item['product_name'] ?? 'Product' }}" class="h-full w-full object-cover object-center group-hover:scale-110 transition-transform duration-700 ease-out">
                                 @if(isset($item['stock_quantity']) && $item['quantity'] >= $item['stock_quantity'])
                                     <div class="absolute top-2 left-2 bg-rose-500 text-white text-xs px-2 py-1 rounded-full">Low Stock</div>
                                 @endif
@@ -190,11 +190,85 @@
                              @endif
                         </div>
                         
-                        <!-- Discount Row -->
-                        <div class="flex justify-between text-green-600 {{ ($cart['discount_total'] ?? 0) > 0 ? '' : 'hidden' }}" id="discount-row">
-                            <span>Discount</span>
-                            <span class="font-semibold">-₹<span id="discount-amount">{{ number_format($cart['discount_total'] ?? 0, 2) }}</span></span>
+                        <!-- Discount Rows -->
+                        <div id="discount-container" class="space-y-2">
+                            @if(isset($cart['discount_breakdown']) && count($cart['discount_breakdown']) > 0)
+                                @foreach($cart['discount_breakdown'] as $discount)
+                                    <div class="flex justify-between items-center text-green-600 bg-green-50 px-3 py-2 rounded-lg relative group/applied">
+                                        <div class="flex items-center gap-2">
+                                            <span class="font-medium">{{ $discount['label'] }}</span>
+                                            @if($discount['type'] === 'auto')
+                                                <span class="text-[10px] bg-sky-100 text-sky-700 px-2 py-0.5 rounded-full font-bold">AUTO</span>
+                                            @elseif($discount['type'] === 'coupon')
+                                                <span class="text-[10px] bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-bold">COUPON</span>
+                                            @endif
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <span class="font-semibold">-₹<span>{{ number_format($discount['amount'], 2) }}</span></span>
+                                            @if($discount['type'] === 'coupon')
+                                                <button onclick="removeCoupon()" class="text-emerald-700 hover:text-rose-500 transition-colors p-1" title="Remove Coupon">
+                                                    <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                                                </button>
+                                            @endif
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @elseif(($cart['discount_total'] ?? 0) > 0)
+                                <div class="flex justify-between text-green-600 bg-green-50 px-3 py-2 rounded-lg">
+                                    <span class="font-medium">Discount</span>
+                                    <span class="font-semibold">-₹<span>{{ number_format($cart['discount_total'], 2) }}</span></span>
+                                </div>
+                            @endif
                         </div>
+                    </div>
+
+
+                    <!-- Promo Code -->
+                    <div class="mt-6 mb-6">
+                        <details class="group">
+                            <summary class="list-none flex cursor-pointer items-center justify-between text-sm font-semibold text-gray-700 hover:text-[#0ea5e9] transition-colors">
+                                <span>Apply Promo Code</span>
+                                <i data-lucide="plus" class="w-4 h-4 transition-transform group-open:rotate-45"></i>
+                            </summary>
+                            <div class="mt-4 flex gap-2">
+                                <input type="text" id="coupon-code" placeholder="DISCOUNT20" class="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none focus:border-[#0ea5e9] focus:ring-1 focus:ring-[#0ea5e9] placeholder:text-gray-400 transition-all">
+                                <button onclick="applyCoupon()" class="rounded-xl border border-gray-200 px-5 py-3 text-sm font-semibold hover:bg-slate-50 hover:border-slate-300 transition-colors text-gray-900 bg-white shadow-sm">Apply</button>
+                            </div>
+                            
+                            <!-- Available Coupons List -->
+                            @if(isset($availableCoupons) && $availableCoupons->count() > 0)
+                                <div class="mt-6 space-y-3">
+                                    <h4 class="text-[11px] font-bold text-gray-400 uppercase tracking-[0.1em] mb-3">Suggested Offers</h4>
+                                    <div class="space-y-3 overflow-y-auto max-h-60 pr-1 no-scrollbar">
+                                        @foreach($availableCoupons as $coupon)
+                                            <div class="group/coupon p-4 border border-slate-100 rounded-2xl bg-slate-50/50 hover:bg-white hover:border-[#0ea5e9] hover:shadow-md hover:shadow-sky-100/50 transition-all duration-300 cursor-pointer relative overflow-hidden"
+                                                 onclick="selectAndApplyCoupon('{{ $coupon->code }}')">
+                                                
+                                                <!-- Decor -->
+                                                <div class="absolute -right-2 -top-2 w-12 h-12 bg-sky-50 rounded-full opacity-0 group-hover/coupon:opacity-100 transition-opacity duration-500"></div>
+                                                
+                                                <div class="relative flex justify-between items-center">
+                                                    <div>
+                                                        <div class="flex items-center gap-2">
+                                                            <span class="font-bold text-gray-900 tracking-tight">{{ $coupon->code }}</span>
+                                                            @if($coupon->offer_type == 'percentage')
+                                                                <span class="text-[10px] bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">{{ round($coupon->discount_value) }}% OFF</span>
+                                                            @elseif($coupon->offer_type == 'fixed')
+                                                                <span class="text-[10px] bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">₹{{ round($coupon->discount_value) }} OFF</span>
+                                                            @endif
+                                                        </div>
+                                                        <p class="text-[11px] text-gray-500 mt-1 font-medium">{{ $coupon->name }}</p>
+                                                    </div>
+                                                    <button class="text-[11px] font-bold text-[#0ea5e9] opacity-0 group-hover/coupon:opacity-100 transition-all duration-300 transform translate-x-2 group-hover/coupon:translate-x-0">
+                                                        APPLY
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endif
+                        </details>
                     </div>
 
                     <div class="h-px bg-gray-100 my-6"></div>
@@ -222,45 +296,7 @@
                     </div>
                 </div>
 
-                <!-- Promo Code -->
-                <div class="mt-6 px-2">
-                    <details class="group">
-                        <summary class="list-none flex cursor-pointer items-center justify-between text-sm font-semibold text-gray-700 hover:text-[#0ea5e9] transition-colors">
-                            <span>Apply Promo Code</span>
-                            <i data-lucide="plus" class="w-4 h-4 transition-transform group-open:rotate-45"></i>
-                        </summary>
-                        <div class="mt-4 flex gap-2">
-                            <input type="text" id="coupon-code" placeholder="DISCOUNT20" class="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none focus:border-[#0ea5e9] focus:ring-1 focus:ring-[#0ea5e9] placeholder:text-gray-400 transition-all">
-                            <button onclick="applyCoupon()" class="rounded-xl border border-gray-200 px-5 py-3 text-sm font-semibold hover:bg-slate-50 hover:border-slate-300 transition-colors text-gray-900 bg-white shadow-sm">Apply</button>
-                        </div>
-                        
-                        <!-- Available Coupons List -->
-                        @if(isset($availableCoupons) && $availableCoupons->count() > 0)
-                            <div class="mt-4 space-y-2">
-                                <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Available Offers</p>
-                                @foreach($availableCoupons as $coupon)
-                                    <div class="group/coupon p-3 border border-dashed border-gray-200 rounded-lg bg-gray-50 hover:bg-sky-50 hover:border-sky-300 transition-all cursor-pointer relative"
-                                         onclick="document.getElementById('coupon-code').value = '{{ $coupon->code }}'">
-                                        <div class="flex justify-between items-start">
-                                            <div>
-                                                <span class="font-bold text-[#0ea5e9] tracking-wide">{{ $coupon->code }}</span>
-                                                <p class="text-xs text-gray-600 mt-1">{{ $coupon->name }}</p>
-                                                @if($coupon->offer_type == 'percentage')
-                                                    <span class="inline-block mt-2 text-[10px] bg-green-100 text-green-700 px-1.5 py-0.5 rounded font-bold">{{ $coupon->discount_value }}% OFF</span>
-                                                @elseif($coupon->offer_type == 'fixed')
-                                                    <span class="inline-block mt-2 text-[10px] bg-green-100 text-green-700 px-1.5 py-0.5 rounded font-bold">₹{{ $coupon->discount_value }} OFF</span>
-                                                @endif
-                                            </div>
-                                            <div class="w-6 h-6 rounded-full bg-white border border-gray-200 flex items-center justify-center opacity-0 group-hover/coupon:opacity-100 transition-opacity">
-                                                <i data-lucide="copy" class="w-3 h-3 text-gray-500"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        @endif
-                    </details>
-                </div>
+
             </div>
         </div>
     </div>
@@ -401,6 +437,11 @@
         });
     }
 
+    function selectAndApplyCoupon(code) {
+        document.getElementById('coupon-code').value = code;
+        applyCoupon();
+    }
+
     function applyCoupon() {
         const code = document.getElementById('coupon-code').value;
         if (!code) return;
@@ -416,25 +457,63 @@
         .then(response => response.json())
         .then(data => {
             if (data.success) {
+                // Clear input
+                document.getElementById('coupon-code').value = '';
+                
+                // Update UI dynamically
+                updateCartUI(data.cart);
+                
                 Swal.fire({
                     icon: 'success',
                     title: 'Applied!',
                     text: 'Coupon applied successfully!',
-                    timer: 2000,
+                    timer: 1500,
                     showConfirmButton: false
-                }).then(() => {
-                    window.location.reload();
                 });
             } else {
                 Swal.fire({
-                    icon: 'error',
-                    title: 'Invalid Coupon',
+                    icon: 'warning',
+                    title: 'Cannot Apply Coupon',
                     text: data.message || 'Failed to apply coupon',
                     confirmButtonColor: '#0ea5e9'
                 });
             }
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => {
+            console.error('Error:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'System Error',
+                text: 'Something went wrong while applying the coupon. Please try again.',
+                confirmButtonColor: '#0ea5e9'
+            });
+        });
+    }
+
+    function removeCoupon() {
+        fetch('{{ route("customer.cart.coupon.remove") }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                updateCartUI(data.cart);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Removed!',
+                    text: 'Coupon removed successfully!',
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     }
 
     function updateCartUI(cart) {
@@ -459,13 +538,55 @@
         // Use grand_total as backend returns grand_total
         document.getElementById('summary-total').innerText = '₹' + parseFloat(cart.grand_total).toFixed(2);
 
-        // Update Discount
-        const discountRow = document.getElementById('discount-row');
-        if (cart.discount_total > 0) {
-            discountRow.classList.remove('hidden');
-            document.getElementById('discount-amount').innerText = parseFloat(cart.discount_total).toFixed(2);
-        } else {
-            discountRow.classList.add('hidden');
+        // Update Discount Breakdown
+        const discountContainer = document.getElementById('discount-container');
+        discountContainer.innerHTML = ''; // Clear existing
+
+        if (cart.discount_breakdown && cart.discount_breakdown.length > 0) {
+            cart.discount_breakdown.forEach(function(discount) {
+                const row = document.createElement('div');
+                row.className = 'flex justify-between items-center text-green-600 bg-green-50 px-3 py-2 rounded-lg';
+                
+                let badge = '';
+                if (discount.type === 'auto') {
+                    badge = '<span class="text-[10px] bg-sky-100 text-sky-700 px-2 py-0.5 rounded-full font-bold">AUTO</span>';
+                } else if (discount.type === 'coupon') {
+                    badge = '<span class="text-[10px] bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-bold">COUPON</span>';
+                } else if (discount.type === 'bulk') {
+                    badge = '<span class="text-[10px] bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-bold">BULK</span>';
+                }
+                
+                let removeBtn = '';
+                if (discount.type === 'coupon') {
+                    removeBtn = `
+                        <button onclick="removeCoupon()" class="text-emerald-700 hover:text-rose-500 transition-colors p-1" title="Remove Coupon">
+                            <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                        </button>
+                    `;
+                }
+
+                row.innerHTML = `
+                    <div class="flex items-center gap-2">
+                        <span class="font-medium">${discount.label}</span>
+                        ${badge}
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="font-semibold">-₹<span>${parseFloat(discount.amount).toFixed(2)}</span></span>
+                        ${removeBtn}
+                    </div>
+                `;
+                discountContainer.appendChild(row);
+                // Re-initialize icons for the new button
+                lucide.createIcons();
+            });
+        } else if (cart.discount_total > 0) {
+             const row = document.createElement('div');
+                row.className = 'flex justify-between text-green-600 bg-green-50 px-3 py-2 rounded-lg';
+                row.innerHTML = `
+                    <span class="font-medium">Discount</span>
+                    <span class="font-semibold">-₹<span>${parseFloat(cart.discount_total).toFixed(2)}</span></span>
+                `;
+                discountContainer.appendChild(row);
         }
 
         // Update Free Shipping Bar
@@ -490,6 +611,13 @@
         } else {
             shippingMsg.innerHTML = `Add <span class="font-bold text-[#0ea5e9]">₹${remaining.toFixed(2)}</span> to unlock free shipping`;
         }
-    }
+    // Auto-refresh logic when user returns to page
+    window.addEventListener('pageshow', function(event) {
+        // If persisted is true, the page was loaded from cache (e.g. back button)
+        // We force a reload to get fresh data/validation from the backend
+        if (event.persisted) {
+            window.location.reload();
+        }
+    });
 </script>
 @endpush

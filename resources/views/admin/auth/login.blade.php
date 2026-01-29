@@ -4,7 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - eCommerce Admin Panel</title>
+    <title>Login - Dr. Kinjal Admin</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- TailwindCSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -16,116 +19,363 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
         * {
-            font-family: 'Inter', sans-serif;
+            box-sizing: border-box;
         }
-
+        
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Plus Jakarta Sans', sans-serif;
             min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f0f9ff 0%, #fafaf9 50%, #f5f3ff 100%);
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(14, 165, 233, 0.03) 0%, transparent 55%),
+                radial-gradient(circle at 85% 30%, rgba(236, 72, 153, 0.02) 0%, transparent 55%),
+                radial-gradient(circle at 50% 80%, rgba(20, 184, 166, 0.02) 0%, transparent 55%);
+            z-index: -1;
+        }
+        
+        .login-container {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            min-height: 100vh;
+            padding: 24px;
         }
-
-        .glass {
+        
+        .login-card {
             background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(224, 242, 254, 0.5);
+            box-shadow: 
+                0 20px 60px rgba(14, 165, 233, 0.08),
+                0 8px 24px rgba(28, 25, 23, 0.06),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            transition: all 0.4s ease;
         }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary:hover {
-            box-shadow: 0 10px 15px rgba(102, 126, 234, 0.4);
+        
+        .login-card:hover {
+            box-shadow: 
+                0 25px 70px rgba(14, 165, 233, 0.12),
+                0 10px 30px rgba(28, 25, 23, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
             transform: translateY(-2px);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+            color: white;
+            padding: 14px 24px;
+            border-radius: 14px;
+            transition: all 0.3s ease;
+            box-shadow: 
+                0 6px 20px rgba(14, 165, 233, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s;
+        }
+        
+        .btn-primary:hover::after {
+            left: 100%;
+        }
+        
+        .btn-primary:hover {
+            box-shadow: 
+                0 10px 25px rgba(14, 165, 233, 0.35),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            transform: translateY(-3px);
+        }
+        
+        .btn-primary:active {
+            transform: translateY(-1px);
+            box-shadow: 
+                0 5px 15px rgba(14, 165, 233, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+        
+        .input-field {
+            background-color: rgba(248, 250, 252, 0.8);
+            border: 1.5px solid #e2e8f0;
+            transition: all 0.25s ease;
+            color: #1c1917;
+        }
+        
+        .input-field::placeholder {
+            color: #a8a29e;
+        }
+        
+        .input-field:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-color: #bae6fd;
+        }
+        
+        .input-field:focus {
+            background-color: #ffffff;
+            border-color: #0ea5e9;
+            box-shadow: 
+                0 0 0 4px rgba(14, 165, 233, 0.15),
+                0 2px 8px rgba(14, 165, 233, 0.1);
+            outline: none;
+        }
+        
+        .error-alert {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border: 1px solid #fecaca;
+            animation: shake 0.5s ease-in-out;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-3px); }
+            40%, 80% { transform: translateX(3px); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+        
+        .brand-highlight {
+            background: linear-gradient(135deg, #0ea5e9 0%, #7dd3fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .logo-container {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-radius: 24px;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .logo-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.05) 0%, transparent 70%);
+        }
+        
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.08), rgba(14, 165, 233, 0.03));
+            z-index: -1;
+        }
+        
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            right: -150px;
+        }
+        
+        .shape-2 {
+            width: 200px;
+            height: 200px;
+            bottom: -100px;
+            left: -100px;
+        }
+        
+        .security-note {
+            background: linear-gradient(135deg, #f0f9ff 0%, #ecfeff 100%);
+            border: 1px solid #cffafe;
+            border-radius: 12px;
+            padding: 16px;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 640px) {
+            .login-card {
+                margin: 12px;
+            }
+            
+            .logo-container {
+                padding: 20px;
+            }
+            
+            .btn-primary {
+                padding: 16px 24px;
+            }
         }
     </style>
 </head>
 
 <body>
-    <div class="glass rounded-2xl shadow-2xl overflow-hidden max-w-md w-full">
-        <!-- Logo Header -->
-        <div class="p-8 text-center border-b border-gray-100">
-            <div
-                class="w-20 h-20 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <i class="fas fa-store text-white text-3xl"></i>
+    <div class="login-container">
+        <!-- Floating background shapes -->
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        
+        <!-- Login Card -->
+        <div class="login-card rounded-3xl max-w-md w-full animate-fade-in">
+            <!-- Logo Header -->
+            <div class="p-8 text-center border-b border-sky-50/50">
+                <div class="logo-container mb-6">
+                    <img src="{{ asset('storage/assets/images/logo.png') }}" class="w-48 mx-auto h-auto relative z-10" alt="Dr Kinjal Logo">
+                </div>
+                <h1 class="text-3xl font-bold text-stone-900 mb-2">
+                    Admin <span class="brand-highlight">Portal</span>
+                </h1>
+                <p class="text-stone-500 font-medium">Secure access to your store management dashboard</p>
             </div>
-            <h1
-                class="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-2">
-                eCommerce Admin
-            </h1>
-            <p class="text-gray-600">Sign in to your admin dashboard</p>
-        </div>
 
-        <!-- Login Form -->
-        <div class="p-8">
-            @if ($errors->any())
-                <div class="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
-                    <div class="flex items-center">
-                        <i class="fas fa-exclamation-circle text-red-500 mr-3"></i>
-                        <span class="text-red-700 font-medium">{{ $errors->first() }}</span>
+            <!-- Login Form -->
+            <div class="p-8">
+                @if ($errors->any())
+                    <div class="mb-6 p-4 error-alert rounded-2xl">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 bg-red-100 p-2 rounded-xl mr-3 mt-0.5">
+                                <i class="fas fa-exclamation-circle text-red-500 text-lg"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-red-800 font-bold text-sm mb-1">Login Failed</h3>
+                                <p class="text-red-700 font-medium">{{ $errors->first() }}</p>
+                            </div>
+                        </div>
                     </div>
+                @endif
+
+                <form method="POST" action="{{ route('admin.login.submit') }}" class="space-y-6">
+                    @csrf
+                    
+                    <div>
+                        <label for="email" class="block text-sm font-bold text-stone-800 mb-2 ml-1">
+                            <i class="fas fa-envelope text-sky-500 mr-2 text-xs"></i>Email Address
+                        </label>
+                        <div class="relative">
+                            <i class="fas fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-stone-400 text-sm"></i>
+                            <input type="email" id="email" name="email" required
+                                class="input-field w-full pl-11 pr-4 py-4 rounded-2xl text-stone-900 placeholder-stone-500 font-medium"
+                                placeholder="admin@drkinjal.com" autocomplete="email" autofocus value="{{ old('email') }}">
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-2 ml-1">
+                            <label for="password" class="block text-sm font-bold text-stone-800">
+                                <i class="fas fa-lock text-sky-500 mr-2 text-xs"></i>Password
+                            </label>
+                            <button type="button" id="togglePassword" class="text-xs text-sky-600 hover:text-sky-800 font-medium">
+                                <i class="fas fa-eye mr-1"></i>Show
+                            </button>
+                        </div>
+                        <div class="relative">
+                            <i class="fas fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-stone-400 text-sm"></i>
+                            <input type="password" id="password" name="password" required
+                                class="input-field w-full pl-11 pr-4 py-4 rounded-2xl text-stone-900 placeholder-stone-500 font-medium"
+                                placeholder="Enter your password" 
+                                autocomplete="current-password">
+                        </div>
+                    </div>
+
+                    <!-- Security Note -->
+                    <div class="security-note">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-sky-100 p-2 rounded-lg mr-3">
+                                <i class="fas fa-shield-alt text-sky-600"></i>
+                            </div>
+                            <p class="text-stone-600 text-sm font-medium">
+                                <span class="font-bold text-stone-800">Secure Login:</span> Your credentials are encrypted and protected.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="pt-4">
+                        <button type="submit" class="btn-primary w-full py-4 text-base font-bold tracking-wide">
+                            <i class="fas fa-sign-in-alt mr-2"></i>SIGN IN TO DASHBOARD
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Footer -->
+            <div class="px-8 py-6 bg-stone-50/60 border-t border-sky-50/50 text-center rounded-b-3xl">
+                <div class="flex items-center justify-center space-x-4 mb-2">
+                    <div class="h-px w-12 bg-stone-200"></div>
+                    <i class="fas fa-leaf text-emerald-400 text-sm"></i>
+                    <div class="h-px w-12 bg-stone-200"></div>
                 </div>
-            @endif
-
-            <form method="POST" action="{{ route('admin.login.submit') }}">
-                @csrf
-                <div class="mb-6">
-                    <label for="username" class="block text-sm font-medium text-gray-700 mb-2">
-                        <i class="fas fa-user mr-2"></i>Email
-                    </label>
-                    <input type="email" id="email" name="email" required
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-1  focus:border-transparent"
-                        placeholder="Enter your email" autocomplete="email" autofocus value="{{ old('email') }}">
-                </div>
-
-                <div class="mb-6">
-                    <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
-                        <i class="fas fa-lock mr-2"></i>Password
-                    </label>
-                    <input type="password" id="password" name="password" required
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-1  focus:border-transparent"
-                        placeholder="Enter your password" autocomplete="current-password">
-                </div>
-
-                {{-- <div class="flex items-center justify-between mb-8">
-                    <label class="flex items-center cursor-pointer">
-                        <input type="checkbox" 
-                               name="remember" 
-                               class="w-5 h-5 border-2 border-gray-300 rounded checked:bg-indigo-500 checked:border-indigo-500 mr-2"
-                               id="remember">
-                        <span class="text-sm text-gray-600">Remember me</span>
-                    </label>
-                </div> --}}
-
-                <button type="submit" class="btn-primary w-full py-3 text-lg font-medium">
-                    Sign In
-                </button>
-            </form>
-
-
-        </div>
-
-        <!-- Footer -->
-        <div class="px-8 py-4 bg-gray-50 border-t border-gray-100 text-center">
-            <p class="text-sm text-gray-600">
-                © {{ date('Y') }} eCommerce Admin Panel
-            </p>
+                <p class="text-xs text-stone-400 font-semibold">
+                    <i class="far fa-copyright mr-1"></i>{{ date('Y') }} DR. KINJAL • ADMINISTRATIVE SYSTEM
+                </p>
+                <p class="text-xs text-stone-400 mt-1 font-medium">Authentic skincare management</p>
+            </div>
         </div>
     </div>
 
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        // Toggle password visibility
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const icon = this.querySelector('i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.className = 'fas fa-eye-slash mr-1';
+                this.innerHTML = '<i class="fas fa-eye-slash mr-1"></i>Hide';
+            } else {
+                passwordInput.type = 'password';
+                icon.className = 'fas fa-eye mr-1';
+                this.innerHTML = '<i class="fas fa-eye mr-1"></i>Show';
+            }
+        });
+        
+        // Add focus effect to input fields
+        document.querySelectorAll('.input-field').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.classList.add('ring-2', 'ring-sky-100');
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.classList.remove('ring-2', 'ring-sky-100');
+            });
+        });
+        
+        // Form submission loading state
+        const form = document.querySelector('form');
+        const submitButton = form.querySelector('button[type="submit"]');
+        
+        form.addEventListener('submit', function() {
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> SIGNING IN...';
+            submitButton.disabled = true;
+            submitButton.classList.add('opacity-90');
+        });
+    </script>
 
     @if (session('success'))
         <script>
@@ -134,7 +384,13 @@
                 title: 'Success!',
                 text: '{{ session('success') }}',
                 timer: 3000,
-                showConfirmButton: false
+                showConfirmButton: false,
+                background: '#fafaf9',
+                color: '#1c1917',
+                customClass: {
+                    title: 'text-stone-900 font-bold',
+                    popup: 'rounded-2xl shadow-2xl border border-sky-100'
+                }
             });
         </script>
     @endif

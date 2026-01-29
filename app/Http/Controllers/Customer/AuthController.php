@@ -13,6 +13,8 @@ use Carbon\Carbon;
 use App\Helpers\CartHelper;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\OTPVerify;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -32,6 +34,51 @@ class AuthController extends Controller
     public function showForgotPassword()
     {
         return view('customer.auth.forgot-password');
+    }
+
+    public function sendResetLinkEmail(Request $request)
+    {
+        $request->validate(['email' => 'required|email']);
+
+        // We use the 'customers' broker configured in auth.php
+        $status = Password::broker('customers')->sendResetLink(
+            $request->only('email')
+        );
+
+        return $status === Password::RESET_LINK_SENT
+            ? back()->with('status', __($status))
+            : back()->withErrors(['email' => __($status)]);
+    }
+
+    public function showResetForm(Request $request, $token = null)
+    {
+        return view('customer.auth.reset-password')->with(
+            ['token' => $token, 'email' => $request->email]
+        );
+    }
+
+    public function reset(Request $request)
+    {
+        $request->validate([
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:8|confirmed',
+        ]);
+
+        $status = Password::broker('customers')->reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function ($user, $password) {
+                $user->forceFill([
+                    'password' => Hash::make($password)
+                ])->setRememberToken(Str::random(60));
+
+                $user->save();
+            }
+        );
+
+        return $status === Password::PASSWORD_RESET
+            ? redirect()->route('customer.login')->with('status', __($status))
+            : back()->withErrors(['email' => [__($status)]]);
     }
 
     public function login(Request $request)

@@ -7,11 +7,11 @@
 <div class="mb-8">
     <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <div>
-            <h2 class="text-2xl font-bold text-gray-800 mb-2">Order Management</h2>
-            <p class="text-gray-600">Manage customer orders and track order status</p>
+            <h2 class="text-2xl font-bold text-stone-800 mb-2">Order Management</h2>
+            <p class="text-stone-600">Manage customer orders and track order status</p>
         </div>
         <div class="flex flex-wrap gap-3">
-            <select id="statusFilter" class="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm">
+            <select id="statusFilter" class="border border-stone-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm text-stone-900">
                 <option value="">All Status</option>
                 <option value="pending">Pending</option>
                 <option value="confirmed">Confirmed</option>
@@ -21,7 +21,7 @@
                 <option value="cancelled">Cancelled</option>
                 <option value="refunded">Refunded</option>
             </select>
-            <select id="paymentFilter" class="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm">
+            <select id="paymentFilter" class="border border-stone-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500 text-sm text-stone-900">
                 <option value="">All Payment</option>
                 <option value="pending">Pending</option>
                 <option value="paid">Paid</option>
@@ -34,9 +34,9 @@
 </div>
 
 <!-- Orders Table -->
-<div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-    <div class="px-6 py-4 border-b border-gray-200">
-        <h3 class="text-lg font-semibold text-gray-800">All Orders</h3>
+<div class="bg-white rounded-2xl shadow-sm border border-sky-100 overflow-hidden">
+    <div class="px-6 py-4 border-b border-stone-200 bg-stone-50/50">
+        <h3 class="text-lg font-semibold text-stone-800">All Orders</h3>
     </div>
     <div class="p-6">
         <!-- Toolbar -->
@@ -44,8 +44,8 @@
             <div class="order-2 sm:order-1">
                 <div class="relative" style="width: 260px;">
                     <input type="text" id="searchInput" placeholder="Search orders..."
-                        class="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent w-full">
-                    <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                        class="pl-10 pr-4 py-2 rounded-lg border border-stone-300 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent w-full text-stone-900 placeholder-stone-400">
+                    <i class="fas fa-search absolute left-3 top-3 text-stone-400"></i>
                 </div>
             </div>
             <div class="flex flex-wrap gap-2 order-1 sm:order-2">
@@ -68,23 +68,23 @@
 
         <!-- Table Container -->
         <div class="overflow-x-auto">
-            <table id="ordersTable" class="min-w-full divide-y divide-gray-200">
+            <table id="ordersTable" class="min-w-full divide-y divide-stone-200">
                 <thead>
                     <tr>
-                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            <input type="checkbox" id="selectAll" onclick="toggleSelectAll(this)">
+                        <th class="px-6 py-3 bg-stone-50 text-left text-xs font-medium text-stone-500 uppercase tracking-wider text-center">
+                            <input type="checkbox" id="selectAll" onclick="toggleSelectAll(this)" class="rounded text-sky-600 focus:ring-sky-500">
                         </th>
-                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Order ID</th>
-                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
-                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Items</th>
-                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
-                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Payment</th>
-                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        <th class="px-6 py-3 bg-stone-50 text-left text-xs font-medium text-stone-500 uppercase tracking-wider">Order ID</th>
+                        <th class="px-6 py-3 bg-stone-50 text-left text-xs font-medium text-stone-500 uppercase tracking-wider">Customer</th>
+                        <th class="px-6 py-3 bg-stone-50 text-left text-xs font-medium text-stone-500 uppercase tracking-wider text-center">Date</th>
+                        <th class="px-6 py-3 bg-stone-50 text-left text-xs font-medium text-stone-500 uppercase tracking-wider text-center">Items</th>
+                        <th class="px-6 py-3 bg-stone-50 text-left text-xs font-medium text-stone-500 uppercase tracking-wider">Amount</th>
+                        <th class="px-6 py-3 bg-stone-50 text-left text-xs font-medium text-stone-500 uppercase tracking-wider text-center">Status</th>
+                        <th class="px-6 py-3 bg-stone-50 text-left text-xs font-medium text-stone-500 uppercase tracking-wider text-center">Payment</th>
+                        <th class="px-6 py-3 bg-stone-50 text-right text-xs font-medium text-stone-500 uppercase tracking-wider">Actions</th>
                     </tr>
                 </thead>
-                <tbody id="ordersTableBody" class="bg-white divide-y divide-gray-200">
+                <tbody id="ordersTableBody" class="bg-white divide-y divide-stone-200">
                     <!-- Dynamic content will be loaded here -->
                 </tbody>
             </table>
@@ -98,8 +98,8 @@
 </div>
 
 <!-- Loading Spinner -->
-<div id="loadingSpinner" class="hidden fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50">
-    <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-indigo-600"></div>
+<div id="loadingSpinner" class="hidden fixed inset-0 bg-stone-900 bg-opacity-50 flex items-center justify-center z-50 backdrop-blur-sm">
+    <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-sky-600"></div>
 </div>
 @endsection
 
@@ -171,18 +171,18 @@
     }
 
     .status-confirmed {
-        background-color: #dbeafe;
-        color: #1e40af;
+        background-color: #e0f2fe;
+        color: #0369a1;
     }
 
     .status-processing {
-        background-color: #e0e7ff;
-        color: #3730a3;
+        background-color: #f0f9ff;
+        color: #0ea5e9;
     }
 
     .status-shipped {
-        background-color: #f0f9ff;
-        color: #0369a1;
+        background-color: #ecfeff;
+        color: #0891b2;
     }
 
     .status-delivered {
@@ -196,8 +196,8 @@
     }
 
     .status-refunded {
-        background-color: #f5f5f5;
-        color: #525252;
+        background-color: #fafaf9;
+        color: #57534e;
     }
 
     .payment-badge {
@@ -207,6 +207,9 @@
         border-radius: 9999px;
         font-size: 0.875rem;
         font-weight: 600;
+        text-align: center;
+        justify-content: center;
+        min-width: 100px;
     }
 
     .payment-pending {
@@ -220,8 +223,8 @@
     }
 
     .payment-partially_paid {
-        background-color: #f0f9ff;
-        color: #0369a1;
+        background-color: #f0fdf4;
+        color: #15803d;
     }
 
     .payment-failed {
@@ -230,8 +233,8 @@
     }
 
     .payment-refunded {
-        background-color: #f5f5f5;
-        color: #525252;
+        background-color: #fafaf9;
+        color: #57534e;
     }
 </style>
 @endpush
@@ -361,7 +364,7 @@
 
         orders.forEach(order => {
             const row = document.createElement('tr');
-            row.className = 'hover:bg-gray-50';
+            row.className = 'hover:bg-stone-50';
 
             const statusClass = `status-${order.status}`;
             const statusText = order.status.charAt(0).toUpperCase() + order.status.slice(1).replace('_', ' ');
@@ -381,35 +384,35 @@
                     <input type="checkbox" class="order-checkbox" value="${order.id}"
                            onchange="toggleOrderSelection(${order.id}, this.checked)">
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-indigo-600">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-sky-600">
                     ${order.order_number}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                     <div class="flex items-center">
                         <div class="h-10 w-10 flex-shrink-0">
-                            <div class="h-10 w-10 rounded-full bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center text-white font-semibold">
+                            <div class="h-10 w-10 rounded-full bg-gradient-to-br from-sky-400 to-sky-600 flex items-center justify-center text-white font-semibold shadow-sm">
                                 ${order.customer_name.charAt(0).toUpperCase()}
                             </div>
                         </div>
                         <div class="ml-4">
-                            <div class="text-sm font-medium text-gray-900">
+                            <div class="text-sm font-medium text-stone-900">
                                 ${order.customer_name}
                             </div>
-                            <div class="text-sm text-gray-500">
+                            <div class="text-sm text-stone-500">
                                 ${order.customer_email}
                             </div>
                         </div>
                     </div>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-stone-500">
                     ${formattedDate}
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
-                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-stone-500 text-center">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-stone-100 text-stone-800">
                         <i class="fas fa-shopping-bag mr-1"></i>${order.items_count}
                     </span>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-stone-900">
                     ${parseFloat(order.grand_total).toFixed(2)}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
@@ -422,24 +425,24 @@
                         ${paymentText}
                     </span>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium flex justify-end">
                     <div class="flex space-x-2">
-                        <button onclick="viewOrder(${order.id})" class="text-blue-600 hover:text-blue-900" title="View Details">
+                        <button onclick="viewOrder(${order.id})" class="p-2 bg-sky-50 text-sky-600 rounded-lg hover:bg-sky-100 transition-colors" title="View Details">
                             <i class="fas fa-eye"></i>
                         </button>
-                        <button onclick="updateOrderStatus(${order.id})" class="text-indigo-600 hover:text-indigo-900" title="Update Status">
+                        <button onclick="updateOrderStatus(${order.id})" class="p-2 bg-amber-50 text-amber-600 rounded-lg hover:bg-amber-100 transition-colors" title="Update Status">
                             <i class="fas fa-edit"></i>
                         </button>
-                        <button onclick="updatePaymentStatus(${order.id})" class="text-green-600 hover:text-green-900" title="Update Payment">
+                        <button onclick="updatePaymentStatus(${order.id})" class="p-2 bg-emerald-50 text-emerald-600 rounded-lg hover:bg-emerald-100 transition-colors" title="Update Payment">
                             <i class="fas fa-credit-card"></i>
                         </button>
-                        <button onclick="updateTracking(${order.id})" class="text-yellow-600 hover:text-yellow-900" title="Add Tracking">
+                        <button onclick="updateTracking(${order.id})" class="p-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors" title="Add Tracking">
                             <i class="fas fa-truck"></i>
                         </button>
-                        <button onclick="printInvoice(${order.id})" class="text-purple-600 hover:text-purple-900" title="Print Invoice">
+                        <button onclick="printInvoice(${order.id})" class="p-2 bg-stone-100 text-stone-600 rounded-lg hover:bg-stone-200 transition-colors" title="Print Invoice">
                             <i class="fas fa-print"></i>
                         </button>
-                        <button onclick="deleteOrder(${order.id})" class="text-red-600 hover:text-red-900" title="Delete Order">
+                        <button onclick="deleteOrder(${order.id})" class="p-2 bg-rose-50 text-rose-600 rounded-lg hover:bg-rose-100 transition-colors" title="Delete Order">
                             <i class="fas fa-trash"></i>
                         </button>
                     </div>
@@ -478,7 +481,7 @@
             if (i === 1 || i === pagination.last_page || (i >= currentPage - 2 && i <= currentPage + 2)) {
                 html += `
                     <button onclick="changePage(${i})"
-                            class="relative inline-flex items-center px-4 py-2 border ${currentPage === i ? 'border-indigo-500 bg-indigo-50 text-indigo-600' : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'} text-sm font-medium">
+                            class="relative inline-flex items-center px-4 py-2 border ${currentPage === i ? 'border-sky-500 bg-sky-50 text-sky-600' : 'border-stone-300 bg-white text-stone-700 hover:bg-stone-50'} text-sm font-medium">
                         ${i}
                     </button>
                 `;
@@ -547,8 +550,8 @@
             html: `
                 <div class="text-left space-y-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Order Status</label>
-                        <select id="orderStatus" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <label class="block text-sm font-medium text-stone-700 mb-2">Order Status</label>
+                        <select id="orderStatus" class="w-full border border-stone-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500">
                             <option value="pending">Pending</option>
                             <option value="confirmed">Confirmed</option>
                             <option value="processing">Processing</option>
@@ -616,8 +619,8 @@
             html: `
                 <div class="text-left space-y-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Payment Status</label>
-                        <select id="paymentStatus" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <label class="block text-sm font-medium text-stone-700 mb-2">Payment Status</label>
+                        <select id="paymentStatus" class="w-full border border-stone-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500">
                             <option value="pending">Pending</option>
                             <option value="paid">Paid</option>
                             <option value="partially_paid">Partially Paid</option>
@@ -683,8 +686,8 @@
             html: `
                 <div class="text-left space-y-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Tracking Number *</label>
-                        <input type="text" id="trackingNumber" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+                        <label class="block text-sm font-medium text-stone-700 mb-2">Tracking Number *</label>
+                        <input type="text" id="trackingNumber" class="w-full border border-stone-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500" required>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Carrier</label>

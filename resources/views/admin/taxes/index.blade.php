@@ -4,14 +4,14 @@
 
 @section('content')
     <div class="mb-6">
-        <div class="border-b border-gray-200">
+        <div class="border-b border-stone-200">
             <nav class="-mb-px flex space-x-8">
                 <button id="ratesTab"
-                    class="tax-tab active border-indigo-500 text-indigo-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                    class="tax-tab active border-sky-500 text-sky-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
                     Tax Rates
                 </button>
                 <button id="classesTab"
-                    class="tax-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
+                    class="tax-tab border-transparent text-stone-500 hover:text-stone-700 hover:border-stone-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">
                     Tax Classes
                 </button>
             </nav>
@@ -20,44 +20,44 @@
 
     <!-- Stats Cards -->
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-sky-100 p-6">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm font-medium text-gray-600">Active Tax Rates</p>
-                    <p id="activeTaxesCount" class="text-2xl font-bold text-gray-800 mt-1">0</p>
+                    <p class="text-sm font-medium text-stone-600">Active Tax Rates</p>
+                    <p id="activeTaxesCount" class="text-2xl font-bold text-stone-800 mt-1">0</p>
                 </div>
                 <div class="p-3 bg-emerald-50 rounded-xl">
                     <i class="fas fa-percentage text-emerald-600 text-xl"></i>
                 </div>
             </div>
         </div>
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-sky-100 p-6">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm font-medium text-gray-600">Standard Tax Rate</p>
-                    <p id="standardTaxRate" class="text-2xl font-bold text-gray-800 mt-1">0%</p>
+                    <p class="text-sm font-medium text-stone-600">Standard Tax Rate</p>
+                    <p id="standardTaxRate" class="text-2xl font-bold text-stone-800 mt-1">0%</p>
                 </div>
-                <div class="p-3 bg-indigo-50 rounded-xl">
-                    <i class="fas fa-star text-indigo-600 text-xl"></i>
+                <div class="p-3 bg-sky-50 rounded-xl">
+                    <i class="fas fa-star text-sky-600 text-xl"></i>
                 </div>
             </div>
         </div>
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-sky-100 p-6">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm font-medium text-gray-600">Average Tax Rate</p>
-                    <p id="avgTaxRate" class="text-2xl font-bold text-gray-800 mt-1">0%</p>
+                    <p class="text-sm font-medium text-stone-600">Average Tax Rate</p>
+                    <p id="avgTaxRate" class="text-2xl font-bold text-stone-800 mt-1">0%</p>
                 </div>
                 <div class="p-3 bg-amber-50 rounded-xl">
                     <i class="fas fa-chart-line text-amber-600 text-xl"></i>
                 </div>
             </div>
         </div>
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-sky-100 p-6">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm font-medium text-gray-600">Tax Groups</p>
-                    <p id="taxGroupsCount" class="text-2xl font-bold text-gray-800 mt-1">0</p>
+                    <p class="text-sm font-medium text-stone-600">Tax Groups</p>
+                    <p id="taxGroupsCount" class="text-2xl font-bold text-stone-800 mt-1">0</p>
                 </div>
                 <div class="p-3 bg-rose-50 rounded-xl">
                     <i class="fas fa-layer-group text-rose-600 text-xl"></i>
@@ -70,9 +70,9 @@
     <!-- Tax Rates Section -->
     <div id="ratesSection" class="tax-section active">
         <!-- Existing tax rates table content (keep as is) -->
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-8">
-            <div class="px-6 py-4 border-b border-gray-200">
-                <h3 class="text-lg font-semibold text-gray-800">All Tax Rates</h3>
+        <div class="bg-white rounded-2xl shadow-sm border border-sky-100 overflow-hidden mb-8">
+            <div class="px-6 py-4 border-b border-stone-200 bg-stone-50/50">
+                <h3 class="text-lg font-semibold text-stone-800">All Tax Rates</h3>
             </div>
             <div class="p-6">
                 <!-- Tabulator Toolbar -->
@@ -80,8 +80,8 @@
                     <div class="order-2 sm:order-1">
                         <div class="relative" style="width: 260px;">
                             <input type="text" id="taxSearchInput" placeholder="Search tax rates..."
-                                class="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent w-full">
-                            <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                                class="pl-10 pr-4 py-2 rounded-lg border border-stone-300 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent w-full text-stone-900 placeholder-stone-400">
+                            <i class="fas fa-search absolute left-3 top-3 text-stone-400"></i>
                         </div>
                     </div>
                     <div class="flex flex-wrap gap-2 order-1 sm:order-2">
@@ -102,17 +102,17 @@
                                 <i class="fas fa-file-export mr-2"></i>Export
                             </button>
                             <div
-                                class="absolute mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50 hidden group-hover:block right-0 md:right-0 md:left-auto left-0 md:left-auto">
+                                class="absolute mt-2 w-48 bg-white rounded-lg shadow-lg border border-stone-200 py-2 z-50 hidden group-hover:block right-0 md:right-0 md:left-auto left-0 md:left-auto">
                                 <button data-export="csv"
-                                    class="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-indigo-600 text-sm">
+                                    class="w-full text-left px-4 py-2 text-stone-700 hover:bg-stone-50 hover:text-sky-600 text-sm">
                                     <i class="fas fa-file-csv mr-2"></i>CSV
                                 </button>
                                 <button data-export="xlsx"
-                                    class="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-indigo-600 text-sm">
+                                    class="w-full text-left px-4 py-2 text-stone-700 hover:bg-stone-50 hover:text-sky-600 text-sm">
                                     <i class="fas fa-file-excel mr-2"></i>Excel
                                 </button>
                                 <button data-export="print"
-                                    class="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-indigo-600 text-sm">
+                                    class="w-full text-left px-4 py-2 text-stone-700 hover:bg-stone-50 hover:text-sky-600 text-sm">
                                     <i class="fas fa-print mr-2"></i>Print
                                 </button>
                             </div>
@@ -127,9 +127,9 @@
 
     <!-- Tax Classes Section -->
     <div id="classesSection" class="tax-section hidden">
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-            <div class="px-6 py-4 border-b border-gray-200">
-                <h3 class="text-lg font-semibold text-gray-800">All Tax Classes</h3>
+        <div class="bg-white rounded-2xl shadow-sm border border-sky-100 overflow-hidden">
+            <div class="px-6 py-4 border-b border-stone-200 bg-stone-50/50">
+                <h3 class="text-lg font-semibold text-stone-800">All Tax Classes</h3>
             </div>
             <div class="p-6">
                 <!-- Tabulator Toolbar -->
@@ -137,8 +137,8 @@
                     <div class="order-2 sm:order-1">
                         <div class="relative" style="width: 260px;">
                             <input type="text" id="taxClassesSearchInput" placeholder="Search tax classes..."
-                                class="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent w-full">
-                            <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                                class="pl-10 pr-4 py-2 rounded-lg border border-stone-300 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent w-full text-stone-900 placeholder-stone-400">
+                            <i class="fas fa-search absolute left-3 top-3 text-stone-400"></i>
                         </div>
                     </div>
                     <div class="flex flex-wrap gap-2 order-1 sm:order-2">
@@ -158,14 +158,14 @@
 
     <!-- Tax Calculator Modal -->
     <div id="taxCalculatorModal"
-        class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-xl max-w-md w-full relative" onclick="event.stopPropagation()">
+        class="fixed inset-0 z-50 hidden bg-stone-900 bg-opacity-50 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full relative border border-sky-100" onclick="event.stopPropagation()">
             <!-- Header -->
-            <div class="px-6 py-4 border-b border-gray-200 relative">
-                <h2 class="text-xl font-semibold text-gray-800">Tax Calculator</h2>
+            <div class="px-6 py-4 border-b border-stone-200 bg-stone-50/50 relative">
+                <h2 class="text-xl font-semibold text-stone-800">Tax Calculator</h2>
                 <!-- Close Button -->
                 <button onclick="closeTaxCalculator()"
-                    class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-3xl font-bold leading-none">
+                    class="absolute top-4 right-4 text-stone-400 hover:text-stone-600 text-3xl font-bold leading-none">
                     &times;
                 </button>
             </div>
@@ -184,9 +184,9 @@
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Tax Rate (%)</label>
+                        <label class="block text-sm font-medium text-stone-700 mb-2">Tax Rate (%)</label>
                         <input type="number" id="calcRate"
-                            class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            class="w-full border border-stone-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500"
                             placeholder="18" step="0.01">
                     </div>
 
@@ -195,21 +195,21 @@
                     </button>
 
                     <!-- Result Section -->
-                    <div id="calcResult" class="hidden p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <div id="calcResult" class="hidden p-4 bg-stone-50 rounded-lg border border-stone-200">
                         <div class="space-y-2">
                             <div class="flex justify-between">
-                                <span class="text-gray-600">Original Amount:</span>
+                                <span class="text-stone-600">Original Amount:</span>
                                 <span id="originalAmount" class="font-medium">₹0.00</span>
                             </div>
 
                             <div class="flex justify-between">
-                                <span class="text-gray-600">Tax Amount:</span>
+                                <span class="text-stone-600">Tax Amount:</span>
                                 <span id="taxAmount" class="font-medium text-emerald-600">₹0.00</span>
                             </div>
 
-                            <div class="flex justify-between pt-2 border-t border-gray-200">
-                                <span class="text-gray-800 font-medium">Total Amount:</span>
-                                <span id="totalAmount" class="font-bold text-lg text-gray-900">₹0.00</span>
+                            <div class="flex justify-between pt-2 border-t border-stone-200">
+                                <span class="text-stone-800 font-medium">Total Amount:</span>
+                                <span id="totalAmount" class="font-bold text-lg text-stone-900">₹0.00</span>
                             </div>
                         </div>
                     </div>
@@ -219,12 +219,12 @@
     </div>
 
     <!-- Add Tax Rate Modal -->
-    <div id="taxRateModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-        <div class="bg-white rounded-2xl shadow-xl w-full max-w-lg mx-4 max-h-[90vh] overflow-y-auto">
+    <div id="taxRateModal" class="fixed inset-0 bg-stone-900 bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl shadow-2xl border border-sky-100 w-full max-w-lg mx-4 max-h-[90vh] overflow-y-auto">
             <div class="p-6">
                 <div class="flex justify-between items-center mb-6">
-                    <h3 id="taxRateModalTitle" class="text-xl font-bold text-gray-800">Add New Tax Rate</h3>
-                    <button onclick="closeTaxRateModal()" class="text-gray-400 hover:text-gray-600">
+                    <h3 id="taxRateModalTitle" class="text-xl font-bold text-stone-800">Add New Tax Rate</h3>
+                    <button onclick="closeTaxRateModal()" class="text-stone-400 hover:text-stone-600">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
@@ -234,40 +234,40 @@
 
                     <div class="space-y-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Tax Name *</label>
+                            <label class="block text-sm font-medium text-stone-700 mb-1">Tax Name *</label>
                             <input type="text" id="taxRateName" name="name" required
-                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                class="w-full border border-stone-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
                                 placeholder="e.g., GST, SGST, CGST">
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Tax Code</label>
+                            <label class="block text-sm font-medium text-stone-700 mb-1">Tax Code</label>
                             <input type="text" id="taxRateCode" name="code"
-                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                class="w-full border border-stone-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
                                 placeholder="e.g., GST18, SGST9">
-                            <p class="text-xs text-gray-500 mt-1">Unique identifier (optional)</p>
+                            <p class="text-xs text-stone-500 mt-1">Unique identifier (optional)</p>
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                            <label class="block text-sm font-medium text-stone-700 mb-1">Description</label>
                             <textarea id="taxRateDescription" name="description"
-                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                class="w-full border border-stone-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
                                 rows="2" placeholder="Brief description of this tax rate"></textarea>
                         </div>
 
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Rate (%) *</label>
+                                <label class="block text-sm font-medium text-stone-700 mb-1">Rate (%) *</label>
                                 <input type="number" id="taxRateRate" name="rate" required step="0.01"
                                     min="0" max="100"
-                                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                    class="w-full border border-stone-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
                                     placeholder="18.00">
                             </div>
 
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Type *</label>
+                                <label class="block text-sm font-medium text-stone-700 mb-1">Type *</label>
                                 <select id="taxRateType" name="type" required
-                                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                                    class="w-full border border-stone-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent">
                                     <option value="">Select Type</option>
                                 </select>
                             </div>
@@ -275,67 +275,67 @@
 
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Scope *</label>
+                                <label class="block text-sm font-medium text-stone-700 mb-1">Scope *</label>
                                 <select id="taxRateScope" name="scope" required onchange="toggleTaxRateState()"
-                                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                                    class="w-full border border-stone-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent">
                                     <option value="">Select Scope</option>
                                 </select>
                             </div>
 
                             <div id="taxRateStateContainer" class="hidden">
-                                <label class="block text-sm font-medium text-gray-700 mb-1">State *</label>
+                                <label class="block text-sm font-medium text-stone-700 mb-1">State *</label>
                                 <input type="text" id="taxRateState" name="state"
-                                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                    class="w-full border border-stone-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
                                     placeholder="e.g., Maharashtra, Delhi">
                             </div>
                         </div>
 
                         <div class="grid grid-cols-3 gap-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Priority</label>
+                                <label class="block text-sm font-medium text-stone-700 mb-1">Priority</label>
                                 <input type="number" id="taxRatePriority" name="priority" min="1"
-                                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                    class="w-full border border-stone-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
                                     value="1">
                             </div>
 
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Sort Order</label>
+                                <label class="block text-sm font-medium text-stone-700 mb-1">Sort Order</label>
                                 <input type="number" id="taxRateSortOrder" name="sort_order" min="0"
-                                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                    class="w-full border border-stone-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
                                     value="0">
                             </div>
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Tax Classes</label>
+                            <label class="block text-sm font-medium text-stone-700 mb-1">Tax Classes</label>
                             <select id="taxRateClassIds" name="tax_class_id"
-                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                                class="w-full border border-stone-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent">
                             </select>
-                            <p class="text-xs text-gray-500 mt-1">Hold Ctrl/Cmd to select multiple classes</p>
+                            <p class="text-xs text-stone-500 mt-1">Hold Ctrl/Cmd to select multiple classes</p>
                         </div>
 
                         <div class="flex items-center space-x-4">
                             <div class="flex items-center">
                                 <input type="checkbox" id="taxRateIsCompound" name="is_compound"
-                                    class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                <label for="taxRateIsCompound" class="ml-2 text-sm text-gray-700">Compound Tax</label>
+                                    class="rounded border-stone-300 text-sky-600 focus:ring-sky-500">
+                                <label for="taxRateIsCompound" class="ml-2 text-sm text-stone-700">Compound Tax</label>
                             </div>
 
                             <div class="flex items-center">
                                 <input type="checkbox" id="taxRateIsActive" name="is_active"
-                                    class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" checked>
-                                <label for="taxRateIsActive" class="ml-2 text-sm text-gray-700">Active</label>
+                                    class="rounded border-stone-300 text-sky-600 focus:ring-sky-500" checked>
+                                <label for="taxRateIsActive" class="ml-2 text-sm text-stone-700">Active</label>
                             </div>
                         </div>
                     </div>
 
-                    <div class="flex justify-end space-x-3 mt-6 pt-6 border-t border-gray-200">
+                    <div class="flex justify-end space-x-3 mt-6 pt-6 border-t border-stone-200">
                         <button type="button" onclick="closeTaxRateModal()"
-                            class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
+                            class="px-4 py-2 border border-stone-300 rounded-lg text-stone-700 hover:bg-stone-50 transition-colors">
                             Cancel
                         </button>
                         <button type="submit"
-                            class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
+                            class="px-4 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-700 transition-colors shadow-md">
                             <i class="fas fa-save mr-2"></i>
                             <span id="taxRateSubmitText">Save Tax Rate</span>
                         </button>
@@ -346,12 +346,12 @@
     </div>
 
     <!-- Add Tax Class Modal -->
-    <div id="taxClassModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-        <div class="bg-white rounded-2xl shadow-xl w-full max-w-lg mx-4 max-h-[90vh] overflow-y-auto">
+    <div id="taxClassModal" class="fixed inset-0 bg-stone-900 bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl shadow-2xl border border-sky-100 w-full max-w-lg mx-4 max-h-[90vh] overflow-y-auto">
             <div class="p-6">
                 <div class="flex justify-between items-center mb-6">
-                    <h3 id="taxClassModalTitle" class="text-xl font-bold text-gray-800">Create New Tax Class</h3>
-                    <button onclick="closeTaxClassModal()" class="text-gray-400 hover:text-gray-600">
+                    <h3 id="taxClassModalTitle" class="text-xl font-bold text-stone-800">Create New Tax Class</h3>
+                    <button onclick="closeTaxClassModal()" class="text-stone-400 hover:text-stone-600">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
@@ -361,51 +361,51 @@
 
                     <div class="space-y-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Class Name *</label>
+                            <label class="block text-sm font-medium text-stone-700 mb-1">Class Name *</label>
                             <input type="text" id="taxClassName" name="name" required
-                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                class="w-full border border-stone-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
                                 placeholder="e.g., Standard, Reduced, Zero">
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Tax Code</label>
+                            <label class="block text-sm font-medium text-stone-700 mb-1">Tax Code</label>
                             <input type="text" id="taxClassCode" name="code"
-                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                class="w-full border border-stone-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
                                 placeholder="e.g., STANDARD, REDUCED">
-                            <p class="text-xs text-gray-500 mt-1">Unique identifier (auto-generated if empty)</p>
+                            <p class="text-xs text-stone-500 mt-1">Unique identifier (auto-generated if empty)</p>
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                            <label class="block text-sm font-medium text-stone-700 mb-1">Description</label>
                             <textarea id="taxClassDescription" name="description"
-                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                class="w-full border border-stone-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
                                 rows="3" placeholder="Brief description of this tax class"></textarea>
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Tax Rates</label>
+                            <label class="block text-sm font-medium text-stone-700 mb-1">Tax Rates</label>
                             <select id="taxClassRateIds" name="tax_rate_ids[]"
-                                class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                                class="w-full border border-stone-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent">
                             </select>
-                            <p class="text-xs text-gray-500 mt-1">Hold Ctrl/Cmd to select multiple tax rates</p>
+                            <p class="text-xs text-stone-500 mt-1">Hold Ctrl/Cmd to select multiple tax rates</p>
                         </div>
 
 
 
                         <div class="flex items-center">
                             <input type="checkbox" id="taxClassIsDefault" name="is_default"
-                                class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                            <label for="taxClassIsDefault" class="ml-2 text-sm text-gray-700">Set as Default Class</label>
+                                class="rounded border-stone-300 text-sky-600 focus:ring-sky-500">
+                            <label for="taxClassIsDefault" class="ml-2 text-sm text-stone-700">Set as Default Class</label>
                         </div>
                     </div>
 
-                    <div class="flex justify-end space-x-3 mt-6 pt-6 border-t border-gray-200">
+                    <div class="flex justify-end space-x-3 mt-6 pt-6 border-t border-stone-200">
                         <button type="button" onclick="closeTaxClassModal()"
-                            class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
+                            class="px-4 py-2 border border-stone-300 rounded-lg text-stone-700 hover:bg-stone-50 transition-colors">
                             Cancel
                         </button>
                         <button type="submit"
-                            class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
+                            class="px-4 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-700 transition-colors shadow-md">
                             <i class="fas fa-save mr-2"></i>
                             <span id="taxClassSubmitText">Create Tax Class</span>
                         </button>
@@ -586,8 +586,8 @@
 
             // Remove active classes
             document.querySelectorAll('.tax-tab').forEach(t => {
-                t.classList.remove('active', 'border-indigo-500', 'text-indigo-600');
-                t.classList.add('border-transparent', 'text-gray-500');
+                t.classList.remove('active', 'border-sky-500', 'text-sky-600');
+                t.classList.add('border-transparent', 'text-stone-500');
             });
 
             // Hide all sections
@@ -597,11 +597,11 @@
             });
 
             if (tab === 'rates') {
-                document.getElementById('ratesTab').classList.add('active', 'border-indigo-500', 'text-indigo-600');
+                document.getElementById('ratesTab').classList.add('active', 'border-sky-500', 'text-sky-600');
                 document.getElementById('ratesSection').classList.add('active');
                 document.getElementById('ratesSection').classList.remove('hidden');
             } else {
-                document.getElementById('classesTab').classList.add('active', 'border-indigo-500', 'text-indigo-600');
+                document.getElementById('classesTab').classList.add('active', 'border-sky-500', 'text-sky-600');
                 document.getElementById('classesSection').classList.add('active');
                 document.getElementById('classesSection').classList.remove('hidden');
             }
@@ -655,12 +655,12 @@
                             const rowData = cell.getRow().getData();
                             return `
                                 <div class="flex items-center space-x-3">
-                                    <div class="w-10 h-10 bg-indigo-50 rounded-lg flex items-center justify-center">
-                                        <i class="fas fa-percentage text-indigo-600"></i>
+                                    <div class="w-10 h-10 bg-sky-50 rounded-lg flex items-center justify-center">
+                                        <i class="fas fa-percentage text-sky-600"></i>
                                     </div>
                                     <div>
-                                        <p class="font-medium text-gray-900">${rowData.name}</p>
-                                        <p class="text-sm text-gray-500">${rowData.tax_class_name || 'No class'}</p>
+                                        <p class="font-medium text-stone-900">${rowData.name}</p>
+                                        <p class="text-sm text-stone-500">${rowData.tax_class_name || 'No class'}</p>
                                     </div>
                                 </div>
                             `;
@@ -753,7 +753,7 @@
                                         <i class="fas ${rowData.is_active ? 'fa-toggle-on' : 'fa-toggle-off'} text-sm"></i>
                                     </button>
                                     <button onclick="editTaxRate(${id})"
-                                            class="w-8 h-8 flex items-center justify-center bg-indigo-50 text-indigo-600 rounded-lg hover:bg-indigo-100 transition-colors"
+                                            class="w-8 h-8 flex items-center justify-center bg-sky-50 text-sky-600 rounded-lg hover:bg-sky-100 transition-colors"
                                             title="Edit">
                                         <i class="fas fa-edit text-sm"></i>
                                     </button>
@@ -812,12 +812,12 @@
                             const rowData = cell.getRow().getData();
                             return `
                                 <div class="flex items-center space-x-3">
-                                    <div class="w-10 h-10 bg-purple-50 rounded-lg flex items-center justify-center">
-                                        <i class="fas fa-layer-group text-purple-600"></i>
+                                    <div class="w-10 h-10 bg-sky-50 rounded-lg flex items-center justify-center">
+                                        <i class="fas fa-layer-group text-sky-600"></i>
                                     </div>
                                     <div>
-                                        <p class="font-medium text-gray-900">${rowData.name}</p>
-                                        <p class="text-sm text-gray-500">${rowData.code || 'No code'}</p>
+                                        <p class="font-medium text-stone-900">${rowData.name}</p>
+                                        <p class="text-sm text-stone-500">${rowData.code || 'No code'}</p>
                                     </div>
                                 </div>
                             `;
@@ -833,8 +833,8 @@
                         formatter: function(cell) {
                             const description = cell.getValue();
                             return description ?
-                                `<div class="text-sm text-gray-600 truncate">${description}</div>` :
-                                '<span class="text-gray-400 text-sm">No description</span>';
+                                `<div class="text-sm text-stone-600 truncate">${description}</div>` :
+                                '<span class="text-stone-400 text-sm">No description</span>';
                         }
                     },
                     {
@@ -866,7 +866,7 @@
 
                             return `
                                 <button onclick="viewTaxClass(${rowData.id})"
-                                        class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800 hover:bg-indigo-200 transition-colors">
+                                        class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-sky-100 text-sky-800 hover:bg-sky-200 transition-colors">
                                     <i class="fas fa-list mr-1"></i>
                                     ${count} rate${count !== 1 ? 's' : ''}
                                 </button>
@@ -882,8 +882,8 @@
                         formatter: function(cell) {
                             const count = cell.getValue() || 0;
                             return count > 0 ?
-                                `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">${count} products</span>` :
-                                '<span class="text-gray-400 text-sm">No products</span>';
+                                `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-sky-100 text-sky-800">${count} products</span>` :
+                                '<span class="text-stone-400 text-sm">No products</span>';
                         }
                     },
                     {
@@ -896,7 +896,7 @@
                             const isDefault = cell.getValue();
                             return isDefault ?
                                 '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">Default</span>' :
-                                '<span class="text-gray-400 text-sm">-</span>';
+                                '<span class="text-stone-400 text-sm">-</span>';
                         }
                     },
                     {
@@ -929,7 +929,7 @@
                                         <i class="fas ${rowData.is_default ? 'fa-star' : 'fa-star-o'} text-sm"></i>
                                     </button>
                                     <button onclick="editTaxClass(${id})"
-                                            class="w-8 h-8 flex items-center justify-center bg-indigo-50 text-indigo-600 rounded-lg hover:bg-indigo-100 transition-colors"
+                                            class="w-8 h-8 flex items-center justify-center bg-sky-50 text-sky-600 rounded-lg hover:bg-sky-100 transition-colors"
                                             title="Edit">
                                         <i class="fas fa-edit text-sm"></i>
                                     </button>
@@ -1637,7 +1637,7 @@ taxRateData.tax_class_id = taxRateData.tax_class_id
                             </div>
                         `).join('');
                     } else {
-                        ratesHtml = '<p class="text-gray-500 text-sm">No tax rates in this class</p>';
+                        ratesHtml = '<p class="text-stone-500 text-sm">No tax rates in this class</p>';
                     }
 
                     // Show details in modal
@@ -1776,7 +1776,7 @@ taxRateData.tax_class_id = taxRateData.tax_class_id
                 title: 'Bulk Status Change',
                 html: `
                     <div class="text-left space-y-4">
-                        <p class="text-gray-700">Change status for <strong>${selectedIds.length}</strong> tax rate(s)</p>
+                        <p class="text-stone-700">Change status for <strong>${selectedIds.length}</strong> tax rate(s)</p>
 
                         <div class="grid grid-cols-2 gap-4">
                             <button id="bulkActivateBtn" class="p-4 border-2 border-emerald-200 bg-emerald-50 rounded-lg hover:bg-emerald-100 transition">

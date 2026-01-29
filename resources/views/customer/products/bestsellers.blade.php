@@ -1,6 +1,6 @@
 @extends('customer.layouts.master')
 
-@section('title', $title ?? 'Bestsellers - Dr Kinjal Beauty')
+@section('title', $title ?? 'Bestsellers - Dr Kinjal')
 @section('description', 'Our most-loved products, clinically proven to boost your confidence with healthy glowing skin.')
 @section('keywords', 'bestsellers, skincare, beauty, top products')
 
@@ -84,7 +84,7 @@
                             <img src="{{ asset('storage/' . $product['main_image']) }}"
                                 class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 z-10"
                                 alt="{{ $product['name'] }}"
-                                onerror="this.src='{{ asset('assets/images/placeholder.jpg') }}'">
+                                onerror="this.src='{{ asset('storage/assets/images/placeholder.jpg') }}'">
 
                             <!-- Quick Add -->
                             <button class="quick-add-btn absolute bottom-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg translate-y-14 group-hover:translate-y-0 transition-transform duration-300 z-20 hover:bg-stone-900 hover:text-white"

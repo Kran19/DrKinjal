@@ -343,6 +343,10 @@ Route::name('customer.')->group(function () {
         Route::post('/register', [CustomerAuth::class, 'register'])->name('register.submit');
 
         Route::get('/forgot-password', [CustomerAuth::class, 'showForgotPassword'])->name('forgot-password');
+        Route::post('/forgot-password', [CustomerAuth::class, 'sendResetLinkEmail'])->name('password.email');
+
+        Route::get('/reset-password/{token}', [CustomerAuth::class, 'showResetForm'])->name('password.reset');
+        Route::post('/reset-password', [CustomerAuth::class, 'reset'])->name('password.update');
     });
 
     Route::get('/verify', [CustomerAuth::class, 'verifyPage'])->name('verify');
@@ -509,3 +513,5 @@ Route::name('customer.')->group(function () {
 Route::fallback(function () {
     return view('customer.errors.404');
 })->name('customer.error.404');
+
+

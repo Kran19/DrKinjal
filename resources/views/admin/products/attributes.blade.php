@@ -6,8 +6,8 @@
 <div class="mb-8">
     <div class="flex justify-between items-center">
         <div>
-            <h2 class="text-2xl font-bold text-gray-800 mb-2">Product Attributes Management</h2>
-            <p class="text-gray-600">Manage attributes and values for product variants</p>
+            <h2 class="text-2xl font-bold text-stone-800 mb-2">Product Attributes Management</h2>
+            <p class="text-stone-500 font-medium">Manage attributes and values for product variants</p>
         </div>
         <button onclick="openAddAttributeModal()" class="btn-primary">
             <i class="fas fa-plus mr-2"></i>Add Attribute
@@ -17,44 +17,44 @@
 
 <!-- Statistics Cards -->
 <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+    <div class="bg-white rounded-2xl shadow-sm border border-stone-100 p-6">
         <div class="flex items-center justify-between">
             <div>
-                <p class="text-sm font-medium text-gray-600">Total Attributes</p>
-                <p class="text-2xl font-bold text-gray-800 mt-1" id="totalAttributes">0</p>
+                <p class="text-sm font-medium text-stone-500">Total Attributes</p>
+                <p class="text-2xl font-bold text-stone-800 mt-1" id="totalAttributes">0</p>
             </div>
-            <div class="p-3 bg-indigo-50 rounded-xl">
-                <i class="fas fa-tags text-indigo-600 text-xl"></i>
+            <div class="p-3 bg-sky-50 rounded-xl">
+                <i class="fas fa-tags text-sky-600 text-xl"></i>
             </div>
         </div>
     </div>
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+    <div class="bg-white rounded-2xl shadow-sm border border-stone-100 p-6">
         <div class="flex items-center justify-between">
             <div>
-                <p class="text-sm font-medium text-gray-600">Variant Attributes</p>
-                <p class="text-2xl font-bold text-gray-800 mt-1" id="variantAttributes">0</p>
+                <p class="text-sm font-medium text-stone-500">Variant Attributes</p>
+                <p class="text-2xl font-bold text-stone-800 mt-1" id="variantAttributes">0</p>
             </div>
             <div class="p-3 bg-blue-50 rounded-xl">
                 <i class="fas fa-palette text-blue-600 text-xl"></i>
             </div>
         </div>
     </div>
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+    <div class="bg-white rounded-2xl shadow-sm border border-stone-100 p-6">
         <div class="flex items-center justify-between">
             <div>
-                <p class="text-sm font-medium text-gray-600">Filterable</p>
-                <p class="text-2xl font-bold text-gray-800 mt-1" id="filterableAttributes">0</p>
+                <p class="text-sm font-medium text-stone-500">Filterable</p>
+                <p class="text-2xl font-bold text-stone-800 mt-1" id="filterableAttributes">0</p>
             </div>
             <div class="p-3 bg-emerald-50 rounded-xl">
                 <i class="fas fa-filter text-emerald-600 text-xl"></i>
             </div>
         </div>
     </div>
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+    <div class="bg-white rounded-2xl shadow-sm border border-stone-100 p-6">
         <div class="flex items-center justify-between">
             <div>
-                <p class="text-sm font-medium text-gray-600">Popular Attribute</p>
-                <p class="text-2xl font-bold text-gray-800 mt-1" id="popularAttribute">-</p>
+                <p class="text-sm font-medium text-stone-500">Popular Attribute</p>
+                <p class="text-2xl font-bold text-stone-800 mt-1" id="popularAttribute">-</p>
             </div>
             <div class="p-3 bg-rose-50 rounded-xl">
                 <i class="fas fa-star text-rose-600 text-xl"></i>
@@ -64,10 +64,10 @@
 </div>
 
 <!-- Main Table -->
-<div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-6">
-    <div class="px-6 py-4 border-b border-gray-200">
+<div class="bg-white rounded-2xl shadow-sm border border-stone-100 overflow-hidden mb-6">
+    <div class="px-6 py-4 border-b border-stone-200">
         <div class="flex justify-between items-center">
-            <h3 class="text-lg font-semibold text-gray-800">All Attributes</h3>
+            <h3 class="text-lg font-semibold text-stone-800">All Attributes</h3>
             <div class="flex space-x-2">
                 <button id="attributesBulkActionsBtn" class="btn-secondary">
                     <i class="fas fa-bolt mr-2"></i>Bulk Actions
@@ -97,10 +97,10 @@
     <div class="p-6">
         <!-- Search Bar -->
         <div class="mb-4">
-            <div class="relative">
+            <div class="relative max-w-md">
                 <input type="text" id="attributesSearchInput" placeholder="Search attributes..."
-                    class="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent w-full">
-                <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                    class="pl-10 pr-4 py-2 rounded-xl border border-stone-200 bg-stone-50 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all w-full">
+                <i class="fas fa-search absolute left-3.5 top-3 text-stone-400"></i>
             </div>
         </div>
 
@@ -114,18 +114,18 @@
     <div class="px-6 py-4 border-b border-gray-200">
         <div class="flex justify-between items-center">
             <div>
-                <h3 class="text-lg font-semibold text-gray-800" id="valuesTitle">Attribute Values</h3>
-                <p class="text-sm text-gray-500" id="valuesSubtitle"></p>
+                <h3 class="text-lg font-semibold text-stone-800" id="valuesTitle">Attribute Values</h3>
+                <p class="text-sm text-stone-500" id="valuesSubtitle"></p>
             </div>
             <div class="flex space-x-2">
                 <button onclick="goBackToAttributes()" class="btn-secondary">
                     <i class="fas fa-arrow-left mr-2"></i>Back to Attributes
                 </button>
                 <button onclick="openAddValueModal()" class="btn-primary">
-                    <i class="fas fa-plus mr-2"></i>Add Value
+                    <i class="fas fa-plus mr-2 text-xs"></i>Add Value
                 </button>
                 <button id="valuesBulkActionsBtn" class="btn-secondary">
-                    <i class="fas fa-bolt mr-2"></i>Bulk Actions
+                    <i class="fas fa-bolt mr-2 text-xs"></i>Bulk Actions
                 </button>
             </div>
         </div>
@@ -133,10 +133,10 @@
     <div class="p-6">
         <!-- Search Bar for Values -->
         <div class="mb-4">
-            <div class="relative">
+            <div class="relative max-w-md">
                 <input type="text" id="valuesSearchInput" placeholder="Search values..."
-                    class="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent w-full">
-                <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                    class="pl-10 pr-4 py-2 rounded-xl border border-stone-200 bg-stone-50 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all w-full">
+                <i class="fas fa-search absolute left-3.5 top-3 text-stone-400"></i>
             </div>
         </div>
 
@@ -147,10 +147,13 @@
 
 <!-- Add/Edit Attribute Modal -->
 <div id="attributeModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-hidden">
-        <div class="flex justify-between items-center px-6 py-4 border-b border-gray-200">
-            <h3 class="text-lg font-semibold text-gray-800" id="modalTitle">Add New Attribute</h3>
-            <button onclick="closeAttributeModal()" class="text-gray-400 hover:text-gray-600">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden border border-stone-100">
+        <div class="flex justify-between items-center px-8 py-6 border-b border-stone-100">
+            <div>
+                <h3 class="text-xl font-bold text-stone-800" id="modalTitle">Add New Attribute</h3>
+                <p class="text-sm text-stone-500">Define a new product attribute</p>
+            </div>
+            <button onclick="closeAttributeModal()" class="text-stone-400 hover:text-stone-600 p-2 hover:bg-stone-50 rounded-full transition-all">
                 <i class="fas fa-times text-xl"></i>
             </button>
         </div>
@@ -160,27 +163,27 @@
 
                 <div class="space-y-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Attribute Name *</label>
+                        <label class="block text-sm font-semibold text-stone-700 mb-2">Attribute Name <span class="text-rose-500">*</span></label>
                         <input type="text" id="attributeName" name="name"
-                            class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                            class="w-full border border-stone-200 bg-stone-50 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all font-medium"
                             placeholder="e.g., Color, Size, Material" required>
-                        <p class="text-xs text-red-500 mt-1 hidden" id="nameError"></p>
+                        <p class="text-[10px] text-rose-500 mt-1 italic hidden" id="nameError"></p>
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Code *</label>
+                        <label class="block text-sm font-semibold text-stone-700 mb-2">Code <span class="text-rose-500">*</span></label>
                         <input type="text" id="attributeCode" name="code"
-                            class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                            class="w-full border border-stone-200 bg-stone-50 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all font-mono text-sm"
                             placeholder="e.g., color, size, material" required>
-                        <p class="text-xs text-gray-500 mt-1">Unique identifier (lowercase, underscores only)</p>
-                        <p class="text-xs text-red-500 mt-1 hidden" id="codeError"></p>
+                        <p class="text-[10px] text-stone-400 mt-1 uppercase tracking-wider font-bold">Unique identifier (lowercase, underscores only)</p>
+                        <p class="text-[10px] text-rose-500 mt-1 italic hidden" id="codeError"></p>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Type *</label>
+                            <label class="block text-sm font-semibold text-stone-700 mb-2">Type <span class="text-rose-500">*</span></label>
                             <select id="attributeType" name="type"
-                                class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" required>
+                                class="w-full border border-stone-200 bg-stone-50 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all font-medium" required>
                                 <option value="">Select type</option>
                                 <option value="select">Select</option>
                                 <option value="color">Color</option>
@@ -190,42 +193,42 @@
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Sort Order</label>
+                            <label class="block text-sm font-semibold text-stone-700 mb-2">Sort Order</label>
                             <input type="number" id="attributeSortOrder" name="sort_order" value="0"
-                                class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                class="w-full border border-stone-200 bg-stone-50 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all"
                                 placeholder="0" min="0">
                         </div>
                     </div>
 
-                    <div class="space-y-3">
+                    <div class="space-y-4 pt-2">
                         <div class="flex items-center">
                             <input type="checkbox" id="attributeIsVariant" name="is_variant" checked
-                                class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                            <label for="attributeIsVariant" class="ml-2 text-sm text-gray-700">Use for Variants</label>
+                                class="rounded border-stone-300 text-sky-500 focus:ring-sky-500 h-4 w-4">
+                            <label for="attributeIsVariant" class="ml-3 text-sm font-semibold text-stone-700">Use for Variants</label>
                         </div>
-                        <p class="text-xs text-gray-500 ml-6">This attribute can be used to create product variants</p>
+                        <p class="text-[10px] text-stone-400 ml-7 uppercase tracking-wider font-bold">This attribute can be used to create product variants</p>
 
                         <div class="flex items-center">
                             <input type="checkbox" id="attributeIsFilterable" name="is_filterable" checked
-                                class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                            <label for="attributeIsFilterable" class="ml-2 text-sm text-gray-700">Use in Filters</label>
+                                class="rounded border-stone-300 text-sky-500 focus:ring-sky-500 h-4 w-4">
+                            <label for="attributeIsFilterable" class="ml-3 text-sm font-semibold text-stone-700">Use in Filters</label>
                         </div>
-                        <p class="text-xs text-gray-500 ml-6">Show in product filter options</p>
+                        <p class="text-[10px] text-stone-400 ml-7 uppercase tracking-wider font-bold">Show in product filter options</p>
 
                         <div class="flex items-center">
                             <input type="checkbox" id="attributeStatus" name="status" checked
-                                class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                            <label for="attributeStatus" class="ml-2 text-sm text-gray-700">Active</label>
+                                class="rounded border-stone-300 text-sky-500 focus:ring-sky-500 h-4 w-4">
+                            <label for="attributeStatus" class="ml-3 text-sm font-semibold text-stone-700">Active</label>
                         </div>
-                        <p class="text-xs text-gray-500 ml-6">Attribute will be available for use</p>
+                        <p class="text-[10px] text-stone-400 ml-7 uppercase tracking-wider font-bold">Attribute will be available for use</p>
                     </div>
 
-                    <div class="mt-6 pt-6 border-t border-gray-200">
+                    <div class="mt-8 pt-6 border-t border-stone-100">
                         <div class="flex justify-end space-x-3">
-                            <button type="button" onclick="closeAttributeModal()" class="btn-secondary">
+                            <button type="button" onclick="closeAttributeModal()" class="btn-secondary min-w-[120px] justify-center">
                                 Cancel
                             </button>
-                            <button type="submit" class="btn-primary">
+                            <button type="submit" class="btn-primary min-w-[150px] justify-center items-center">
                                 <i class="fas fa-save mr-2"></i>
                                 <span id="submitText">Save Attribute</span>
                             </button>
@@ -239,10 +242,13 @@
 
 <!-- Add/Edit Attribute Value Modal -->
 <div id="valueModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-hidden">
-        <div class="flex justify-between items-center px-6 py-4 border-b border-gray-200">
-            <h3 class="text-lg font-semibold text-gray-800" id="valueModalTitle">Add Value</h3>
-            <button onclick="closeValueModal()" class="text-gray-400 hover:text-gray-600">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden border border-stone-100">
+        <div class="flex justify-between items-center px-8 py-6 border-b border-stone-100">
+            <div>
+                <h3 class="text-xl font-bold text-stone-800" id="valueModalTitle">Add Value</h3>
+                <p class="text-sm text-stone-500">Define a new value for the attribute</p>
+            </div>
+            <button onclick="closeValueModal()" class="text-stone-400 hover:text-stone-600 p-2 hover:bg-stone-50 rounded-full transition-all">
                 <i class="fas fa-times text-xl"></i>
             </button>
         </div>
@@ -253,30 +259,30 @@
 
                 <div class="space-y-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Value *</label>
+                        <label class="block text-sm font-semibold text-stone-700 mb-2">Value <span class="text-rose-500">*</span></label>
                         <input type="text" id="valueValue" name="value"
-                            class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                            class="w-full border border-stone-200 bg-stone-50 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all font-medium"
                             placeholder="e.g., red, large, cotton" required>
-                        <p class="text-xs text-red-500 mt-1 hidden" id="valueError"></p>
+                        <p class="text-[10px] text-rose-500 mt-1 italic hidden" id="valueError"></p>
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Label *</label>
+                        <label class="block text-sm font-semibold text-stone-700 mb-2">Label <span class="text-rose-500">*</span></label>
                         <input type="text" id="valueLabel" name="label"
-                            class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                            class="w-full border border-stone-200 bg-stone-50 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all font-medium"
                             placeholder="e.g., Red, Large, Cotton" required>
                     </div>
 
                     <div id="colorCodeField" class="hidden">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Color Code</label>
+                        <label class="block text-sm font-semibold text-stone-700 mb-2">Color Code</label>
                         <div class="flex items-center space-x-4">
                             <input type="color" id="valueColorPicker" value="#3b82f6"
-                                class="w-16 h-16 cursor-pointer rounded-lg border border-gray-300">
+                                class="w-16 h-16 cursor-pointer rounded-2xl border border-stone-200">
                             <div class="flex-1">
                                 <input type="text" id="valueColorCode" name="color_code" value="#3B82F6"
-                                    class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                    class="w-full border border-stone-200 bg-stone-50 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 font-mono text-sm"
                                     placeholder="#FF0000">
-                                <p class="text-xs text-gray-500 mt-1">Hex color code (e.g., #FF0000 for red)</p>
+                                <p class="text-[10px] text-stone-400 mt-1 uppercase tracking-wider font-bold">Hex color code (e.g., #FF0000 for red)</p>
                             </div>
                         </div>
                     </div>
@@ -287,28 +293,28 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Sort Order</label>
+                            <label class="block text-sm font-semibold text-stone-700 mb-2">Sort Order</label>
                             <input type="number" id="valueSortOrder" name="sort_order" value="0"
-                                class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                class="w-full border border-stone-200 bg-stone-50 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all font-medium"
                                 placeholder="0" min="0">
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
+                            <label class="block text-sm font-semibold text-stone-700 mb-2">Status</label>
                             <div class="flex items-center mt-2">
                                 <input type="checkbox" id="valueStatus" name="status" checked
-                                    class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                <label for="valueStatus" class="ml-2 text-sm text-gray-700">Active</label>
+                                    class="rounded border-stone-300 text-sky-500 focus:ring-sky-500 h-4 w-4">
+                                <label for="valueStatus" class="ml-3 text-sm font-semibold text-stone-700">Active</label>
                             </div>
                         </div>
                     </div>
 
-                    <div class="mt-6 pt-6 border-t border-gray-200">
+                    <div class="mt-8 pt-6 border-t border-stone-100">
                         <div class="flex justify-end space-x-3">
-                            <button type="button" onclick="closeValueModal()" class="btn-secondary">
+                            <button type="button" onclick="closeValueModal()" class="btn-secondary min-w-[120px] justify-center">
                                 Cancel
                             </button>
-                            <button type="submit" class="btn-primary">
+                            <button type="submit" class="btn-primary min-w-[150px] justify-center">
                                 <i class="fas fa-save mr-2"></i>
                                 <span id="valueSubmitText">Save Value</span>
                             </button>
@@ -322,34 +328,34 @@
 
 <!-- Bulk Actions Modal -->
 <div id="bulkActionsModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl shadow-xl max-w-md w-full">
-        <div class="p-6">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4 text-center">Bulk Actions</h3>
+    <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full border border-stone-100 overflow-hidden">
+        <div class="p-8">
+            <h3 class="text-xl font-bold text-stone-800 mb-6 text-center">Bulk Actions</h3>
             <div class="space-y-3">
-                <button onclick="applyBulkAction('activate')" class="w-full btn-secondary text-left">
-                    <i class="fas fa-toggle-on mr-2 text-emerald-600"></i>Activate Selected
+                <button onclick="applyBulkAction('activate')" class="w-full btn-secondary text-left group">
+                    <i class="fas fa-toggle-on mr-3 text-emerald-500 group-hover:scale-110 transition-transform"></i>Activate Selected
                 </button>
-                <button onclick="applyBulkAction('deactivate')" class="w-full btn-secondary text-left">
-                    <i class="fas fa-toggle-off mr-2 text-rose-600"></i>Deactivate Selected
+                <button onclick="applyBulkAction('deactivate')" class="w-full btn-secondary text-left group">
+                    <i class="fas fa-toggle-off mr-3 text-stone-400 group-hover:scale-110 transition-transform"></i>Deactivate Selected
                 </button>
-                <button onclick="applyBulkAction('variant')" class="w-full btn-secondary text-left">
-                    <i class="fas fa-palette mr-2 text-blue-600"></i>Mark as Variant
+                <button onclick="applyBulkAction('variant')" class="w-full btn-secondary text-left group">
+                    <i class="fas fa-palette mr-3 text-sky-500 group-hover:scale-110 transition-transform"></i>Mark as Variant
                 </button>
-                <button onclick="applyBulkAction('not-variant')" class="w-full btn-secondary text-left">
-                    <i class="fas fa-palette mr-2 text-gray-500"></i>Mark as Not Variant
+                <button onclick="applyBulkAction('not-variant')" class="w-full btn-secondary text-left group">
+                    <i class="fas fa-palette mr-3 text-stone-400 group-hover:scale-110 transition-transform"></i>Mark as Not Variant
                 </button>
-                <button onclick="applyBulkAction('filterable')" class="w-full btn-secondary text-left">
-                    <i class="fas fa-filter mr-2 text-indigo-600"></i>Mark as Filterable
+                <button onclick="applyBulkAction('filterable')" class="w-full btn-secondary text-left group">
+                    <i class="fas fa-filter mr-3 text-sky-500 group-hover:scale-110 transition-transform"></i>Mark as Filterable
                 </button>
-                <button onclick="applyBulkAction('not-filterable')" class="w-full btn-secondary text-left">
-                    <i class="fas fa-filter mr-2 text-gray-500"></i>Mark as Not Filterable
+                <button onclick="applyBulkAction('not-filterable')" class="w-full btn-secondary text-left group">
+                    <i class="fas fa-filter mr-3 text-stone-400 group-hover:scale-110 transition-transform"></i>Mark as Not Filterable
                 </button>
-                <button onclick="applyBulkAction('delete')" class="w-full btn-secondary text-left border-rose-200 text-rose-600 hover:bg-rose-50">
-                    <i class="fas fa-trash mr-2"></i>Delete Selected
+                <button onclick="applyBulkAction('delete')" class="w-full btn-secondary text-left border-rose-100 text-rose-600 hover:bg-rose-50 group">
+                    <i class="fas fa-trash mr-3 group-hover:scale-110 transition-transform"></i>Delete Selected
                 </button>
             </div>
-            <div class="mt-6 flex justify-center">
-                <button onclick="closeBulkActions()" class="btn-secondary">
+            <div class="mt-8 flex justify-center">
+                <button onclick="closeBulkActions()" class="btn-secondary min-w-[120px] justify-center">
                     Cancel
                 </button>
             </div>
@@ -359,14 +365,14 @@
 
 <!-- View Values Modal -->
 <div id="viewValuesModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl shadow-xl max-w-2xl w-full">
-        <div class="p-6">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4" id="viewValuesTitle"></h3>
-            <div id="valuesList" class="space-y-2 max-h-96 overflow-y-auto">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full border border-stone-100 overflow-hidden">
+        <div class="p-8">
+            <h3 class="text-xl font-bold text-stone-800 mb-6" id="viewValuesTitle"></h3>
+            <div id="valuesList" class="space-y-2 max-h-96 overflow-y-auto pr-2 custom-scrollbar">
                 <!-- Values will be listed here -->
             </div>
-            <div class="mt-6 flex justify-center">
-                <button onclick="closeViewValuesModal()" class="btn-secondary">
+            <div class="mt-8 flex justify-center">
+                <button onclick="closeViewValuesModal()" class="btn-secondary min-w-[120px] justify-center">
                     Close
                 </button>
             </div>
@@ -376,14 +382,14 @@
 
 <!-- Quick Add Modal -->
 <div id="quickAddModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl shadow-xl max-w-md w-full">
-        <div class="p-6">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4 text-center" id="quickAddTitle">Quick Add Values</h3>
-            <div id="quickAddContent" class="space-y-3 max-h-96 overflow-y-auto">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full border border-stone-100 overflow-hidden">
+        <div class="p-8">
+            <h3 class="text-xl font-bold text-stone-800 mb-6 text-center" id="quickAddTitle">Quick Add Values</h3>
+            <div id="quickAddContent" class="space-y-3 max-h-96 overflow-y-auto pr-2 custom-scrollbar">
                 <!-- Quick add options will be inserted here -->
             </div>
-            <div class="mt-6 flex justify-center">
-                <button onclick="closeQuickAddModal()" class="btn-secondary">
+            <div class="mt-8 flex justify-center">
+                <button onclick="closeQuickAddModal()" class="btn-secondary min-w-[120px] justify-center">
                     Cancel
                 </button>
             </div>
@@ -678,16 +684,16 @@
                         const rowData = cell.getRow().getData();
                         return `
                             <div class="flex items-center space-x-3">
-                                <div class="w-10 h-10 rounded-lg flex items-center justify-center
-                                    ${rowData.type === 'color' ? 'bg-gradient-to-r from-rose-400 to-pink-500' :
-                                      rowData.type === 'image' ? 'bg-gradient-to-r from-blue-400 to-cyan-500' :
-                                      rowData.type === 'select' ? 'bg-gradient-to-r from-emerald-400 to-teal-500' :
-                                      'bg-gradient-to-r from-indigo-400 to-purple-500'}">
-                                    <i class="fas fa-tag text-white text-sm"></i>
+                                <div class="w-10 h-10 rounded-xl flex items-center justify-center
+                                    ${rowData.type === 'color' ? 'bg-gradient-to-br from-rose-400 to-pink-500 shadow-sm shadow-rose-100' :
+                                      rowData.type === 'image' ? 'bg-gradient-to-br from-sky-400 to-blue-500 shadow-sm shadow-sky-100' :
+                                      rowData.type === 'select' ? 'bg-gradient-to-br from-emerald-400 to-teal-500 shadow-sm shadow-emerald-100' :
+                                      'bg-gradient-to-br from-stone-400 to-stone-500 shadow-sm shadow-stone-100'}">
+                                    <i class="fas ${rowData.type === 'color' ? 'fa-palette' : rowData.type === 'image' ? 'fa-image' : 'fa-tag'} text-white text-sm"></i>
                                 </div>
                                 <div>
-                                    <p class="font-medium text-gray-900">${rowData.name}</p>
-                                    <p class="text-sm text-gray-500">${rowData.code}</p>
+                                    <p class="font-bold text-stone-800">${rowData.name}</p>
+                                    <p class="text-[10px] text-stone-400 uppercase tracking-widest font-bold">${rowData.code}</p>
                                 </div>
                             </div>
                         `;
@@ -712,14 +718,14 @@
                     formatter: function(cell) {
                         const type = cell.getValue();
                         const typeConfig = {
-                            'select': { class: 'bg-emerald-100 text-emerald-800', icon: 'fa-list' },
-                            'color': { class: 'bg-rose-100 text-rose-800', icon: 'fa-palette' },
-                            'image': { class: 'bg-blue-100 text-blue-800', icon: 'fa-image' },
-                            'text': { class: 'bg-indigo-100 text-indigo-800', icon: 'fa-font' }
+                            'select': { class: 'bg-emerald-50 text-emerald-600', icon: 'fa-list' },
+                            'color': { class: 'bg-rose-50 text-rose-600', icon: 'fa-palette' },
+                            'image': { class: 'bg-sky-50 text-sky-600', icon: 'fa-image' },
+                            'text': { class: 'bg-stone-50 text-stone-600', icon: 'fa-font' }
                         };
                         const config = typeConfig[type] || typeConfig['text'];
-                        return `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${config.class}">
-                            <i class="fas ${config.icon} mr-1"></i>
+                        return `<span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest ${config.class} border border-stone-100">
+                            <i class="fas ${config.icon} mr-1.5"></i>
                             <span class="capitalize">${type}</span>
                         </span>`;
                     }
@@ -736,18 +742,18 @@
 
                         return `
                             <div class="flex flex-col items-center space-y-2">
-                                <span class="text-sm font-medium ${count > 0 ? 'text-emerald-600' : 'text-rose-600'}">
-                                    ${count} ${count === 1 ? 'value' : 'values'}
+                                <span class="text-xs font-bold ${count > 0 ? 'text-emerald-500' : 'text-rose-400'}">
+                                    ${count} ${count === 1 ? 'VALUE' : 'VALUES'}
                                 </span>
-                                <div class="flex space-x-2">
+                                <div class="flex space-x-1.5">
                                     <button onclick="addValuesForAttribute(${rowData.id}, '${rowData.name}', '${rowData.type}', '${rowData.code}')"
-                                            class="inline-flex items-center px-3 py-1 text-xs font-medium bg-indigo-100 text-indigo-800 hover:bg-indigo-200 rounded-full transition-colors">
+                                            class="inline-flex items-center px-3 py-1 text-[10px] font-bold uppercase tracking-widest bg-sky-50 text-sky-600 hover:bg-sky-100 rounded-lg transition-colors border border-sky-100">
                                         <i class="fas fa-plus mr-1"></i>Add
                                     </button>
                                     ${count > 0 ? `
                                         <button onclick="manageAttributeValues(${rowData.id}, '${rowData.name}', '${rowData.type}')"
-                                                class="inline-flex items-center px-3 py-1 text-xs font-medium bg-emerald-100 text-emerald-800 hover:bg-emerald-200 rounded-full transition-colors">
-                                            <i class="fas fa-list mr-1"></i>Manage
+                                                class="inline-flex items-center px-3 py-1 text-[10px] font-bold uppercase tracking-widest bg-stone-50 text-stone-600 hover:bg-stone-100 rounded-lg transition-colors border border-stone-100">
+                                            <i class="fas fa-list mr-1"></i>List
                                         </button>
                                     ` : ''}
                                 </div>
@@ -771,11 +777,11 @@
                     formatter: function(cell) {
                         const isVariant = cell.getValue();
                         return isVariant ?
-                            `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                                <i class="fas fa-palette mr-1"></i>Variant
+                            `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-sky-50 text-sky-600 border border-sky-100">
+                                <i class="fas fa-palette mr-1.5"></i>Yes
                             </span>` :
-                            `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-                                <i class="fas fa-times mr-1"></i>No
+                            `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-stone-50 text-stone-400 border border-stone-100">
+                                <i class="fas fa-times mr-1.5"></i>No
                             </span>`;
                     }
                 },
@@ -795,11 +801,11 @@
                     formatter: function(cell) {
                         const isFilterable = cell.getValue();
                         return isFilterable ?
-                            `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
-                                <i class="fas fa-filter mr-1"></i>Yes
+                            `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-emerald-50 text-emerald-600 border border-emerald-100">
+                                <i class="fas fa-filter mr-1.5"></i>Yes
                             </span>` :
-                            `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-                                <i class="fas fa-times mr-1"></i>No
+                            `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-stone-50 text-stone-400 border border-stone-100">
+                                <i class="fas fa-times mr-1.5"></i>No
                             </span>`;
                     }
                 },
@@ -823,12 +829,12 @@
 
                         return isActive ?
                             `<button onclick="toggleAttributeStatus(${data.id}, false)"
-                                    class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800 hover:bg-emerald-200 transition-colors">
-                                <i class="fas fa-toggle-on mr-1"></i>Active
+                                    class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-emerald-50 text-emerald-600 hover:bg-emerald-100 transition-all border border-emerald-100">
+                                <i class="fas fa-check-circle mr-1.5"></i>Active
                             </button>` :
                             `<button onclick="toggleAttributeStatus(${data.id}, true)"
-                                    class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-rose-100 text-rose-800 hover:bg-rose-200 transition-colors">
-                                <i class="fas fa-toggle-off mr-1"></i>Inactive
+                                    class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-stone-50 text-stone-400 hover:bg-stone-100 transition-all border border-stone-100">
+                                <i class="fas fa-times-circle mr-1.5"></i>Inactive
                             </button>`;
                     }
                 },
@@ -855,12 +861,12 @@
                         return `
                             <div class="flex space-x-2 justify-center">
                                 <button onclick="editAttribute(${data.id})"
-                                        class="w-8 h-8 flex items-center justify-center bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors"
+                                        class="w-8 h-8 flex items-center justify-center bg-sky-50 text-sky-600 rounded-lg hover:bg-sky-100 transition-all border border-sky-100"
                                         title="Edit Attribute">
                                     <i class="fas fa-edit text-sm"></i>
                                 </button>
                                 <button onclick="deleteAttribute(${data.id})"
-                                        class="w-8 h-8 flex items-center justify-center bg-rose-50 text-rose-600 rounded-lg hover:bg-rose-100 transition-colors"
+                                        class="w-8 h-8 flex items-center justify-center bg-rose-50 text-rose-600 rounded-lg hover:bg-rose-100 transition-all border border-rose-100"
                                         title="Delete Attribute">
                                     <i class="fas fa-trash text-sm"></i>
                                 </button>
@@ -911,7 +917,7 @@
                 headerFilterPlaceholder: "Search value",
                 formatter: function(cell) {
                     const rowData = cell.getRow().getData();
-                    return `<span class="font-medium text-gray-900">${rowData.value}</span>`;
+                    return `<span class="font-bold text-stone-800">${rowData.value}</span>`;
                 }
             },
             {
@@ -923,7 +929,7 @@
                 headerFilterPlaceholder: "Search label",
                 formatter: function(cell) {
                     const rowData = cell.getRow().getData();
-                    return `<span class="font-medium text-gray-900">${rowData.label}</span>`;
+                    return `<span class="font-bold text-stone-800">${rowData.label}</span>`;
                 }
             }
         ];
@@ -937,12 +943,12 @@
                 hozAlign: "center",
                 formatter: function(cell) {
                     const color = cell.getValue();
-                    if (!color) return '<span class="text-gray-400">No color</span>';
+                    if (!color) return '<span class="text-stone-400 font-medium italic">No color</span>';
 
                     return `
                         <div class="flex items-center space-x-2 justify-center">
-                            <div class="color-swatch" style="background-color: ${color};"></div>
-                            <span class="text-xs font-mono">${color}</span>
+                            <div class="w-6 h-6 rounded-lg border border-stone-200 shadow-sm shadow-stone-100" style="background-color: ${color};"></div>
+                            <span class="text-[10px] font-mono font-bold text-stone-500 tracking-wider">${color}</span>
                         </div>
                     `;
                 }
@@ -955,14 +961,14 @@
                 hozAlign: "center",
                 formatter: function(cell) {
                     const imageId = cell.getValue();
-                    if (!imageId) return '<span class="text-gray-400">No image</span>';
+                    if (!imageId) return '<span class="text-stone-400 font-medium italic">No image</span>';
 
                     return `
                         <div class="flex items-center space-x-2 justify-center">
-                            <div class="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-image text-gray-400"></i>
+                            <div class="w-8 h-8 bg-stone-50 rounded-lg flex items-center justify-center border border-stone-100">
+                                <i class="fas fa-image text-stone-400"></i>
                             </div>
-                            <span class="text-xs text-gray-600">ID: ${imageId}</span>
+                            <span class="text-[10px] font-bold text-stone-500 uppercase tracking-widest">ID: ${imageId}</span>
                         </div>
                     `;
                 }
@@ -1001,12 +1007,12 @@
 
                     return isActive ?
                         `<button onclick="toggleValueStatus(${data.id}, false)"
-                                class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800 hover:bg-emerald-200 transition-colors">
-                            <i class="fas fa-toggle-on mr-1"></i>Active
+                                class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-emerald-50 text-emerald-600 hover:bg-emerald-100 transition-all border border-emerald-100">
+                            <i class="fas fa-check-circle mr-1.5"></i>Active
                         </button>` :
                         `<button onclick="toggleValueStatus(${data.id}, true)"
-                                class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-rose-100 text-rose-800 hover:bg-rose-200 transition-colors">
-                            <i class="fas fa-toggle-off mr-1"></i>Inactive
+                                class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-stone-50 text-stone-400 hover:bg-stone-100 transition-all border border-stone-100">
+                            <i class="fas fa-times-circle mr-1.5"></i>Inactive
                         </button>`;
                 }
             },
@@ -1023,12 +1029,12 @@
                     return `
                         <div class="flex space-x-2 justify-center">
                             <button onclick="editValue(${data.id})"
-                                    class="w-8 h-8 flex items-center justify-center bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors"
+                                    class="w-8 h-8 flex items-center justify-center bg-sky-50 text-sky-600 rounded-lg hover:bg-sky-100 transition-all border border-sky-100"
                                     title="Edit Value">
                                 <i class="fas fa-edit text-sm"></i>
                             </button>
                             <button onclick="deleteValue(${data.id})"
-                                    class="w-8 h-8 flex items-center justify-center bg-rose-50 text-rose-600 rounded-lg hover:bg-rose-100 transition-colors"
+                                    class="w-8 h-8 flex items-center justify-center bg-rose-50 text-rose-600 rounded-lg hover:bg-rose-100 transition-all border border-rose-100"
                                     title="Delete Value">
                                 <i class="fas fa-trash text-sm"></i>
                             </button>

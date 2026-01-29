@@ -200,27 +200,26 @@ $isActive = function ($route, $params = []) use ($currentRoute) {
 ?>
 
 <aside id="sidebar"
-    class="fixed left-0 top-0 z-40 h-screen bg-white/80 backdrop-blur-lg
-              border-r border-gray-200/50 shadow-lg group transition-all duration-300
+    class="fixed left-0 top-0 z-40 h-screen bg-gradient-to-br from-white/95 via-sky-50/95 to-stone-50/95 backdrop-blur-lg
+              border-r border-sky-100/50 shadow-lg group transition-all duration-300
               overflow-hidden sidebar-collapsed
-              -translate-x-full md:translate-x-0">
+              -translate-x-full md:translate-x-0"
+    style="box-shadow: 0 8px 32px rgba(14, 165, 233, 0.08), 0 4px 16px rgba(28, 25, 23, 0.05);">
 
     <div class="flex flex-col h-full">
         <!-- Logo -->
-        <div class="flex items-center justify-between p-6 border-b border-gray-200/50">
+        <div class="flex items-center justify-between p-6 border-b border-sky-100/50 bg-gradient-to-r from-sky-50/40 to-stone-50/40">
             <div class="flex items-center space-x-3">
-                <div
-                    class="w-10 h-10 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center">
-                    <i class="fas fa-store text-white text-lg"></i>
+                <div class="w-10 h-10 flex items-center justify-center bg-gradient-to-br from-sky-100 to-stone-100 rounded-xl p-2">
+                    <img src="{{ asset('storage/assets/images/logo.png') }}" class="w-full h-auto" alt="Dr Kinjal Logo">
                 </div>
                 <span
-                    class="text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600
-                             bg-clip-text text-transparent transition-all duration-300
+                    class="text-xl font-bold bg-gradient-to-r from-sky-600 to-sky-700 bg-clip-text text-transparent transition-all duration-300
                              text-expandable whitespace-nowrap">
-                    eCommerce
+                    Dr. Kinjal
                 </span>
             </div>
-            <button id="sidebarClose" class="text-gray-500 hover:text-gray-700 md:hidden">
+            <button id="sidebarClose" class="text-stone-500 hover:text-sky-600 md:hidden transition-colors duration-200">
                 <i class="fas fa-times text-xl"></i>
             </button>
         </div>
@@ -238,20 +237,21 @@ $isActive = function ($route, $params = []) use ($currentRoute) {
                     <!-- Parent Menu -->
                     <a href="{{ $hasSubmenu ? '#' : route($item['route']) }}"
                         class="parent-link flex items-center gap-3 px-4 py-3 rounded-xl
-                               text-gray-700 hover:bg-white/50 hover:shadow-sm
+                               text-stone-600 hover:bg-white/60 hover:text-sky-600
                                transition-all duration-200 group-hover:pr-6
-                               {{ $active ? 'bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border-r-2 border-indigo-500 text-indigo-600' : '' }}">
+                               {{ $active ? 'bg-gradient-to-r from-sky-50/80 to-sky-100/80 border-l-4 border-sky-500 text-sky-600 font-bold shadow-sm' : '' }}"
+                        style="{{ $active ? 'box-shadow: 0 4px 12px rgba(14, 165, 233, 0.12);' : '' }}">
                         <i
-                            class="{{ $item['icon'] }} text-xl min-w-6 text-center
-                                  {{ $active ? 'text-indigo-500' : 'text-gray-400 group-hover:text-indigo-400' }}">
+                            class="{{ $item['icon'] }} text-xl min-w-6 text-center transition-colors duration-200
+                                  {{ $active ? 'text-sky-500' : 'text-stone-400 group-hover:text-sky-500' }}">
                         </i>
-                        <span class="font-medium transition-all duration-300 text-expandable whitespace-nowrap">
+                        <span class="font-semibold transition-all duration-300 text-expandable whitespace-nowrap">
                             {{ $item['title'] }}
                         </span>
                         @if ($hasSubmenu)
                             <i
                                 class="fas fa-chevron-down text-xs ml-auto transition-all duration-300
-                                      {{ $submenuOpen ? 'transform rotate-180' : '' }}"></i>
+                                      {{ $submenuOpen ? 'transform rotate-180 text-sky-500' : 'text-stone-400' }}"></i>
                         @endif
                     </a>
 
@@ -264,7 +264,7 @@ $isActive = function ($route, $params = []) use ($currentRoute) {
                                 @endphp
                                 <a href="{{ route($subItem['route'], $subItem['params'] ?? []) }}"
                                     class="submenu-link block px-4 py-2 text-sm rounded-lg
-                                          {{ $subActive ? 'bg-white/50 text-indigo-600' : 'text-gray-600 hover:bg-white/50 hover:text-indigo-600' }}
+                                          {{ $subActive ? 'bg-gradient-to-r from-white/70 to-sky-50/70 text-sky-600 font-bold border-l-2 border-sky-400' : 'text-stone-500 hover:bg-white/50 hover:text-sky-600' }}
                                           transition-all duration-200 text-expandable whitespace-nowrap">
                                     {{ $subItem['title'] }}
                                 </a>
@@ -277,11 +277,12 @@ $isActive = function ($route, $params = []) use ($currentRoute) {
 
         <!-- Sidebar Footer -->
         <button id="sidebarToggleMode"
-            class="w-full mt-4 bg-gray-200 text-gray-700 py-2 rounded-lg text-sm font-medium hover:bg-gray-300 transition">
-            Expand
+            class="w-full mt-4 bg-gradient-to-r from-sky-100 to-sky-200 text-sky-700 py-3 rounded-xl text-sm font-bold hover:from-sky-200 hover:to-sky-300 transition-all duration-200 shadow-sm"
+            style="box-shadow: 0 4px 12px rgba(14, 165, 233, 0.15);">
+            <i class="fas fa-expand-arrows-alt mr-2"></i>Expand
         </button>
     </div>
 </aside>
 
 <!-- Overlay for mobile -->
-<div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-30 md:hidden hidden"></div>
+<div id="sidebarOverlay" class="fixed inset-0 bg-stone-900/50 z-30 md:hidden hidden backdrop-blur-sm"></div>

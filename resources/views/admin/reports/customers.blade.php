@@ -6,13 +6,13 @@
 <div class="mb-8">
     <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <div>
-            <h2 class="text-2xl font-bold text-gray-800 mb-1">Customer Reports</h2>
-            <p class="text-gray-600">Analyze customer behavior and demographics</p>
+            <h2 class="text-2xl font-bold text-stone-800 mb-2">Customer Reports</h2>
+            <p class="text-stone-500 font-medium">Analyze customer behavior and demographics</p>
         </div>
 
         <div class="flex flex-wrap gap-3">
             <select id="periodFilter"
-                class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                class="bg-white border border-stone-200 rounded-xl px-4 py-2 text-sm font-bold text-stone-700 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all shadow-sm">
                 <option value="30">Last 30 Days</option>
                 <option value="90" selected>Last 90 Days</option>
                 <option value="365">This Year</option>
@@ -20,7 +20,7 @@
             </select>
 
             <button id="exportReportBtn" class="btn-primary">
-                <i class="fas fa-download mr-2"></i>Export Report
+                <i class="fas fa-file-export mr-2 text-xs"></i>Export Report
             </button>
         </div>
     </div>
@@ -29,61 +29,65 @@
 <!-- Customer Metrics -->
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
     <!-- Total Customers -->
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-        <div class="flex justify-between items-center">
+    <div class="bg-white rounded-3xl shadow-sm border border-stone-100 p-8 hover:shadow-md transition-all duration-300 group">
+        <div class="flex justify-between items-start">
             <div>
-                <p class="text-sm text-gray-600">Total Customers</p>
-                <p id="totalCustomers" class="text-2xl font-bold text-gray-900 mt-1">5,423</p>
-                <p class="text-sm text-emerald-600 mt-1">
-                    <i class="fas fa-arrow-up mr-1"></i>15.3% increase
-                </p>
+                <p class="text-sm font-bold text-stone-400 uppercase tracking-widest mb-1">Total Customers</p>
+                <p id="totalCustomers" class="text-3xl font-black text-stone-800">5,423</p>
+                <div class="flex items-center mt-3 text-emerald-500 font-bold text-xs bg-emerald-50 px-2 py-1 rounded-lg w-fit">
+                    <i class="fas fa-arrow-up mr-1.5"></i>15.3%
+                </div>
             </div>
-            <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center">
-                <i class="fas fa-users text-indigo-600 text-lg"></i>
+            <div class="w-14 h-14 rounded-2xl bg-sky-50 flex items-center justify-center text-sky-600 group-hover:scale-110 transition-transform duration-300">
+                <i class="fas fa-users text-2xl"></i>
             </div>
         </div>
     </div>
 
     <!-- New Customers -->
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-        <div class="flex justify-between items-center">
+    <div class="bg-white rounded-3xl shadow-sm border border-stone-100 p-8 hover:shadow-md transition-all duration-300 group">
+        <div class="flex justify-between items-start">
             <div>
-                <p class="text-sm text-gray-600">New Customers</p>
-                <p id="newCustomers" class="text-2xl font-bold text-gray-900 mt-1">248</p>
-                <p class="text-sm text-emerald-600 mt-1"><i class="fas fa-arrow-up mr-1"></i>8.7% increase</p>
+                <p class="text-sm font-bold text-stone-400 uppercase tracking-widest mb-1">New Customers</p>
+                <p id="newCustomers" class="text-3xl font-black text-stone-800">248</p>
+                <div class="flex items-center mt-3 text-emerald-500 font-bold text-xs bg-emerald-50 px-2 py-1 rounded-lg w-fit">
+                    <i class="fas fa-arrow-up mr-1.5"></i>8.7%
+                </div>
             </div>
-            <div class="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
-                <i class="fas fa-user-plus text-emerald-600 text-lg"></i>
+            <div class="w-14 h-14 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-600 group-hover:scale-110 transition-transform duration-300">
+                <i class="fas fa-user-plus text-2xl"></i>
             </div>
         </div>
     </div>
 
     <!-- AOV -->
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-        <div class="flex justify-between items-center">
+    <div class="bg-white rounded-3xl shadow-sm border border-stone-100 p-8 hover:shadow-md transition-all duration-300 group">
+        <div class="flex justify-between items-start">
             <div>
-                <p class="text-sm text-gray-600">Avg. Order Value</p>
-                <p id="avgOrderValue" class="text-2xl font-bold text-gray-900 mt-1">$89.50</p>
-                <p class="text-sm text-emerald-600 mt-1"><i class="fas fa-arrow-up mr-1"></i>5.2% increase</p>
+                <p class="text-sm font-bold text-stone-400 uppercase tracking-widest mb-1">Avg. Order Value</p>
+                <p id="avgOrderValue" class="text-3xl font-black text-stone-800">$89.50</p>
+                <div class="flex items-center mt-3 text-emerald-500 font-bold text-xs bg-emerald-50 px-2 py-1 rounded-lg w-fit">
+                    <i class="fas fa-arrow-up mr-1.5"></i>5.2%
+                </div>
             </div>
-            <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                <i class="fas fa-shopping-cart text-blue-600 text-lg"></i>
+            <div class="w-14 h-14 rounded-2xl bg-purple-50 flex items-center justify-center text-purple-600 group-hover:scale-110 transition-transform duration-300">
+                <i class="fas fa-shopping-cart text-2xl"></i>
             </div>
         </div>
     </div>
 
     <!-- Repeat Rate -->
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-        <div class="flex justify-between items-center">
+    <div class="bg-white rounded-3xl shadow-sm border border-stone-100 p-8 hover:shadow-md transition-all duration-300 group">
+        <div class="flex justify-between items-start">
             <div>
-                <p class="text-sm text-gray-600">Repeat Rate</p>
-                <p id="repeatRate" class="text-2xl font-bold text-gray-900 mt-1">42%</p>
-                <p class="text-sm text-rose-600 mt-1">
-                    <i class="fas fa-arrow-down mr-1"></i>2.1% decrease
-                </p>
+                <p class="text-sm font-bold text-stone-400 uppercase tracking-widest mb-1">Repeat Rate</p>
+                <p id="repeatRate" class="text-3xl font-black text-stone-800">42%</p>
+                <div class="flex items-center mt-3 text-rose-500 font-bold text-xs bg-rose-50 px-2 py-1 rounded-lg w-fit">
+                    <i class="fas fa-arrow-down mr-1.5"></i>2.1%
+                </div>
             </div>
-            <div class="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center">
-                <i class="fas fa-redo text-amber-600 text-lg"></i>
+            <div class="w-14 h-14 rounded-2xl bg-amber-50 flex items-center justify-center text-amber-600 group-hover:scale-110 transition-transform duration-300">
+                <i class="fas fa-redo text-2xl"></i>
             </div>
         </div>
     </div>
@@ -92,43 +96,43 @@
 <!-- Customer Analytics -->
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
     <!-- Growth Chart -->
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-        <h3 class="text-lg font-semibold text-gray-800 mb-6">Customer Growth</h3>
-        <div class="h-80 bg-gray-50 rounded-xl flex items-center justify-center">
+    <div class="bg-white rounded-3xl shadow-sm border border-stone-100 p-8">
+        <h3 class="text-xl font-bold text-stone-800 mb-8">Customer Growth</h3>
+        <div class="h-80 bg-stone-50 rounded-3xl border border-stone-100 p-4">
             <canvas id="customerGrowthChart"></canvas>
         </div>
     </div>
 
     <!-- Demographics -->
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-        <h3 class="text-lg font-semibold text-gray-800 mb-6">Customer Demographics</h3>
+    <div class="bg-white rounded-3xl shadow-sm border border-stone-100 p-8">
+        <h3 class="text-xl font-bold text-stone-800 mb-8">Demographics</h3>
 
         <!-- Age Group -->
-        <div class="mb-6">
-            <div class="flex justify-between text-sm mb-3">
-                <span class="text-gray-600">Age Group</span>
-                <span class="font-medium">Distribution</span>
+        <div class="mb-10">
+            <div class="flex justify-between text-xs font-bold text-stone-400 uppercase tracking-widest mb-4">
+                <span>Age Group</span>
+                <span>Distribution</span>
             </div>
 
-            <div class="space-y-3">
+            <div class="space-y-6">
                 @php
                 $ages = [
-                    ['18-24', 15],
-                    ['25-34', 35],
-                    ['35-44', 28],
-                    ['45+', 22],
+                    ['18-24', 15, 'sky'],
+                    ['25-34', 35, 'purple'],
+                    ['35-44', 28, 'emerald'],
+                    ['45+', 22, 'amber'],
                 ];
                 @endphp
                 
                 @foreach($ages as $a)
-                <div class="flex justify-between items-center">
-                    <span class="text-sm text-gray-600 w-16">{{ $a[0] }}</span>
-
-                    <div class="w-40 bg-gray-200 h-2 rounded-full">
-                        <div class="bg-indigo-600 h-2 rounded-full" style="width: {{ $a[1] }}%"></div>
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-sm font-bold text-stone-700 min-w-[60px]">{{ $a[0] }}</span>
+                        <span class="text-xs font-black text-stone-800">{{ $a[1] }}%</span>
                     </div>
-
-                    <span class="text-sm font-medium w-10 text-right">{{ $a[1] }}%</span>
+                    <div class="w-full bg-stone-100 h-2 rounded-full overflow-hidden">
+                        <div class="bg-{{ $a[2] }}-500 h-2 rounded-full shadow-sm" style="width: {{ $a[1] }}%"></div>
+                    </div>
                 </div>
                 @endforeach
             </div>
@@ -136,12 +140,12 @@
 
         <!-- Locations -->
         <div>
-            <div class="flex justify-between text-sm mb-3">
-                <span class="text-gray-600">Location</span>
-                <span class="font-medium">Customers</span>
+            <div class="flex justify-between text-xs font-bold text-stone-400 uppercase tracking-widest mb-4">
+                <span>Location</span>
+                <span>Customers</span>
             </div>
 
-            <div class="space-y-2">
+            <div class="space-y-4">
                 @php
                 $locations = [
                     ['United States', 3245],
@@ -153,9 +157,11 @@
                 @endphp
                 
                 @foreach($locations as $l)
-                <div class="flex justify-between items-center">
-                    <span class="text-sm text-gray-600">{{ $l[0] }}</span>
-                    <span class="text-sm font-medium">{{ $l[1] }}</span>
+                <div class="flex justify-between items-center p-3 bg-stone-50 rounded-xl border border-stone-100 hover:bg-white hover:shadow-sm transition-all duration-300">
+                    <span class="text-sm font-bold text-stone-700 flex items-center">
+                        <i class="fas fa-map-marker-alt text-stone-300 mr-2 text-xs"></i>{{ $l[0] }}
+                    </span>
+                    <span class="text-xs font-black text-stone-800 bg-white px-3 py-1 rounded-lg border border-stone-50 shadow-sm">{{ number_format($l[1]) }}</span>
                 </div>
                 @endforeach
             </div>
@@ -164,49 +170,48 @@
 </div>
 
 <!-- Top Customers Table - Tabulator -->
-<div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-    <div class="px-6 py-4 border-b border-gray-200">
-        <h3 class="text-lg font-semibold text-gray-800">Top Customers by Lifetime Value</h3>
+<div class="bg-white rounded-3xl shadow-sm border border-stone-100 overflow-hidden">
+    <div class="px-8 py-6 border-b border-stone-100 bg-stone-50/50">
+        <h3 class="text-xl font-bold text-stone-800">Top Customers by Lifetime Value</h3>
     </div>
 
-    <div class="p-6">
+    <div class="p-8">
         <!-- Tabulator Toolbar -->
-        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-4">
-            <div class="order-2 sm:order-1">
-                <div class="relative" style="width: 260px;">
-                    <input type="text" id="searchInput" placeholder="Search customers..."
-                        class="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent w-full">
-                    <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-6 mb-8">
+            <div class="order-2 sm:order-1 flex-1 max-w-lg">
+                <div class="relative">
+                    <input type="text" id="searchInput" placeholder="Search by name, email or location..."
+                        class="pl-11 pr-4 py-3 rounded-xl border border-stone-200 bg-stone-50 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all w-full font-medium">
+                    <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-stone-400"></i>
                 </div>
             </div>
-            <div class="flex flex-wrap gap-2 order-1 sm:order-2">
+            <div class="flex flex-wrap gap-3 order-1 sm:order-2">
                 <!-- Column Visibility Button -->
                 <button id="columnVisibilityBtn" class="btn-secondary">
-                    <i class="fas fa-columns mr-2"></i>Columns
+                    <i class="fas fa-columns mr-2 text-xs"></i>Columns
                 </button>
                 <!-- Export Dropdown -->
                 <div class="relative group">
                     <button id="exportBtn" class="btn-primary">
-                        <i class="fas fa-file-export mr-2"></i>Export
+                        <i class="fas fa-file-export mr-2 text-xs"></i>Export Data
                     </button>
-                    <div class="absolute mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50 hidden group-hover:block 
-               right-0 md:right-0 md:left-auto
-               left-0 md:left-auto">
+                    <div class="absolute mt-2 w-48 bg-white rounded-xl shadow-xl border border-stone-100 py-2 z-50 hidden group-hover:block 
+               right-0 animate-in fade-in slide-in-from-top-2 duration-200">
                         <button data-export="csv"
-                            class="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-indigo-600 text-sm">
-                            <i class="fas fa-file-csv mr-2"></i>CSV
+                            class="w-full text-left px-4 py-2 text-stone-600 hover:bg-sky-50 hover:text-sky-600 text-sm font-medium flex items-center transition-all">
+                            <i class="fas fa-file-csv mr-3 text-stone-400"></i>CSV Format
                         </button>
                         <button data-export="xlsx"
-                            class="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-indigo-600 text-sm">
-                            <i class="fas fa-file-excel mr-2"></i>Excel
+                            class="w-full text-left px-4 py-2 text-stone-600 hover:bg-sky-50 hover:text-sky-600 text-sm font-medium flex items-center transition-all">
+                            <i class="fas fa-file-excel mr-3 text-stone-400"></i>Excel Spreadsheet
                         </button>
                         <button data-export="pdf"
-                            class="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-indigo-600 text-sm">
-                            <i class="fas fa-file-pdf mr-2"></i>PDF
+                            class="w-full text-left px-4 py-2 text-stone-600 hover:bg-sky-50 hover:text-sky-600 text-sm font-medium flex items-center transition-all">
+                            <i class="fas fa-file-pdf mr-3 text-stone-400"></i>PDF Document
                         </button>
                         <button data-export="print"
-                            class="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-indigo-600 text-sm">
-                            <i class="fas fa-print mr-2"></i>Print
+                            class="w-full text-left px-4 py-2 text-stone-600 hover:bg-sky-50 hover:text-sky-600 text-sm font-medium flex items-center transition-all">
+                            <i class="fas fa-print mr-3 text-stone-400"></i>Print View
                         </button>
                     </div>
                 </div>
@@ -224,199 +229,64 @@
     // Static customer reports data
     window.customersReportData = [
         {
-            id: 1,
-            rank: 1,
-            name: "John Smith",
-            email: "john.smith@example.com",
-            total_orders: 15,
-            total_spent: 1875.50,
-            avg_order_value: 125.03,
+            id: 1, rank: 1, name: "John Smith", email: "john.smith@example.com",
+            total_orders: 15, total_spent: 1875.50, avg_order_value: 125.03,
             last_order: new Date(Date.now() - 2 * 86400000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-            customer_since: "Jan 15, 2022",
-            location: "New York, USA",
-            status: "active"
+            customer_since: "Jan 15, 2022", location: "New York, USA", status: "active"
         },
         {
-            id: 2,
-            rank: 2,
-            name: "Sarah Johnson",
-            email: "sarah.j@example.com",
-            total_orders: 12,
-            total_spent: 1420.00,
-            avg_order_value: 118.33,
+            id: 2, rank: 2, name: "Sarah Johnson", email: "sarah.j@example.com",
+            total_orders: 12, total_spent: 1420.00, avg_order_value: 118.33,
             last_order: new Date(Date.now() - 5 * 86400000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-            customer_since: "Mar 22, 2022",
-            location: "Los Angeles, USA",
-            status: "active"
+            customer_since: "Mar 22, 2022", location: "Los Angeles, USA", status: "active"
         },
         {
-            id: 3,
-            rank: 3,
-            name: "Michael Chen",
-            email: "michael.c@example.com",
-            total_orders: 10,
-            total_spent: 1250.75,
-            avg_order_value: 125.08,
+            id: 3, rank: 3, name: "Michael Chen", email: "michael.c@example.com",
+            total_orders: 10, total_spent: 1250.75, avg_order_value: 125.08,
             last_order: new Date(Date.now() - 1 * 86400000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-            customer_since: "Feb 10, 2022",
-            location: "Toronto, Canada",
-            status: "active"
+            customer_since: "Feb 10, 2022", location: "Toronto, Canada", status: "active"
         },
         {
-            id: 4,
-            rank: 4,
-            name: "Emma Wilson",
-            email: "emma.w@example.com",
-            total_orders: 9,
-            total_spent: 975.25,
-            avg_order_value: 108.36,
+            id: 4, rank: 4, name: "Emma Wilson", email: "emma.w@example.com",
+            total_orders: 9, total_spent: 975.25, avg_order_value: 108.36,
             last_order: new Date(Date.now() - 7 * 86400000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-            customer_since: "Apr 05, 2022",
-            location: "London, UK",
-            status: "active"
+            customer_since: "Apr 05, 2022", location: "London, UK", status: "active"
         },
         {
-            id: 5,
-            rank: 5,
-            name: "Robert Brown",
-            email: "robert.b@example.com",
-            total_orders: 8,
-            total_spent: 825.00,
-            avg_order_value: 103.13,
+            id: 5, rank: 5, name: "Robert Brown", email: "robert.b@example.com",
+            total_orders: 8, total_spent: 825.00, avg_order_value: 103.13,
             last_order: new Date(Date.now() - 14 * 86400000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-            customer_since: "May 18, 2022",
-            location: "Sydney, Australia",
-            status: "active"
+            customer_since: "May 18, 2022", location: "Sydney, Australia", status: "active"
         },
         {
-            id: 6,
-            rank: 6,
-            name: "Lisa Anderson",
-            email: "lisa.a@example.com",
-            total_orders: 7,
-            total_spent: 675.50,
-            avg_order_value: 96.50,
+            id: 6, rank: 6, name: "Lisa Anderson", email: "lisa.a@example.com",
+            total_orders: 7, total_spent: 675.50, avg_order_value: 96.50,
             last_order: new Date(Date.now() - 3 * 86400000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-            customer_since: "Jun 30, 2022",
-            location: "Chicago, USA",
-            status: "active"
+            customer_since: "Jun 30, 2022", location: "Chicago, USA", status: "active"
         },
         {
-            id: 7,
-            rank: 7,
-            name: "David Miller",
-            email: "david.m@example.com",
-            total_orders: 7,
-            total_spent: 625.25,
-            avg_order_value: 89.32,
+            id: 7, rank: 7, name: "David Miller", email: "david.m@example.com",
+            total_orders: 7, total_spent: 625.25, avg_order_value: 89.32,
             last_order: new Date(Date.now() - 10 * 86400000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-            customer_since: "Jul 12, 2022",
-            location: "Vancouver, Canada",
-            status: "active"
+            customer_since: "Jul 12, 2022", location: "Vancouver, Canada", status: "active"
         },
         {
-            id: 8,
-            rank: 8,
-            name: "Jennifer Lee",
-            email: "jennifer.l@example.com",
-            total_orders: 6,
-            total_spent: 550.00,
-            avg_order_value: 91.67,
+            id: 8, rank: 8, name: "Jennifer Lee", email: "jennifer.l@example.com",
+            total_orders: 6, total_spent: 550.00, avg_order_value: 91.67,
             last_order: new Date(Date.now() - 21 * 86400000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-            customer_since: "Aug 08, 2022",
-            location: "Manchester, UK",
-            status: "inactive"
+            customer_since: "Aug 08, 2022", location: "Manchester, UK", status: "inactive"
         },
         {
-            id: 9,
-            rank: 9,
-            name: "Thomas White",
-            email: "thomas.w@example.com",
-            total_orders: 5,
-            total_spent: 475.75,
-            avg_order_value: 95.15,
+            id: 9, rank: 9, name: "Thomas White", email: "thomas.w@example.com",
+            total_orders: 5, total_spent: 475.75, avg_order_value: 95.15,
             last_order: new Date(Date.now() - 28 * 86400000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-            customer_since: "Sep 25, 2022",
-            location: "Melbourne, Australia",
-            status: "active"
+            customer_since: "Sep 25, 2022", location: "Melbourne, Australia", status: "active"
         },
         {
-            id: 10,
-            rank: 10,
-            name: "Maria Garcia",
-            email: "maria.g@example.com",
-            total_orders: 5,
-            total_spent: 425.50,
-            avg_order_value: 85.10,
+            id: 10, rank: 10, name: "Maria Garcia", email: "maria.g@example.com",
+            total_orders: 5, total_spent: 425.50, avg_order_value: 85.10,
             last_order: new Date(Date.now() - 35 * 86400000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-            customer_since: "Oct 15, 2022",
-            location: "Miami, USA",
-            status: "active"
-        },
-        {
-            id: 11,
-            rank: 11,
-            name: "James Wilson",
-            email: "james.w@example.com",
-            total_orders: 4,
-            total_spent: 380.00,
-            avg_order_value: 95.00,
-            last_order: new Date(Date.now() - 42 * 86400000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-            customer_since: "Nov 05, 2022",
-            location: "Edinburgh, UK",
-            status: "active"
-        },
-        {
-            id: 12,
-            rank: 12,
-            name: "Patricia Taylor",
-            email: "patricia.t@example.com",
-            total_orders: 4,
-            total_spent: 350.25,
-            avg_order_value: 87.56,
-            last_order: new Date(Date.now() - 49 * 86400000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-            customer_since: "Dec 10, 2022",
-            location: "Brisbane, Australia",
-            status: "inactive"
-        },
-        {
-            id: 13,
-            rank: 13,
-            name: "Christopher Martinez",
-            email: "chris.m@example.com",
-            total_orders: 3,
-            total_spent: 300.00,
-            avg_order_value: 100.00,
-            last_order: new Date(Date.now() - 56 * 86400000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-            customer_since: "Jan 05, 2023",
-            location: "Calgary, Canada",
-            status: "active"
-        },
-        {
-            id: 14,
-            rank: 14,
-            name: "Linda Harris",
-            email: "linda.h@example.com",
-            total_orders: 3,
-            total_spent: 275.50,
-            avg_order_value: 91.83,
-            last_order: new Date(Date.now() - 63 * 86400000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-            customer_since: "Feb 14, 2023",
-            location: "Dublin, Ireland",
-            status: "active"
-        },
-        {
-            id: 15,
-            rank: 15,
-            name: "William Clark",
-            email: "william.c@example.com",
-            total_orders: 2,
-            total_spent: 225.00,
-            avg_order_value: 112.50,
-            last_order: new Date(Date.now() - 70 * 86400000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-            customer_since: "Mar 22, 2023",
-            location: "Auckland, New Zealand",
-            status: "active"
+            customer_since: "Oct 15, 2022", location: "Miami, USA", status: "active"
         }
     ];
 
@@ -432,519 +302,280 @@
         customersReportTable = new Tabulator("#customersReportTable", {
             data: customersReportData,
             layout: "fitColumns",
-            responsiveLayout: "hide",
+            responsiveLayout: "collapse",
             pagination: "local",
             paginationSize: 10,
             movableColumns: true,
+            headerSort: true,
             paginationSizeSelector: [10, 20, 50, 100],
             initialSort: [{ column: "rank", dir: "asc" }],
             columns: [
                 {
                     title: "Rank",
                     field: "rank",
-                    width: 80,
+                    width: 90,
                     sorter: "number",
                     hozAlign: "center",
-                    responsive: 0,
                     headerFilter: "input",
-                    headerFilterPlaceholder: "Rank…",
+                    headerFilterPlaceholder: " # ",
                     formatter: function (cell) {
                         const rank = cell.getValue();
-                        let rankClass = "bg-gray-100";
-                        if (rank === 1) rankClass = "bg-amber-100 text-amber-800";
-                        else if (rank === 2) rankClass = "bg-blue-100 text-blue-800";
-                        else if (rank === 3) rankClass = "bg-emerald-100 text-emerald-800";
+                        let badgeClass = "bg-stone-50 text-stone-500 border-stone-100";
+                        if (rank === 1) badgeClass = "bg-amber-50 text-amber-600 border-amber-100";
+                        else if (rank === 2) badgeClass = "bg-sky-50 text-sky-600 border-sky-100";
+                        else if (rank === 3) badgeClass = "bg-emerald-50 text-emerald-600 border-emerald-100";
 
-                        return `<span class="inline-flex items-center justify-center w-8 h-8 rounded-full font-semibold text-sm ${rankClass}">
+                        return `<span class="inline-flex items-center justify-center w-8 h-8 rounded-xl font-black text-[10px] border ${badgeClass}">
                         #${rank}
                     </span>`;
                     }
                 },
                 {
-                    title: "Customer",
+                    title: "Customer Intelligence",
                     field: "name",
                     sorter: "string",
-                    responsive: 0,
-                    width: 280,
+                    widthGrow: 2,
                     headerFilter: "input",
-                    headerFilterPlaceholder: "Search Customer…",
-                    formatter: function (cell, formatterParams, onRendered) {
-                        const rowData = cell.getRow().getData();
-                        const initials = rowData.name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+                    headerFilterPlaceholder: "Filter...",
+                    formatter: function (cell) {
+                        const data = cell.getRow().getData();
+                        const initials = data.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
                         return `
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 bg-gradient-to-br from-indigo-400 to-purple-500 rounded-full flex items-center justify-center text-white text-sm font-semibold">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-10 h-10 bg-stone-50 rounded-xl flex items-center justify-center text-stone-400 font-black text-xs border border-stone-100 shadow-sm">
                                 ${initials}
                             </div>
-                            <div class="min-w-0 flex-1">
-                                <p class="font-medium text-gray-900 truncate">${rowData.name}</p>
-                                <p class="text-sm text-gray-500 truncate">${rowData.email}</p>
-                                <p class="text-xs text-gray-400 truncate">${rowData.location}</p>
+                            <div class="min-w-0">
+                                <p class="font-black text-stone-800 text-sm tracking-tight truncate">${data.name}</p>
+                                <p class="text-[10px] font-bold text-stone-400 uppercase tracking-widest truncate">${data.email}</p>
                             </div>
                         </div>
                     `;
                     }
                 },
                 {
-                    title: "Total Orders",
+                    title: "Volume",
                     field: "total_orders",
                     width: 120,
                     sorter: "number",
                     hozAlign: "center",
-                    responsive: 0,
-                    headerFilter: "input",
-                    headerFilterPlaceholder: "Orders…",
                     formatter: function (cell) {
-                        const orders = cell.getValue();
-                        return `<div class="text-center">
-                        <span class="font-semibold text-gray-900">${orders}</span>
-                        <div class="text-xs text-gray-500">orders</div>
-                    </div>`;
+                        return `
+                            <div class="text-center">
+                                <span class="text-sm font-black text-stone-800">${cell.getValue()}</span>
+                                <p class="text-[9px] font-black text-stone-400 uppercase tracking-widest">Orders</p>
+                            </div>
+                        `;
                     }
                 },
                 {
-                    title: "Total Spent",
+                    title: "Lifetime Value",
                     field: "total_spent",
-                    width: 140,
-                    sorter: "number",
-                    hozAlign: "right",
-                    responsive: 0,
-                    formatter: function (cell) {
-                        const spent = cell.getValue();
-                        return `<div class="text-right">
-                        <span class="font-bold text-gray-900">$${spent.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
-                        <div class="text-xs text-gray-500">lifetime value</div>
-                    </div>`;
-                    }
-                },
-                {
-                    title: "Avg. Order Value",
-                    field: "avg_order_value",
                     width: 150,
                     sorter: "number",
                     hozAlign: "right",
-                    responsive: 0,
                     formatter: function (cell) {
-                        const aov = cell.getValue();
-                        return `<div class="text-right">
-                        <span class="font-semibold text-gray-900">$${aov.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
-                        <div class="text-xs text-gray-500">per order</div>
-                    </div>`;
+                        return `
+                            <div class="text-right">
+                                <span class="text-sm font-black text-emerald-500">$${cell.getValue().toLocaleString()}</span>
+                                <p class="text-[9px] font-black text-stone-400 uppercase tracking-widest">Spent</p>
+                            </div>
+                        `;
                     }
                 },
                 {
-                    title: "Last Order",
-                    field: "last_order",
-                    width: 130,
-                    sorter: "string",
-                    hozAlign: "center",
-                    responsive: 0,
-                    headerFilter: "input",
-                    headerFilterPlaceholder: "Date…",
+                    title: "Avg. Purchase",
+                    field: "avg_order_value",
+                    width: 140,
+                    sorter: "number",
+                    hozAlign: "right",
                     formatter: function (cell) {
-                        const date = cell.getValue();
-                        return `<div class="text-center">
-                        <span class="font-medium text-gray-900">${date}</span>
-                        <div class="text-xs text-gray-500">last purchase</div>
-                    </div>`;
+                        return `
+                            <div class="text-right">
+                                <span class="text-sm font-black text-stone-800">$${cell.getValue().toLocaleString()}</span>
+                                <p class="text-[9px] font-black text-stone-400 uppercase tracking-widest">per order</p>
+                            </div>
+                        `;
                     }
-                },
-                {
-                    title: "Customer Since",
-                    field: "customer_since",
-                    width: 130,
-                    sorter: "string",
-                    hozAlign: "center",
-                    responsive: 0,
-                    headerFilter: "input",
-                    headerFilterPlaceholder: "Date…"
                 },
                 {
                     title: "Status",
                     field: "status",
-                    width: 100,
-                    responsive: 0,
+                    width: 120,
                     hozAlign: "center",
                     headerFilter: "select",
-                    headerFilterParams: {
-                        values: {
-                            "": "All",
-                            "active": "Active",
-                            "inactive": "Inactive"
-                        }
-                    },
-                    mutatorData: function (value) {
-                        return value;
-                    },
+                    headerFilterParams: { values: { "": "All", "active": "Active", "inactive": "Inactive" } },
                     formatter: function (cell) {
                         const status = cell.getValue();
-                        const statusConfig = {
-                            'active': { class: 'bg-emerald-100 text-emerald-800', icon: 'fa-check-circle' },
-                            'inactive': { class: 'bg-rose-100 text-rose-800', icon: 'fa-times-circle' }
-                        };
-                        const config = statusConfig[status] || statusConfig['active'];
+                        const config = status === 'active' 
+                            ? { class: 'bg-emerald-50 text-emerald-600 border-emerald-100', icon: 'fa-check-circle' }
+                            : { class: 'bg-rose-50 text-rose-600 border-stone-100', icon: 'fa-times-circle' };
 
-                        return `<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${config.class}">
-                        <i class="fas ${config.icon} mr-1"></i>
-                        <span class="capitalize">${status}</span>
+                        return `<span class="inline-flex items-center px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest border ${config.class}">
+                        <i class="fas ${config.icon} mr-1.5"></i>
+                        ${status}
                     </span>`;
                     }
                 },
                 {
-                    title: "Actions",
+                    title: "Details",
                     field: "id",
                     width: 120,
                     hozAlign: "center",
-                    responsive: 0,
                     headerSort: false,
-                    formatter: function (cell, formatterParams, onRendered) {
-                        const id = cell.getValue();
+                    formatter: function (cell) {
                         return `
-                        <div class="flex justify-center">
-                            <button onclick="viewCustomer(${id})" 
-                                class="text-indigo-600 hover:text-indigo-900 text-sm font-medium px-3 py-1 bg-indigo-50 hover:bg-indigo-100 rounded-lg transition-colors">
-                                View Details
+                            <button onclick="viewCustomer(${cell.getValue()})" 
+                                class="w-9 h-9 flex items-center justify-center bg-sky-50 text-sky-600 rounded-xl hover:bg-sky-100 transition-all hover:scale-110 shadow-sm border border-sky-100">
+                                <i class="fas fa-external-link-alt text-xs"></i>
                             </button>
-                        </div>
-                    `;
+                        `;
                     }
                 }
             ],
-            rowFormatter: function (row) {
-                const rowEl = row.getElement();
-                rowEl.classList.add('hover:bg-gray-50');
-            }
+            footerElement: "<div class='text-stone-400 font-bold uppercase tracking-widest text-[10px] px-4'>Customer Intelligence Analysis</div>"
         });
-
-        window.customersReportTable = customersReportTable;
 
         customersReportTable.on("tableBuilt", () => {
             initSearch();
             initExport();
             initColumnVisibility();
             initPeriodFilter();
-            fixTabulatorLayout();
         });
 
     });
 
-    // ============================
-    // SEARCH FUNCTIONALITY
-    // ============================
     function initSearch() {
         const searchInput = document.getElementById('searchInput');
-
         searchInput.addEventListener('keyup', function () {
             customersReportTable.setFilter([
-                [
-                    { field: "name", type: "like", value: this.value },
-                    { field: "email", type: "like", value: this.value },
-                    { field: "location", type: "like", value: this.value },
-                    { field: "id", type: "like", value: this.value }
-                ]
+                [{ field: "name", type: "like", value: this.value },
+                 { field: "email", type: "like", value: this.value },
+                 { field: "location", type: "like", value: this.value }]
             ]);
         });
     }
 
-    // ============================
-    // COLUMN VISIBILITY
-    // ============================
     function initColumnVisibility() {
         const columnVisibilityBtn = document.getElementById('columnVisibilityBtn');
         const columnMenu = document.createElement('div');
-        columnMenu.className =
-            'absolute mt-12 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50 hidden ' +
-            'right-12 md:right-24 md:left-auto left-0';
+        columnMenu.className = 'absolute mt-12 w-48 bg-white rounded-xl shadow-xl border border-stone-100 py-2 z-50 hidden right-12 animate-in fade-in slide-in-from-top-2 duration-200';
 
         const columns = customersReportTable.getColumnDefinitions();
-
-        columns.forEach((column, index) => {
-            if (column.field === "id") return; // skip actions column
-
+        columns.forEach(column => {
+            if (["id"].includes(column.field)) return;
             const field = column.field;
-
             const columnBtn = document.createElement('button');
-            columnBtn.className =
-                'w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 text-sm flex items-center';
+            columnBtn.className = 'w-full text-left px-4 py-2 text-stone-600 hover:bg-sky-50 hover:text-sky-600 text-sm font-medium flex items-center transition-all';
             columnBtn.innerHTML = `
-            <input type="checkbox" class="mr-2" ${customersReportTable.getColumn(field).isVisible() ? 'checked' : ''}>
-            ${column.title}
-        `;
-
-            columnBtn.addEventListener('click', function (e) {
-                e.stopPropagation();
-                e.preventDefault();
-
+                <input type="checkbox" class="mr-3 rounded border-stone-300 text-sky-500 focus:ring-sky-500 h-4 w-4" ${customersReportTable.getColumn(field).isVisible() ? 'checked' : ''}>
+                ${column.title}
+            `;
+            columnBtn.addEventListener('click', (e) => {
+                e.preventDefault(); e.stopPropagation();
                 const col = customersReportTable.getColumn(field);
-                const checkbox = this.querySelector('input');
-
                 col.toggle();
-
-                setTimeout(() => {
-                    checkbox.checked = col.isVisible();
-                }, 10);
+                columnBtn.querySelector('input').checked = col.isVisible();
             });
-
             columnMenu.appendChild(columnBtn);
         });
 
-        // Toggle menu open/close
-        columnVisibilityBtn.addEventListener('click', function (e) {
-            e.stopPropagation();
-            columnMenu.classList.toggle('hidden');
-        });
-
-        // Close menu when clicking outside
-        document.addEventListener('click', function (e) {
-            if (!columnMenu.contains(e.target) && e.target !== columnVisibilityBtn) {
-                columnMenu.classList.add('hidden');
-            }
-        });
-
+        columnVisibilityBtn.addEventListener('click', (e) => { e.stopPropagation(); columnMenu.classList.toggle('hidden'); });
+        document.addEventListener('click', () => columnMenu.classList.add('hidden'));
         columnVisibilityBtn.parentElement.appendChild(columnMenu);
     }
 
-    // ============================
-    // EXPORT FUNCTIONALITY
-    // ============================
     function initExport() {
         const exportBtns = document.querySelectorAll('[data-export]');
-
         exportBtns.forEach(btn => {
             btn.addEventListener('click', function () {
                 const format = this.getAttribute('data-export');
-
-                switch (format) {
-                    case 'csv':
-                        customersReportTable.download("csv", "customer_report.csv");
-                        break;
-                    case 'xlsx':
-                        customersReportTable.download("xlsx", "customer_report.xlsx", { sheetName: "Top Customers" });
-                        break;
-                    case 'pdf':
-                        toastr.info("PDF export would require additional configuration");
-                        break;
-                    case 'print':
-                        window.print();
-                        break;
-                }
+                if (format === 'csv') customersReportTable.download("csv", "customer_intelligence.csv");
+                else if (format === 'xlsx') customersReportTable.download("xlsx", "customer_intelligence.xlsx", { sheetName: "Intelligence" });
+                else if (format === 'print') window.print();
             });
         });
 
-        // Main export button
-        document.getElementById('exportReportBtn').addEventListener('click', function () {
+        document.getElementById('exportReportBtn').addEventListener('click', () => {
             Swal.fire({
-                title: 'Export Report',
+                title: 'Customer Data Export',
+                width: 500,
                 html: `
-                <div class="text-left space-y-3">
-                    <p class="text-gray-600">Select report format:</p>
-                    <div class="grid grid-cols-2 gap-3">
-                        <button onclick="exportCustomerReport('full_excel')" class="p-3 border border-gray-300 rounded-lg hover:bg-gray-50 text-left">
-                            <i class="fas fa-file-excel text-emerald-600 text-lg mb-1"></i>
-                            <p class="font-medium">Full Excel Report</p>
-                            <p class="text-xs text-gray-500">All data with charts</p>
+                    <div class="grid grid-cols-2 gap-4 p-2">
+                        <button onclick="exportCustomerReport('excel')" class="flex flex-col items-center p-6 bg-stone-50 border border-stone-100 rounded-2xl hover:bg-white hover:shadow-md transition-all group">
+                            <i class="fas fa-file-excel text-emerald-500 text-3xl mb-3 group-hover:scale-110 transition-transform"></i>
+                            <span class="font-black text-stone-800 text-xs uppercase tracking-widest text-center leading-tight">Full Excel<br>Report</span>
                         </button>
-                        <button onclick="exportCustomerReport('summary_pdf')" class="p-3 border border-gray-300 rounded-lg hover:bg-gray-50 text-left">
-                            <i class="fas fa-file-pdf text-rose-600 text-lg mb-1"></i>
-                            <p class="font-medium">Summary PDF</p>
-                            <p class="text-xs text-gray-500">Key metrics & insights</p>
+                        <button onclick="exportCustomerReport('pdf')" class="flex flex-col items-center p-6 bg-stone-50 border border-stone-100 rounded-2xl hover:bg-white hover:shadow-md transition-all group">
+                            <i class="fas fa-file-pdf text-rose-500 text-3xl mb-3 group-hover:scale-110 transition-transform"></i>
+                            <span class="font-black text-stone-800 text-xs uppercase tracking-widest text-center leading-tight">Executive PDF<br>Summary</span>
                         </button>
                     </div>
-                </div>
-            `,
-                showConfirmButton: false,
-                showCancelButton: true,
-                cancelButtonText: 'Cancel'
+                `,
+                showConfirmButton: false, showCancelButton: true,
+                customClass: { popup: 'rounded-3xl' }
             });
         });
     }
 
-    // ============================
-    // PERIOD FILTER
-    // ============================
     function initPeriodFilter() {
-        const periodFilter = document.getElementById('periodFilter');
-
-        periodFilter.addEventListener('change', function () {
-            const period = this.value;
-
-            // Show loading
-            toastr.info(`Loading data for ${period === '30' ? 'Last 30 Days' : period === '90' ? 'Last 90 Days' : period === '365' ? 'This Year' : 'All Time'}...`);
-
-            // Simulate API call
-            setTimeout(() => {
-                // In a real app, you would fetch new data based on the period
-                updateMetricsBasedOnPeriod(period);
-                toastr.success('Customer data updated!');
-            }, 500);
+        document.getElementById('periodFilter').addEventListener('change', function () {
+            toastr.info(`Syncing data for: ${this.options[this.selectedIndex].text}...`);
+            setTimeout(() => { toastr.success('Customer intelligence updated!'); }, 800);
         });
     }
 
-    // ============================
-    // METRICS FUNCTIONS
-    // ============================
     function updateMetrics() {
-        const totalCustomers = window.customersReportData.length;
-        const newCustomers = window.customersReportData.filter(c => {
-            const customerSince = new Date(c.customer_since);
-            const ninetyDaysAgo = new Date(Date.now() - 90 * 86400000);
-            return customerSince > ninetyDaysAgo;
-        }).length;
-
-        const totalSpent = window.customersReportData.reduce((sum, customer) => sum + customer.total_spent, 0);
-        const avgOrderValue = totalSpent / window.customersReportData.reduce((sum, customer) => sum + customer.total_orders, 0);
-        const repeatCustomers = window.customersReportData.filter(c => c.total_orders > 1).length;
-        const repeatRate = (repeatCustomers / totalCustomers * 100).toFixed(1);
-
-        document.getElementById('totalCustomers').textContent = totalCustomers.toLocaleString();
-        document.getElementById('newCustomers').textContent = newCustomers.toLocaleString();
-        document.getElementById('avgOrderValue').textContent = `$${avgOrderValue.toFixed(2)}`;
-        document.getElementById('repeatRate').textContent = `${repeatRate}%`;
-    }
-
-    function updateMetricsBasedOnPeriod(period) {
-        // Simulate different metrics based on period
-        const variations = {
-            '30': { total: 5423, new: 248, aov: 89.50, repeat: 42 },
-            '90': { total: 7321, new: 589, aov: 92.75, repeat: 45 },
-            '365': { total: 12458, new: 2150, aov: 95.20, repeat: 48 },
-            'all': { total: 18542, new: 5423, aov: 88.90, repeat: 52 }
-        };
-
-        const data = variations[period] || variations['90'];
-
-        document.getElementById('totalCustomers').textContent = data.total.toLocaleString();
-        document.getElementById('newCustomers').textContent = data.new.toLocaleString();
-        document.getElementById('avgOrderValue').textContent = `$${data.aov.toFixed(2)}`;
-        document.getElementById('repeatRate').textContent = `${data.repeat}%`;
-    }
-
-    // ============================
-    // EXPORT CUSTOMER REPORT
-    // ============================
-    function exportCustomerReport(type) {
-        Swal.fire({
-            title: 'Generating Report...',
-            text: 'Please wait while we prepare your customer report.',
-            allowOutsideClick: false,
-            allowEscapeKey: false,
-            showConfirmButton: false,
-            didOpen: () => {
-                Swal.showLoading();
-            }
-        });
-
-        setTimeout(() => {
-            Swal.close();
-            if (type === 'full_excel') {
-                customersReportTable.download("xlsx", "customer_analytics_report.xlsx", { sheetName: "Customer Analytics" });
-            } else {
-                toastr.success('PDF report would be generated here (requires additional configuration)');
-            }
-        }, 1500);
-    }
-
-    // ============================
-    // VIEW CUSTOMER DETAILS (Updated for Tabulator)
-    // ============================
-    function viewCustomer(id) {
-        const customer = window.customersReportData.find(c => c.id === id);
-
-        if (!customer) return;
-
-        Swal.fire({
-            title: "Customer Details",
-            width: 500,
-            html: `
-            <div class="text-left space-y-4">
-                <div class="flex items-center gap-4">
-                    <div class="w-16 h-16 rounded-full bg-gradient-to-r from-indigo-400 to-purple-500 flex items-center justify-center text-white text-xl font-bold">
-                        ${customer.name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2)}
-                    </div>
-
-                    <div>
-                        <p class="font-semibold text-gray-900">${customer.name}</p>
-                        <p class="text-sm text-gray-500">${customer.email}</p>
-                        <p class="text-xs text-gray-400">${customer.location}</p>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-2 gap-4 text-sm">
-                    <div><strong>Rank:</strong></div>
-                    <div>
-                        <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${customer.rank === 1 ? 'bg-amber-100 text-amber-800' :
-                    customer.rank === 2 ? 'bg-blue-100 text-blue-800' :
-                        customer.rank === 3 ? 'bg-emerald-100 text-emerald-800' :
-                            'bg-gray-100 text-gray-800'
-                }">
-                            #${customer.rank}
-                        </span>
-                    </div>
-                    
-                    <div><strong>Total Orders:</strong></div><div>${customer.total_orders}</div>
-                    <div><strong>Total Spent:</strong></div><div>$${customer.total_spent.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
-                    <div><strong>AOV:</strong></div><div>$${customer.avg_order_value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
-                    <div><strong>Last Order:</strong></div><div>${customer.last_order}</div>
-                    <div><strong>Member Since:</strong></div><div>${customer.customer_since}</div>
-
-                    <div><strong>Status:</strong></div>
-                    <div>
-                        ${customer.status === 'active'
-                    ? '<span class="status-badge status-active">Active</span>'
-                    : '<span class="status-badge status-inactive">Inactive</span>'
-                }
-                    </div>
-                </div>
-
-                <div class="border-t pt-4">
-                    <h4 class="font-medium text-gray-800 mb-2">Purchase History (Last 6 Months)</h4>
-                    <div class="h-32 bg-gray-50 rounded-lg flex items-center justify-center">
-                        <p class="text-gray-400 text-sm">Purchase history chart placeholder</p>
-                    </div>
-                </div>
-            </div>
-        `,
-            confirmButtonText: "Close",
-        });
+        // Mock updates
+        toastr.info("Synchronizing customer metrics...");
     }
 
     function initCustomerGrowthChart() {
-    const ctx = document.getElementById('customerGrowthChart').getContext('2d');
-
-    const labels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"];
-    const newCustomers = [120, 150, 180, 220, 210, 248];
-
-    new Chart(ctx, {
-        type: "line",
-        data: {
-            labels: labels,
-            datasets: [{
-                label: "New Customers",
-                data: newCustomers,
-                borderWidth: 2,
-                borderColor: "rgba(99, 102, 241, 1)", // Indigo
-                backgroundColor: "rgba(99, 102, 241, 0.2)",
-                fill: true,
-                tension: 0.4
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: { legend: { display: false }},
-            scales: {
-                y: { beginAtZero: true },
-                x: { grid: { display: false }}
+        const ctx = document.getElementById('customerGrowthChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Direct Growth',
+                    data: [4200, 4800, 5100, 4900, 5300, 5423],
+                    borderColor: '#0ea5e9', backgroundColor: 'rgba(14, 165, 233, 0.1)',
+                    borderWidth: 3, fill: true, tension: 0.4,
+                    pointBackgroundColor: '#fff', pointBorderColor: '#0ea5e9', pointRadius: 4
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { grid: { color: '#f5f5f4', drawBorder: false }, ticks: { font: { size: 10, weight: 'bold' }, color: '#a8a29e' } },
+                    x: { grid: { display: false }, ticks: { font: { size: 10, weight: 'bold' }, color: '#a8a29e' } }
+                }
             }
-        }
-    });
-}
+        });
+    }
 
-    // Fix layout function
-    function fixTabulatorLayout() {
-        if (customersReportTable) {
-            customersReportTable.redraw(true);
-        }
+    function exportCustomerReport(type) {
+        Swal.fire({
+            title: 'Generating Report', html: '<div class="text-stone-400 font-medium mt-2">Compiling demographics & purchase history...</div>',
+            allowOutsideClick: false, timer: 1500, didOpen: () => { Swal.showLoading(); Swal.getPopup().classList.add('rounded-3xl'); }
+        }).then(() => {
+            toastr.success(`Customer ${type.toUpperCase()} report generated!`);
+        });
     }
 </script>
+
+<style>
+/* Tabulator Theme Customization */
+.tabulator { border: none !important; background: transparent !important; }
+.tabulator-header { background-color: #f5f5f4 !important; border-bottom: 2px solid #e7e5e4 !important; border-top: none !important; }
+.tabulator-col { background-color: #f5f5f4 !important; border-right: none !important; padding: 12px 4px !important; }
+.tabulator-col-title { color: #78716c !important; font-size: 10px !important; font-weight: 800 !important; text-transform: uppercase !important; letter-spacing: 0.1em !important; }
+.tabulator-row { border-bottom: 1px solid #f5f5f4 !important; transition: all 0.2s !important; }
+.tabulator-row:hover { background-color: #f0f9ff !important; }
+.tabulator-cell { padding: 16px 8px !important; color: #44403c !important; border-right: none !important; }
+.tabulator-footer { background-color: white !important; border-top: 1px solid #e7e5e4 !important; padding: 15px !important; }
+.tabulator-page { border-radius: 8px !important; border: 1px solid #e7e5e4 !important; padding: 5px 10px !important; margin: 0 2px !important; font-weight: bold !important; font-size: 11px !important; color: #78716c !important; }
+.tabulator-page.active { background-color: #0ea5e9 !important; border-color: #0ea5e9 !important; color: white !important; }
+</style>
 @endpush

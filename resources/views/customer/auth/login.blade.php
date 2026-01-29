@@ -57,7 +57,7 @@
         <div class="lg:hidden mt-6 mb-8 text-center">
             <div class="max-w-6xl mx-auto px-4 py-0 md:py-12 lg:py-16">
                 <h1 class="text-3xl font-bold text-stone-900 mb-2">Welcome Back</h1>
-                <p class="text-stone-600">Sign in to continue your skincare journey</p>
+                <p class="text-stone-600">Login to continue your skincare journey</p>
             </div>
         </div>
 
@@ -233,112 +233,115 @@
                 </form>
             </div>
 
-            <!-- Right Side - Marketing Section -->
+            <!-- Right Side - Benefits Section -->
             <div class="hidden lg:flex flex-col gap-6">
-                <!-- Main Marketing Card -->
+                <!-- Main Benefits Card -->
                 <div class="bg-white rounded-3xl p-8 shadow-2xl shadow-stone-200/50 border border-stone-100 relative overflow-hidden">
                     <span class="inline-block px-3 py-1 bg-sky-100 text-sky-700 text-xs font-semibold tracking-wide rounded-full mb-4">
-                        EXCLUSIVE ACCESS
+                        MEMBER BENEFITS
                     </span>
-                    <h2 class="text-2xl font-bold text-stone-900 mb-2">Unlock Calmer, Glowing Skin</h2>
+                    <h2 class="text-2xl font-bold text-stone-900 mb-2">Why Join Dr. Kinjal?</h2>
                     <p class="text-stone-600 mb-6">
-                        Join the Dr. Kinjal community to get dermatologist-led routines, early access to new launches and clinic-inspired tips.
+                        Become part of our community and unlock exclusive skincare benefits tailored just for you.
                     </p>
                     
-                    <!-- Product Preview -->
-                    <div class="bg-stone-50/50 p-4 rounded-2xl mb-6">
-                        <div class="flex items-center gap-4">
-                            <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
-                                 class="w-16 h-16 rounded-xl object-cover"
-                                 alt="Featured Product">
+                    <!-- Benefits List -->
+                    <div class="space-y-4 mb-6">
+                        <div class="flex items-start gap-3">
+                            <div class="rounded-full bg-sky-100 p-2 mt-0.5">
+                                <i data-lucide="star" class="w-4 h-4 text-sky-600"></i>
+                            </div>
                             <div>
-                                <h3 class="font-semibold text-stone-900">C-Glow Serum</h3>
-                                <p class="text-sm text-stone-500">Brightening & Anti-Pigmentation</p>
-                                <div class="flex items-center gap-2 mt-1">
-                                    <span class="text-sky-600 font-bold">₹24</span>
-                                    <div class="flex gap-1">
-                                        <div class="w-2 h-2 rounded-full bg-yellow-400"></div>
-                                        <div class="w-2 h-2 rounded-full bg-orange-400"></div>
-                                    </div>
-                                </div>
+                                <h3 class="font-semibold text-stone-900">Personalized Routines</h3>
+                                <p class="text-sm text-stone-600">Get skincare recommendations tailored to your skin type and concerns.</p>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Stats -->
-                    <div class="grid grid-cols-3 gap-4">
-                        <div class="text-center">
-                            <div class="text-xl font-bold text-sky-600">2k+</div>
-                            <div class="text-xs text-stone-500">Happy Customers</div>
+                        <div class="flex items-start gap-3">
+                            <div class="rounded-full bg-sky-100 p-2 mt-0.5">
+                                <i data-lucide="gift" class="w-4 h-4 text-sky-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-stone-900">Exclusive Rewards</h3>
+                                <p class="text-sm text-stone-600">Earn points on every purchase and get access to member-only sales.</p>
+                            </div>
                         </div>
-                        <div class="text-center">
-                            <div class="text-xl font-bold text-sky-600">94%</div>
-                            <div class="text-xs text-stone-500">Visible Results</div>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-xl font-bold text-sky-600">100%</div>
-                            <div class="text-xs text-stone-500">Clean</div>
+                        <div class="flex items-start gap-3">
+                            <div class="rounded-full bg-sky-100 p-2 mt-0.5">
+                                <i data-lucide="clock" class="w-4 h-4 text-sky-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-stone-900">Early Access</h3>
+                                <p class="text-sm text-stone-600">Be the first to try new products before they launch to the public.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Mini Cards -->
-                {{-- <div class="grid grid-cols-2 gap-4">
+                <!-- Community Stats -->
+                <div class="grid grid-cols-2 gap-4">
                     <div class="bg-gradient-to-br from-orange-50 to-orange-100 rounded-2xl p-6 border border-orange-200">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h3 class="font-semibold text-stone-900">Face Wash</h3>
-                                <p class="text-xs text-stone-600 mt-1">Gentle & Hydrating</p>
+                        <div class="flex items-center gap-4">
+                            <div class="flex -space-x-3">
+                                <div class="w-10 h-10 rounded-full border-2 border-white bg-gradient-to-br from-sky-400 to-cyan-400 flex items-center justify-center text-white font-bold">DK</div>
+                                <div class="w-10 h-10 rounded-full border-2 border-white bg-gradient-to-br from-rose-400 to-pink-400 flex items-center justify-center text-white font-bold">MB</div>
+                                <div class="w-10 h-10 rounded-full border-2 border-white bg-stone-100 flex items-center justify-center text-xs font-semibold text-stone-600">+5k</div>
                             </div>
-                            <div class="bg-white p-2 rounded-full">
-                                <i data-lucide="arrow-right" class="w-4 h-4 text-stone-900"></i>
+                            <div>
+                                <div class="text-xl font-bold text-stone-900">2.5k+</div>
+                                <div class="text-xs text-stone-600">Happy Members</div>
                             </div>
                         </div>
                     </div>
+                    
                     <div class="bg-gradient-to-br from-rose-50 to-rose-100 rounded-2xl p-6 border border-rose-200">
                         <div class="flex justify-between items-start">
                             <div>
-                                <h3 class="font-semibold text-stone-900">Lip Balm</h3>
-                                <p class="text-xs text-stone-600 mt-1">Barrier-Friendly</p>
-                            </div>
-                            <div class="bg-white p-2 rounded-full">
-                                <i data-lucide="arrow-right" class="w-4 h-4 text-stone-900"></i>
+                                <div class="flex gap-1 mb-2">
+                                    <i data-lucide="star" class="w-4 h-4 text-amber-500 fill-amber-500"></i>
+                                    <i data-lucide="star" class="w-4 h-4 text-amber-500 fill-amber-500"></i>
+                                    <i data-lucide="star" class="w-4 h-4 text-amber-500 fill-amber-500"></i>
+                                    <i data-lucide="star" class="w-4 h-4 text-amber-500 fill-amber-500"></i>
+                                    <i data-lucide="star" class="w-4 h-4 text-amber-500 fill-amber-500"></i>
+                                </div>
+                                <p class="text-xs text-stone-600 italic">"The personalized routine changed my skin completely!"</p>
+                                <p class="text-xs text-stone-500 mt-2 font-medium">- Sarah M.</p>
                             </div>
                         </div>
                     </div>
-                </div> --}}
+                </div>
             </div>
 
-            <!-- Mobile Marketing Section -->
+            <!-- Mobile Benefits Section -->
             <div class="lg:hidden mt-8">
                 <div class="bg-white rounded-3xl p-6 shadow-xl shadow-stone-200/50 border border-stone-100">
-                    <h3 class="font-bold text-lg text-stone-900 mb-3">Why Join Dr. Kinjal?</h3>
+                    <h3 class="font-bold text-lg text-stone-900 mb-3">Login Benefits</h3>
+                       
                     <div class="space-y-3">
                         <div class="flex items-start gap-3">
                             <div class="rounded-full bg-sky-100 p-2 mt-0.5">
                                 <i data-lucide="star" class="w-4 h-4 text-sky-600"></i>
                             </div>
                             <div>
-                                <h4 class="font-medium text-stone-900">Personalized Routines</h4>
-                                <p class="text-sm text-stone-600">Get skincare advice tailored to your skin type</p>
+                                <h4 class="font-medium text-stone-900">Personalized Skincare</h4>
+                                <p class="text-sm text-stone-600">Routines tailored to your skin type</p>
                             </div>
                         </div>
                         <div class="flex items-start gap-3">
                             <div class="rounded-full bg-sky-100 p-2 mt-0.5">
-                                <i data-lucide="shield" class="w-4 h-4 text-sky-600"></i>
+                                <i data-lucide="gift" class="w-4 h-4 text-sky-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-stone-900">Exclusive Rewards</h4>
+                                <p class="text-sm text-stone-600">Member-only sales & early access</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="rounded-full bg-sky-100 p-2 mt-0.5">
+                                <i data-lucide="shield-check" class="w-4 h-4 text-sky-600"></i>
                             </div>
                             <div>
                                 <h4 class="font-medium text-stone-900">Dermatologist Approved</h4>
-                                <p class="text-sm text-stone-600">All products are clinically tested and approved</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-3">
-                            <div class="rounded-full bg-sky-100 p-2 mt-0.5">
-                                <i data-lucide="leaf" class="w-4 h-4 text-sky-600"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-medium text-stone-900">Clean & Sustainable</h4>
-                                <p class="text-sm text-stone-600">100% cruelty-free formulas</p>
+                                <p class="text-sm text-stone-600">Clinically tested products</p>
                             </div>
                         </div>
                     </div>

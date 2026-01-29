@@ -6,13 +6,13 @@
 <div class="mb-8">
     <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <div>
-            <h2 class="text-2xl font-bold text-gray-800 mb-1">Sales Reports</h2>
-            <p class="text-gray-600">Analyze your sales performance and trends</p>
+            <h2 class="text-2xl font-bold text-stone-800 mb-2">Sales Reports</h2>
+            <p class="text-stone-500 font-medium">Analyze your sales performance and trends</p>
         </div>
 
         <div class="flex flex-wrap gap-3">
             <select id="periodFilter" onchange="updateSalesData()"
-                class="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                class="bg-white border border-stone-200 rounded-xl px-4 py-2 text-sm font-bold text-stone-700 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all shadow-sm">
                 <option value="7">Last 7 Days</option>
                 <option value="30" selected>Last 30 Days</option>
                 <option value="90">Last 90 Days</option>
@@ -20,7 +20,7 @@
             </select>
 
             <button onclick="exportSalesReport()" class="btn-primary">
-                <i class="fas fa-download mr-2"></i>Export Report
+                <i class="fas fa-file-export mr-2 text-xs"></i>Export Report
             </button>
         </div>
     </div>
@@ -29,65 +29,65 @@
 <!-- Sales Overview Cards -->
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
     <!-- Total Revenue -->
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 card-hover">
-        <div class="flex justify-between items-center">
+    <div class="bg-white rounded-3xl shadow-sm border border-stone-100 p-8 hover:shadow-md transition-all duration-300 group">
+        <div class="flex justify-between items-start">
             <div>
-                <p class="text-sm text-gray-600">Total Revenue</p>
-                <p class="text-2xl font-bold text-gray-900 mt-1" id="totalRevenue">$24,568</p>
-                <p class="text-sm text-emerald-600 mt-1">
-                    <i class="fas fa-arrow-up mr-1"></i><span id="revenueChange">12.5%</span> increase
-                </p>
+                <p class="text-sm font-bold text-stone-400 uppercase tracking-widest mb-1">Total Revenue</p>
+                <p class="text-3xl font-black text-stone-800" id="totalRevenue">$24,568</p>
+                <div class="flex items-center mt-3 text-emerald-500 font-bold text-xs bg-emerald-50 px-2 py-1 rounded-lg w-fit">
+                    <i class="fas fa-arrow-up mr-1.5"></i><span id="revenueChange">12.5%</span>
+                </div>
             </div>
-            <div class="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
-                <i class="fas fa-dollar-sign text-emerald-600 text-lg"></i>
+            <div class="w-14 h-14 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-600 group-hover:scale-110 transition-transform duration-300">
+                <i class="fas fa-dollar-sign text-2xl"></i>
             </div>
         </div>
     </div>
 
     <!-- Total Orders -->
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 card-hover">
-        <div class="flex justify-between items-center">
+    <div class="bg-white rounded-3xl shadow-sm border border-stone-100 p-8 hover:shadow-md transition-all duration-300 group">
+        <div class="flex justify-between items-start">
             <div>
-                <p class="text-sm text-gray-600">Total Orders</p>
-                <p class="text-2xl font-bold text-gray-900 mt-1" id="totalOrders">1,248</p>
-                <p class="text-sm text-emerald-600 mt-1">
-                    <i class="fas fa-arrow-up mr-1"></i><span id="ordersChange">8.2%</span> increase
-                </p>
+                <p class="text-sm font-bold text-stone-400 uppercase tracking-widest mb-1">Total Orders</p>
+                <p class="text-3xl font-black text-stone-800" id="totalOrders">1,248</p>
+                <div class="flex items-center mt-3 text-emerald-500 font-bold text-xs bg-emerald-50 px-2 py-1 rounded-lg w-fit">
+                    <i class="fas fa-arrow-up mr-1.5"></i><span id="ordersChange">8.2%</span>
+                </div>
             </div>
-            <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                <i class="fas fa-shopping-cart text-blue-600 text-lg"></i>
+            <div class="w-14 h-14 rounded-2xl bg-sky-50 flex items-center justify-center text-sky-600 group-hover:scale-110 transition-transform duration-300">
+                <i class="fas fa-shopping-cart text-2xl"></i>
             </div>
         </div>
     </div>
 
     <!-- Average Order Value -->
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 card-hover">
-        <div class="flex justify-between items-center">
+    <div class="bg-white rounded-3xl shadow-sm border border-stone-100 p-8 hover:shadow-md transition-all duration-300 group">
+        <div class="flex justify-between items-start">
             <div>
-                <p class="text-sm text-gray-600">Average Order Value</p>
-                <p class="text-2xl font-bold text-gray-900 mt-1" id="avgOrderValue">$89.50</p>
-                <p class="text-sm text-emerald-600 mt-1">
-                    <i class="fas fa-arrow-up mr-1"></i><span id="avgOrderChange">5.3%</span> increase
-                </p>
+                <p class="text-sm font-bold text-stone-400 uppercase tracking-widest mb-1">Avg. Order Value</p>
+                <p class="text-3xl font-black text-stone-800" id="avgOrderValue">$89.50</p>
+                <div class="flex items-center mt-3 text-emerald-500 font-bold text-xs bg-emerald-50 px-2 py-1 rounded-lg w-fit">
+                    <i class="fas fa-arrow-up mr-1.5"></i><span id="avgOrderChange">5.3%</span>
+                </div>
             </div>
-            <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
-                <i class="fas fa-chart-line text-purple-600 text-lg"></i>
+            <div class="w-14 h-14 rounded-2xl bg-purple-50 flex items-center justify-center text-purple-600 group-hover:scale-110 transition-transform duration-300">
+                <i class="fas fa-chart-line text-2xl"></i>
             </div>
         </div>
     </div>
 
     <!-- Conversion Rate -->
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 card-hover">
-        <div class="flex justify-between items-center">
+    <div class="bg-white rounded-3xl shadow-sm border border-stone-100 p-8 hover:shadow-md transition-all duration-300 group">
+        <div class="flex justify-between items-start">
             <div>
-                <p class="text-sm text-gray-600">Conversion Rate</p>
-                <p class="text-2xl font-bold text-gray-900 mt-1" id="conversionRate">3.2%</p>
-                <p class="text-sm text-rose-600 mt-1">
-                    <i class="fas fa-arrow-down mr-1"></i><span id="conversionChange">0.8%</span> decrease
-                </p>
+                <p class="text-sm font-bold text-stone-400 uppercase tracking-widest mb-1">Conversion Rate</p>
+                <p class="text-3xl font-black text-stone-800" id="conversionRate">3.2%</p>
+                <div class="flex items-center mt-3 text-rose-500 font-bold text-xs bg-rose-50 px-2 py-1 rounded-lg w-fit">
+                    <i class="fas fa-arrow-down mr-1.5"></i><span id="conversionChange">0.8%</span>
+                </div>
             </div>
-            <div class="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center">
-                <i class="fas fa-percentage text-amber-600 text-lg"></i>
+            <div class="w-14 h-14 rounded-2xl bg-amber-50 flex items-center justify-center text-amber-600 group-hover:scale-110 transition-transform duration-300">
+                <i class="fas fa-percentage text-2xl"></i>
             </div>
         </div>
     </div>
@@ -96,26 +96,26 @@
 <!-- Charts + Top Products -->
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
     <!-- Revenue Chart -->
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-        <div class="flex justify-between items-center mb-6">
-            <h3 class="text-lg font-semibold text-gray-800">Revenue Overview</h3>
-            <div class="flex items-center space-x-2">
-                <button onclick="setChartType('line')" id="lineChartBtn" class="px-3 py-1 text-sm border border-gray-300 rounded-lg bg-indigo-50 text-indigo-700">
-                    <i class="fas fa-chart-line mr-1"></i>Line
+    <div class="bg-white rounded-3xl shadow-sm border border-stone-100 p-8">
+        <div class="flex justify-between items-center mb-8">
+            <h3 class="text-xl font-bold text-stone-800">Revenue Overview</h3>
+            <div class="flex items-center bg-stone-50 rounded-xl p-1 border border-stone-100">
+                <button onclick="setChartType('line')" id="lineChartBtn" class="px-4 py-1.5 text-xs font-bold rounded-lg transition-all bg-white text-sky-600 shadow-sm border border-sky-100">
+                    <i class="fas fa-chart-line mr-1.5"></i>Line
                 </button>
-                <button onclick="setChartType('bar')" id="barChartBtn" class="px-3 py-1 text-sm border border-gray-300 rounded-lg hover:bg-gray-50">
-                    <i class="fas fa-chart-bar mr-1"></i>Bar
+                <button onclick="setChartType('bar')" id="barChartBtn" class="px-4 py-1.5 text-xs font-bold rounded-lg transition-all text-stone-400 hover:text-stone-600">
+                    <i class="fas fa-chart-bar mr-1.5"></i>Bar
                 </button>
             </div>
         </div>
-        <div class="h-80 bg-gray-50 rounded-xl flex items-center justify-center">
+        <div class="h-80 bg-stone-50 rounded-3xl border border-stone-100 p-4 transition-all duration-300 hover:shadow-inner">
             <canvas id="revenueChart"></canvas>
         </div>
     </div>
 
     <!-- Top Selling Products -->
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-        <h3 class="text-lg font-semibold text-gray-800 mb-6">Top Selling Products</h3>
+    <div class="bg-white rounded-3xl shadow-sm border border-stone-100 p-8">
+        <h3 class="text-xl font-bold text-stone-800 mb-8">Top Selling Products</h3>
         <div class="space-y-4" id="topProductsList">
             <!-- Products will be loaded dynamically -->
         </div>
@@ -123,41 +123,41 @@
 </div>
 
 <!-- Sales Table -->
-<div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-    <div class="px-6 py-4 border-b border-gray-200">
-        <h3 class="text-lg font-semibold text-gray-800">Detailed Sales Data</h3>
+<div class="bg-white rounded-3xl shadow-sm border border-stone-100 overflow-hidden">
+    <div class="px-8 py-6 border-b border-stone-100 bg-stone-50/50">
+        <h3 class="text-xl font-bold text-stone-800">Detailed Sales Data</h3>
     </div>
 
-    <div class="p-6">
+    <div class="p-8">
         <!-- Tabulator Toolbar -->
-        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-4">
-            <div class="order-2 sm:order-1">
-                <div class="relative" style="width: 260px;">
-                    <input type="text" id="searchSalesInput" placeholder="Search sales..."
-                        class="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent w-full">
-                    <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-6 mb-8">
+            <div class="order-2 sm:order-1 flex-1 max-w-lg">
+                <div class="relative">
+                    <input type="text" id="searchSalesInput" placeholder="Search by order ID, customer or status..."
+                        class="pl-11 pr-4 py-3 rounded-xl border border-stone-200 bg-stone-50 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all w-full font-medium">
+                    <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-stone-400"></i>
                 </div>
             </div>
-            <div class="flex flex-wrap gap-2 order-1 sm:order-2">
+            <div class="flex flex-wrap gap-3 order-1 sm:order-2">
                 <!-- Column Visibility Button -->
                 <button id="columnVisibilityBtn" class="btn-secondary">
-                    <i class="fas fa-columns mr-2"></i>Columns
+                    <i class="fas fa-columns mr-2 text-xs"></i>Columns
                 </button>
                 <!-- Export Dropdown -->
                 <div class="relative group">
                     <button id="exportBtn" class="btn-primary">
-                        <i class="fas fa-file-export mr-2"></i>Export
+                        <i class="fas fa-file-export mr-2 text-xs"></i>Export Data
                     </button>
-                    <div class="absolute mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50 hidden group-hover:block 
-                            right-0 md:right-0 md:left-auto left-0 md:left-auto">
-                        <button data-export="csv" class="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-indigo-600 text-sm">
-                            <i class="fas fa-file-csv mr-2"></i>CSV
+                    <div class="absolute mt-2 w-48 bg-white rounded-xl shadow-xl border border-stone-100 py-2 z-50 hidden group-hover:block 
+                            right-0 animate-in fade-in slide-in-from-top-2 duration-200">
+                        <button data-export="csv" class="w-full text-left px-4 py-2 text-stone-600 hover:bg-sky-50 hover:text-sky-600 text-sm font-medium flex items-center transition-all">
+                            <i class="fas fa-file-csv mr-3 text-stone-400"></i>CSV Format
                         </button>
-                        <button data-export="xlsx" class="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-indigo-600 text-sm">
-                            <i class="fas fa-file-excel mr-2"></i>Excel
+                        <button data-export="xlsx" class="w-full text-left px-4 py-2 text-stone-600 hover:bg-sky-50 hover:text-sky-600 text-sm font-medium flex items-center transition-all">
+                            <i class="fas fa-file-excel mr-3 text-stone-400"></i>Excel Spreadsheet
                         </button>
-                        <button data-export="print" class="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-indigo-600 text-sm">
-                            <i class="fas fa-print mr-2"></i>Print
+                        <button data-export="print" class="w-full text-left px-4 py-2 text-stone-600 hover:bg-sky-50 hover:text-sky-600 text-sm font-medium flex items-center transition-all">
+                            <i class="fas fa-print mr-3 text-stone-400"></i>Print Report
                         </button>
                     </div>
                 </div>
@@ -193,11 +193,11 @@ const salesData = [
 
 // Top products data
 const topProductsData = [
-    { id: 1, name: "Wireless Bluetooth Headphones", sold: 175, revenue: 1250 },
-    { id: 2, name: "Smart Fitness Watch", sold: 150, revenue: 1400 },
-    { id: 3, name: "Organic Cotton T-Shirt", sold: 200, revenue: 900 },
-    { id: 4, name: "Stainless Steel Water Bottle", sold: 125, revenue: 600 },
-    { id: 5, name: "Wireless Phone Charger", sold: 180, revenue: 1100 }
+    { id: 1, name: "Wireless Bluetooth Headphones", sold: 175, revenue: 1250, color: 'sky' },
+    { id: 2, name: "Smart Fitness Watch", sold: 150, revenue: 1400, color: 'purple' },
+    { id: 3, name: "Organic Cotton T-Shirt", sold: 200, revenue: 900, color: 'emerald' },
+    { id: 4, name: "Stainless Steel Water Bottle", sold: 125, revenue: 600, color: 'amber' },
+    { id: 5, name: "Wireless Phone Charger", sold: 180, revenue: 1100, color: 'rose' }
 ];
 
 let salesTable;
@@ -220,22 +220,23 @@ function initializeSalesTable() {
     salesTable = new Tabulator("#salesTable", {
         data: salesData,
         layout: "fitColumns",
-        responsiveLayout: "hide",
+        responsiveLayout: "collapse",
         pagination: "local",
         paginationSize: 10,
         movableColumns: true,
+        headerSort: true,
         paginationSizeSelector: [10, 20, 50, 100],
         columns: [
             {
                 title: "Date",
                 field: "date",
-                width: 120,
+                width: 140,
                 sorter: "date",
                 headerFilter: "input",
-                headerFilterPlaceholder: "Search date...",
+                headerFilterPlaceholder: "Filter...",
                 formatter: function(cell) {
                     const date = new Date(cell.getValue());
-                    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                    return `<span class="text-stone-500 font-bold text-xs uppercase tracking-wider">${date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>`;
                 }
             },
             {
@@ -244,46 +245,55 @@ function initializeSalesTable() {
                 width: 140,
                 sorter: "string",
                 headerFilter: "input",
-                headerFilterPlaceholder: "Search order..."
+                headerFilterPlaceholder: "Filter...",
+                formatter: function(cell) {
+                    return `<span class="font-black text-stone-800 tracking-tight">${cell.getValue()}</span>`;
+                }
             },
             {
                 title: "Customer",
                 field: "customer",
-                width: 180,
                 sorter: "string",
                 headerFilter: "input",
-                headerFilterPlaceholder: "Search customer..."
+                headerFilterPlaceholder: "Filter...",
+                formatter: function(cell) {
+                    return `
+                        <div class="flex items-center space-x-2">
+                            <div class="w-7 h-7 rounded-lg bg-stone-100 flex items-center justify-center text-stone-500">
+                                <i class="fas fa-user text-[10px]"></i>
+                            </div>
+                            <span class="font-bold text-stone-700">${cell.getValue()}</span>
+                        </div>
+                    `;
+                }
             },
             {
                 title: "Products",
                 field: "products",
-                width: 120,
+                width: 100,
                 sorter: "number",
-                headerFilter: "number",
-                headerFilterPlaceholder: "Search count...",
+                hozAlign: "center",
                 formatter: function(cell) {
                     const count = cell.getValue();
-                    return `${count} item${count !== 1 ? 's' : ''}`;
-                },
-                hozAlign: "center"
+                    return `<span class="inline-flex items-center px-2.5 py-1 rounded-lg text-[10px] font-black bg-stone-50 text-stone-600 border border-stone-100">${count} ITEMS</span>`;
+                }
             },
             {
                 title: "Amount",
                 field: "amount",
-                width: 120,
+                width: 130,
                 sorter: "number",
-                headerFilter: "number",
-                headerFilterPlaceholder: "Search amount...",
+                hozAlign: "right",
                 formatter: function(cell) {
-                    return `<span class="font-semibold text-gray-900">$${cell.getValue().toFixed(2)}</span>`;
-                },
-                hozAlign: "right"
+                    return `<span class="text-sm font-black text-stone-800">$${cell.getValue().toFixed(2)}</span>`;
+                }
             },
             {
                 title: "Status",
                 field: "status",
                 width: 140,
                 responsive: 0,
+                hozAlign: "center",
                 headerFilter: "select",
                 headerFilterParams: {
                     values: {
@@ -296,40 +306,38 @@ function initializeSalesTable() {
                 },
                 formatter: function(cell) {
                     const status = cell.getValue();
-                    let badgeClass, badgeText;
+                    let badgeClass, icon;
                     
                     switch(status) {
                         case 'completed':
-                            badgeClass = 'bg-emerald-100 text-emerald-800';
-                            badgeText = 'Completed';
+                            badgeClass = 'bg-emerald-50 text-emerald-600 border-emerald-100';
+                            icon = 'fa-check-circle';
                             break;
                         case 'processing':
-                            badgeClass = 'bg-blue-100 text-blue-800';
-                            badgeText = 'Processing';
+                            badgeClass = 'bg-sky-50 text-sky-600 border-sky-100';
+                            icon = 'fa-spinner fa-spin';
                             break;
                         case 'shipped':
-                            badgeClass = 'bg-amber-100 text-amber-800';
-                            badgeText = 'Shipped';
+                            badgeClass = 'bg-amber-50 text-amber-600 border-amber-100';
+                            icon = 'fa-shipping-fast';
                             break;
                         case 'cancelled':
-                            badgeClass = 'bg-rose-100 text-rose-800';
-                            badgeText = 'Cancelled';
+                            badgeClass = 'bg-rose-50 text-rose-600 border-rose-100';
+                            icon = 'fa-times-circle';
                             break;
                         default:
-                            badgeClass = 'bg-gray-100 text-gray-800';
-                            badgeText = status;
+                            badgeClass = 'bg-stone-50 text-stone-600 border-stone-100';
+                            icon = 'fa-info-circle';
                     }
                     
-                    return `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${badgeClass}">
-                        ${badgeText}
+                    return `<span class="inline-flex items-center px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest border ${badgeClass}">
+                        <i class="fas ${icon} mr-1.5"></i>
+                        ${status}
                     </span>`;
                 }
             }
         ],
-        rowFormatter: function(row) {
-            const rowEl = row.getElement();
-            rowEl.classList.add('hover:bg-gray-50');
-        }
+        footerElement: "<div class='text-stone-400 font-bold uppercase tracking-widest text-[10px] px-4'>Sales Management Table</div>"
     });
 }
 
@@ -349,15 +357,15 @@ function initSalesControls() {
     // Column visibility
     const columnVisibilityBtn = document.getElementById('columnVisibilityBtn');
     const columnMenu = document.createElement('div');
-    columnMenu.className = 'absolute mt-12 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50 hidden right-12 md:right-24 md:left-auto left-0';
+    columnMenu.className = 'absolute mt-12 w-48 bg-white rounded-xl shadow-xl border border-stone-100 py-2 z-50 hidden right-12 animate-in fade-in slide-in-from-top-2 duration-200';
 
     const columns = salesTable.getColumnDefinitions();
     columns.forEach((column, index) => {
         const field = column.field;
         const columnBtn = document.createElement('button');
-        columnBtn.className = 'w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 text-sm flex items-center';
+        columnBtn.className = 'w-full text-left px-4 py-2 text-stone-600 hover:bg-sky-50 hover:text-sky-600 text-sm font-medium flex items-center transition-all';
         columnBtn.innerHTML = `
-            <input type="checkbox" class="mr-2" ${salesTable.getColumn(field).isVisible() ? 'checked' : ''}>
+            <input type="checkbox" class="mr-3 rounded border-stone-300 text-sky-500 focus:ring-sky-500 h-4 w-4" ${salesTable.getColumn(field).isVisible() ? 'checked' : ''}>
             ${column.title}
         `;
         
@@ -406,9 +414,6 @@ function initSalesControls() {
             }
         });
     });
-
-    // Period filter
-    document.getElementById('periodFilter').addEventListener('change', updateSalesData);
 }
 
 function initializeCharts() {
@@ -425,11 +430,16 @@ function initializeCharts() {
             datasets: [{
                 label: 'Revenue',
                 data: data,
-                backgroundColor: chartType === 'bar' ? 'rgba(99, 102, 241, 0.2)' : 'rgba(99, 102, 241, 0.1)',
-                borderColor: 'rgba(99, 102, 241, 1)',
-                borderWidth: 2,
+                backgroundColor: chartType === 'bar' ? 'rgba(14, 165, 233, 0.2)' : 'rgba(14, 165, 233, 0.1)',
+                borderColor: 'rgba(14, 165, 233, 1)',
+                borderWidth: 3,
                 fill: chartType === 'line',
-                tension: 0.4
+                tension: 0.4,
+                pointBackgroundColor: '#fff',
+                pointBorderColor: 'rgba(14, 165, 233, 1)',
+                pointBorderWidth: 2,
+                pointRadius: 4,
+                pointHoverRadius: 6
             }]
         },
         options: {
@@ -438,15 +448,31 @@ function initializeCharts() {
             plugins: {
                 legend: {
                     display: false
+                },
+                tooltip: {
+                    backgroundColor: '#1c1917',
+                    titleFont: { size: 12, weight: 'bold' },
+                    bodyFont: { size: 12 },
+                    padding: 12,
+                    cornerRadius: 12,
+                    displayColors: false,
+                    callbacks: {
+                        label: function(context) {
+                            return 'Revenue: $' + context.parsed.y.toLocaleString();
+                        }
+                    }
                 }
             },
             scales: {
                 y: {
                     beginAtZero: true,
                     grid: {
+                        color: '#f5f5f4',
                         drawBorder: false
                     },
                     ticks: {
+                        font: { size: 10, weight: 'bold' },
+                        color: '#a8a29e',
                         callback: function(value) {
                             return '$' + value.toLocaleString();
                         }
@@ -455,6 +481,10 @@ function initializeCharts() {
                 x: {
                     grid: {
                         display: false
+                    },
+                    ticks: {
+                        font: { size: 10, weight: 'bold' },
+                        color: '#a8a29e'
                     }
                 }
             }
@@ -465,19 +495,21 @@ function initializeCharts() {
 function setChartType(type) {
     chartType = type;
     
-    // Update button styles
-    document.getElementById('lineChartBtn').classList.remove('bg-indigo-50', 'text-indigo-700');
-    document.getElementById('lineChartBtn').classList.add('hover:bg-gray-50');
-    document.getElementById('barChartBtn').classList.remove('bg-indigo-50', 'text-indigo-700');
-    document.getElementById('barChartBtn').classList.add('hover:bg-gray-50');
+    const lineBtn = document.getElementById('lineChartBtn');
+    const barBtn = document.getElementById('barChartBtn');
     
     if (type === 'line') {
-        document.getElementById('lineChartBtn').classList.add('bg-indigo-50', 'text-indigo-700');
+        lineBtn.classList.add('bg-white', 'text-sky-600', 'shadow-sm', 'border', 'border-sky-100');
+        lineBtn.classList.remove('text-stone-400');
+        barBtn.classList.remove('bg-white', 'text-sky-600', 'shadow-sm', 'border', 'border-sky-100');
+        barBtn.classList.add('text-stone-400');
     } else {
-        document.getElementById('barChartBtn').classList.add('bg-indigo-50', 'text-indigo-700');
+        barBtn.classList.add('bg-white', 'text-sky-600', 'shadow-sm', 'border', 'border-sky-100');
+        barBtn.classList.remove('text-stone-400');
+        lineBtn.classList.remove('bg-white', 'text-sky-600', 'shadow-sm', 'border', 'border-sky-100');
+        lineBtn.classList.add('text-stone-400');
     }
     
-    // Update chart
     revenueChart.destroy();
     initializeCharts();
 }
@@ -488,18 +520,21 @@ function loadTopProducts() {
     
     topProductsData.forEach((product, index) => {
         const productElement = document.createElement('div');
-        productElement.className = 'flex justify-between items-center p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition';
+        productElement.className = 'flex justify-between items-center p-5 bg-stone-50 rounded-2xl border border-stone-100 hover:bg-white hover:shadow-md transition-all duration-300 group';
         productElement.innerHTML = `
             <div class="flex items-center gap-4">
-                <div class="w-12 h-12 bg-gradient-to-br from-indigo-400 to-purple-500 rounded-lg flex items-center justify-center text-white font-bold">
-                    ${index + 1}
+                <div class="w-12 h-12 bg-white rounded-xl shadow-sm border border-stone-50 flex items-center justify-center text-${product.color}-500 group-hover:scale-110 transition-transform duration-300">
+                    <i class="fas fa-cube text-lg"></i>
                 </div>
                 <div>
-                    <p class="font-medium text-gray-900">${product.name}</p>
-                    <p class="text-sm text-gray-500">${product.sold} sold</p>
+                    <p class="font-black text-stone-800 text-sm tracking-tight">${product.name}</p>
+                    <p class="text-[10px] font-bold text-stone-400 uppercase tracking-widest mt-0.5">${product.sold} units sold</p>
                 </div>
             </div>
-            <span class="font-medium text-emerald-600">$${product.revenue}</span>
+            <div class="text-right">
+                <span class="font-black text-emerald-500 text-sm">$${product.revenue.toLocaleString()}</span>
+                <p class="text-[9px] font-black text-stone-400 uppercase tracking-tighter">Gross Rev.</p>
+            </div>
         `;
         container.appendChild(productElement);
     });
@@ -508,55 +543,40 @@ function loadTopProducts() {
 function updateSalesData() {
     const period = document.getElementById('periodFilter').value;
     
-    // Simulate loading
     Swal.fire({
-        title: 'Updating Report...',
-        text: 'Loading data for the selected period',
+        title: 'Updating Sales Analysis',
+        html: '<div class="text-stone-400 font-medium mt-2">Connecting to data warehouse...</div>',
         allowOutsideClick: false,
+        timer: 1000,
         didOpen: () => {
             Swal.showLoading();
+            const popup = Swal.getPopup();
+            popup.classList.add('rounded-3xl');
         }
-    });
-    
-    // Simulate API call delay
-    setTimeout(() => {
+    }).then(() => {
         // Update stats based on period
         let revenue, orders, avgOrder, conversion;
         
         switch(period) {
             case '7':
-                revenue = 5680;
-                orders = 64;
-                avgOrder = 88.75;
-                conversion = 2.8;
+                revenue = 5680; orders = 64; avgOrder = 88.75; conversion = 2.8;
                 break;
             case '30':
-                revenue = 24568;
-                orders = 1248;
-                avgOrder = 89.50;
-                conversion = 3.2;
+                revenue = 24568; orders = 1248; avgOrder = 89.50; conversion = 3.2;
                 break;
             case '90':
-                revenue = 68900;
-                orders = 3125;
-                avgOrder = 91.20;
-                conversion = 3.5;
+                revenue = 68900; orders = 3125; avgOrder = 91.20; conversion = 3.5;
                 break;
             case '365':
-                revenue = 285000;
-                orders = 15000;
-                avgOrder = 95.00;
-                conversion = 4.1;
+                revenue = 285000; orders = 15000; avgOrder = 95.00; conversion = 4.1;
                 break;
         }
         
-        // Update cards
         document.getElementById('totalRevenue').textContent = '$' + revenue.toLocaleString();
         document.getElementById('totalOrders').textContent = orders.toLocaleString();
         document.getElementById('avgOrderValue').textContent = '$' + avgOrder.toFixed(2);
         document.getElementById('conversionRate').textContent = conversion + '%';
         
-        // Update changes
         const changes = {
             7: { revenue: '2.1%', orders: '1.5%', avgOrder: '1.8%', conversion: '0.3%' },
             30: { revenue: '12.5%', orders: '8.2%', avgOrder: '5.3%', conversion: '0.8%' },
@@ -569,61 +589,51 @@ function updateSalesData() {
         document.getElementById('avgOrderChange').textContent = changes[period].avgOrder;
         document.getElementById('conversionChange').textContent = changes[period].conversion;
         
-        Swal.close();
-        toastr.success('Sales report updated for the selected period');
-    }, 1000);
+        toastr.success('Sales intelligence updated!');
+    });
 }
 
 function exportSalesReport() {
     Swal.fire({
-        title: 'Export Sales Report',
+        title: 'Sales Report Export',
+        width: 550,
         html: `
-            <div class="text-left space-y-4">
-                <p class="text-gray-600">Select export options:</p>
+            <div class="text-left space-y-5 p-2">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Report Type</label>
-                    <select id="reportType" class="w-full border border-gray-300 rounded-lg px-3 py-2">
-                        <option value="summary">Summary Report</option>
-                        <option value="detailed">Detailed Report</option>
-                        <option value="customers">Customer Report</option>
-                        <option value="products">Products Report</option>
+                    <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Report Detail Level</label>
+                    <select id="reportType" class="w-full border border-stone-200 bg-stone-50 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all font-medium">
+                        <option value="summary">Summary Performance</option>
+                        <option value="detailed">Complete Transaction Log</option>
+                        <option value="customers">Customer Acquisition Report</option>
+                        <option value="products">SKU Level Performance</option>
                     </select>
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Format</label>
-                    <select id="exportFormat" class="w-full border border-gray-300 rounded-lg px-3 py-2">
-                        <option value="csv">CSV</option>
-                        <option value="excel">Excel</option>
-                        <option value="pdf">PDF</option>
+                    <label class="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Export Format</label>
+                    <select id="exportFormat" class="w-full border border-stone-200 bg-stone-50 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all font-medium">
+                        <option value="csv">CSV (Comma Separated)</option>
+                        <option value="excel">XLSX (Microsoft Excel)</option>
+                        <option value="pdf">PDF (Print Ready)</option>
                     </select>
                 </div>
-                <div>
-                    <label class="flex items-center">
-                        <input type="checkbox" id="includeCharts" class="mr-2">
-                        <span class="text-sm text-gray-700">Include charts and graphs</span>
-                    </label>
+                <div class="flex items-center space-x-3 bg-sky-50 p-4 rounded-xl border border-sky-100">
+                    <input type="checkbox" id="includeCharts" class="w-5 h-5 rounded border-sky-200 text-sky-500 focus:ring-sky-500" checked>
+                    <label for="includeCharts" class="text-sm font-bold text-sky-700">Embed Analytics & Charts</label>
                 </div>
             </div>
         `,
         showCancelButton: true,
-        confirmButtonText: 'Export Report',
-        cancelButtonText: 'Cancel',
+        confirmButtonText: 'Initialize Export',
         customClass: {
-            confirmButton: 'btn-primary',
-            cancelButton: 'btn-secondary'
-        },
-        preConfirm: () => {
-            return {
-                type: document.getElementById('reportType').value,
-                format: document.getElementById('exportFormat').value,
-                includeCharts: document.getElementById('includeCharts').checked
-            };
+            popup: 'rounded-3xl',
+            confirmButton: 'btn-primary px-8',
+            cancelButton: 'btn-secondary px-8'
         }
     }).then((result) => {
         if (result.isConfirmed) {
             Swal.fire({
-                title: 'Exporting...',
-                text: 'Please wait while we generate your sales report',
+                title: 'Exporting Data...',
+                text: 'Preparing your high-resolution report',
                 allowOutsideClick: false,
                 didOpen: () => {
                     Swal.showLoading();
@@ -632,17 +642,31 @@ function exportSalesReport() {
             
             setTimeout(() => {
                 Swal.close();
-                toastr.success(`Sales report exported as ${result.value.format.toUpperCase()}`);
+                toastr.success(`Sales data exported successfully!`);
                 
-                // Trigger download
-                if (result.value.format === 'csv') {
-                    salesTable.download("csv", "sales_report.csv");
-                } else if (result.value.format === 'excel') {
-                    salesTable.download("xlsx", "sales_report.xlsx", { sheetName: "Sales Report" });
+                if (document.getElementById('exportFormat').value === 'csv') {
+                    salesTable.download("csv", "sales_intelligence.csv");
+                } else if (document.getElementById('exportFormat').value === 'excel') {
+                    salesTable.download("xlsx", "sales_intelligence.xlsx", { sheetName: "Intelligence" });
                 }
             }, 1500);
         }
     });
 }
 </script>
+
+<style>
+/* Tabulator Theme Customization */
+.tabulator { border: none !important; background: transparent !important; }
+.tabulator-header { background-color: #f5f5f4 !important; border-bottom: 2px solid #e7e5e4 !important; border-top: none !important; }
+.tabulator-col { background-color: #f5f5f4 !important; border-right: none !important; padding: 12px 4px !important; }
+.tabulator-col-title { color: #78716c !important; font-size: 10px !important; font-weight: 800 !important; text-transform: uppercase !important; letter-spacing: 0.1em !important; }
+.tabulator-row { border-bottom: 1px solid #f5f5f4 !important; transition: all 0.2s !important; }
+.tabulator-row:hover { background-color: #f0f9ff !important; }
+.tabulator-cell { padding: 16px 8px !important; color: #44403c !important; border-right: none !important; }
+.tabulator-footer { background-color: white !important; border-top: 1px solid #e7e5e4 !important; padding: 15px !important; }
+.tabulator-page { border-radius: 8px !important; border: 1px solid #e7e5e4 !important; padding: 5px 10px !important; margin: 0 2px !important; font-weight: bold !important; font-size: 11px !important; color: #78716c !important; transition: all 0.2s !important; }
+.tabulator-page.active { background-color: #0ea5e9 !important; border-color: #0ea5e9 !important; color: white !important; }
+.tabulator-page:not(.disabled):hover { background-color: #f5f5f4 !important; color: #0ea5e9 !important; }
+</style>
 @endpush

@@ -7,11 +7,17 @@
     <title>@yield('title', 'eCommerce Admin Panel')</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <!-- TailwindCSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 
     <!-- Tabulator CSS -->
     <link href="https://unpkg.com/tabulator-tables@5.5.2/dist/css/tabulator.min.css" rel="stylesheet">
@@ -29,6 +35,12 @@
     <link rel="stylesheet" href="{{ asset('css/admin/custom.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin/datatable.css') }}">
 
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+    </style>
+
 
     <script>
         // Global variables
@@ -38,7 +50,7 @@
     </script>
 </head>
 
-<body class="bg-gray-50">
+<body class="bg-stone-50">
     @if (request()->is('admin/*') && !request()->is('admin/login'))
         @include('admin.partials.sidebar')
     @endif

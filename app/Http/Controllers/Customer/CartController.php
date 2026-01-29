@@ -28,8 +28,18 @@ class CartController extends Controller
             $recommendedProducts = $this->getRecommendedProducts();
         }
 
-        // Get available coupons
-        $availableCoupons = Offer::active()->get();
+        // Get available coupons (those marked as auto-applied in admin, but shown for manual selection in cart)
+        $availableCoupons = Offer::where('status', true)
+            ->where('is_auto_apply', true)
+            ->where(function($q) {
+                $q->where('starts_at', '<=', now())
+                  ->orWhereNull('starts_at');
+            })
+            ->where(function($q) {
+                $q->where('ends_at', '>=', now())
+                  ->orWhereNull('ends_at');
+            })
+            ->get();
 
         return view('customer.cart.index', compact('cart', 'recommendedProducts', 'availableCoupons'));
     }

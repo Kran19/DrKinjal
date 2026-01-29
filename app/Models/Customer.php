@@ -19,6 +19,17 @@ class Customer extends Authenticatable
 {
     use SoftDeletes, Notifiable;
 
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new \App\Notifications\CustomerResetPassword($token));
+    }
+
     protected $fillable = [
         'name',
         'email',
