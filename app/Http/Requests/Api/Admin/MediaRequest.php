@@ -32,9 +32,9 @@ class MediaRequest extends FormRequest
             $rules['files.*'] = [
                 'required',
                 'file',
-                'mimes:jpg,jpeg,png,gif,webp,svg',
+                'mimes:jpg,jpeg,png,gif,webp,svg,ico',
                 'max:4096', // 4MB in KB (per file)
-                'dimensions:min_width=100,min_height=100,max_width=5000,max_height=5000',
+                'dimensions:min_width=16,min_height=16,max_width=5000,max_height=5000',
             ];
         }
 
@@ -56,9 +56,9 @@ class MediaRequest extends FormRequest
             'files.max' => 'You can upload maximum 20 files at once.',
             'files.*.required' => 'The file is required.',
             'files.*.file' => 'The uploaded item must be a valid file.',
-            'files.*.mimes' => 'File ":attribute" must be JPG, JPEG, PNG, GIF, WEBP, or SVG format.',
+            'files.*.mimes' => 'File ":attribute" must be JPG, JPEG, PNG, GIF, WEBP, SVG or ICO format.',
             'files.*.max' => 'File ":attribute" exceeds 4MB limit. Please compress or resize the image.',
-            'files.*.dimensions' => 'File ":attribute" dimensions must be between 100x100 and 5000x5000 pixels.',
+            'files.*.dimensions' => 'File ":attribute" dimensions must be between 16x16 and 5000x5000 pixels.',
         ];
     }
 

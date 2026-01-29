@@ -275,11 +275,41 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-2">
                                 <label class="text-sm font-semibold text-gray-700">Logo URL</label>
-                                <input type="text" data-key="logo_url" class="setting-input w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg outline-none" placeholder="/assets/logo.png">
+                                <div class="flex gap-2">
+                                    <input type="text" data-key="logo_url" id="logo_url" readonly class="setting-input w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-lg outline-none cursor-default" placeholder="/assets/logo.png">
+                                    <div class="flex gap-1">
+                                        <button type="button" onclick="document.getElementById('logo_file').click()" class="upload-btn px-4 py-2.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors flex items-center gap-2 shrink-0">
+                                            <i data-lucide="upload" class="w-4 h-4"></i>
+                                            Upload
+                                        </button>
+                                        <button type="button" onclick="clearToDefault('logo_url', '/storage/assets/images/logo.png')" class="px-3 py-2.5 bg-white border border-gray-300 text-gray-400 rounded-lg hover:text-red-600 hover:border-red-100 transition-colors" title="Reset to Default">
+                                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <input type="file" id="logo_file" class="hidden" accept="image/*" onchange="handleFileUpload(event, 'logo_url')">
+                                <div class="mt-2 shrink-0">
+                                    <img id="logo_preview" src="" alt="Logo Preview" class="img-preview h-12 w-auto object-contain rounded border border-gray-200 hidden">
+                                </div>
                             </div>
                             <div class="space-y-2">
                                 <label class="text-sm font-semibold text-gray-700">Favicon URL</label>
-                                <input type="text" data-key="favicon_url" class="setting-input w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg outline-none" placeholder="/favicon.ico">
+                                <div class="flex gap-2">
+                                    <input type="text" data-key="favicon_url" id="favicon_url" readonly class="setting-input w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-lg outline-none cursor-default" placeholder="/favicon.ico">
+                                    <div class="flex gap-1">
+                                        <button type="button" onclick="document.getElementById('favicon_file').click()" class="upload-btn px-4 py-2.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors flex items-center gap-2 shrink-0">
+                                            <i data-lucide="upload" class="w-4 h-4"></i>
+                                            Upload
+                                        </button>
+                                        <button type="button" onclick="clearToDefault('favicon_url', '/storage/assets/images/favicon.ico')" class="px-3 py-2.5 bg-white border border-gray-300 text-gray-400 rounded-lg hover:text-red-600 hover:border-red-100 transition-colors" title="Reset to Default">
+                                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <input type="file" id="favicon_file" class="hidden" accept="image/x-icon,image/png,image/gif" onchange="handleFileUpload(event, 'favicon_url')">
+                                <div class="mt-2 shrink-0">
+                                    <img id="favicon_preview" src="" alt="Favicon Preview" class="img-preview h-8 w-8 object-contain rounded border border-gray-200 hidden">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -436,6 +466,25 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('razorpayFields').classList.toggle('hidden', !e.target.checked);
         });
     }
+
+    // Manual URL Input Sync for Previews
+    ['logo_url', 'favicon_url'].forEach(key => {
+        const input = document.getElementById(key);
+        if (input) {
+            input.addEventListener('blur', (e) => {
+                const previewId = key.replace('url', 'preview');
+                const preview = document.getElementById(previewId);
+                if (preview) {
+                    if (e.target.value) {
+                        preview.src = e.target.value;
+                        preview.classList.remove('hidden');
+                    } else {
+                        preview.classList.add('hidden');
+                    }
+                }
+            });
+        }
+    });
 });
 
 async function loadSettings() {
@@ -477,6 +526,16 @@ function populateForms(groups) {
                     input.checked = !!parseInt(setting.value);
                 } else {
                     input.value = setting.value || '';
+                    
+                    // Show preview for logo and favicon if value exists
+                    if (['logo_url', 'favicon_url'].includes(setting.key) && setting.value) {
+                        const previewId = setting.key.replace('url', 'preview');
+                        const preview = document.getElementById(previewId);
+                        if (preview) {
+                            preview.src = setting.value;
+                            preview.classList.remove('hidden');
+                        }
+                    }
                 }
             });
         });
@@ -590,6 +649,80 @@ async function resetSettings() {
         } catch (error) {
             toastr.error('Failed to restore defaults');
         }
+    }
+}
+
+async function handleFileUpload(event, key) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('files[]', file); // MediaController expects 'files[]'
+
+    const container = event.target.closest('.space-y-2');
+    const uploadBtn = container.querySelector('.upload-btn');
+    const originalContent = uploadBtn.innerHTML;
+
+    uploadBtn.disabled = true;
+    uploadBtn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i>`;
+    lucide.createIcons();
+
+    try {
+        const response = await axiosInstance.post('/media/upload', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+
+        if (response.data.success && response.data.data.uploaded.length > 0) {
+            const url = response.data.data.uploaded[0].url;
+            const input = document.getElementById(key);
+            if (input) {
+                input.value = url;
+            } else {
+                // Fallback to data-key selector if id not found (though we added ids)
+                const dataInput = document.querySelector(`[data-key="${key}"]`);
+                if (dataInput) dataInput.value = url;
+            }
+            
+            // Update preview
+            const previewId = key.replace('url', 'preview');
+            const preview = document.getElementById(previewId);
+            if (preview) {
+                preview.src = url;
+                preview.classList.remove('hidden');
+            }
+            
+            toastr.success('File uploaded successfully!');
+        } else {
+            toastr.error(response.data.message || 'Upload failed');
+        }
+    } catch (error) {
+        console.error('Upload Error:', error);
+        toastr.error('Failed to upload file. Check file size or type.');
+    } finally {
+        uploadBtn.disabled = false;
+        uploadBtn.innerHTML = originalContent;
+        lucide.createIcons();
+        // Reset file input so same file can be uploaded again if needed
+        event.target.value = '';
+    }
+}
+
+function clearToDefault(key, defaultPath) {
+    const input = document.getElementById(key);
+    if (input) {
+        input.value = defaultPath;
+        
+        // Update preview
+        const previewId = key.replace('url', 'preview');
+        const preview = document.getElementById(previewId);
+        if (preview) {
+            preview.src = defaultPath;
+            preview.classList.remove('hidden');
+        }
+        
+        toastr.info('Reset to default path. Save settings to apply.');
     }
 }
 </script>
