@@ -341,13 +341,13 @@ Route::name('customer.')->group(function () {
 
         Route::get('/register', [CustomerAuth::class, 'registerPage'])->name('register');
         Route::post('/register', [CustomerAuth::class, 'register'])->name('register.submit');
-
-        Route::get('/forgot-password', [CustomerAuth::class, 'showForgotPassword'])->name('forgot-password');
-        Route::post('/forgot-password', [CustomerAuth::class, 'sendResetLinkEmail'])->name('password.email');
-
-        Route::get('/reset-password/{token}', [CustomerAuth::class, 'showResetForm'])->name('password.reset');
-        Route::post('/reset-password', [CustomerAuth::class, 'reset'])->name('password.update');
     });
+
+    Route::get('/forgot-password', [CustomerAuth::class, 'showForgotPassword'])->name('forgot-password');
+    Route::post('/forgot-password', [CustomerAuth::class, 'sendResetLinkEmail'])->name('password.email');
+
+    Route::get('/reset-password/{token}', [CustomerAuth::class, 'showResetForm'])->name('password.reset');
+    Route::post('/reset-password', [CustomerAuth::class, 'reset'])->name('password.update');
 
     Route::get('/verify', [CustomerAuth::class, 'verifyPage'])->name('verify');
     Route::post('/verify', [CustomerAuth::class, 'verify'])->name('verify.submit');
@@ -485,7 +485,9 @@ Route::name('customer.')->group(function () {
         Route::get('/orders', [CustomerOrder::class, 'orders'])->name('orders');
         Route::get('/orders/{id}', [CustomerOrder::class, 'orderDetails'])->name('orders.details');
         Route::get('/addresses', [CustomerAccount::class, 'addresses'])->name('addresses');
-        Route::get('/change-password', [CustomerAccount::class, 'changePassword'])->name('change-password');
+        Route::get('/change-password', function() {
+            return redirect()->route('customer.forgot-password');
+        })->name('change-password');
         Route::get('/orders/filter/{status}', [CustomerOrder::class, 'filterOrders'])->name('orders.filter');
 
         // In customer account routes group
