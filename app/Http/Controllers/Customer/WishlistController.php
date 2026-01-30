@@ -57,6 +57,7 @@ class WishlistController extends Controller
         $ordersCount = \App\Models\Order::where('customer_id', $customer->id)->count();
 
         return view('customer.wishlist.index', compact(
+            'customer',
             'wishlist',
             'wishlistItems',
             'wishlistCount',

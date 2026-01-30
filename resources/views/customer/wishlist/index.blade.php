@@ -101,19 +101,19 @@
             </div>
         @endif
 
-        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             
             <!-- Left Sidebar - Navigation -->
             <div class="lg:col-span-1">
                 <!-- Profile Card -->
                 <div class="profile-card bg-white rounded-3xl p-6 md:p-8 shadow-xl shadow-stone-200/50 border border-stone-100 mb-6">
                     <div class="flex items-center gap-4 mb-6">
-                        <div class="w-16 h-16 rounded-full bg-gradient-to-br from-pink-100 to-rose-100 flex items-center justify-center">
+                        <div class="w-16 h-16 shrink-0 rounded-full bg-gradient-to-br from-pink-100 to-rose-100 flex items-center justify-center">
                             <i data-lucide="user" class="w-8 h-8 text-rose-600"></i>
                         </div>
-                        <div>
-                            <h2 class="text-xl font-bold text-stone-900">{{ Auth::guard('customer')->user()->name }}</h2>
-                            <p class="text-stone-500">{{ strtolower(Auth::guard('customer')->user()->email) }}</p>
+                        <div class="overflow-hidden">
+                            <h2 class="text-xl font-bold text-stone-900 truncate">{{ $customer->name }}</h2>
+                            <p class="text-stone-500 truncate">{{ strtolower($customer->email) }}</p>
                             <span class="inline-block mt-1 px-3 py-1 bg-rose-100 text-rose-700 text-xs font-semibold rounded-full">
                                 Member
                             </span>
@@ -201,7 +201,7 @@
             </div>
 
             <!-- Right Content Area - Wishlist Items -->
-            <div class="lg:col-span-3">
+            <div class="lg:col-span-2">
                 <!-- Wishlist Actions -->
                 <div class="bg-white rounded-3xl p-6 mb-6 shadow-xl shadow-stone-200/50 border border-stone-100">
                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
