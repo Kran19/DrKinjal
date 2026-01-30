@@ -253,11 +253,7 @@
                                 <div class="flex items-center justify-between">
                                     <div>
                                         <span class="text-sm text-stone-500">Quantity: {{ $item->quantity }}</span>
-                                        <span class="mx-2 text-stone-300">•</span>
-                                        <span class="text-sm text-stone-500">Price: ₹{{ number_format($item->price, 2) }}</span>
                                     </div>
-                                    <div class="text-lg font-bold text-stone-900">₹{{ number_format($item->total, 2) }}</div>
-                                </div>
                             </div>
                         </div>
                         @endforeach
