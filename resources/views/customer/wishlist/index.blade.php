@@ -230,20 +230,7 @@
                         @php
                             $product = $item->variant->product ?? null;
                             $variant = $item->variant ?? null;
-                            // Decode images and extract the file path properly
-                            $imageData = ($variant && $variant->images) ? json_decode($variant->images)[0] ?? null : null;
-                            // Handle both string and object cases
-                            if ($imageData) {
-                                if (is_object($imageData)) {
-                                    $image = $imageData->file_path ?? $imageData->url ?? null;
-                                } elseif (is_string($imageData)) {
-                                    $image = $imageData;
-                                } else {
-                                    $image = null;
-                                }
-                            } else {
-                                $image = null;
-                            }
+                            $image = $variant ? $variant->display_image : null;
                         @endphp
                         @if($product && $variant)
                         <div class="wishlist-item bg-white rounded-3xl p-4 shadow-lg shadow-stone-200/50 border border-stone-100" data-id="{{ $item->id }}">
@@ -269,7 +256,6 @@
                                     
                                     <form action="{{ route('customer.wishlist.remove') }}" method="POST" class="absolute top-2 right-2">
                                         @csrf
-                                        @method('DELETE')
                                         <input type="hidden" name="item_id" value="{{ $item->id }}">
                                         <button type="submit" class="w-8 h-8 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white text-stone-700 hover:text-red-500 transition-colors">
                                             <i data-lucide="x" class="w-4 h-4"></i>
@@ -282,17 +268,11 @@
                                         <h4 class="font-semibold text-stone-900 mb-1 line-clamp-1"><a href="{{ route('customer.products.details', $product->slug) }}">{{ $product->name }}</a></h4>
                                         <p class="text-sm text-stone-500">{{ $variant->name ?? '' }}</p>
                                     </div>
-                                    <label class="inline-flex items-center cursor-pointer">
-                                        <input type="checkbox" name="selected_items[]" value="{{ $item->id }}" class="w-5 h-5 text-rose-500 rounded border-stone-300 focus:ring-rose-400">
-                                    </label>
                                 </div>
                                 
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center gap-2">
                                         <span class="text-xl font-bold text-stone-900">₹{{ number_format($variant->price, 0) }}</span>
-                                        {{-- @if($variant->compare_price > $variant->price)
-                                            <span class="text-sm text-stone-400 line-through">₹{{ number_format($variant->compare_price, 0) }}</span>
-                                        @endif --}}
                                     </div>
                                 </div>
                                 
@@ -348,209 +328,5 @@
 <script>
     // Initialize Lucide icons
     lucide.createIcons();
-    
-    document.addEventListener('DOMContentLoaded', function() {
-        const wishlistItems = document.getElementById('wishlistItems');
-        const emptyWishlist = document.getElementById('emptyWishlist');
-        const selectAllBtn = document.getElementById('selectAll');
-        const moveToCartBtn = document.getElementById('moveSelectedToCart');
-        const clearWishlistBtn = document.getElementById('clearWishlist');
-        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-        const removeButtons = document.querySelectorAll('.remove-btn');
-        
-        let isAllSelected = false;
-        
-        // Select All functionality
-        selectAllBtn.addEventListener('click', function() {
-            isAllSelected = !isAllSelected;
-            checkboxes.forEach(checkbox => {
-                checkbox.checked = isAllSelected;
-            });
-            selectAllBtn.textContent = isAllSelected ? 'Deselect All' : 'Select All';
-            updateMoveToCartButton();
-        });
-        
-        // Update move to cart button based on selection
-        function updateMoveToCartButton() {
-            const selectedCount = document.querySelectorAll('input[type="checkbox"]:checked').length;
-            moveToCartBtn.textContent = selectedCount > 0 
-                ? `Move ${selectedCount} Item${selectedCount > 1 ? 's' : ''} to Cart` 
-                : 'Move Selected to Cart';
-            moveToCartBtn.disabled = selectedCount === 0;
-        }
-        
-        // Update checkbox state and button text
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', updateMoveToCartButton);
-        });
-        
-        // Move selected items to cart
-        moveToCartBtn.addEventListener('click', function() {
-            const selectedItems = document.querySelectorAll('input[type="checkbox"]:checked');
-            if (selectedItems.length === 0) {
-                alert('Please select items to move to cart');
-                return;
-            }
-            
-            // Show loading state
-            const originalText = moveToCartBtn.innerHTML;
-            moveToCartBtn.innerHTML = '<span>Adding to cart...</span>';
-            moveToCartBtn.disabled = true;
-            
-            // Simulate API call
-            setTimeout(() => {
-                alert(`${selectedItems.length} item(s) added to cart successfully!`);
-                moveToCartBtn.innerHTML = originalText;
-                moveToCartBtn.disabled = false;
-                
-                // Uncheck all checkboxes
-                checkboxes.forEach(cb => cb.checked = false);
-                isAllSelected = false;
-                selectAllBtn.textContent = 'Select All';
-                updateMoveToCartButton();
-            }, 1500);
-        });
-        
-        // Clear wishlist
-        clearWishlistBtn.addEventListener('click', function() {
-            if (confirm('Are you sure you want to clear your entire wishlist? This action cannot be undone.')) {
-                // Show loading
-                this.innerHTML = '<span>Clearing...</span>';
-                this.disabled = true;
-                
-                // Simulate API call
-                setTimeout(() => {
-                    wishlistItems.style.display = 'none';
-                    emptyWishlist.classList.remove('hidden');
-                    
-                    // Update stats
-                    document.querySelector('.stats-grid .text-2xl:nth-child(1)').textContent = '0';
-                    document.querySelector('.bg-gradient-to-r .text-lg:nth-child(2)').textContent = '0';
-                    document.querySelector('.bg-gradient-to-r .text-lg:nth-child(4)').textContent = '₹0';
-                    
-                    alert('Wishlist cleared successfully!');
-                    clearWishlistBtn.innerHTML = 'Clear All';
-                    clearWishlistBtn.disabled = false;
-                }, 1500);
-            }
-        });
-        
-        // Remove individual item
-        removeButtons.forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const item = this.closest('.wishlist-item');
-                
-                // Show confirmation for desktop
-                if (window.innerWidth > 768) {
-                    if (!confirm('Remove this item from wishlist?')) {
-                        return;
-                    }
-                }
-                
-                // Add removal animation
-                item.style.opacity = '0.5';
-                item.style.transform = 'translateX(20px)';
-                
-                setTimeout(() => {
-                    item.remove();
-                    
-                    // Update item count
-                    const itemCount = document.querySelectorAll('.wishlist-item').length;
-                    document.querySelector('.stats-grid .text-2xl:nth-child(1)').textContent = itemCount;
-                    document.querySelector('.bg-gradient-to-r .text-lg:nth-child(2)').textContent = itemCount;
-                    
-                    // Update summary value (simplified)
-                    const currentValue = parseInt(document.querySelector('.bg-gradient-to-r .text-lg:nth-child(4)').textContent.replace('₹', '')) || 0;
-                    const itemPrice = parseInt(item.querySelector('.text-stone-900.text-xl').textContent.replace('₹', '')) || 0;
-                    document.querySelector('.bg-gradient-to-r .text-lg:nth-child(4)').textContent = `₹${currentValue - itemPrice}`;
-                    
-                    // Show empty state if no items
-                    if (itemCount === 0) {
-                        wishlistItems.style.display = 'none';
-                        emptyWishlist.classList.remove('hidden');
-                    }
-                    
-                    // Show success message
-                    const toast = document.createElement('div');
-                    toast.className = 'fixed top-4 right-4 bg-white border border-stone-200 rounded-xl shadow-lg p-4 z-50 animate-fade-in';
-                    toast.innerHTML = `
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
-                                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
-                            </div>
-                            <div>
-                                <p class="font-medium text-stone-900">Item removed</p>
-                                <p class="text-sm text-stone-500">Product removed from wishlist</p>
-                            </div>
-                        </div>
-                    `;
-                    document.body.appendChild(toast);
-                    
-                    setTimeout(() => {
-                        toast.style.opacity = '0';
-                        toast.style.transform = 'translateY(-10px)';
-                        setTimeout(() => toast.remove(), 300);
-                    }, 3000);
-                }, 300);
-            });
-        });
-        
-        // Add to cart buttons
-        document.querySelectorAll('button:contains("Add to Cart")').forEach(button => {
-            button.addEventListener('click', function() {
-                const item = this.closest('.wishlist-item');
-                const productName = item.querySelector('h4').textContent;
-                
-                // Show loading
-                const originalText = this.innerHTML;
-                this.innerHTML = '<span>Adding...</span>';
-                this.disabled = true;
-                
-                // Simulate API call
-                setTimeout(() => {
-                    this.innerHTML = originalText;
-                    this.disabled = false;
-                    
-                    // Update cart count
-                    updateCartCount(1);
-                    
-                    // Show success message
-                    const toast = document.createElement('div');
-                    toast.className = 'fixed top-4 right-4 bg-white border border-stone-200 rounded-xl shadow-lg p-4 z-50 animate-fade-in';
-                    toast.innerHTML = `
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
-                                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
-                            </div>
-                            <div>
-                                <p class="font-medium text-stone-900">Added to cart!</p>
-                                <p class="text-sm text-stone-500">${productName}</p>
-                            </div>
-                        </div>
-                    `;
-                    document.body.appendChild(toast);
-                    
-                    setTimeout(() => {
-                        toast.style.opacity = '0';
-                        toast.style.transform = 'translateY(-10px)';
-                        setTimeout(() => toast.remove(), 300);
-                    }, 3000);
-                }, 1000);
-            });
-        });
-        
-        // Helper function to update cart count
-        function updateCartCount(amount) {
-            const cartCount = document.getElementById('cartCount');
-            if (cartCount) {
-                const currentCount = parseInt(cartCount.textContent) || 0;
-                cartCount.textContent = currentCount + amount;
-            }
-        }
-        
-        // Initialize button states
-        updateMoveToCartButton();
-    });
 </script>
 @endpush

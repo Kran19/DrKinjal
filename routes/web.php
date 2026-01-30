@@ -429,7 +429,7 @@ Route::name('customer.')->group(function () {
         Route::post('/remove-multiple', [CustomerWishlist::class, 'removeMultiple'])->name('remove.multiple');
         Route::post('/move-to-cart', [CustomerWishlist::class, 'moveToCart'])->name('move-to-cart');
         Route::post('/move-all-to-cart', [CustomerWishlist::class, 'moveAllToCart'])->name('move-all-to-cart');
-        Route::post('/clear', [CustomerWishlist::class, 'clear'])->name('clear');
+        Route::delete('/clear', [CustomerWishlist::class, 'clear'])->name('clear');
 
         // Wishlist management
         Route::post('/create', [CustomerWishlist::class, 'create'])->name('create');
