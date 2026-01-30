@@ -254,6 +254,8 @@
                                     <div>
                                         <span class="text-sm text-stone-500">Quantity: {{ $item->quantity }}</span>
                                     </div>
+                                    
+                                </div>
                             </div>
                         </div>
                         @endforeach
