@@ -626,15 +626,15 @@
 
                 if (response.data.success) {
                     const data = response.data.data;
-                    const meta = data.meta;
-
+                    
                     // Update table data
-                    mediaTable.setData(data.data);
+                    mediaTable.setData(data.data || []);
 
-                    // Update pagination info
-                    totalItems = meta.total;
-                    totalPages = meta.last_page;
-                    updatePaginationInfo(meta);
+                    // Update pagination info (Laravel standard pagination properties)
+                    totalItems = data.total || 0;
+                    totalPages = data.last_page || 1;
+                    
+                    updatePaginationInfo(data);
                     renderPageNumbers();
 
                     // Update bulk actions

@@ -112,6 +112,12 @@ class MediaController extends Controller
             $pagination = $media->toArray();
             $pagination['data'] = $transformedData;
 
+            \Log::debug('Media index success', [
+                'total' => $pagination['total'],
+                'count' => count($transformedData),
+                'first_url' => count($transformedData) > 0 ? $transformedData[0]['url'] : null
+            ]);
+
             return $this->apiResponse(true, $pagination, 'Media list retrieved successfully');
 
         } catch (\Exception $e) {

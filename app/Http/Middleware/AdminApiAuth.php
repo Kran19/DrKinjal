@@ -36,8 +36,10 @@ class AdminApiAuth
             ) {
                 // ✅ IMPORTANT: set user on admin_api guard
                 auth('admin_api')->setUser($accessToken->tokenable);
+                \Log::debug('Admin API Auth Success', ['admin_id' => $accessToken->tokenable->id]);
                 return true;
             }
+            \Log::warning('Admin API Auth Failed: Token invalid or not an admin');
         } catch (\Throwable $e) {
             \Log::error('Admin API token auth failed', [
                 'error' => $e->getMessage(),
