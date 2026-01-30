@@ -475,8 +475,8 @@
                                 <p class="text-stone-600 mb-4">{{ $comment }}</p>
                                 <div class="text-sm text-stone-500">
                                     <span class="font-medium text-stone-900">{{ $review->user_name }}</span>
-                                    <span class="mx-2">•</span>
-                                    <span>{{ $review->created_at->format('M d, Y') }}</span>
+                                    <!-- <span class="mx-2">•</span>
+                                    <span>{{ $review->created_at->format('M d, Y') }}</span> -->
                                 </div>
                             </div>
                             @endforeach
