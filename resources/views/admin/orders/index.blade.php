@@ -54,12 +54,12 @@
                     <i class="fas fa-tasks mr-2"></i>Bulk Actions
                 </button>
                 <!-- Export Buttons -->
-                <button onclick="exportToCSV()" class="btn-secondary">
+                <!-- <button onclick="exportToCSV()" class="btn-secondary">
                     <i class="fas fa-file-csv mr-2"></i>CSV
                 </button>
                 <button onclick="exportToExcel()" class="btn-secondary">
                     <i class="fas fa-file-excel mr-2"></i>Excel
-                </button>
+                </button> -->
                 <button onclick="printTable()" class="btn-secondary">
                     <i class="fas fa-print mr-2"></i>Print
                 </button>
@@ -401,6 +401,10 @@
                             <div class="text-sm text-stone-500">
                                 ${order.customer_email}
                             </div>
+                            <div class="text-sm text-stone-500 font-medium flex items-center mt-1">
+                                <i class="fas fa-phone-alt mr-1.5 text-[10px] text-stone-400"></i>
+                                ${order.customer_mobile}
+                            </div>
                         </div>
                     </div>
                 </td>
@@ -438,9 +442,6 @@
                         </button>
                         <button onclick="updateTracking(${order.id})" class="p-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors" title="Add Tracking">
                             <i class="fas fa-truck"></i>
-                        </button>
-                        <button onclick="printInvoice(${order.id})" class="p-2 bg-stone-100 text-stone-600 rounded-lg hover:bg-stone-200 transition-colors" title="Print Invoice">
-                            <i class="fas fa-print"></i>
                         </button>
                         <button onclick="deleteOrder(${order.id})" class="p-2 bg-rose-50 text-rose-600 rounded-lg hover:bg-rose-100 transition-colors" title="Delete Order">
                             <i class="fas fa-trash"></i>

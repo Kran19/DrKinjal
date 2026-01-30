@@ -75,7 +75,7 @@ class OrderController extends Controller
                     'order_number' => $order->order_number,
                     'customer_name' => $order->customer->name ?? 'N/A',
                     'customer_email' => $order->customer->email ?? 'N/A',
-                    'customer_mobile' => $order->customer->mobile ?? 'N/A',
+                    'customer_mobile' => $order->shipping_address['phone'] ?? $order->customer->mobile ?? 'N/A',
                     'date' => $order->created_at->format('Y-m-d'),
                     'created_at' => $order->created_at,
                     'items_count' => $order->items_count,
