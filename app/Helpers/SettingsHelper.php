@@ -186,7 +186,8 @@ class SettingsHelper
             'razorpay_enabled' => self::get('razorpay_enabled', true),
             'razorpay_key_id' => self::get('razorpay_key_id', ''),
             'razorpay_key_secret' => self::get('razorpay_key_secret', ''),
-            'cod_enabled' => self::get('cod_enabled', true)
+            'cod_enabled' => self::get('cod_enabled', true),
+            'cod_min_order_value' => self::get('cod_min_order_value', 0.00)
         ];
     }
 
@@ -198,7 +199,8 @@ class SettingsHelper
         return [
             'default_shipping_rate' => self::get('default_shipping_rate', 99.00),
             'tax_rate' => self::get('tax_rate', 3.0),
-            'free_shipping_min' => self::get('free_shipping_min', 999.00)
+            'free_shipping_min' => self::get('free_shipping_min', 999.00),
+            'cod_min_order_value' => self::get('cod_min_order_value', 0.00)
         ];
     }
 }

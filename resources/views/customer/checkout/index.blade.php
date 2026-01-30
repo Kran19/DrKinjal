@@ -220,19 +220,35 @@
 
                     <!-- COD -->
                     @if($codAvailable)
-                    <label class="flex items-center justify-between p-4 border-2 border-gray-100 rounded-xl hover:border-[#0ea5e9] cursor-pointer transition-all">
-                        <div class="flex items-center gap-4">
-                            <div class="relative flex items-center">
-                                <input type="radio" name="payment_method" value="cod" class="h-5 w-5 border-2 border-gray-300 text-[#0ea5e9] focus:ring-[#0ea5e9]">
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-6 bg-yellow-100 rounded flex items-center justify-center">
-                                    <i data-lucide="package" class="text-yellow-600 w-4 h-4"></i>
+                        <label class="flex items-center justify-between p-4 border-2 border-gray-100 rounded-xl hover:border-[#0ea5e9] cursor-pointer transition-all">
+                            <div class="flex items-center gap-4">
+                                <div class="relative flex items-center">
+                                    <input type="radio" name="payment_method" value="cod" class="h-5 w-5 border-2 border-gray-300 text-[#0ea5e9] focus:ring-[#0ea5e9]">
                                 </div>
-                                <span class="font-medium text-gray-900">Cash on Delivery</span>
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-6 bg-yellow-100 rounded flex items-center justify-center">
+                                        <i data-lucide="package" class="text-yellow-600 w-4 h-4"></i>
+                                    </div>
+                                    <span class="font-medium text-gray-900">Cash on Delivery</span>
+                                </div>
                             </div>
+                        </label>
+                    @elseif(\App\Helpers\SettingsHelper::get('cod_enabled', true) && $codMinOrderValue > $cart['subtotal'])
+                        <div class="p-4 border-2 border-dashed border-gray-200 rounded-xl bg-gray-50/50">
+                            <div class="flex items-center justify-between opacity-60">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-10 h-6 bg-gray-100 rounded flex items-center justify-center">
+                                        <i data-lucide="package" class="text-gray-400 w-4 h-4"></i>
+                                    </div>
+                                    <span class="font-medium text-gray-400">Cash on Delivery</span>
+                                </div>
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-amber-600 bg-amber-50 px-2 py-0.5 rounded">Not Eligible</span>
+                            </div>
+                            <p class="mt-2 text-xs text-amber-600 flex items-center gap-1">
+                                <i data-lucide="info" class="w-3 h-3"></i>
+                                Minimum order value of ₹{{ number_format($codMinOrderValue, 2) }} required for COD.
+                            </p>
                         </div>
-                    </label>
                     @endif
                 </div>
             </div>

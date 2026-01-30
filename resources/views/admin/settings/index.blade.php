@@ -215,6 +215,10 @@
                             <input type="number" step="0.01" data-key="free_shipping_min" class="setting-input w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all outline-none">
                         </div>
                         <div class="space-y-2">
+                            <label class="text-sm font-semibold text-gray-700">Minimum COD Order Value (<span class="currency-symbol">₹</span>)</label>
+                            <input type="number" step="0.01" data-key="cod_min_order_value" class="setting-input w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all outline-none">
+                        </div>
+                        <div class="space-y-2">
                             <label class="text-sm font-semibold text-gray-700">Tax Rate (GST %)</label>
                             <div class="relative">
                                 <input type="number" step="0.1" data-key="tax_rate" class="setting-input w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all outline-none">

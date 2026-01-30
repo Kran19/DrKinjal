@@ -41,6 +41,7 @@ class CheckoutController extends Controller
         return view('customer.checkout.index', [
             'cart' => $cart,
             'codAvailable' => $this->checkoutService->isCODAvailable(),
+            'codMinOrderValue' => \App\Helpers\SettingsHelper::get('cod_min_order_value', 0),
             'paymentMethods' => $this->checkoutService->getAvailablePaymentMethods(),
             'addresses' => Auth::guard('customer')->user()?->addresses ?? collect(),
         ]);
@@ -60,6 +61,10 @@ class CheckoutController extends Controller
         $this->validateCheckout($request);
 
         if ($request->payment_method === 'cod') {
+            if (!$this->checkoutService->isCODAvailable()) {
+                $minCOD = (float) \App\Helpers\SettingsHelper::get('cod_min_order_value', 0);
+                return back()->with('error', "Cash on Delivery is only available for orders above ₹" . number_format($minCOD, 2));
+            }
             return $this->processCOD($request);
         }
 

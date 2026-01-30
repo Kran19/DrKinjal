@@ -368,6 +368,17 @@ class SettingService
                     'is_encrypted' => false,
                     'is_public' => true,
                     'sort_order' => 30
+                ],
+                [
+                    'key' => 'cod_min_order_value',
+                    'label' => 'Minimum COD Order Value',
+                    'value' => '0.00',
+                    'type' => 'decimal',
+                    'default' => '0.00',
+                    'description' => 'Minimum order amount to enable Cash on Delivery',
+                    'is_encrypted' => false,
+                    'is_public' => true,
+                    'sort_order' => 40
                 ]
             ],
             'social' => [

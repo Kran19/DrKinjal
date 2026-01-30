@@ -359,6 +359,17 @@ class CheckoutService
      */
     public function isCODAvailable(): bool
     {
+        // Check if COD is enabled globally
+        if (!\App\Helpers\SettingsHelper::get('cod_enabled', true)) {
+            return false;
+        }
+
+        // Check minimum order value for COD
+        $minCODValue = (float) \App\Helpers\SettingsHelper::get('cod_min_order_value', 0);
+        if ($this->cart['subtotal'] < $minCODValue) {
+            return false;
+        }
+
         foreach ($this->cart['items'] as $item) {
             $variant = ProductVariant::where('sku', $item['sku'])->first();
 
