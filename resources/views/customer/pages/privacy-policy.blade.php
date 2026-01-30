@@ -77,13 +77,13 @@
                         </a>
                     </nav>
                     
-                    <div class="mt-8 pt-6 border-t border-slate-200">
+                    <!-- <div class="mt-8 pt-6 border-t border-slate-200">
                         <p class="text-sm text-slate-600 mb-3">Download this policy:</p>
                         <button class="w-full flex items-center justify-center gap-2 px-4 py-3 bg-slate-900 text-white rounded-xl hover:bg-slate-800 transition-colors">
                             <i data-lucide="download" class="w-4 h-4"></i>
                             Download PDF
                         </button>
-                    </div>
+                    </div> -->
                 </div>
             </div>
 
