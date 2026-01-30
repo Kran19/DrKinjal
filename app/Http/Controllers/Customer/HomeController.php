@@ -78,7 +78,7 @@ class HomeController extends Controller
              |------------------------------*/
             $testimonials = Testimonial::where('is_active', true)
                 ->latest()
-                ->limit(3)
+                ->limit(100)
                 ->get();
 
             /* ------------------------------
