@@ -398,12 +398,11 @@
                             <div class="text-sm font-medium text-stone-900">
                                 ${order.customer_name}
                             </div>
+                            <div class="text-sm text-stone-500 font-medium flex items-center mt-1">
+                                ${order.customer_mobile}
+                            </div>
                             <div class="text-sm text-stone-500">
                                 ${order.customer_email}
-                            </div>
-                            <div class="text-sm text-stone-500 font-medium flex items-center mt-1">
-                                <i class="fas fa-phone-alt mr-1.5 text-[10px] text-stone-400"></i>
-                                ${order.customer_mobile}
                             </div>
                         </div>
                     </div>
