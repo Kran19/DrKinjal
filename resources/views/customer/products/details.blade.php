@@ -414,12 +414,12 @@
                                 @endif
                             </ul>
                         </div>
-                        <div class="bg-stone-50 p-6 rounded-xl">
+                        <!-- <div class="bg-stone-50 p-6 rounded-xl">
                             <h4 class="font-bold text-stone-900 mb-2">Perfect For</h4>
                             <p class="text-stone-600">
                                 Reveal visibly brighter, clearer, and healthier-looking skin with Dr. Kinjal Skin Brightening Face Wash, a scientifically formulated cleanser designed to gently cleanse while enhancing your skin's natural radiance.
                             </p>
-                        </div>
+                        </div> -->
                     </div>
                     @endif
                     
