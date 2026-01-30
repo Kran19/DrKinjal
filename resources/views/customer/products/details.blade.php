@@ -138,19 +138,34 @@
 
                 <!-- Add to Cart -->
                 <div class="mb-8">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="flex items-center border border-stone-200 rounded-full">
+                    <!-- Action Wrapper -->
+                    <div id="action-wrapper" class="flex items-center gap-4 mb-6">
+                        <!-- Initial Quantity Selector (Only shown when NOT in cart) -->
+                        <div id="initial-qty-selector" class="flex items-center border border-stone-200 rounded-full {{ isset($cartItem) ? 'hidden' : '' }}">
                             <button class="px-4 py-3 text-stone-600 hover:text-rose-500 decrease-qty">-</button>
                             <span class="px-4 py-3 font-medium product-qty">1</span>
                             <button class="px-4 py-3 text-stone-600 hover:text-rose-500 increase-qty">+</button>
                         </div>
+
+                        <!-- Add to Cart Button (Only shown when NOT in cart) -->
                         <button id="addToCartBtn" 
-                                class="flex-1 px-8 py-4 bg-stone-900 text-white font-semibold rounded-full hover:bg-rose-500 hover:scale-105 transition-all duration-300 disabled:bg-stone-300 disabled:cursor-not-allowed"
+                                class="flex-1 px-8 py-4 bg-stone-900 text-white font-semibold rounded-full hover:bg-rose-500 hover:scale-105 transition-all duration-300 disabled:bg-stone-300 disabled:cursor-not-allowed {{ isset($cartItem) ? 'hidden' : '' }} {{ !$product['is_in_stock'] ? 'disabled' : '' }}"
                                 data-product-id="{{ $product['id'] }}"
                                 data-variant-id="{{ $product['default_variant_id'] ?? $product['id'] }}"
                                 {{ !$product['is_in_stock'] ? 'disabled' : '' }}>
                             {{ $product['is_in_stock'] ? 'Add to Cart' : 'Out of Stock' }} · ₹<span class="total-price">{{ $product['price'] }}</span>
                         </button>
+
+                        <!-- Quantity Control (Only shown when IN cart) -->
+                        <div id="qtyControl" class="flex-1 flex max-w-[50%] items-center justify-between bg-stone-900 rounded-full text-white px-2 py-2 {{ isset($cartItem) ? '' : 'hidden' }}">
+                            <button onclick="updateCartQty(-1)" class="w-10 h-10 flex items-center justify-center bg-stone-700 rounded-full hover:bg-stone-600 transition-colors">
+                                <i data-lucide="minus" class="w-4 h-4"></i>
+                            </button>
+                            <span id="cartQtyDisplay" class="font-bold text-lg">{{ $cartItem['quantity'] ?? 1 }}</span>
+                             <button onclick="updateCartQty(1)" class="w-10 h-10 flex items-center justify-center bg-stone-700 rounded-full hover:bg-stone-600 transition-colors">
+                                <i data-lucide="plus" class="w-4 h-4"></i>
+                            </button>
+                        </div>
                     </div>
                     <button onclick="addToWishlist({{ $product['id'] }})" id="wishlistBtn"
                             class="w-full px-8 py-4 bg-white text-stone-900 font-semibold rounded-full border border-stone-200 hover:border-rose-300 hover:bg-rose-50 transition-all duration-300 mb-4">
@@ -604,6 +619,10 @@
             updateTotalPrice();
         });
         
+        let currentCartItemId = '{{ $cartItem['id'] ?? null }}';
+        let currentCartQty = {{ $cartItem['quantity'] ?? 0 }}; // Keep track locally for immediate UI updates
+
+        
         document.querySelector('.decrease-qty').addEventListener('click', () => {
             if (quantity > 1) {
                 quantity--;
@@ -660,10 +679,30 @@
             .then(data => {
                 if (data.success) {
                     // Update header cart count
-                    const cartCountEl = document.getElementById('cartCount'); // Ensure ID matches header
+                    const cartCountEl = document.getElementById('cartCount');
                     if (cartCountEl) {
                         cartCountEl.textContent = data.cart_count;
                         cartCountEl.classList.remove('hidden');
+                    }
+
+                    // Find the added item to retrieve its ID
+                    if (data.cart && data.cart.items) {
+                        const addedItem = data.cart.items.find(item => item.variant_id == variantId);
+                        if (addedItem) {
+                            currentCartItemId = addedItem.id;
+                            currentCartQty = addedItem.quantity;
+                            document.getElementById('cartQtyDisplay').textContent = currentCartQty;
+                            
+                            // Transition UI
+                            document.getElementById('addToCartBtn').classList.add('hidden');
+                            document.getElementById('initial-qty-selector').classList.add('hidden');
+                            document.getElementById('qtyControl').classList.remove('hidden');
+                            
+                            // Reset initial quantity for next time (simulate fresh state if reverted)
+                            quantity = 1; 
+                            qtyEl.textContent = 1;
+                            updateTotalPrice();
+                        }
                     }
 
                     // Show notification
@@ -678,14 +717,11 @@
                         }, 3000);
                     }
                     
-                    btn.innerHTML = '<i data-lucide="check" class="w-5 h-5 inline-block mr-2"></i> Added';
+                    // Reset button state (though it's hidden now)
+                    btn.innerHTML = originalContent;
+                    btn.disabled = false;
                     lucide.createIcons();
                     
-                    setTimeout(() => {
-                        btn.innerHTML = originalContent;
-                        btn.disabled = false;
-                        lucide.createIcons();
-                    }, 2000);
                 } else {
                     alert(data.message || 'Failed to add to cart');
                     btn.innerHTML = originalContent;
@@ -701,6 +737,97 @@
                 lucide.createIcons();
             });
         });
+
+        // Update Cart Quantity (For the Toggle Control)
+        window.updateCartQty = function(change) {
+            if (!currentCartItemId) return;
+            
+            const newQty = currentCartQty + change;
+            
+            if (newQty <= 0) {
+                // Remove item logic
+                fetch("/cart/remove/" + currentCartItemId, {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        currentCartItemId = null;
+                        currentCartQty = 0;
+                        
+                        // Revert UI
+                        document.getElementById('qtyControl').classList.add('hidden');
+                        document.getElementById('addToCartBtn').classList.remove('hidden');
+                        document.getElementById('initial-qty-selector').classList.remove('hidden');
+                        
+                        // Update Header
+                        const cartCountEl = document.getElementById('cartCount');
+                        if (cartCountEl) {
+                            cartCountEl.textContent = data.data.cart_count;
+                             if(data.data.cart_count == 0) cartCountEl.classList.add('hidden');
+                        }
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+                
+            } else {
+                // Update quantity logic
+                // Optimistic UI update
+                currentCartQty = newQty;
+                document.getElementById('cartQtyDisplay').textContent = currentCartQty;
+                
+                fetch("/cart/update/" + currentCartItemId, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                    },
+                    body: JSON.stringify({
+                        quantity: newQty
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                         // Sync reliable data
+                         if(data.data && data.data.cart) {
+                             // data.data.cart is the cart array? Helper returns formatted cart.
+                             // Controller updateQuantity returns: data => { cart: ..., cart_count: ... }
+                             // Let's verify structure. CartController line 84: 'data' => ['cart' => $cart, 'cart_count' => ...]
+                             // $cart from helper 'updateItemQuantity' returns formatted cart array.
+                             // So:
+                             const updatedItem = data.data.cart.items.find(item => item.id == currentCartItemId);
+                             if (updatedItem) {
+                                 currentCartQty = updatedItem.quantity;
+                                 document.getElementById('cartQtyDisplay').textContent = currentCartQty;
+                             }
+                             
+                             const cartCountEl = document.getElementById('cartCount');
+                             if (cartCountEl) {
+                                cartCountEl.textContent = data.data.cart_count;
+                             }
+                         }
+                    } else {
+                        // Revert optimistic update
+                        currentCartQty -= change;
+                        document.getElementById('cartQtyDisplay').textContent = currentCartQty;
+                        alert(data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                     // Revert optimistic update
+                    currentCartQty -= change;
+                    document.getElementById('cartQtyDisplay').textContent = currentCartQty;
+                });
+            }
+        };
         
         // Wishlist
         // Wishlist

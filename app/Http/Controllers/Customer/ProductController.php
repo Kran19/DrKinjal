@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Services\Customer\ProductService;
+use App\Helpers\CartHelper;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use Illuminate\Support\Facades\Log;
@@ -14,10 +15,12 @@ use App\Models\Wishlist;
 class ProductController extends Controller
 {
     protected $productService;
+    protected $cartHelper;
 
-    public function __construct(ProductService $productService)
+    public function __construct(ProductService $productService, CartHelper $cartHelper)
     {
         $this->productService = $productService;
+        $this->cartHelper = $cartHelper;
     }
 
     public function bestsellers(Request $request)
@@ -244,12 +247,29 @@ class ProductController extends Controller
                 }
             }
 
+
+            // Check if product is in cart
+            $cart = $this->cartHelper->getCart();
+            $cartItem = null;
+            $variantId = $product['default_variant_id'] ?? $product['id'];
+
+            if (isset($cart['items']) && is_array($cart['items'])) {
+                foreach ($cart['items'] as $item) {
+                     // CartHelper returns array with 'variant_id'
+                     if (($item['variant_id'] ?? 0) == $variantId) {
+                         $cartItem = $item;
+                         break;
+                     }
+                }
+            }
+
             return view('customer.products.details', [
                 'product' => $product,
                 'relatedProducts' => $relatedProducts,
                 'reviews' => $reviews,
                 'isInWishlist' => $isInWishlist,
                 'wishlistItemId' => $wishlistItemId,
+                'cartItem' => $cartItem,
                 'title' => $product['name'] . ' - APIQO Fashion Jewelry',
                 'meta_title' => $product['meta_title'] ?? $product['name'],
                 'meta_description' => $product['meta_description'] ?? $product['short_description'],

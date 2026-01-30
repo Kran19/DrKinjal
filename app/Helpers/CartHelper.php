@@ -162,7 +162,7 @@ class CartHelper
         return [
             'success' => true,
             'message' => 'Product added to cart',
-            'cart_count' => $this->getCartCount(),
+            'cart_count' => $cart['items_count'],
             'cart' => $cart
         ];
     }

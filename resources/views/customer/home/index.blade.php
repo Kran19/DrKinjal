@@ -5,6 +5,16 @@
 
 @section('content')
 
+    <!-- Preloader -->
+    <div id="home-preloader" class="fixed inset-0 z-[9999] bg-white flex flex-col items-center justify-center transition-opacity duration-500">
+        <div class="flex flex-col items-center animate-pulse">
+            <img src="{{ asset('storage/assets/images/logo.png') }}" 
+                 class="w-48 mb-2" 
+                 alt="Dr.Kinjal Logo">
+            <h1 class="text-2xl font-bold text-stone-800 tracking-wider">Dr.Kinjal</h1>
+        </div>
+    </div>
+
 
     <!-- Hero Section -->
 <header class="relative overflow-hidden">
@@ -41,6 +51,21 @@
     </div>
 </header>
 @push('scripts')
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const preloader = document.getElementById('home-preloader');
+        if(preloader){
+            window.addEventListener('load', function() {
+                setTimeout(() => {
+                    preloader.style.opacity = '0';
+                    setTimeout(() => {
+                        preloader.remove();
+                    }, 500);
+                }, 800); // Slight delay for branding visibility
+            });
+        }
+    });
+</script>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
