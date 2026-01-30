@@ -148,7 +148,7 @@ class OrderController extends Controller
             $order->statusHistory()->create([
                 'status' => $validated['status'],
                 'notes' => $validated['notes'] ?? null,
-                'changed_by' => auth('admin')->id(),
+                'admin_id' => auth('admin')->id(),
             ]);
 
             DB::commit();

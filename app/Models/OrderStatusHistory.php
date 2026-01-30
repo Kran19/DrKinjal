@@ -15,7 +15,7 @@ class OrderStatusHistory extends Model
         'order_id',
         'status',
         'notes',
-        'changed_by',
+        'admin_id',
     ];
 
     protected $casts = [
@@ -30,6 +30,6 @@ class OrderStatusHistory extends Model
 
     public function changedBy(): BelongsTo
     {
-        return $this->belongsTo(Admin::class, 'changed_by');
+        return $this->belongsTo(Admin::class, 'admin_id');
     }
 }

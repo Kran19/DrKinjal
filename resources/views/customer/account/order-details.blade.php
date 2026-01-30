@@ -174,10 +174,10 @@
                 <div class="bg-gradient-to-r from-cyan-500 to-teal-500 rounded-3xl p-6 text-white">
                     <h3 class="font-bold mb-4">Order Actions</h3>
                     <div class="space-y-3">
-                        <a href="{{ route('customer.account.orders.download-invoice', $order->id) }}" class="w-full px-4 py-3 bg-white/20 rounded-xl text-left hover:bg-white/30 transition-colors flex items-center gap-3">
+                        <!-- <a href="{{ route('customer.account.orders.download-invoice', $order->id) }}" class="w-full px-4 py-3 bg-white/20 rounded-xl text-left hover:bg-white/30 transition-colors flex items-center gap-3">
                             <i data-lucide="download" class="w-5 h-5"></i>
                             <span>Download Invoice</span>
-                        </a>
+                        </a> -->
                         @if($order->status == 'delivered')
                         <a href="{{ route('customer.page.contact') }}" class="w-full px-4 py-3 bg-white/20 rounded-xl text-left hover:bg-white/30 transition-colors flex items-center gap-3">
                             <i data-lucide="rotate-ccw" class="w-5 h-5"></i>
