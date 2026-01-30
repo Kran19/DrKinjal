@@ -140,11 +140,15 @@ class WishlistController extends Controller
         $wishlist = Wishlist::where('customer_id', $customer->id)->first();
         $wishlistCount = $wishlist ? $wishlist->items()->count() : 0;
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Removed from wishlist',
-            'count' => $wishlistCount
-        ]);
+        if ($request->expectsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Removed from wishlist',
+                'count' => $wishlistCount
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Removed from wishlist');
     }
 
     public function removeMultiple(Request $request)
@@ -166,12 +170,16 @@ class WishlistController extends Controller
         $wishlist = Wishlist::where('customer_id', $customer->id)->first();
         $wishlistCount = $wishlist ? $wishlist->items()->count() : 0;
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Items removed from wishlist',
-            'count' => $wishlistCount,
-            'deleted_count' => $deleted
-        ]);
+        if ($request->expectsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Items removed from wishlist',
+                'count' => $wishlistCount,
+                'deleted_count' => $deleted
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Selected items removed');
     }
 
     public function moveToCart(Request $request)
@@ -210,17 +218,24 @@ class WishlistController extends Controller
             $wishlist = Wishlist::where('customer_id', $customer->id)->first();
             $wishlistCount = $wishlist ? $wishlist->items()->count() : 0;
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Item moved to cart successfully',
-                'count' => $wishlistCount
-            ]);
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Item moved to cart successfully',
+                    'count' => $wishlistCount
+                ]);
+            }
+
+            return redirect()->back()->with('success', 'Item moved to cart successfully');
 
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Failed to add to cart: ' . $e->getMessage()
-            ], 500);
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to add to cart: ' . $e->getMessage()
+                ], 500);
+            }
+            return redirect()->back()->with('error', 'Failed to add to cart: ' . $e->getMessage());
         }
     }
 
@@ -260,12 +275,20 @@ class WishlistController extends Controller
 
         $wishlistCount = $wishlist->items()->count();
 
-        return response()->json([
-            'success' => true,
-            'message' => "{$movedCount} items moved to cart successfully",
-            'count' => $wishlistCount,
-            'errors' => $errors
-        ]);
+        if ($request->expectsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => "{$movedCount} items moved to cart successfully",
+                'count' => $wishlistCount,
+                'errors' => $errors
+            ]);
+        }
+
+        if (count($errors) > 0) {
+            return redirect()->back()->with('warning', "{$movedCount} items moved to cart. Some errors occurred.");
+        }
+
+        return redirect()->back()->with('success', "All items moved to cart successfully");
     }
 
     public function clear(Request $request)
