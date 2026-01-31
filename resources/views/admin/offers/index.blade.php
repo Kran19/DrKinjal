@@ -761,9 +761,16 @@
                     // Update most used offer
                     if (mostUsedEl) {
                         if (stats.most_used_offer) {
-                            mostUsedEl.textContent = stats.most_used_offer.name + 
-                                (stats.most_used_offer.code ? ' (' + stats.most_used_offer.code + ')' : '') +
-                                ' - ' + (stats.most_used_offer.used_count || 0) + ' uses';
+                            const offerName = stats.most_used_offer.name || '';
+                            const offerCode = stats.most_used_offer.code ? ` (${stats.most_used_offer.code})` : '';
+                            // Ensure count is a number, handling null/undefined/strings
+                            let usageCount = 0;
+                            if (stats.most_used_offer.used_count !== undefined && stats.most_used_offer.used_count !== null) {
+                                usageCount = parseInt(stats.most_used_offer.used_count);
+                                if (isNaN(usageCount)) usageCount = 0;
+                            }
+                            
+                            mostUsedEl.textContent = `${offerName}${offerCode} - ${usageCount} uses`;
                         } else {
                             mostUsedEl.textContent = '-';
                         }
