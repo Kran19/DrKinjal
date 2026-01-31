@@ -281,7 +281,6 @@
                         
                         @foreach($ingredientItems as $ingredient)
                             <div class="px-6 py-4 bg-stone-50 rounded-2xl border border-stone-100 flex items-center gap-3">
-                                <div class="w-2 h-2 bg-amber-400 rounded-full"></div>
                                 <span class="font-bold text-stone-900">{{ trim($ingredient) }}</span>
                             </div>
                         @endforeach
