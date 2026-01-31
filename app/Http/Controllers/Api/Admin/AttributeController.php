@@ -280,8 +280,20 @@ class AttributeController extends Controller
             ], 'Attribute statistics retrieved successfully');
 
         } catch (\Exception $e) {
-            \Log::error('Attribute statistics error: ' . $e->getMessage());
-            return $this->apiResponse(false, null, 'Failed to retrieve statistics', 500);
+            \Log::error('Attribute statistics error: ' . $e->getMessage(), [
+                'exception' => $e,
+                'trace' => $e->getTraceAsString()
+            ]);
+            
+            // Return empty stats instead of error to prevent UI crash if possible
+            return $this->apiResponse(true, [
+                'total_attributes' => 0,
+                'active_attributes' => 0,
+                'variant_attributes' => 0,
+                'filterable_attributes' => 0,
+                'popular_attribute' => null,
+                'types_count' => [],
+            ], 'Failed to retrieve statistics: ' . $e->getMessage());
         }
     }
 

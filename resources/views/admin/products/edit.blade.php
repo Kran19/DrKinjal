@@ -536,36 +536,23 @@
                  
                  if (['select', 'multiselect', 'multi-select', 'radio'].includes(inputType)) {
                      const isMulti = inputType === 'multiselect' || inputType === 'multi-select';
-                     html += `<select name="${fieldName}[specification_value_id]${isMulti ? '[]' : ''}" ${isMulti ? 'multiple' : ''} class="w-full px-3 py-2 border rounded-lg outline-none focus:ring-1 focus:ring-blue-500">`;
+                     html += `<select name="${fieldName}[specification_value_id]${isMulti ? '[]' : ''}" ${isMulti ? 'multiple' : ''} class="w-full px-3 py-2 border rounded-lg outline-none focus:ring-1 focus:ring-blue-500 select2-spec">`;
                      if (!isMulti) {
                          html += `<option value="">Select ${spec.name}</option>`;
                          html += `<option value="">None</option>`;
                      }
+                     
                      if(spec.values) {
+                         // For multiselect, we store IDs as CSV in custom_value in ProductService::syncSpecifications
+                         let selectedIds = [];
+                         if (isMulti && match && match.custom_value) {
+                             selectedIds = match.custom_value.split(',').map(v => v.trim());
+                         } else if (existingValId) {
+                             selectedIds = [existingValId.toString()];
+                         }
+
                          spec.values.forEach(val => {
-                             // Correctly check if value is selected (handling array for multiselect)
-                             let selected = '';
-                             if (isMulti) {
-                                  // For multiselect, existingValId might be an array or null
-                                  // BUT the existingSpecs map at the top of script needs to be checked carefully.
-                                  // Usually $s->pivot->specification_value_id is a single value if DB structure is standard pivot per row.
-                                  // But wait, our Service `getProductForEdit` logic returns unique specs. 
-                                  // If a product has multiple values for same spec_id, Eloquent `specifications` relation returns multiple rows.
-                                  // We need to aggregate them in `existingSpecs` JS array.
-                                  
-                                  // Let's check `existingSpecs` construction.
-                                  // Currently: existingSpecs = [{specification_id: 1, specification_value_id: 5, ...}, {specification_id: 1, specification_value_id: 6, ...}]
-                                  // So `match` logic below (finding FIRST match) is insufficient for multiselect.
-                                  
-                                  // Better logic: find ALL matches for this spec.id
-                                  const matches = existingSpecs.filter(s => s.specification_id === spec.id);
-                                  const selectedIds = matches.map(m => m.specification_value_id);
-                                  if (selectedIds.includes(val.id)) selected = 'selected';
-                             } else {
-                                  const match = existingSpecs.find(s => s.specification_id === spec.id);
-                                  if (match && match.specification_value_id == val.id) selected = 'selected';
-                             }
-                             
+                             let selected = selectedIds.includes(val.id.toString()) ? 'selected' : '';
                              html += `<option value="${val.id}" ${selected}>${val.value}</option>`;
                          });
                      }

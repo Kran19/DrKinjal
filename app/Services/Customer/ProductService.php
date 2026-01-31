@@ -613,26 +613,28 @@ class ProductService
             
             if ($spec->pivot->custom_value) {
                 $cv = $spec->pivot->custom_value;
-                // Check if custom_value looks like a list of IDs (e.g. "44,45,60" or "44, 45")
+                // Improved regex to handle optional spaces more robustly
                 if (preg_match('/^(\d+\s*,\s*)*\d+$/', $cv) && $spec->values->isNotEmpty()) {
-                    $ids = preg_split('/\s*,\s*/', $cv);
-                    $mapped = false;
+                    $ids = array_map('trim', explode(',', $cv));
+                    $mappedValues = [];
                     foreach ($ids as $id) {
-                        $found = $spec->values->firstWhere('id', $id);
+                        $found = $spec->values->firstWhere('id', (int)$id);
                         if ($found) {
-                            $extractedValues[] = $found->value;
-                            $mapped = true;
+                            $mappedValues[] = $found->value;
                         }
                     }
-                    // If no IDs could be mapped, treat it as a literal string value
-                    if (!$mapped) {
+                    
+                    if (!empty($mappedValues)) {
+                        $extractedValues = array_merge($extractedValues, $mappedValues);
+                    } else {
+                        // If no IDs matched, treat as literal string
                         $extractedValues[] = $cv;
                     }
                 } else {
                     $extractedValues[] = $cv;
                 }
             } else if ($spec->pivot->specification_value_id) {
-                $val = $spec->values->firstWhere('id', $spec->pivot->specification_value_id);
+                $val = $spec->values->firstWhere('id', (int)$spec->pivot->specification_value_id);
                 if ($val) {
                     $extractedValues[] = $val->value;
                 }

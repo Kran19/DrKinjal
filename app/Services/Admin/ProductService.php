@@ -129,10 +129,12 @@ class ProductService
      */
     private function syncSpecifications(Product $product, array $data): void
     {
-        // Detach all existing specifications first
-        $product->specifications()->detach();
-
+        // Only sync if specifications are provided in the data array
+        // This prevents accidental deletion of specifications during partial updates
         if (isset($data['specifications']) && is_array($data['specifications'])) {
+            // Detach all existing specifications first
+            $product->specifications()->detach();
+
             foreach ($data['specifications'] as $specData) {
                 if (empty($specData['specification_id'])) {
                     continue;
@@ -143,7 +145,7 @@ class ProductService
                 $customVal = $specData['custom_value'] ?? null;
 
                 if (is_array($valId)) {
-                    // Handle multiselect - store IDs in custom_value as CSV to avoid unique constraint violation
+                    // Handle multiselect - store IDs in custom_value as CSV
                     $product->specifications()->attach($specId, [
                         'specification_value_id' => null,
                         'custom_value' => implode(',', $valId)
@@ -156,9 +158,8 @@ class ProductService
                     ]);
                 }
             }
+            Log::info('Specifications synced', ['product_id' => $product->id]);
         }
-
-        Log::info('Specifications synced', ['product_id' => $product->id]);
     }
 
     /**

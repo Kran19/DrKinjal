@@ -177,13 +177,26 @@
                     </div>
                 </div>
 
-                <!-- Key Ingredients / Materials -->
-                @if(isset($product['materials']) && count($product['materials']) > 0)
+                <!-- Key Ingredients Tags (Materials) -->
+                @php
+                    $materials = $product['materials'] ?? [];
+                    if (empty($materials)) {
+                        // Fallback check in specifications if 'materials' key is not pre-populated
+                        $matSpec = collect($product['specifications'] ?? [])->first(function($s) {
+                            return str_contains(strtolower($s['name']), 'ingredient');
+                        });
+                        if ($matSpec) {
+                            $materials = explode(', ', $matSpec['value']);
+                        }
+                    }
+                @endphp
+
+                @if(!empty($materials))
                 <div class="mb-8">
                     <h3 class="font-bold text-stone-900 mb-3">Key Ingredients</h3>
                     <div class="flex gap-2 flex-wrap">
-                        @foreach($product['materials'] as $material)
-                            <span class="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-sm">{{ $material }}</span>
+                        @foreach($materials as $material)
+                            <span class="px-4 py-1.5 bg-amber-50 text-amber-700 rounded-full text-sm font-medium border border-amber-100">{{ trim($material) }}</span>
                         @endforeach
                     </div>
                 </div>
@@ -208,120 +221,54 @@
         <div class="mt-20">
             <div class="border-b border-stone-200 mb-8 overflow-x-auto">
                 <div class="flex gap-8 min-w-max">
-                    @if(isset($product['specifications']) && count($product['specifications']) > 0)
+                    @php
+                        $specs = collect($product['specifications'] ?? []);
+                        $hasBenefits = $specs->contains(fn($s) => str_contains(strtolower($s['name']), 'benefit'));
+                        $hasIngredients = $specs->contains(fn($s) => str_contains(strtolower($s['name']), 'ingredient'));
+                        $hasHowToUse = $specs->contains(fn($s) => str_contains(strtolower($s['name']), 'how to use'));
+                    @endphp
+
+                    <button class="pb-4 font-semibold tab-btn active border-b-2 border-stone-900 text-stone-900" data-tab="details">Product Details</button>
+                    
+                    @if($hasBenefits)
                         <button class="pb-4 font-semibold tab-btn text-stone-600 hover:text-stone-900 transition-colors" data-tab="benefits">Key Benefits</button>
+                    @endif
+                    @if($hasIngredients)
                         <button class="pb-4 font-semibold tab-btn text-stone-600 hover:text-stone-900 transition-colors" data-tab="ingredients">Ingredients</button>
+                    @endif
+                    @if($hasHowToUse)
                         <button class="pb-4 font-semibold tab-btn text-stone-600 hover:text-stone-900 transition-colors" data-tab="how-to-use">How to Use</button>
                     @endif
-                    <button class="pb-4 font-semibold tab-btn active border-b-2 border-stone-900 text-stone-900" data-tab="details">Product Details</button>
+                    
                     <button class="pb-4 font-semibold tab-btn text-stone-600 hover:text-stone-900 transition-colors" data-tab="reviews">Reviews ({{ count($reviews) }})</button>
                 </div>
             </div>
             
             <!-- Key Benefits Tab -->
-            @if(isset($product['specifications']) && count($product['specifications']) > 0)
-            <div id="benefits-tab" class="tab-content hidden">
-                <div class="space-y-4">
-                    <ul class="space-y-2 text-stone-600">
+            @if($hasBenefits)
+            <div id="benefits-tab" class="tab-content hidden animate-fadeIn">
+                <div class="space-y-6">
+                    <h3 class="text-2xl font-bold text-stone-900">Why You'll Love It</h3>
+                    <ul class="grid md:grid-cols-2 gap-4">
                         @php
-                            // Extract benefits from specifications
-                            $benefits = collect($product['specifications'])->firstWhere('name', 'Key Benefits');
+                            $benefits = $specs->first(fn($s) => str_contains(strtolower($s['name']), 'benefit'));
                             $benefitItems = $benefits ? explode(', ', $benefits['value']) : [];
                         @endphp
                         
-                        @if(count($benefitItems) > 0)
-                            @foreach($benefitItems as $benefit)
-                            <li class="flex items-center gap-2">
-                                <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
-                                {{ $benefit }}
-                            </li>
-                            @endforeach
-                        @else
-                            <li class="flex items-center gap-2">
-                                <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
-                                Brightens and evens skin tone
-                            </li>
-                            <li class="flex items-center gap-2">
-                                <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
-                                Reduces dark spots and pigmentation
-                            </li>
-                            <li class="flex items-center gap-2">
-                                <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
-                                Gently exfoliates and removes impurities
-                            </li>
-                            <li class="flex items-center gap-2">
-                                <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
-                                Hydrates and soothes skin
-                            </li>
-                            <li class="flex items-center gap-2">
-                                <i data-lucide="check" class="w-4 h-4 text-green-500"></i>
-                                Suitable for all skin types
-                            </li>
-                        @endif
+                        @foreach($benefitItems as $benefit)
+                        <li class="flex items-start gap-3 p-4 bg-stone-50 rounded-2xl border border-stone-100">
+                            <div class="mt-1 bg-green-100 rounded-full p-1">
+                                <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
+                            </div>
+                            <span class="text-stone-700 font-medium">{{ trim($benefit) }}</span>
+                        </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
             @endif
 
             <!-- Ingredients Tab -->
-            @if(isset($product['specifications']) && count($product['specifications']) > 0)
-            <div id="ingredients-tab" class="tab-content hidden">
-                <div class="grid md:grid-cols-2 gap-12">
-                    <div>
-                        <h3 class="text-xl font-bold text-stone-900 mb-4">Active Ingredients</h3>
-                        <div class="space-y-4">
-                            @php
-                                // Extract key ingredients from specifications
-                                $ingredients = collect($product['specifications'])->firstWhere('name', 'Key Ingredients');
-                                $ingredientItems = $ingredients ? explode(', ', $ingredients['value']) : [];
-                            @endphp
-                            
-                            @if(count($ingredientItems) > 0)
-                                @foreach(array_slice($ingredientItems, 0, 4) as $ingredient)
-                                <div class="p-4 bg-stone-50 rounded-xl">
-                                    <h4 class="font-bold text-stone-900 mb-1">{{ $ingredient }}</h4>
-                                    <p class="text-sm text-stone-600">
-                                        @if($ingredient == 'Kojic Acid')
-                                            Natural skin brightener that reduces pigmentation and dark spots.
-                                        @elseif($ingredient == 'Niacinamide')
-                                            Improves skin barrier and reduces inflammation.
-                                        @elseif($ingredient == 'Glutathione')
-                                            Powerful antioxidant that helps brighten skin.
-                                        @elseif($ingredient == 'Vitamin C')
-                                            Protects against environmental damage and boosts collagen.
-                                        @else
-                                            Helps improve skin texture and appearance.
-                                        @endif
-                                    </p>
-                                </div>
-                                @endforeach
-                            @else
-                                <div class="p-4 bg-stone-50 rounded-xl">
-                                    <h4 class="font-bold text-stone-900 mb-1">Kojic Acid</h4>
-                                    <p class="text-sm text-stone-600">Natural skin brightener that reduces pigmentation and dark spots.</p>
-                                </div>
-                                <div class="p-4 bg-stone-50 rounded-xl">
-                                    <h4 class="font-bold text-stone-900 mb-1">Niacinamide</h4>
-                                    <p class="text-sm text-stone-600">Improves skin barrier and reduces inflammation.</p>
-                                </div>
-                                <div class="p-4 bg-stone-50 rounded-xl">
-                                    <h4 class="font-bold text-stone-900 mb-1">Glutathione</h4>
-                                    <p class="text-sm text-stone-600">Powerful antioxidant that helps brighten skin.</p>
-                                </div>
-                                <div class="p-4 bg-stone-50 rounded-xl">
-                                    <h4 class="font-bold text-stone-900 mb-1">Vitamin C</h4>
-                                    <p class="text-sm text-stone-600">Protects against environmental damage and boosts collagen.</p>
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-bold text-stone-900 mb-4">Supporting Ingredients</h3>
-                        <div class="space-y-4">
-                            @if(count($ingredientItems) > 4)
-                                @foreach(array_slice($ingredientItems, 4, 4) as $ingredient)
-                                <div class="p-4 bg-stone-50 rounded-xl">
-                                    <h4 class="font-bold text-stone-900 mb-1">{{ $ingredient }}</h4>
                                     <p class="text-sm text-stone-600">
                                         @if($ingredient == 'Aloe Vera')
                                             Soothes and hydrates the skin.
@@ -358,16 +305,17 @@
             @endif
 
             <!-- How to Use Tab -->
-            @if(isset($product['specifications']) && count($product['specifications']) > 0)
-            <div id="how-to-use-tab" class="tab-content hidden">
-                <div class="space-y-6">
-                    <div>
-                        <h3 class="text-xl font-bold text-stone-900 mb-4">Directions</h3>
+            @if($hasHowToUse)
+            <div id="how-to-use-tab" class="tab-content hidden animate-fadeIn">
+                <div class="max-w-3xl">
+                    <h3 class="text-2xl font-bold text-stone-900 mb-6">How to Use</h3>
+                    <div class="p-8 bg-rose-50 rounded-3xl border border-rose-100 relative overflow-hidden">
+                        <i data-lucide="sparkles" class="absolute -right-4 -top-4 w-24 h-24 text-rose-100 rotate-12"></i>
                         @php
-                            $howToUse = collect($product['specifications'])->firstWhere('name', 'How to Use');
+                            $howToUse = $specs->first(fn($s) => str_contains(strtolower($s['name']), 'how to use'));
                         @endphp
-                        <p class="text-stone-600 mb-4">
-                            {{ $howToUse ? $howToUse['value'] : 'Apply a small amount on wet face, gently massage in circular motions, and rinse thoroughly with water. Use twice daily for best results.' }}
+                        <p class="text-stone-800 text-lg leading-relaxed relative z-10">
+                            {{ $howToUse['value'] }}
                         </p>
                     </div>
                 </div>
@@ -375,58 +323,33 @@
             @endif
 
             <!-- Product Details Tab -->
-            <div id="details-tab" class="tab-content">
-                <div class="space-y-6">
-                    @if(isset($product['specifications']) && count($product['specifications']) > 0)
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div class="bg-stone-50 p-6 rounded-xl">
-                            <h4 class="font-bold text-stone-900 mb-2">Product Specifications</h4>
-                            <ul class="space-y-2 text-stone-600">
-                                @foreach($product['specifications'] as $spec)
-                                    @if(in_array($spec['name'], ['Net Volume/Weight', 'MRP', 'Skin Type', 'Shelf Life', 'Dermatologist Tested']))
-                                    <li class="flex justify-between">
-                                        <span>{{ $spec['name'] }}:</span>
-                                        <span class="font-medium">{{ $spec['value'] }}</span>
-                                    </li>
+            <div id="details-tab" class="tab-content animate-fadeIn">
+                <div class="grid lg:grid-cols-2 gap-12">
+                    <div>
+                        <h3 class="text-2xl font-bold text-stone-900 mb-6">Full Product Details</h3>
+                        <div class="bg-stone-50 p-8 rounded-3xl border border-stone-100">
+                             <dl class="space-y-4">
+                                @foreach($specs as $spec)
+                                    {{-- Skip long lists already covered in other tabs --}}
+                                    @if(!str_contains(strtolower($spec['name']), 'benefit') && 
+                                        !str_contains(strtolower($spec['name']), 'ingredient') && 
+                                        !str_contains(strtolower($spec['name']), 'how to use'))
+                                        <div class="flex justify-between py-3 border-b border-stone-200 last:border-0 hover:bg-white/50 px-2 rounded-lg transition-colors">
+                                            <dt class="text-stone-500 font-medium">{{ $spec['name'] }}</dt>
+                                            <dd class="text-stone-900 font-bold text-right ml-4">{{ $spec['value'] }}</dd>
+                                        </div>
                                     @endif
                                 @endforeach
-                                @if(!isset($product['specifications']) || count($product['specifications']) == 0)
-                                <li class="flex justify-between">
-                                    <span>Net Volume:</span>
-                                    <span class="font-medium">100 ml</span>
-                                </li>
-                                <li class="flex justify-between">
-                                    <span>MRP:</span>
-                                    <span class="font-medium">₹399</span>
-                                </li>
-                                <li class="flex justify-between">
-                                    <span>Shelf Life:</span>
-                                    <span class="font-medium">36 Months</span>
-                                </li>
-                                <li class="flex justify-between">
-                                    <span>Skin Type:</span>
-                                    <span class="font-medium">All Skin Types</span>
-                                </li>
-                                <li class="flex justify-between">
-                                    <span>Dermatologist Tested:</span>
-                                    <span class="font-medium">Yes</span>
-                                </li>
-                                @endif
-                            </ul>
+                             </dl>
                         </div>
-                        <!-- <div class="bg-stone-50 p-6 rounded-xl">
-                            <h4 class="font-bold text-stone-900 mb-2">Perfect For</h4>
-                            <p class="text-stone-600">
-                                Reveal visibly brighter, clearer, and healthier-looking skin with Dr. Kinjal Skin Brightening Face Wash, a scientifically formulated cleanser designed to gently cleanse while enhancing your skin's natural radiance.
-                            </p>
-                        </div> -->
                     </div>
-                    @endif
                     
-                    <!-- Detailed Description -->
                     @if($product['description'])
-                    <div class="text-stone-600 leading-relaxed">
-                        {!! $product['description'] !!}
+                    <div>
+                        <h3 class="text-2xl font-bold text-stone-900 mb-6">About the Product</h3>
+                        <div class="text-stone-600 leading-relaxed text-lg prose prose-stone max-w-none">
+                            {!! $product['description'] !!}
+                        </div>
                     </div>
                     @endif
                 </div>
