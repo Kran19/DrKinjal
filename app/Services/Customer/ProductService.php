@@ -558,16 +558,35 @@ class ProductService
 
         // Get all images
         $allImages = collect();
-        foreach ($product->variants as $variant) {
-            foreach ($variant->images as $image) {
+        foreach ($product->variants->sortBy(function($v) { return !$v->is_default; }) as $variant) {
+            foreach ($variant->images->sortBy('pivot.sort_order') as $image) {
                 $allImages->push([
                     'id' => $image->id,
                     'url' => $image->full_url ?? $image->thumb_url ?? $image->file_path,
                     'variant_id' => $variant->id,
                     'is_primary' => (bool) ($image->pivot->is_primary ?? false),
+                    'sort_order' => (int) ($image->pivot->sort_order ?? 0),
                 ]);
             }
         }
+
+        // Deduplicate while maintaining order
+        $uniqueImages = [];
+        $seenIds = [];
+        foreach ($allImages as $img) {
+            if (!in_array($img['id'], $seenIds)) {
+                $uniqueImages[] = $img;
+                $seenIds[] = $img['id'];
+            }
+        }
+        
+        // Final sort: primary first, then by sort_order
+        usort($uniqueImages, function($a, $b) {
+            if ($a['is_primary'] != $b['is_primary']) {
+                return $b['is_primary'] <=> $a['is_primary'];
+            }
+            return $a['sort_order'] <=> $b['sort_order'];
+        });
 
         // Main image (from default variant)
         $mainImage = '/images/placeholder-product.jpg';

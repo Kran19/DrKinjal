@@ -108,16 +108,20 @@
                      <label class="block text-sm font-medium text-gray-700 mb-2">Gallery Images</label>
                      <div id="gallery-container" class="grid grid-cols-3 md:grid-cols-5 gap-4 mb-3">
                          @if($product->defaultVariant && $product->defaultVariant->images)
-                             @foreach($product->defaultVariant->images as $img)
-                                 @if(!$img->pivot->is_primary)
-                                     <div class="relative group border rounded-lg overflow-hidden h-24">
-                                        <img src="{{ asset('storage/' . $img->file_path) }}" class="w-full h-full object-cover">
-                                        <input type="hidden" name="gallery_image_ids[]" value="{{ $img->id }}">
-                                        <button type="button" onclick="this.parentElement.remove()" class="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                                        </button>
+                             @php
+                                 $galleryImages = $product->defaultVariant->images->where('pivot.is_primary', 0)->sortBy('pivot.sort_order');
+                             @endphp
+                             @foreach($galleryImages as $img)
+                                 <div class="relative group border rounded-lg overflow-hidden h-24 cursor-move gallery-item" data-id="{{ $img->id }}">
+                                    <img src="{{ asset('storage/' . $img->file_path) }}" class="w-full h-full object-cover">
+                                    <input type="hidden" name="gallery_image_ids[]" value="{{ $img->id }}">
+                                    <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                                        <i class="fas fa-arrows-alt text-white"></i>
                                     </div>
-                                 @endif
+                                    <button type="button" onclick="this.parentElement.remove()" class="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition z-10">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                    </button>
+                                </div>
                              @endforeach
                          @endif
                      </div>
@@ -716,11 +720,15 @@
         
         const container = document.getElementById('gallery-container');
         const div = document.createElement('div');
-        div.className = "relative group border rounded-lg overflow-hidden h-24";
+        div.className = "relative group border rounded-lg overflow-hidden h-24 cursor-move gallery-item";
+        div.setAttribute('data-id', id);
         div.innerHTML = `
             <img src="${url}" class="w-full h-full object-cover">
             <input type="hidden" name="gallery_image_ids[]" value="${id}">
-            <button type="button" onclick="this.parentElement.remove()" class="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition">
+            <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                <i class="fas fa-arrows-alt text-white"></i>
+            </div>
+            <button type="button" onclick="this.parentElement.remove()" class="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition z-10">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
         `;
@@ -794,6 +802,19 @@
         loadMedia(1, e.target.value);
     }, 500));
 </script>
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const galleryContainer = document.getElementById('gallery-container');
+        if (galleryContainer) {
+            new Sortable(galleryContainer, {
+                animation: 150,
+                ghostClass: 'bg-stone-50',
+                dragClass: 'opacity-50'
+            });
+        }
+    });
+
 <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {

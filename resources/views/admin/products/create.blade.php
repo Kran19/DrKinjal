@@ -106,10 +106,13 @@
                      <div id="gallery-container" class="grid grid-cols-3 md:grid-cols-5 gap-4 mb-3">
                          @if(old('gallery_image_urls'))
                              @foreach(old('gallery_image_urls') as $index => $url)
-                                 <div class="relative group border rounded-lg overflow-hidden h-24">
+                                 <div class="relative group border rounded-lg overflow-hidden h-24 cursor-move gallery-item" data-id="{{ old('gallery_image_ids')[$index] }}">
                                      <img src="{{ $url }}" class="w-full h-full object-cover">
                                      <input type="hidden" name="gallery_image_ids[]" value="{{ old('gallery_image_ids')[$index] }}">
-                                     <button type="button" onclick="this.parentElement.remove()" class="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition">
+                                     <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                                         <i class="fas fa-arrows-alt text-white"></i>
+                                     </div>
+                                     <button type="button" onclick="this.parentElement.remove()" class="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition z-10">
                                          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                                      </button>
                                  </div>
@@ -500,6 +503,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
 
 <script>
@@ -557,12 +561,23 @@
         }
 
         // Show validation errors with toastr
-        @if($errors->any())
+                @if($errors->any())
             @foreach($errors->all() as $error)
                 toastr.error('{{ $error }}');
             @endforeach
         @endif
+
+        // Initialize Sortable
+        const galleryContainer = document.getElementById('gallery-container');
+        if (galleryContainer) {
+            new Sortable(galleryContainer, {
+                animation: 150,
+                ghostClass: 'bg-stone-50',
+                dragClass: 'opacity-50'
+            });
+        }
     });
+
 
     // =============== PRODUCT TYPE & CATEGORY FUNCTIONS ===============
 
@@ -1124,11 +1139,15 @@
         }
 
         const div = document.createElement('div');
-        div.className = "relative group border rounded-lg overflow-hidden h-24";
+        div.className = "relative group border rounded-lg overflow-hidden h-24 cursor-move gallery-item";
+        div.setAttribute('data-id', id);
         div.innerHTML = `
             <img src="${url}" class="w-full h-full object-cover">
             <input type="hidden" name="gallery_image_ids[]" value="${id}">
-            <button type="button" onclick="this.parentElement.remove()" class="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition">
+            <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                <i class="fas fa-arrows-alt text-white"></i>
+            </div>
+            <button type="button" onclick="this.parentElement.remove()" class="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition z-10">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
         `;
