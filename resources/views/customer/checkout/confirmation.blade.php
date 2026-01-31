@@ -55,7 +55,7 @@
                             <p class="text-sm text-gray-500">Qty: {{ $item->quantity }} × ₹{{ number_format($item->unit_price, 2) }}</p>
                         </div>
                         <div class="text-right font-medium text-gray-900">
-                            ₹{{ number_format($item->subtotal, 2) }}
+                            ₹{{ number_format($item->total, 2) }}
                         </div>
                     </div>
                     @endforeach
