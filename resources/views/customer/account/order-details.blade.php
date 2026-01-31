@@ -238,8 +238,8 @@
                         <div class="flex flex-col md:flex-row gap-6 pb-6 border-b border-stone-100 last:border-0 last:pb-0">
                             <div class="flex-shrink-0">
                                 <div class="w-24 h-24 bg-stone-100 rounded-xl flex items-center justify-center overflow-hidden">
-                                     @if($item->product && $item->product->images && count($item->product->images) > 0)
-                                         <img src="{{ asset('storage/' . $item->product->images[0]) }}" alt="{{ $item->product->name }}" class="w-full h-full object-cover">
+                                     @if($item->variant && $item->variant->display_image)
+                                          <img src="{{ asset('storage/' . $item->variant->display_image) }}" alt="{{ $item->product_name }}" class="w-full h-full object-cover">
                                      @else
                                         <i data-lucide="package" class="w-8 h-8 text-stone-400"></i>
                                      @endif

@@ -220,8 +220,8 @@
                             <div class="flex items-center gap-4 mb-4 overflow-x-auto custom-scrollbar pb-2">
                                 @foreach($order->items->take(3) as $item)
                                     <div class="flex-shrink-0 w-16 h-16 bg-stone-100 rounded-xl flex items-center justify-center overflow-hidden">
-                                        @if($item->product && $item->product->images && count($item->product->images) > 0)
-                                             <img src="{{ asset('storage/' . $item->product->images[0]) }}" alt="{{ $item->product->name }}" class="w-full h-full object-cover">
+                                        @if($item->variant && $item->variant->display_image)
+                                             <img src="{{ asset('storage/' . $item->variant->display_image) }}" alt="{{ $item->product_name }}" class="w-full h-full object-cover">
                                         @else
                                             <i data-lucide="package" class="w-6 h-6 text-stone-400"></i>
                                         @endif
