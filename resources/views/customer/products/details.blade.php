@@ -296,7 +296,7 @@
                 <div class="max-w-3xl">
                     <h3 class="text-2xl font-bold text-stone-900 mb-6">How to Use</h3>
                     <div class="p-8 bg-rose-50 rounded-3xl border border-rose-100 relative overflow-hidden">
-                        <i data-lucide="sparkles" class="absolute -right-4 -top-4 w-24 h-24 text-rose-100 rotate-12"></i>
+
                         @php
                             $howToUse = $specs->first(fn($s) => str_contains(strtolower($s['name']), 'how to use'));
                         @endphp
