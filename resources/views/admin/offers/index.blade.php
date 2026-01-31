@@ -18,7 +18,7 @@
     </div>
 
     <!-- Statistics Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         <div class="bg-white rounded-2xl shadow-sm border border-sky-100 p-6">
             <div class="flex items-center">
                 <div class="p-3 rounded-lg bg-sky-100 text-sky-600 mr-4">
@@ -52,7 +52,7 @@
                 </div>
             </div>
         </div>
-        <div class="bg-white rounded-2xl shadow-sm border border-sky-100 p-6">
+        <!-- <div class="bg-white rounded-2xl shadow-sm border border-sky-100 p-6">
             <div class="flex items-center">
                 <div class="p-3 rounded-lg bg-rose-100 text-rose-600 mr-4">
                     <i class="fas fa-chart-line text-xl"></i>
@@ -62,7 +62,7 @@
                     <h3 class="text-lg font-semibold text-stone-800 truncate" id="mostUsedOffer">-</h3>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 
     <!-- Bulk Actions Bar -->
