@@ -320,9 +320,17 @@
                                     @if(!str_contains(strtolower($spec['name']), 'benefit') && 
                                         !str_contains(strtolower($spec['name']), 'ingredient') && 
                                         !str_contains(strtolower($spec['name']), 'how to use'))
-                                        <div class="flex justify-between py-3 border-b border-stone-200 last:border-0 hover:bg-white/50 px-2 rounded-lg transition-colors">
+                                        <div class="flex justify-between py-3 border-b border-stone-200 last:border-0 hover:bg-white/50 px-2 rounded-lg transition-colors items-center">
                                             <dt class="text-stone-500 font-medium">{{ $spec['name'] }}</dt>
-                                            <dd class="text-stone-900 font-bold text-right ml-4">{{ $spec['value'] }}</dd>
+                                            <dd class="text-stone-900 font-bold text-right ml-4">
+                                                @if($spec['value'] === '1' || $spec['value'] === 1)
+                                                    <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 inline-block"></i>
+                                                @elseif($spec['value'] === '0' || $spec['value'] === 0)
+                                                    <i data-lucide="x-circle" class="w-5 h-5 text-red-500 inline-block"></i>
+                                                @else
+                                                    {{ $spec['value'] }}
+                                                @endif
+                                            </dd>
                                         </div>
                                     @endif
                                 @endforeach
