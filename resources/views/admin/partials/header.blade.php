@@ -11,14 +11,14 @@
             </h1>
         </div>
         <div class="flex items-center space-x-4">
-            <div class="relative hidden sm:block">
+            <!-- <div class="relative hidden sm:block">
                 <input type="text" placeholder="Search..."
                     class="pl-10 pr-4 py-2 rounded-xl border-2 border-sky-100/80 bg-white/80 text-stone-900 placeholder-stone-400 
                            focus:outline-none focus:ring-4 focus:ring-sky-500/20 focus:border-sky-500 focus:bg-white
                            transition-all duration-200 font-medium"
                     style="box-shadow: 0 2px 8px rgba(14, 165, 233, 0.06);">
                 <i class="fas fa-search absolute left-3 top-3 text-stone-400"></i>
-            </div>
+            </div> -->
             <!-- <div class="relative block">
                 <a href="{{ route('admin.notifications.index') }}"
                     class="text-gray-500 hover:text-gray-700 relative">

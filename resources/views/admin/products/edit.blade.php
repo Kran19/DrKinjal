@@ -648,11 +648,12 @@
         
         data.data.forEach(media => {
              const div = document.createElement('div');
-             div.className = `relative group cursor-pointer border rounded-lg overflow-hidden ${selectedMediaId === media.id ? 'ring-2 ring-blue-500' : ''}`;
+             div.className = `relative group cursor-pointer border rounded-lg overflow-hidden media-item ${selectedMediaId === media.id ? 'ring-2 ring-blue-500' : ''}`;
+             div.setAttribute('data-id', media.id);
              div.onclick = () => selectMedia(media.id, media.url);
              div.innerHTML = `
-                <img src="${media.thumb_url || media.url}" class="w-full h-32 object-cover">
-                <div class="p-2 text-xs truncate">${media.filename}</div>
+                <img src="${media.thumb_url}" class="w-full h-32 object-cover">
+                <div class="p-2 text-xs truncate">${media.file_name}</div>
              `;
              grid.appendChild(div);
         });
@@ -668,13 +669,13 @@
 
     function selectMedia(id, url) {
         selectedMediaId = id;
-        const items = document.getElementById('media-grid').children;
-        for(let item of items) {
+        const items = document.querySelectorAll('.media-item');
+        items.forEach(item => {
             item.classList.remove('ring-2', 'ring-blue-500');
-            if(item.querySelector('img').src.includes(url)) {
+            if(item.getAttribute('data-id') == id) {
                  item.classList.add('ring-2', 'ring-blue-500');
             }
-        }
+        });
         
         const btn = document.getElementById('media-select-btn');
         btn.onclick = () => confirmSelection(id, url);

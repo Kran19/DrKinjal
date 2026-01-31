@@ -1034,9 +1034,9 @@
             const isSelected = selectedImages.some(img => img.id === item.id);
             html += `
             <div class="relative border rounded-lg overflow-hidden cursor-pointer group ${isSelected ? 'ring-2 ring-blue-500' : ''}"
-                 onclick="toggleImageSelection(${item.id}, '${item.url || item.path}')" data-media='${JSON.stringify(item)}'>
-                <img src="${item.url || item.path}" class="w-full h-32 object-cover">
-                <div class="p-2 text-xs truncate">${item.filename || item.name}</div>
+                 onclick="toggleImageSelection(${item.id}, '${item.url}')" data-media='${JSON.stringify(item)}'>
+                <img src="${item.thumb_url}" class="w-full h-32 object-cover">
+                <div class="p-2 text-xs truncate">${item.file_name}</div>
                 <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition"></div>
                 ${isSelected ?
                     '<div class="absolute top-2 right-2 bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center">✓</div>'
