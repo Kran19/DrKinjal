@@ -269,36 +269,22 @@
             @endif
 
             <!-- Ingredients Tab -->
-                                    <p class="text-sm text-stone-600">
-                                        @if($ingredient == 'Aloe Vera')
-                                            Soothes and hydrates the skin.
-                                        @elseif($ingredient == 'Vitamin E')
-                                            Nourishes and protects skin from damage.
-                                        @else
-                                            Provides additional skincare benefits.
-                                        @endif
-                                    </p>
-                                </div>
-                                @endforeach
-                            @else
-                                <div class="p-4 bg-stone-50 rounded-xl">
-                                    <h4 class="font-bold text-stone-900 mb-1">Arbutin</h4>
-                                    <p class="text-sm text-stone-600">Natural brightening agent derived from bearberry plants.</p>
-                                </div>
-                                <div class="p-4 bg-stone-50 rounded-xl">
-                                    <h4 class="font-bold text-stone-900 mb-1">Mulberry Extract</h4>
-                                    <p class="text-sm text-stone-600">Contains antioxidants that help even out skin tone.</p>
-                                </div>
-                                <div class="p-4 bg-stone-50 rounded-xl">
-                                    <h4 class="font-bold text-stone-900 mb-1">Aloe Vera</h4>
-                                    <p class="text-sm text-stone-600">Soothes and hydrates the skin.</p>
-                                </div>
-                                <div class="p-4 bg-stone-50 rounded-xl">
-                                    <h4 class="font-bold text-stone-900 mb-1">Vitamin E</h4>
-                                    <p class="text-sm text-stone-600">Nourishes and protects skin from damage.</p>
-                                </div>
-                            @endif
-                        </div>
+            @if($hasIngredients)
+            <div id="ingredients-tab" class="tab-content hidden animate-fadeIn">
+                <div class="max-w-4xl">
+                    <h3 class="text-2xl font-bold text-stone-900 mb-6">What's Inside</h3>
+                    <div class="flex flex-wrap gap-3">
+                        @php
+                            $ingredients = $specs->first(fn($s) => str_contains(strtolower($s['name']), 'ingredient'));
+                            $ingredientItems = $ingredients ? explode(', ', $ingredients['value']) : [];
+                        @endphp
+                        
+                        @foreach($ingredientItems as $ingredient)
+                            <div class="px-6 py-4 bg-stone-50 rounded-2xl border border-stone-100 flex items-center gap-3">
+                                <div class="w-2 h-2 bg-amber-400 rounded-full"></div>
+                                <span class="font-bold text-stone-900">{{ trim($ingredient) }}</span>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
