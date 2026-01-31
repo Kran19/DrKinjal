@@ -279,7 +279,7 @@
                             </div>
                             <div class="flex justify-between">
                                 <span class="text-stone-600">Discount</span>
-                                <span class="font-medium text-emerald-600">-₹{{ number_format($order->discount, 2) }}</span>
+                                <span class="font-medium text-emerald-600">-₹{{ number_format($order->discount_total, 2) }}</span>
                             </div>
                             <div class="flex justify-between">
                                 <span class="text-stone-600">Tax</span>
