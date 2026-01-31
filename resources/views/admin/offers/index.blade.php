@@ -6,7 +6,7 @@
     <div class="mb-8">
         <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
             <div>
-                <h2 class="text-2xl font-bold text-stone-800 mb-2">Offers & Promotions</h2>
+                <h2 class="text-2xl font-bold text-stone-800 mb-2">Offers Management</h2>
                 <p class="text-stone-600">Manage special offers, discounts, and promotions</p>
             </div>
             <div class="flex space-x-3">
