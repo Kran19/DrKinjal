@@ -51,6 +51,14 @@ class CheckoutService
             // Update stock
             $this->updateStock($order);
 
+            // Track offer usage if applied
+            if ($order->offer_id) {
+                $offer = \App\Models\Offer::find($order->offer_id);
+                if ($offer) {
+                    $offer->incrementUsage($order->customer_id, $order->id, $order->discount_total);
+                }
+            }
+
             // Process payment
             $payment = $this->processPayment($order, $paymentData);
 
@@ -138,6 +146,7 @@ class CheckoutService
                 'customer_notes' => $checkoutData['notes'] ?? null,
                 'shipping_method' => 'shiprocket',
                 'payment_method' => $checkoutData['payment_method'] ?? 'cod',
+                'offer_id' => $this->cart['offer']['id'] ?? null,
             ];
 
             $order = Order::create($orderData);

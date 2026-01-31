@@ -190,8 +190,8 @@
                         </a>
 
                         @if(in_array($order->status, ['pending', 'confirmed']))
-                            <div class="pt-2">
-                                <form action="{{ route('customer.account.orders.cancel', $order->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to cancel this order?');">
+                            <!-- <div class="pt-2"> -->
+                                <!-- <form action="{{ route('customer.account.orders.cancel', $order->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to cancel this order?');">
                                     @csrf
                                     <input type="hidden" name="cancellation_reason" value="Cancelled by customer">
                                     <button type="submit" class="w-full px-4 py-3 bg-red-500/80 rounded-xl text-left hover:bg-red-600/80 transition-colors flex items-center gap-3">
@@ -199,7 +199,7 @@
                                         <span>Cancel Order</span>
                                     </button>
                                 </form>
-                            </div>
+                            </div> -->
                         @endif
                     </div>
                 </div>

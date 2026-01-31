@@ -57,10 +57,6 @@
                     <option value="">Select Offer Type</option>
                     <option value="percentage">Percentage Discount</option>
                     <option value="fixed">Fixed Amount Discount</option>
-                    <option value="bogo">Buy One Get One (BOGO)</option>
-                    <option value="buy_x_get_y">Buy X Get Y</option>
-                    <option value="free_shipping">Free Shipping</option>
-                    <option value="tiered">Tiered Discount</option>
                 </select>
                 <div id="offer_typeError" class="hidden mt-1 text-sm text-rose-600"></div>
             </div>
@@ -109,43 +105,6 @@
                 </div>
             </div>
 
-            <div id="bogoFields" class="hidden mb-8">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <label class="block text-sm font-medium text-stone-700 mb-2">
-                            Buy Quantity *
-                        </label>
-                        <input type="number" id="buy_qty" name="buy_qty" min="1" value="1" required
-                            class="w-full border border-stone-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-stone-900">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-stone-700 mb-2">
-                            Get Quantity *
-                        </label>
-                        <input type="number" id="get_qty" name="get_qty" min="1" value="1" required
-                            class="w-full border border-stone-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-stone-900">
-                    </div>
-                </div>
-            </div>
-
-            <div id="buyXGetYFields" class="hidden mb-8">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <label class="block text-sm font-medium text-stone-700 mb-2">
-                            Buy Quantity *
-                        </label>
-                        <input type="number" id="buy_qty_xy" name="buy_qty" min="1" value="2" required
-                            class="w-full border border-stone-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-stone-900">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-stone-700 mb-2">
-                            Get Quantity *
-                        </label>
-                        <input type="number" id="get_qty_xy" name="get_qty" min="1" value="1" required
-                            class="w-full border border-stone-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-stone-900">
-                    </div>
-                </div>
-            </div>
 
             <!-- Cart Amount Limits -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
@@ -382,9 +341,7 @@
 
                 const sections = {
                     percentage: 'percentageFields',
-                    fixed: 'fixedFields',
-                    bogo: 'bogoFields',
-                    buy_x_get_y: 'buyXGetYFields'
+                    fixed: 'fixedFields'
                 };
 
                 // Hide all & disable inputs

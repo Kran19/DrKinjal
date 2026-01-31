@@ -57,10 +57,6 @@
                 <option value="">Select Offer Type</option>
                 <option value="percentage">Percentage Discount</option>
                 <option value="fixed">Fixed Amount Discount</option>
-                <option value="bogo">Buy One Get One (BOGO)</option>
-                <option value="buy_x_get_y">Buy X Get Y</option>
-                <option value="free_shipping">Free Shipping</option>
-                <option value="tiered">Tiered Discount</option>
             </select>
             <div id="offer_typeError" class="hidden mt-1 text-sm text-rose-600"></div>
         </div>
@@ -107,43 +103,6 @@
             </div>
         </div>
 
-        <div id="bogoFields" class="hidden mb-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                        Buy Quantity *
-                    </label>
-                    <input type="number" id="buy_qty" name="buy_qty" min="1" value="1" required
-                        class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                        Get Quantity *
-                    </label>
-                    <input type="number" id="get_qty" name="get_qty" min="1" value="1" required
-                        class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
-                </div>
-            </div>
-        </div>
-
-        <div id="buyXGetYFields" class="hidden mb-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                        Buy Quantity *
-                    </label>
-                    <input type="number" id="buy_qty_xy" name="buy_qty" min="1" value="2" required
-                        class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                        Get Quantity *
-                    </label>
-                    <input type="number" id="get_qty_xy" name="get_qty" min="1" value="1" required
-                        class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
-                </div>
-            </div>
-        </div>
 
         <!-- Cart Amount Limits -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
@@ -435,7 +394,7 @@ function updateOfferFields() {
     const offerType = document.getElementById('offer_type').value;
 
     // Hide all fields
-    ['percentageFields', 'fixedFields', 'bogoFields', 'buyXGetYFields'].forEach(id => {
+    ['percentageFields', 'fixedFields'].forEach(id => {
         const element = document.getElementById(id);
         if (element) element.classList.add('hidden');
     });
@@ -447,12 +406,6 @@ function updateOfferFields() {
             break;
         case 'fixed':
             document.getElementById('fixedFields').classList.remove('hidden');
-            break;
-        case 'bogo':
-            document.getElementById('bogoFields').classList.remove('hidden');
-            break;
-        case 'buy_x_get_y':
-            document.getElementById('buyXGetYFields').classList.remove('hidden');
             break;
     }
 }
