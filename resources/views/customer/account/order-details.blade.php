@@ -317,9 +317,12 @@
                                 @if($shippingAddress)
                                     <div class="font-medium text-stone-900">{{ $shippingAddress['name'] ?? 'N/A' }}</div>
                                     <p class="text-sm text-stone-600">{{ $shippingAddress['address'] ?? '' }}</p>
+                                    @if(!empty($shippingAddress['address2']))
+                                        <p class="text-sm text-stone-600">{{ $shippingAddress['address2'] }}</p>
+                                    @endif
                                     <p class="text-sm text-stone-600">{{ $shippingAddress['city'] ?? '' }}, {{ $shippingAddress['state'] ?? '' }} {{ $shippingAddress['pincode'] ?? '' }}</p>
                                     <p class="text-sm text-stone-600">India</p> <!-- Assuming India -->
-                                    <p class="text-sm text-stone-600 mt-2">Phone: {{ $shippingAddress['mobile'] ?? 'N/A' }}</p>
+                                    <p class="text-sm text-stone-600 mt-2">Phone: {{ $shippingAddress['phone'] ?? 'N/A' }}</p>
                                 @else
                                     <p class="text-sm text-stone-500">Address not available</p>
                                 @endif
