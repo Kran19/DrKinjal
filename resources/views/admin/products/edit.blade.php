@@ -814,7 +814,7 @@
             });
         }
     });
-
+</script>
 <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
