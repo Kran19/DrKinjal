@@ -143,9 +143,16 @@ class ProductService
                 $specId = $specData['specification_id'];
                 $valId = $specData['specification_value_id'] ?? null;
                 $customVal = $specData['custom_value'] ?? null;
+                $valIds = $specData['custom_value_ids'] ?? null;
 
-                if (is_array($valId)) {
-                    // Handle multiselect - store IDs in custom_value as CSV
+                if (!empty($valIds) && is_array($valIds)) {
+                    // Handle multiselect from checkbox list - store IDs in custom_value as CSV
+                    $product->specifications()->attach($specId, [
+                        'specification_value_id' => null,
+                        'custom_value' => implode(',', $valIds)
+                    ]);
+                } elseif (is_array($valId)) {
+                    // Handle multiselect from standard select - store IDs in custom_value as CSV
                     $product->specifications()->attach($specId, [
                         'specification_value_id' => null,
                         'custom_value' => implode(',', $valId)

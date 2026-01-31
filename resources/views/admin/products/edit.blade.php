@@ -339,18 +339,22 @@
                     </div>
 
                     <div>
-                        <label for="tag_ids" class="block text-sm font-medium text-stone-700 mb-1">Tags</label>
-                        <select name="tag_ids[]" id="tag_ids" multiple class="w-full px-4 py-2 border border-stone-300 rounded-lg outline-none focus:ring-2 focus:ring-sky-500 h-32">
+                        <label for="tag_ids" class="block text-sm font-medium text-stone-700 mb-2">Tags</label>
+                        <div class="space-y-2 max-h-48 overflow-y-auto p-3 border border-stone-300 rounded-lg bg-stone-50/50">
                             @php
                                 $selectedTags = old('tag_ids', $product->tags->pluck('id')->toArray());
                             @endphp
                             @foreach($tags as $tag)
-                                <option value="{{ $tag->id }}" {{ in_array($tag->id, $selectedTags) ? 'selected' : '' }}>
-                                    {{ $tag->name }}
-                                </option>
+                                <label class="flex items-center group cursor-pointer">
+                                    <div class="relative flex items-center">
+                                        <input type="checkbox" name="tag_ids[]" value="{{ $tag->id }}" 
+                                            {{ in_array($tag->id, $selectedTags) ? 'checked' : '' }}
+                                            class="w-4 h-4 rounded border-stone-300 text-sky-500 focus:ring-sky-500 transition cursor-pointer">
+                                    </div>
+                                    <span class="ml-3 text-sm text-stone-600 group-hover:text-stone-800 transition">{{ $tag->name }}</span>
+                                </label>
                             @endforeach
-                        </select>
-                        <p class="text-[10px] text-stone-400 mt-1 uppercase tracking-wider font-bold">Hold Ctrl (Windows) or Cmd (Mac) for multiple selection</p>
+                        </div>
                     </div>
 
                     <div>
@@ -536,29 +540,40 @@
                  
                  if (['select', 'multiselect', 'multi-select', 'radio'].includes(inputType)) {
                      const isMulti = inputType === 'multiselect' || inputType === 'multi-select';
-                     html += `<select name="${fieldName}[specification_value_id]${isMulti ? '[]' : ''}" ${isMulti ? 'multiple' : ''} class="w-full px-3 py-2 border rounded-lg outline-none focus:ring-1 focus:ring-blue-500 select2-spec">`;
-                     if (!isMulti) {
-                         html += `<option value="">Select ${spec.name}</option>`;
-                         html += `<option value="">None</option>`;
-                     }
                      
-                     if(spec.values) {
-                         // For multiselect, we store IDs as CSV in custom_value in ProductService::syncSpecifications
+                     if (isMulti) {
+                         html += `<div class="space-y-2 max-h-40 overflow-y-auto p-3 border rounded-lg bg-gray-50/30">`;
+                         
                          let selectedIds = [];
-                         if (isMulti && match && match.custom_value) {
+                         if (match && match.custom_value) {
                              selectedIds = match.custom_value.split(',').map(v => v.trim());
-                         } else if (existingValId) {
-                             selectedIds = [existingValId.toString()];
                          }
 
-                         spec.values.forEach(val => {
-                             let selected = selectedIds.includes(val.id.toString()) ? 'selected' : '';
-                             html += `<option value="${val.id}" ${selected}>${val.value}</option>`;
-                         });
-                     }
-                     html += `</select>`;
-                     if (isMulti) {
-                         html += `<p class="text-xs text-gray-500 mt-1">Hold Ctrl (Windows) or Cmd (Mac) to select multiple values.</p>`;
+                         if(spec.values) {
+                             spec.values.forEach(val => {
+                                 let isChecked = selectedIds.includes(val.id.toString()) ? 'checked' : '';
+                                 html += `
+                                    <label class="flex items-center group cursor-pointer">
+                                        <input type="checkbox" name="${fieldName}[custom_value_ids][]" value="${val.id}" ${isChecked}
+                                            class="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 transition cursor-pointer">
+                                        <span class="ml-2 text-sm text-gray-600 group-hover:text-gray-800 transition">${val.value}</span>
+                                    </label>
+                                 `;
+                             });
+                         }
+                         html += `</div>`;
+                     } else {
+                         html += `<select name="${fieldName}[specification_value_id]" class="w-full px-3 py-2 border rounded-lg outline-none focus:ring-1 focus:ring-blue-500 select2-spec">`;
+                         html += `<option value="">Select ${spec.name}</option>`;
+                         html += `<option value="">None</option>`;
+                         
+                         if(spec.values) {
+                             spec.values.forEach(val => {
+                                 let selected = (existingValId && existingValId.toString() === val.id.toString()) ? 'selected' : '';
+                                 html += `<option value="${val.id}" ${selected}>${val.value}</option>`;
+                             });
+                         }
+                         html += `</select>`;
                      }
                  } else if (inputType === 'textarea') {
                      const val = existingCustom || '';
