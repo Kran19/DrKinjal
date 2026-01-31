@@ -763,7 +763,7 @@
                         if (stats.most_used_offer) {
                             mostUsedEl.textContent = stats.most_used_offer.name + 
                                 (stats.most_used_offer.code ? ' (' + stats.most_used_offer.code + ')' : '') +
-                                ' - ' + stats.most_used_offer.used_count + ' uses';
+                                ' - ' + (stats.most_used_offer.used_count || 0) + ' uses';
                         } else {
                             mostUsedEl.textContent = '-';
                         }
