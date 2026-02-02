@@ -338,7 +338,7 @@
                         <select name="product_type" id="product_type" onchange="toggleProductType()"
                             class="w-full px-4 py-2 border border-sky-200 bg-sky-50 rounded-lg outline-none focus:ring-2 focus:ring-sky-500 font-bold text-sky-700">
                             <option value="simple" {{ old('product_type') == 'simple' ? 'selected' : '' }}>Simple Product</option>
-                            <option value="configurable" {{ old('product_type') == 'configurable' ? 'selected' : '' }}>Configurable Product</option>
+                            <!-- <option value="configurable" {{ old('product_type') == 'configurable' ? 'selected' : '' }}>Configurable Product</option> -->
                         </select>
                     </div>
 
@@ -370,15 +370,22 @@
                     </div>
 
                     <div>
-                        <label for="tag_ids" class="block text-sm font-medium text-stone-700 mb-1">Tags</label>
-                        <select name="tag_ids[]" id="tag_ids" multiple class="w-full px-4 py-2 border border-stone-300 rounded-lg outline-none focus:ring-2 focus:ring-sky-500 h-32">
+                        <label for="tag_ids" class="block text-sm font-medium text-stone-700 mb-2">Tags</label>
+                        <div class="space-y-2 max-h-48 overflow-y-auto p-3 border border-stone-300 rounded-lg bg-stone-50/50">
+                            @php
+                                $selectedTags = old('tag_ids', []);
+                            @endphp
                             @foreach($tags as $tag)
-                                <option value="{{ $tag->id }}" {{ (is_array(old('tag_ids')) && in_array($tag->id, old('tag_ids'))) ? 'selected' : '' }}>
-                                    {{ $tag->name }}
-                                </option>
+                                <label class="flex items-center group cursor-pointer">
+                                    <div class="relative flex items-center">
+                                        <input type="checkbox" name="tag_ids[]" value="{{ $tag->id }}" 
+                                            {{ in_array($tag->id, $selectedTags) ? 'checked' : '' }}
+                                            class="w-4 h-4 rounded border-stone-300 text-sky-500 focus:ring-sky-500 transition cursor-pointer">
+                                    </div>
+                                    <span class="ml-3 text-sm text-stone-600 group-hover:text-stone-800 transition">{{ $tag->name }}</span>
+                                </label>
                             @endforeach
-                        </select>
-                        <p class="text-[10px] text-stone-400 mt-1 uppercase tracking-wider font-bold">Hold Ctrl (Windows) or Cmd (Mac) for multiple selection</p>
+                        </div>
                     </div>
 
                     <div>
@@ -671,19 +678,48 @@
                      const isMulti = inputType === 'multiselect' || inputType === 'multi-select';
                      const selectedValues = [].concat(oldSpec.specification_value_id || []);
                      
-                     html += `<select name="${fieldName}[specification_value_id]${isMulti ? '[]' : ''}" ${isMulti ? 'multiple' : ''} class="w-full px-3 py-2 border rounded-lg outline-none focus:ring-1 focus:ring-blue-500">`;
-                     if (!isMulti) {
-                         html += `<option value="">Select ${spec.name}</option>`;
-                     }
-                     if(spec.values) {
-                         spec.values.forEach(val => {
-                             const isSelected = selectedValues.includes(String(val.id));
-                             html += `<option value="${val.id}" ${isSelected ? 'selected' : ''}>${val.value}</option>`;
-                         });
-                     }
-                     html += `</select>`;
                      if (isMulti) {
-                         html += `<p class="text-xs text-gray-500 mt-1">Hold Ctrl (Windows) or Cmd (Mac) to select multiple values.</p>`;
+                         html += `<div class="space-y-2 max-h-40 overflow-y-auto p-3 border rounded-lg bg-gray-50/30">`;
+                         
+                         // Create hidden input to ensure array is sent even if empty? 
+                         // Actually, handling array input requires square brackets in name.
+                         // We used specification_value_id[] in the select version.
+                         // Here we will use custom_value_ids[] to match the logic often used for many-to-many sync, 
+                         // OR keep using specification_value_id[] if the backend expects IDs of values.
+                         // The Edit view used custom_value_ids[] for multiselect. Let's check edit view logic again.
+                         // Edit view logic: name="${fieldName}[custom_value_ids][]"
+                         // Wait, in Edit view:
+                         // if (isMulti) ... name="${fieldName}[custom_value_ids][]"
+                         // But in Create view originally: name="${fieldName}[specification_value_id]${isMulti ? '[]' : ''}"
+                         // I should stick to what the Controller likely expects or what Edit view does if they share logic.
+                         // If the user wants "just like edit.blade.php", I should use the Logic from Edit view.
+                         // Edit view uses: name="${fieldName}[custom_value_ids][]"
+                         // Let's assume ProductController handles both or aligns with this.
+                         // I will use `custom_value_ids[]` to match Edit view exactly.
+                         
+                         if(spec.values) {
+                             spec.values.forEach(val => {
+                                 let isChecked = selectedValues.includes(String(val.id)) ? 'checked' : '';
+                                 html += `
+                                    <label class="flex items-center group cursor-pointer">
+                                        <input type="checkbox" name="${fieldName}[custom_value_ids][]" value="${val.id}" ${isChecked}
+                                            class="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 transition cursor-pointer">
+                                        <span class="ml-2 text-sm text-gray-600 group-hover:text-gray-800 transition">${val.value}</span>
+                                    </label>
+                                 `;
+                             });
+                         }
+                         html += `</div>`;
+                     } else {
+                         html += `<select name="${fieldName}[specification_value_id]" class="w-full px-3 py-2 border rounded-lg outline-none focus:ring-1 focus:ring-blue-500">`;
+                         html += `<option value="">Select ${spec.name}</option>`;
+                         if(spec.values) {
+                             spec.values.forEach(val => {
+                                 const isSelected = selectedValues.includes(String(val.id));
+                                 html += `<option value="${val.id}" ${isSelected ? 'selected' : ''}>${val.value}</option>`;
+                             });
+                         }
+                         html += `</select>`;
                      }
                  } else if (inputType === 'textarea') {
                      html += `<textarea name="${fieldName}[custom_value]" rows="3" class="w-full px-3 py-2 border rounded-lg outline-none focus:ring-1 focus:ring-blue-500">${oldSpec.custom_value || ''}</textarea>`;
