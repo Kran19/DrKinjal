@@ -94,6 +94,10 @@
                             <input type="text" data-key="store_phone" class="setting-input w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all outline-none" placeholder="+1 (555) 000-0000">
                         </div>
                         <div class="space-y-2">
+                            <label class="text-sm font-semibold text-gray-700">Alternative Phone Number</label>
+                            <input type="text" data-key="store_phone_alt" class="setting-input w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all outline-none" placeholder="+1 (555) 000-0000">
+                        </div>
+                        <div class="space-y-2">
                             <label class="text-sm font-semibold text-gray-700">Currency</label>
                             <div class="relative">
                                 <select data-key="currency" class="setting-input w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 appearance-none transition-all outline-none cursor-pointer">

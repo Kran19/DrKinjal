@@ -32,9 +32,12 @@
                         <a href="tel:{{ $phone }}" class="block py-3 px-4 bg-sky-50 text-sky-700 rounded-lg hover:bg-sky-100 transition-colors font-medium">
                             📞 Primary: {{ $phone }}
                         </a>
-                        <a href="tel:6353283376" class="block py-3 px-4 bg-sky-50 text-sky-700 rounded-lg hover:bg-sky-100 transition-colors font-medium">
-                            📞 Alternate: 6353283376
+                        @php $phone_alt = \App\Helpers\SettingsHelper::get('store_phone_alt'); @endphp
+                        @if($phone_alt)
+                        <a href="tel:{{ $phone_alt }}" class="block py-3 px-4 bg-sky-50 text-sky-700 rounded-lg hover:bg-sky-100 transition-colors font-medium">
+                            📞 Alternate: {{ $phone_alt }}
                         </a>
+                        @endif
                     </div>
                     <p class="text-sm text-slate-500 mt-4">
                         <i data-lucide="clock" class="w-4 h-4 inline mr-1"></i>

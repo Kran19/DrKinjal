@@ -158,6 +158,7 @@ class SettingsHelper
             'name' => self::get('store_name', 'Dr. Kinjal'),
             'email' => self::get('store_email', 'DrKinjal.official@gmail.com'),
             'phone' => self::get('store_phone', '9428289077'),
+            'phone_alt' => self::get('store_phone_alt', ''),
             'address' => self::get('store_address', "Abha Multi Speciality Clinic\nA-401, Hanuman Madhi, Golden Club,\n402, Nirmala Convent Rd, Opp. Chetna Medical Store,\nRajkot, Gujarat - 360007"),
             'currency' => self::get('currency', 'INR'),
             'currency_symbol' => self::currencySymbol()

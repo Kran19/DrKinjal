@@ -214,6 +214,17 @@ class SettingService
                     'sort_order' => 30
                 ],
                 [
+                    'key' => 'store_phone_alt',
+                    'label' => 'Alternative Phone Number',
+                    'value' => '',
+                    'type' => 'text',
+                    'default' => '',
+                    'description' => 'Secondary contact phone number',
+                    'is_encrypted' => false,
+                    'is_public' => true,
+                    'sort_order' => 35
+                ],
+                [
                     'key' => 'currency',
                     'label' => 'Currency',
                     'value' => 'INR',
