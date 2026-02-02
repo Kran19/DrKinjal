@@ -403,8 +403,9 @@
                  <div class="space-y-4">
                     <div>
                         <label for="weight" class="block text-sm font-medium text-stone-700 mb-1">Weight (kg)</label>
-                        <input type="number" name="weight" id="weight" value="{{ old('weight') }}" step="0.01"
+                        <input type="number" name="weight" id="weight" value="{{ old('weight') }}" step="0.001"
                             class="w-full px-4 py-2 border border-stone-300 rounded-lg outline-none focus:ring-2 focus:ring-sky-500">
+                        <p class="text-xs text-stone-500 mt-1">Note: Enter weight in KG <br>(e.g., 1 KG = 1.000, 100 GM = 0.100)</p>
                     </div>
 
                     <div class="grid grid-cols-3 gap-2">
