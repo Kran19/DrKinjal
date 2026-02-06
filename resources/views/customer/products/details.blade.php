@@ -23,7 +23,7 @@
             <div>
                 <div class="relative bg-orange-50 rounded-3xl aspect-square mb-4 overflow-hidden">
                     <img id="mainImage" src="{{ asset('storage/' . $product['main_image']) }}" 
-                         class="w-full h-full object-contain p-12" 
+                         class="w-full h-full object-contain p-12 transition-all duration-500 ease-linear transform" 
                          alt="{{ $product['name'] }}">
                      
                     @if($product['is_bestseller'])
@@ -498,10 +498,89 @@
         
         let quantity = 1;
         
-        // Image Switcher
+        // Image Switcher with Auto-Rotation & Swipe Animation
+        const mainImg = document.getElementById('mainImage');
+        
+        // Collect all images (Main + Gallery)
+        const productImages = [
+            "{{ asset('storage/' . $product['main_image']) }}",
+            @if(isset($product['images']) && count($product['images']) > 0)
+                @foreach($product['images'] as $image)
+                    "{{ asset('storage/' . $image['url']) }}",
+                @endforeach
+            @endif
+        ];
+
+        let currentImageIndex = 0;
+        let autoRotateInterval;
+        let isAnimating = false;
+        const rotateDelay = 3000; // 3 seconds
+
+        // Core animation function
+        function animateToImage(src) {
+            if (isAnimating) return;
+            isAnimating = true;
+
+            // Slide out to left
+            mainImg.classList.add('opacity-0', '-translate-x-full');
+
+            setTimeout(() => {
+                mainImg.src = src;
+                
+                // Remove transition temporarily to reset position instantly
+                mainImg.classList.remove('transition-all', 'duration-500', 'ease-linear');
+                
+                // Move to right side (ready to slide in)
+                mainImg.classList.remove('-translate-x-full');
+                mainImg.classList.add('translate-x-full');
+                
+                // Force reflow
+                void mainImg.offsetWidth;
+                
+                // Restore transition and slide in
+                mainImg.classList.add('transition-all', 'duration-500', 'ease-linear');
+                mainImg.classList.remove('opacity-0', 'translate-x-full');
+                
+                isAnimating = false;
+            }, 500); // Wait for slide-out transition
+        }
+
+        // Public function for manual clicks
         window.changeImage = function(src) {
-            const mainImg = document.getElementById('mainImage');
-            mainImg.src = src;
+            // Update current index based on src
+            const newIndex = productImages.indexOf(src);
+            if (newIndex !== -1) {
+                currentImageIndex = newIndex;
+            }
+            
+            animateToImage(src);
+            resetAutoRotation();
+        }
+
+        function startAutoRotation() {
+            autoRotateInterval = setInterval(() => {
+                currentImageIndex = (currentImageIndex + 1) % productImages.length;
+                animateToImage(productImages[currentImageIndex]);
+            }, rotateDelay);
+        }
+
+        function stopAutoRotation() {
+            clearInterval(autoRotateInterval);
+        }
+
+        function resetAutoRotation() {
+            stopAutoRotation();
+            startAutoRotation();
+        }
+
+        // Initialize Auto-Rotation only if there are multiple images
+        if (productImages.length > 1) {
+            startAutoRotation();
+
+            // Pause on hover
+            const imageContainer = mainImg.closest('.relative');
+            imageContainer.addEventListener('mouseenter', stopAutoRotation);
+            imageContainer.addEventListener('mouseleave', startAutoRotation);
         }
 
         // Tab Switching
