@@ -168,8 +168,8 @@
                             </div>
                             <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-stone-900 leading-[1.1] mb-6">
                                 <span class="block">Squeeze the Day</span>
-                                <span class="bg-gradient-to-r from-cyan-500 to-sky-500 bg-clip-text text-transparent pb-1">
-                                    with Fruit Power.
+                                <span class="bg-clip-text text-transparent pb-1" style="background-image: linear-gradient(to right, #06b6d4, #0ea5e9);">
+                                    With Fruit Power.
                                 </span>
                             </h1>
                             <p class="text-lg sm:text-xl text-stone-600 mb-8 leading-relaxed max-w-lg">
@@ -177,7 +177,8 @@
                             </p>
                             <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
                                 <a href="{{ route('customer.products.bestsellers') }}"
-                                    class="px-8 py-4 bg-gradient-to-r from-cyan-500 to-sky-500 text-white font-semibold rounded-full hover:from-cyan-600 hover:to-sky-600 hover:scale-105 active:scale-95 transition-all duration-300 shadow-lg shadow-cyan-200/50 text-center">
+                                    class="px-8 py-4 text-white font-semibold rounded-full hover:scale-105 active:scale-95 transition-all duration-300 shadow-lg shadow-cyan-200/50 text-center"
+                                    style="background-image: linear-gradient(to right, #06b6d4, #0ea5e9);">
                                     Shop Bestsellers
                                 </a>
                                 <a href="{{ route('customer.page.concerns') }}"
