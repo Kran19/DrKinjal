@@ -15,41 +15,299 @@
         </div>
     </div>
 
+@push('styles')
+<style>
+    /* Animations for hero section */
+    @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
 
-    <!-- Hero Section -->
-<header class="relative overflow-hidden">
-    <!-- Background Blobs -->
-    <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-cyan-100/50 rounded-full blur-3xl -z-10 translate-x-1/3 -translate-y-1/4 animate-pulse"></div>
-    <div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-teal-100/50 rounded-full blur-3xl -z-10 -translate-x-1/3 translate-y-1/4"></div>
+    @keyframes scroll {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
 
-    <!-- Full Width Swiper Container - FIXED HEIGHT -->
-    <div class="swiper heroSwiper w-full object-cover">
-        <!-- Swiper's Required Wrapper -->
-        <div class="swiper-wrapper object-cover">
-            @foreach($banners as $banner)
+    @keyframes float {
+        0%, 100% { transform: translateY(0) rotate(-6deg); }
+        50% { transform: translateY(-10px) rotate(-6deg); }
+    }
+
+    @keyframes float-delay-1 {
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        50% { transform: translateY(-15px) rotate(5deg); }
+    }
+
+    @keyframes float-delay-2 {
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        50% { transform: translateY(-12px) rotate(-5deg); }
+    }
+
+    @keyframes fadeInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Hero element animations */
+    .hero-text {
+        animation: fadeInUp 0.8s ease-out 0.3s forwards;
+    }
+
+    .hero-image {
+        animation: fadeInUp 0.8s ease-out 0.6s forwards;
+    }
+
+    .floating-element {
+        animation: float 3s ease-in-out infinite;
+    }
+
+    .floating-element-delay-1 {
+        animation: float-delay-1 4s ease-in-out infinite 0.5s;
+    }
+
+    .floating-element-delay-2 {
+        animation: float-delay-2 3.5s ease-in-out infinite 1s;
+    }
+
+    /* Scrollbar hiding for testimonials */
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Card tilt effect */
+    .card-tilt {
+        transform-style: preserve-3d;
+        transition: transform 0.3s ease;
+    }
+
+    .card-tilt:hover {
+        transform: rotateY(10deg) rotateX(5deg) scale(1.02);
+    }
+
+    /* Ensure hero is visible immediately on load */
+    .hero-text,
+    .hero-image {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+    }
+
+    /* Make sure animations still work for other states */
+    .floating-element,
+    .floating-element-delay-1,
+    .floating-element-delay-2,
+    .card-tilt,
+    .card-tilt:hover {
+        animation-duration: 3s;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-in-out;
+    }
+
+
+    /* Touch target size for mobile */
+    .swiper-button-next,
+    .swiper-button-prev {
+        width: 44px !important;
+        height: 44px !important;
+    }
+
+    /* Prevent text overflow */
+    .swiper-slide h1,
+    .swiper-slide p {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    /* Image loading optimization */
+    .swiper-slide img {
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+    }
+
+
+    /* Accessibility improvements */
+    @media (prefers-reduced-motion: reduce) {
+        .animate-float,
+        .animate-bounce,
+        .animate-scroll,
+        .swiper-slide img {
+            animation: none !important;
+            transition: none !important;
+        }
+    }
+</style>
+@endpush
+
+<!-- Hero Section - Fully Responsive -->
+<header class="relative overflow-hidden bg-gradient-to-b from-stone-50 to-white">
+    <!-- Mobile Background Pattern -->
+    <div class="absolute inset-0 lg:hidden pointer-events-none">
+        <div class="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-cyan-50/30 to-transparent"></div>
+        <div class="absolute bottom-0 right-0 w-full h-1/3 bg-gradient-to-t from-rose-50/20 to-transparent"></div>
+    </div>
+
+    <!-- Full Width Swiper Container -->
+    <div class="swiper heroSwiper w-full relative">
+        <div class="swiper-wrapper">
+            <!-- Slide 1: Main Product -->
             <div class="swiper-slide">
-                <div class="relative h-full w-full flex items-center justify-center">
-                    <!-- Background Image -->
-                    <div class="absolute inset-0 z-0">
-                        @php
-                            $bannerImg = $banner->image;
-                            if (is_string($bannerImg) && \Illuminate\Support\Str::startsWith($bannerImg, '{')) {
-                                $data = json_decode($bannerImg, true);
-                                $bannerImg = $data['file_path'] ?? $bannerImg;
-                            }
-                            $bannerUrl = \Illuminate\Support\Str::startsWith($bannerImg, 'http') ? $bannerImg : asset('storage/' . $bannerImg);
-                        @endphp
-                        <img src="{{ $bannerUrl }}"
-                            alt="{{ $banner->title ?? 'Banner' }}"
-                            class="w-full h-full ">
-                        <div class="absolute inset-0 bg-gradient-to-r from-black/40 to-black/20 md:to-transparent"></div>
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8 h-full">
+                    <div class="flex flex-col lg:flex-row items-center justify-between h-full py-12 lg:py-20 gap-8 lg:gap-12">
+                        
+                        <!-- Text Content (Order 2 on Mobile, Order 1 on Desktop) -->
+                        <div class="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left order-2 lg:order-1">
+                            <div class="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-white/95 backdrop-blur-sm border border-cyan-100 rounded-full shadow-sm mb-6">
+                                <span class="flex h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
+                                <span class="text-xs sm:text-sm font-semibold uppercase tracking-wide text-stone-600">New Summer Collection</span>
+                            </div>
+                            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-stone-900 leading-[1.1] mb-6">
+                                <span class="block">Squeeze the Day</span>
+                                <span class="bg-gradient-to-r from-cyan-500 to-sky-500 bg-clip-text text-transparent pb-1">
+                                    with Fruit Power.
+                                </span>
+                            </h1>
+                            <p class="text-lg sm:text-xl text-stone-600 mb-8 leading-relaxed max-w-lg">
+                                Clinically effective, fruit-forward skincare designed to make you glow. 100% Vegan, Cruelty-free & full of joy.
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                                <a href="{{ route('customer.products.bestsellers') }}"
+                                    class="px-8 py-4 bg-gradient-to-r from-cyan-500 to-sky-500 text-white font-semibold rounded-full hover:from-cyan-600 hover:to-sky-600 hover:scale-105 active:scale-95 transition-all duration-300 shadow-lg shadow-cyan-200/50 text-center">
+                                    Shop Bestsellers
+                                </a>
+                                <a href="{{ route('customer.page.concerns') }}"
+                                    class="px-8 py-4 bg-white text-stone-900 font-semibold rounded-full border-2 border-stone-200 hover:border-cyan-300 hover:scale-105 active:scale-95 transition-all duration-300 shadow-lg shadow-stone-100/50 text-center">
+                                    Shop By Concern
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Image Content (Order 1 on Mobile, Order 2 on Desktop) -->
+                        <div class="w-full lg:w-1/2 flex justify-center lg:justify-end order-1 lg:order-2">
+                            <div class="relative w-full max-w-md lg:max-w-xl aspect-square">
+                                <div class="absolute inset-0 bg-gradient-to-tr from-cyan-100/50 to-transparent rounded-full filter blur-3xl opacity-70 animate-pulse"></div>
+                                <div class="relative w-full h-full rounded-[2rem] overflow-hidden shadow-2xl shadow-cyan-200/50 transform hover:scale-105 transition-transform duration-500">
+                                    <img src="{{ asset('storage/assets/images/70.png') }}"
+                                        alt="Skincare Product"
+                                        class="w-full h-full object-cover object-center">
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
-            @endforeach
+
+            <!-- Slide 2: Fresh Ingredients -->
+            <div class="swiper-slide">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8 h-full">
+                    <div class="flex flex-col lg:flex-row items-center justify-between h-full py-12 lg:py-20 gap-8 lg:gap-12">
+                        
+                        <!-- Text Content -->
+                        <div class="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left order-2 lg:order-1">
+                            <div class="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-white/95 backdrop-blur-sm border border-orange-100 rounded-full shadow-sm mb-6">
+                                <span class="flex h-2 w-2 rounded-full bg-orange-500 animate-pulse"></span>
+                                <span class="text-xs sm:text-sm font-semibold uppercase tracking-wide text-stone-600">Natural Ingredients</span>
+                            </div>
+                            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-stone-900 leading-[1.1] mb-6">
+                                <span class="block">From Nature to</span>
+                                <span class="bg-clip-text text-transparent pb-1" style="background-image: linear-gradient(to right, #f97316, #eab308);">
+                                    Your Routine.
+                                </span>
+                            </h1>
+                            <p class="text-lg sm:text-xl text-stone-600 mb-8 leading-relaxed max-w-lg">
+                                Pure, potent ingredients sourced sustainably. Experience the power of nature with every application.
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                                <a href="{{ route('customer.page.ingredients') }}"
+                                    class="px-8 py-4 text-white font-semibold rounded-full hover:scale-105 active:scale-95 transition-all duration-300 shadow-lg shadow-orange-200/50 text-center"
+                                    style="background-image: linear-gradient(to right, #f97316, #eab308);">
+                                    Explore Ingredients
+                                </a>
+                                <a href="{{ route('customer.page.about') }}"
+                                    class="px-8 py-4 bg-white text-stone-900 font-semibold rounded-full border-2 border-stone-200 hover:border-orange-300 hover:scale-105 active:scale-95 transition-all duration-300 shadow-lg shadow-stone-100/50 text-center">
+                                    Our Sustainability
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Image Content -->
+                        <div class="w-full lg:w-1/2 flex justify-center lg:justify-end order-1 lg:order-2">
+                             <div class="relative w-full max-w-md lg:max-w-xl aspect-square">
+                                <div class="absolute inset-0 bg-gradient-to-tr from-orange-100/50 to-transparent rounded-full filter blur-3xl opacity-70 animate-pulse"></div>
+                                <div class="relative w-full h-full rounded-[2rem] overflow-hidden shadow-2xl shadow-orange-200/50 transform hover:scale-105 transition-transform duration-500">
+                                    <img src="{{ asset('storage/assets/images/18.png') }}"
+                                        alt="Fresh Fruits"
+                                        class="w-full h-full object-cover object-center">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3: Glow Results -->
+            <div class="swiper-slide">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8 h-full">
+                    <div class="flex flex-col lg:flex-row items-center justify-between h-full py-12 lg:py-20 gap-8 lg:gap-12">
+                        
+                        <!-- Text Content -->
+                        <div class="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left order-2 lg:order-1">
+                            <div class="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-white/95 backdrop-blur-sm border border-pink-100 rounded-full shadow-sm mb-6">
+                                <span class="flex h-2 w-2 rounded-full bg-pink-500 animate-pulse"></span>
+                                <span class="text-xs sm:text-sm font-semibold uppercase tracking-wide text-stone-600">Visible Results</span>
+                            </div>
+                            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-stone-900 leading-[1.1] mb-6">
+                                <span class="block">Reveal Your</span>
+                                <span class="bg-clip-text text-transparent pb-1" style="background-image: linear-gradient(to right, #ec4899, #f43f5e);">
+                                    Natural Glow
+                                </span>
+                            </h1>
+                            <p class="text-lg sm:text-xl text-stone-600 mb-8 leading-relaxed max-w-lg">
+                                94% of users see brighter, more radiant skin in just 2 weeks. Join thousands of glowing customers.
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                                <a href="{{ route('customer.page.about') }}"
+                                    class="px-8 py-4 text-white font-semibold rounded-full hover:scale-105 active:scale-95 transition-all duration-300 shadow-lg shadow-pink-200/50 text-center"
+                                    style="background-image: linear-gradient(to right, #ec4899, #f43f5e);">
+                                    Our Story
+                                </a>
+                                <a href="{{ route('customer.page.concerns') }}"
+                                    class="px-8 py-4 bg-white text-stone-900 font-semibold rounded-full border-2 border-stone-200 hover:border-pink-300 hover:scale-105 active:scale-95 transition-all duration-300 shadow-lg shadow-stone-100/50 text-center">
+                                    Get Personalized Routine
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Image Content -->
+                        <div class="w-full lg:w-1/2 flex justify-center lg:justify-end order-1 lg:order-2">
+                            <div class="relative w-full max-w-md lg:max-w-xl aspect-square">
+                                <div class="absolute inset-0 bg-gradient-to-tr from-pink-100/50 to-transparent rounded-full filter blur-3xl opacity-70 animate-pulse"></div>
+                                <div class="relative w-full h-full rounded-[2rem] overflow-hidden shadow-2xl shadow-pink-200/50 transform hover:scale-105 transition-transform duration-500">
+                                    <img src="{{ asset('storage/assets/images/39.png') }}"
+                                        alt="Glowing Skin"
+                                        class="w-full h-full object-cover object-center">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <!-- Pagination -->
+        <div class="swiper-pagination !bottom-8"></div>
+        
     </div>
 </header>
+
 @push('scripts')
 <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -71,32 +329,192 @@
 document.addEventListener('DOMContentLoaded', function() {
     const heroSwiper = new Swiper('.heroSwiper', {
         direction: 'horizontal',
-        loop: {{ $banners->count() > 1 ? 'true' : 'false' }},
-        speed: 1000,
+        loop: true,
+        speed: 600,
         autoplay: {
             delay: 5000,
             disableOnInteraction: false,
         },
-        effect: 'fade',
-        fadeEffect: {
-            crossFade: true
+        effect: 'slide',
+        slidesPerView: 1,
+        spaceBetween: 0,
+        
+        // Pagination
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+            renderBullet: function (index, className) {
+                const isMobile = window.innerWidth < 1024;
+                const size = isMobile ? 'w-1.5 h-1.5' : 'w-2 h-2';
+                return '<span class="' + className + ' ' + size + ' rounded-full bg-white/50 border border-white/30"></span>';
+            },
         },
-        navigation: false,
-        pagination: false,
-        breakpoints: {
-            320: {
-                spaceBetween: 0,
+        
+        on: {
+            init: function () {
+                // Initialize icons
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
+                
+                this.update();
+                
+                // Add active state to pagination
+                const bullets = document.querySelectorAll('.swiper-pagination-bullet');
+                if (bullets.length > 0) {
+                    bullets[this.activeIndex].classList.add('swiper-pagination-bullet-active');
+                }
             },
-            768: {
-                spaceBetween: 0,
-            },
-            1024: {
-                spaceBetween: 0,
+            slideChange: function () {
+                // Update pagination active state
+                const bullets = document.querySelectorAll('.swiper-pagination-bullet');
+                bullets.forEach(bullet => bullet.classList.remove('swiper-pagination-bullet-active'));
+                if (bullets.length > 0) {
+                    bullets[this.activeIndex].classList.add('swiper-pagination-bullet-active');
+                }
+                
+                // Add slide transition effect
+                const activeSlide = this.slides[this.activeIndex];
+                const images = activeSlide.querySelectorAll('img');
+                images.forEach(img => {
+                    img.style.transform = 'scale(1.05)';
+                    setTimeout(() => {
+                        img.style.transition = 'transform 0.6s ease';
+                        img.style.transform = 'scale(1)';
+                    }, 50);
+                });
             }
         }
     });
     
-    // No need for height adjustment since we're using fixed heights
+    // Custom pagination active state styling
+    const style = document.createElement('style');
+    style.textContent = `
+        /* Mobile pagination */
+        @media (max-width: 1024px) {
+            .swiper-pagination-bullet-active {
+                width: 18px !important;
+                border-radius: 9px !important;
+                background: white !important;
+                border-color: white !important;
+            }
+        }
+        
+        /* Desktop pagination */
+        @media (min-width: 1024px) {
+            .swiper-pagination-bullet-active {
+                width: 24px !important;
+                border-radius: 12px !important;
+                background: white !important;
+                border-color: white !important;
+            }
+        }
+        
+        /* Mobile animations */
+        @keyframes scroll-indicator {
+            0% { transform: translateY(0); opacity: 0.6; }
+            50% { transform: translateY(4px); opacity: 1; }
+            100% { transform: translateY(0); opacity: 0.6; }
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        .animate-scroll {
+            animation: scroll-indicator 1.8s ease-in-out infinite;
+        }
+        
+        .animate-bounce {
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        /* Desktop floating animation */
+        @keyframes float-element {
+            0%, 100% { transform: translateY(0) rotate(12deg); }
+            50% { transform: translateY(-10px) rotate(12deg); }
+        }
+        
+        .animate-float {
+            animation: float-element 3s ease-in-out infinite;
+        }
+        
+        /* Mobile touch feedback */
+        button:active, a:active {
+            transform: scale(0.95) !important;
+            transition: transform 0.1s ease !important;
+        }
+        
+        /* Better mobile scrolling */
+        .swiper-container {
+            -webkit-overflow-scrolling: touch;
+            touch-action: pan-y;
+        }
+        
+        /* Fix image containment */
+        .swiper-slide img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+    `;
+    document.head.appendChild(style);
+    
+
+    
+    // Adjust height on resize - REMOVED as we use CSS now
+    // function adjustHeroHeight() { ... }
+    
+    // Adjust on window resize with debounce
+    let resizeTimeout;
+    /*
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(adjustHeroHeight, 150);
+    });
+    */
+    
+    // Add touch feedback for mobile buttons
+    const navButtons = document.querySelectorAll('.swiper-button-next, .swiper-button-prev, a[href]');
+    navButtons.forEach(button => {
+        button.addEventListener('touchstart', function() {
+            this.style.transform = 'scale(0.95)';
+        });
+        button.addEventListener('touchend', function() {
+            this.style.transform = '';
+        });
+    });
+    
+    // Prevent swiper from interfering with button clicks
+    document.querySelectorAll('a[href]').forEach(link => {
+        link.addEventListener('click', function(e) {
+            if (this.getAttribute('href') && !this.classList.contains('swiper-button')) {
+                return true;
+            }
+        });
+    });
+    
+    // Add swipe indicator for mobile
+    if (window.innerWidth < 1024) {
+        const swipeIndicator = document.createElement('div');
+        swipeIndicator.className = 'absolute top-4 right-4 text-xs text-stone-400 flex items-center gap-1 lg:hidden z-10';
+        swipeIndicator.innerHTML = `
+            <i data-lucide="move-horizontal" class="w-3 h-3"></i>
+            <span>Swipe</span>
+        `;
+        document.querySelector('.heroSwiper').parentElement.appendChild(swipeIndicator);
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+        
+        // Remove after 3 seconds
+        setTimeout(() => {
+            swipeIndicator.style.opacity = '0';
+            swipeIndicator.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => swipeIndicator.remove(), 500);
+        }, 3000);
+    }
 });
 
 function addToCart(e, variantId) {
@@ -341,7 +759,6 @@ function addToCart(e, variantId) {
     @endforeach
 
     <!-- Categories / Concerns -->
-<!-- Categories / Concerns -->
 <section class="py-24" id="concerns">
     <div class="max-w-7xl mx-auto px-6">
         <div class="flex justify-between items-end mb-12">
@@ -469,124 +886,9 @@ function addToCart(e, variantId) {
     </section>
 @endsection
 
-@push('styles')
-<style>
-    /* Hero Section Styles */
-    .heroSwiper {
-        height: 12rem !important;
-    }
-
-    @media (min-width: 768px) {
-        .heroSwiper {
-            height: 35rem !important;
-        }
-    }
-
-    .swiper-slide .absolute.inset-0.z-0 img {
-        object-position: center center !important;
-        width: 100% !important;
-        height: 100% !important;
-    }
-
-    .swiper-slide .absolute.inset-0.z-0 {
-        background-color: #f8fafc;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .swiper-slide .absolute.inset-0.bg-gradient-to-r {
-        background: linear-gradient(to right, 
-            rgba(0,0,0,0.4) 0%, 
-            rgba(0,0,0,0.2) 30%, 
-            transparent 70%) !important;
-        z-index: 2;
-    }
-
-    @media (max-width: 768px) {
-        .heroSwiper {
-            height: 14rem !important;
-        }
-    }
-
-    /* Animation Keyframes */
-    @keyframes scroll {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
-    }
-
-    @keyframes float {
-        0%, 100% { transform: translateY(0) rotate(-6deg); }
-        50% { transform: translateY(-10px) rotate(-6deg); }
-    }
-
-    @keyframes float-delay-1 {
-        0%, 100% { transform: translateY(0) rotate(0deg); }
-        50% { transform: translateY(-15px) rotate(5deg); }
-    }
-
-    @keyframes float-delay-2 {
-        0%, 100% { transform: translateY(0) rotate(0deg); }
-        50% { transform: translateY(-12px) rotate(-5deg); }
-    }
-
-    /* Custom Classes */
-    .scrollbar-hide::-webkit-scrollbar {
-        display: none;
-    }
-
-    .scrollbar-hide {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
-
-    .card-tilt {
-        transform-style: preserve-3d;
-        transform: perspective(1000px);
-        transition: transform 0.3s ease;
-    }
-
-    .card-tilt:hover {
-        transform: perspective(1000px) rotateY(10deg) rotateX(5deg) scale(1.02);
-    }
-
-    .floating-element {
-        animation: float 3s ease-in-out infinite;
-    }
-
-    .floating-element-delay-1 {
-        animation: float-delay-1 4s ease-in-out infinite 0.5s;
-    }
-
-    .floating-element-delay-2 {
-        animation: float-delay-2 3.5s ease-in-out infinite 1s;
-    }
-
-    /* Mobile optimizations */
-    @media (max-width: 768px) {
-        .quick-add-btn {
-            transform: translateY(0) !important;
-            opacity: 1 !important;
-            visibility: visible !important;
-        }
-    }
-
-    @media (max-width: 640px) {
-        .quick-add-btn {
-            width: 44px;
-            height: 44px;
-            bottom: 12px;
-            right: 12px;
-        }
-    }
-</style>
-@endpush
-
 @push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-
-
         // Category scrolling
         window.scrollCategories = function(direction) {
             const container = document.getElementById('categories-container');
@@ -650,8 +952,6 @@ function addToCart(e, variantId) {
                 });
             });
         });
-
-
 
         // Notification function
         window.showNotification = function(message, type = 'info') {
