@@ -196,7 +196,7 @@
                     <h3 class="font-bold text-stone-900 mb-3">Key Ingredients</h3>
                     <div class="flex gap-2 flex-wrap">
                         @foreach($materials as $material)
-                            <span class="px-4 py-1.5 bg-amber-50 text-amber-700 rounded-full text-sm font-medium border border-amber-100">{{ trim($material) }}</span>
+                            <a href="{{ route('customer.page.ingredients', ['category' => $product['category_slug']]) }}" class="px-4 py-1.5 bg-amber-50 text-amber-700 rounded-full text-sm font-medium border border-amber-100 hover:bg-amber-100 hover:border-amber-200 transition-colors cursor-pointer">{{ trim($material) }}</a>
                         @endforeach
                     </div>
                 </div>
@@ -280,9 +280,10 @@
                         @endphp
                         
                         @foreach($ingredientItems as $ingredient)
-                            <div class="px-6 py-4 bg-stone-50 rounded-2xl border border-stone-100 flex items-center gap-3">
-                                <span class="font-bold text-stone-900">{{ trim($ingredient) }}</span>
-                            </div>
+                            <a href="{{ route('customer.page.ingredients', ['category' => $product['category_slug']]) }}" class="px-6 py-4 bg-stone-50 rounded-2xl border border-stone-100 flex items-center gap-3 hover:bg-stone-100 hover:border-stone-200 transition-all cursor-pointer group">
+                                <span class="font-bold text-stone-900 group-hover:text-rose-500 transition-colors">{{ trim($ingredient) }}</span>
+                                <i data-lucide="external-link" class="w-4 h-4 text-stone-300 group-hover:text-rose-500 transition-colors"></i>
+                            </a>
                         @endforeach
                     </div>
                 </div>

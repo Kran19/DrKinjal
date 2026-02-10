@@ -1043,6 +1043,33 @@ document.addEventListener('DOMContentLoaded', function() {
         item.style.opacity = '1';
         item.style.transform = 'translateY(0)';
     });
+
+    // Handle URL parameters for pre-filtering
+    const urlParams = new URLSearchParams(window.location.search);
+    let categoryParam = urlParams.get('category');
+    
+    if (categoryParam) {
+        categoryParam = categoryParam.toLowerCase();
+        
+        // Simple mapping for plural/singular differences
+        const categoryMapping = {
+            'moisturizers': 'moisturizer',
+            'serums': 'serum',
+            'bodywashes': 'bodywash',
+            'facewashes': 'facewash',
+            'sunscreens': 'sunscreen'
+        };
+        
+        const targetCategory = categoryMapping[categoryParam] || categoryParam;
+        
+        // Find and click the corresponding filter button
+        const targetButton = Array.from(filterButtons).find(btn => btn.dataset.category === targetCategory);
+        if (targetButton) {
+            targetButton.click();
+            // Scroll to container
+            document.getElementById('ingredients-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
     
     // Initialize Lucide icons
     if (window.lucide) {
