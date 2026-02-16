@@ -167,9 +167,9 @@
                                 <span class="text-xs sm:text-sm font-semibold uppercase tracking-wide text-stone-600">New Summer Collection</span>
                             </div>
                             <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-stone-900 leading-[1.1] mb-6">
-                                <span class="block">Squeeze the Day</span>
+                                <span class="block">Real Care Backed</span>
                                 <span class="bg-clip-text text-transparent pb-1" style="background-image: linear-gradient(to right, #06b6d4, #0ea5e9);">
-                                    With Fruit Power.
+                                    By Medical Expertise.
                                 </span>
                             </h1>
                             <p class="text-lg sm:text-xl text-stone-600 mb-8 leading-relaxed max-w-lg">
@@ -216,13 +216,13 @@
                                 <span class="text-xs sm:text-sm font-semibold uppercase tracking-wide text-stone-600">Natural Ingredients</span>
                             </div>
                             <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-stone-900 leading-[1.1] mb-6">
-                                <span class="block">From Nature to</span>
+                                <span class="block">Price You Will Love</span>
                                 <span class="bg-clip-text text-transparent pb-1" style="background-image: linear-gradient(to right, #f97316, #eab308);">
-                                    Your Routine.
+                                    Quality You Trust.
                                 </span>
                             </h1>
                             <p class="text-lg sm:text-xl text-stone-600 mb-8 leading-relaxed max-w-lg">
-                                Pure, potent ingredients sourced sustainably. Experience the power of nature with every application.
+                                Primium skincare made affordable, so expert care is accessible without Compromising on safety, ingrdiants, or effectiveness.
                             </p>
                             <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
                                 <a href="{{ route('customer.page.ingredients') }}"
