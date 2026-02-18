@@ -300,8 +300,20 @@ class DashboardController extends Controller
             })
             ->toArray();
 
+        // ==================== VISITOR STATISTICS ====================
+        $visitorStats = [
+            'total_unique' => DB::table('visitors')->count(),
+            'today_unique' => DB::table('visitors')->whereDate('visit_date', $today)->count(),
+            'monthly_unique' => DB::table('visitors')
+                ->whereMonth('visit_date', Carbon::now()->month)
+                ->whereYear('visit_date', Carbon::now()->year)
+                ->count(),
+            'current_month' => Carbon::now()->format('F Y'),
+        ];
+
         return view('admin.dashboard.index')
             ->with('stats', $stats)
+            ->with('visitorStats', $visitorStats)
             ->with('recentOrders', $recentOrders)
             ->with('topProducts', $topProducts)
             ->with('recentCustomers', $recentCustomers)
