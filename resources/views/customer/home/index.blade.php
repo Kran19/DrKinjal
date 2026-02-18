@@ -162,10 +162,6 @@
                         
                         <!-- Text Content (Order 2 on Mobile, Order 1 on Desktop) -->
                         <div class="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left order-2 lg:order-1">
-                            <div class="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-white/95 backdrop-blur-sm border border-cyan-100 rounded-full shadow-sm mb-6">
-                                <span class="flex h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
-                                <span class="text-xs sm:text-sm font-semibold uppercase tracking-wide text-stone-600">New Summer Collection</span>
-                            </div>
                             <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-stone-900 leading-[1.1] mb-6">
                                 <span class="block">Real Care Backed</span>
                                 <span class="bg-clip-text text-transparent pb-1" style="background-image: linear-gradient(to right, #06b6d4, #0ea5e9);">
@@ -173,7 +169,7 @@
                                 </span>
                             </h1>
                             <p class="text-lg sm:text-xl text-stone-600 mb-8 leading-relaxed max-w-lg">
-                                Clinically effective, fruit-forward skincare designed to make you glow. 100% Vegan, Cruelty-free & full of joy.
+                                boost your confidence with healthy glowing skin clinically proven ingredients.
                             </p>
                             <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
                                 <a href="{{ route('customer.products.bestsellers') }}"
@@ -222,7 +218,7 @@
                                 </span>
                             </h1>
                             <p class="text-lg sm:text-xl text-stone-600 mb-8 leading-relaxed max-w-lg">
-                                Primium skincare made affordable, so expert care is accessible without Compromising on safety, ingrdiants, or effectiveness.
+                                Primium skincare made affordable, so expert care is accessible without Compromising on safety, Ingredients, or effectiveness.
                             </p>
                             <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
                                 <a href="{{ route('customer.page.ingredients') }}"
