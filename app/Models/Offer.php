@@ -35,6 +35,8 @@ class Offer extends Model
         'is_stackable',
         'is_exclusive',
         'customer_segment_id',
+        'banner',
+        'show_at_start',
     ];
 
     protected $casts = [
@@ -48,6 +50,7 @@ class Offer extends Model
         'is_auto_apply' => 'boolean',
         'is_stackable' => 'boolean',
         'is_exclusive' => 'boolean',
+        'show_at_start' => 'boolean',
     ];
 
     // Relationships

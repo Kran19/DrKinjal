@@ -12,6 +12,7 @@ Route::prefix('customer')->group(function () {
 
     // Public offers routes
     Route::get('offers/active', [OfferController::class, 'getActiveOffers']);
+    Route::get('offers/start-banner', [OfferController::class, 'getStartBanner']);
 
     // Public product routes (no authentication required)
     Route::prefix('products')->group(function () {

@@ -160,10 +160,10 @@ class OfferController extends Controller
                 'variants' => 'nullable|array',
                 'variants.*' => 'exists:product_variants,id',
                 'rewards' => 'nullable|array',
-                'rewards.*.reward_product_id' => 'required_with:rewards|exists:products,id',
-                'rewards.*.reward_variant_id' => 'nullable|exists:product_variants,id',
                 'rewards.*.reward_qty' => 'nullable|integer|min:1',
                 'rewards.*.same_as_buy_product' => 'nullable|boolean',
+                'banner' => 'nullable|string',
+                'show_at_start' => 'nullable|boolean',
             ]);
 
             if ($validator->fails()) {
@@ -182,8 +182,13 @@ class OfferController extends Controller
                 'buy_qty', 'get_qty', 'min_cart_amount', 'max_cart_amount',
                 'max_discount', 'max_uses', 'uses_per_customer', 'starts_at',
                 'ends_at', 'is_auto_apply', 'is_stackable', 'is_exclusive',
-                'customer_segment_id'
+                'customer_segment_id', 'banner', 'show_at_start'
             ]));
+
+            // Ensure only one offer has show_at_start = true
+            if ($offer->show_at_start) {
+                Offer::where('id', '!=', $offer->id)->update(['show_at_start' => false]);
+            }
 
             // Sync categories
             if ($request->has('categories')) {
@@ -275,6 +280,8 @@ class OfferController extends Controller
                 'variants' => 'nullable|array',
                 'variants.*' => 'exists:product_variants,id',
                 'rewards' => 'nullable|array',
+                'banner' => 'nullable|string',
+                'show_at_start' => 'nullable|boolean',
             ]);
 
             if ($validator->fails()) {
@@ -293,8 +300,13 @@ class OfferController extends Controller
                 'buy_qty', 'get_qty', 'min_cart_amount', 'max_cart_amount',
                 'max_discount', 'max_uses', 'uses_per_customer', 'starts_at',
                 'ends_at', 'is_auto_apply', 'is_stackable', 'is_exclusive',
-                'customer_segment_id'
+                'customer_segment_id', 'banner', 'show_at_start'
             ]));
+
+            // Ensure only one offer has show_at_start = true
+            if ($offer->show_at_start) {
+                Offer::where('id', '!=', $offer->id)->update(['show_at_start' => false]);
+            }
 
             // Sync categories
             if ($request->has('categories')) {

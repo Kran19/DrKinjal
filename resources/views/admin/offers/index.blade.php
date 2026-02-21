@@ -201,6 +201,31 @@
                         </div>
                     </div>
 
+                    <!-- Banner Upload -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Offer Banner</label>
+                        <div class="flex items-start space-x-6">
+                            <div class="flex-shrink-0">
+                                <div id="bannerPreview" class="w-32 h-32 rounded-lg border-2 border-dashed border-gray-300 flex items-center justify-center overflow-hidden bg-gray-50">
+                                    <span class="text-gray-400 text-xs">No banner</span>
+                                </div>
+                            </div>
+                            <div class="flex-grow">
+                                <input type="hidden" id="banner" name="banner">
+                                <button type="button" onclick="openBannerSelector()" class="btn-secondary text-sm">
+                                    <i class="fas fa-image mr-2"></i>Select/Upload Banner
+                                </button>
+                                <p class="text-xs text-gray-500 mt-2">Recommended size: 1200x600px. This banner will be shown as a popup on first visit.</p>
+                                <div id="bannerSelectedInfo" class="hidden mt-2 flex items-center text-sm text-emerald-600">
+                                    <i class="fas fa-check-circle mr-2"></i>Banner Selected
+                                    <button type="button" onclick="removeBanner()" class="ml-4 text-rose-600 hover:text-rose-800 font-semibold">
+                                        <i class="fas fa-times mr-1"></i>Remove
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Offer Type -->
                     <div>
                         <label for="offer_type" class="block text-sm font-medium text-gray-700 mb-1">Offer Type *</label>
@@ -370,6 +395,11 @@
                                 class="rounded border-gray-300 text-indigo-600">
                             <label for="is_stackable" class="text-sm text-gray-700">Stackable</label>
                         </div>
+                         <div class="flex items-center space-x-2">
+                            <input type="checkbox" id="show_at_start" name="show_at_start"
+                                class="rounded border-gray-300 text-indigo-600">
+                            <label for="show_at_start" class="text-sm text-gray-700">Show as Start Banner</label>
+                        </div>
                     </div>
 
                     <!-- Categories -->
@@ -434,6 +464,8 @@
             </div>
         </div>
     </div>
+
+    @include('admin.partials.media-modal')
 @endsection
 
 @push('styles')
@@ -816,6 +848,40 @@
 
             if (endInput) {
                 endInput.value = endDate.toISOString().slice(0, 16);
+            }
+        }
+
+        // Banner selection
+        function openBannerSelector() {
+            if (typeof window.mediaModal !== 'undefined') {
+                window.mediaModal.open({
+                    mode: 'main',
+                    onSelect: function(image) {
+                        const bannerInput = document.getElementById('banner');
+                        const bannerPreview = document.getElementById('bannerPreview');
+                        const bannerInfo = document.getElementById('bannerSelectedInfo');
+                        
+                        if (bannerInput && bannerPreview && bannerInfo) {
+                            bannerInput.value = image.url || image.path;
+                            bannerPreview.innerHTML = `<img src="${image.url || image.path}" class="w-full h-full object-cover">`;
+                            bannerInfo.classList.remove('hidden');
+                        }
+                    }
+                });
+            } else {
+                toastr.error('Media module not found');
+            }
+        }
+
+        function removeBanner() {
+            const bannerInput = document.getElementById('banner');
+            const bannerPreview = document.getElementById('bannerPreview');
+            const bannerInfo = document.getElementById('bannerSelectedInfo');
+            
+            if (bannerInput && bannerPreview && bannerInfo) {
+                bannerInput.value = '';
+                bannerPreview.innerHTML = `<span class="text-gray-400 text-xs">No banner</span>`;
+                bannerInfo.classList.add('hidden');
             }
         }
 
@@ -1781,6 +1847,8 @@
             // Clear selected variants
             selectedVariants.clear();
             renderSelectedVariants();
+            removeBanner();
+            document.getElementById('show_at_start').checked = false;
 
             // Set default dates
             setDefaultDates();
@@ -1816,6 +1884,8 @@
             payload.status = document.getElementById('status').checked ? 1 : 0;
             payload.is_auto_apply = document.getElementById('is_auto_apply').checked ? 1 : 0;
             payload.is_stackable = document.getElementById('is_stackable').checked ? 1 : 0;
+            payload.show_at_start = document.getElementById('show_at_start').checked ? 1 : 0;
+            payload.banner = document.getElementById('banner').value;
             
             // Numeric fields (only add if has value)
             const numericFields = [
@@ -1971,6 +2041,16 @@
                     document.getElementById('status').checked = offer.status === 1 || offer.status === true;
                     document.getElementById('is_auto_apply').checked = offer.is_auto_apply === 1 || offer.is_auto_apply === true;
                     document.getElementById('is_stackable').checked = offer.is_stackable === 1 || offer.is_stackable === true;
+                    document.getElementById('show_at_start').checked = offer.show_at_start === 1 || offer.show_at_start === true;
+
+                    // Load banner if exists
+                    if (offer.banner) {
+                        document.getElementById('banner').value = offer.banner;
+                        document.getElementById('bannerPreview').innerHTML = `<img src="${offer.banner_url || (offer.banner.startsWith('http') ? offer.banner : '/storage/' + offer.banner)}" class="w-full h-full object-cover">`;
+                        document.getElementById('bannerSelectedInfo').classList.remove('hidden');
+                    } else {
+                        removeBanner();
+                    }
 
                     // Load categories
                     if (offer.categories && offer.categories.length > 0) {

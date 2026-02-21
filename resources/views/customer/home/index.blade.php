@@ -14,6 +14,44 @@
             <h1 class="text-2xl font-bold text-stone-800 tracking-wider">Dr.Kinjal</h1>
         </div>
     </div>
+    <!-- Start Offer Banner Modal -->
+    <div id="start-banner-modal" class="fixed inset-0 z-[10000] flex items-center justify-center p-4 sm:p-8" style="display:none!important;">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeStartBanner()"></div>
+
+        <!-- Modal Card -->
+        <!-- ✏️ ADJUST POPUP WIDTH HERE: change max-w-* values below -->
+        <!-- max-w-xs=mobile | sm:max-w-md=tablet | lg:max-w-4xl=desktop -->
+        <div id="banner-content"
+             class="relative w-full max-w-xs sm:max-w-md lg:max-w-4xl rounded-2xl overflow-hidden shadow-2xl transform transition-all duration-500 scale-90 opacity-0 bg-white">
+
+            <!-- Banner image -->
+            <!-- ✏️ ADJUST IMAGE HEIGHT: lg:aspect-video=16:9 | lg:aspect-[4/3]=taller | lg:aspect-[16/10]=medium -->
+            <div id="banner-body" class="relative w-full aspect-[3/3.2] sm:aspect-video lg:aspect-video bg-stone-100 overflow-hidden">
+
+                <!-- Spinner while loading -->
+                <div id="banner-shimmer" class="absolute inset-0 flex items-center justify-center bg-stone-100">
+                    <div class="w-10 h-10 rounded-full border-4 border-stone-200 border-t-stone-500 animate-spin"></div>
+                </div>
+
+                <!-- Close button on image top-right -->
+                <button onclick="closeStartBanner()"
+                        class="absolute top-3 right-3 z-30 w-8 h-8 flex items-center justify-center rounded-full bg-black/40 hover:bg-black/60 text-white transition-colors backdrop-blur-sm">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+
+            <!-- Button bar below image -->
+            <div id="banner-info" class="hidden py-4 px-5 bg-white flex justify-center border-t border-stone-100">
+                <a id="banner-shop-link" href="/products"
+                   onclick="closeStartBanner()"
+                   class="inline-flex items-center gap-2 bg-stone-900 text-white font-bold text-sm px-8 py-2.5 rounded-full hover:bg-stone-700 active:scale-95 transition-all shadow-md w-full justify-center">
+                    Shop Now
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </div>
 
 @push('styles')
 <style>
@@ -312,11 +350,112 @@
                     preloader.style.opacity = '0';
                     setTimeout(() => {
                         preloader.remove();
+                        checkStartBanner();
                     }, 500);
                 }, 800); // Slight delay for branding visibility
             });
         }
     });
+
+    async function checkStartBanner() {
+        // Check if already shown in this session
+        if (localStorage.getItem('offer_banner_shown')) {
+            return;
+        }
+
+        try {
+            const response = await fetch('/api/customer/offers/start-banner');
+            const result = await response.json();
+
+            if (result.success && result.data) {
+                showStartBanner(result.data);
+            }
+        } catch (error) {
+            console.error('Failed to fetch start banner:', error);
+        }
+    }
+
+    function showStartBanner(bannerData) {
+        const modal = document.getElementById('start-banner-modal');
+        const content = document.getElementById('banner-content');
+        const body = document.getElementById('banner-body');
+        const shimmer = document.getElementById('banner-shimmer');
+        const info = document.getElementById('banner-info');
+        const nameEl = document.getElementById('banner-offer-name');
+        const codeWrap = document.getElementById('banner-code-wrap');
+        const codeText = document.getElementById('banner-code-text');
+        const shopLink = document.getElementById('banner-shop-link');
+
+        if (!modal || !content || !body) return;
+
+        // Load image
+        const img = new Image();
+        img.onload = function() {
+            // Replace shimmer with image
+            if (shimmer) shimmer.remove();
+            const imgEl = document.createElement('img');
+            imgEl.src = bannerData.banner_url;
+            imgEl.className = 'w-full h-full object-cover';
+            imgEl.alt = bannerData.name || 'Offer Banner';
+            body.appendChild(imgEl);
+
+            // Populate info bar
+            if (nameEl) nameEl.textContent = bannerData.name || '';
+            if (bannerData.code && codeText && codeWrap) {
+                codeText.textContent = bannerData.code;
+                codeWrap.classList.remove('hidden');
+            }
+            if (shopLink) shopLink.href = bannerData.url || '/products';
+            if (info) info.classList.remove('hidden');
+
+            // Show modal
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                content.classList.remove('scale-90', 'opacity-0');
+                content.classList.add('scale-100', 'opacity-100');
+            }, 20);
+
+            // Mark as shown
+            localStorage.setItem('offer_banner_shown', 'true');
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        };
+        img.onerror = function() {
+            // Even on error, show modal without image
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                content.classList.remove('scale-90', 'opacity-0');
+                content.classList.add('scale-100', 'opacity-100');
+            }, 20);
+            localStorage.setItem('offer_banner_shown', 'true');
+        };
+        img.src = bannerData.banner_url;
+    }
+
+    function closeStartBanner() {
+        const modal = document.getElementById('start-banner-modal');
+        const content = document.getElementById('banner-content');
+        if (!modal || !content) return;
+
+        content.classList.remove('scale-100', 'opacity-100');
+        content.classList.add('scale-90', 'opacity-0');
+
+        setTimeout(() => {
+            modal.style.display = 'none';
+        }, 500);
+    }
+
+    function copyBannerCode() {
+        const code = document.getElementById('banner-code-text')?.textContent;
+        if (!code) return;
+        navigator.clipboard.writeText(code).then(() => {
+            const btn = document.getElementById('banner-code-btn');
+            if (btn) {
+                const orig = btn.innerHTML;
+                btn.innerHTML = '<span class="text-emerald-400 font-bold">Copied!</span>';
+                setTimeout(() => { btn.innerHTML = orig; if (typeof lucide !== 'undefined') lucide.createIcons(); }, 1800);
+            }
+        }).catch(() => {});
+    }
 </script>
 
 <script>
