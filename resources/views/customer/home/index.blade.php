@@ -207,10 +207,7 @@
                         
                         <!-- Text Content -->
                         <div class="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left order-2 lg:order-1">
-                            <div class="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-white/95 backdrop-blur-sm border border-orange-100 rounded-full shadow-sm mb-6">
-                                <span class="flex h-2 w-2 rounded-full bg-orange-500 animate-pulse"></span>
-                                <span class="text-xs sm:text-sm font-semibold uppercase tracking-wide text-stone-600">Natural Ingredients</span>
-                            </div>
+
                             <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-stone-900 leading-[1.1] mb-6">
                                 <span class="block">Price You Will Love</span>
                                 <span class="bg-clip-text text-transparent pb-1" style="background-image: linear-gradient(to right, #f97316, #eab308);">
