@@ -405,7 +405,16 @@
                 codeText.textContent = bannerData.code;
                 codeWrap.classList.remove('hidden');
             }
-            if (shopLink) shopLink.href = bannerData.url || '/products';
+            if (shopLink) {
+                shopLink.href = bannerData.banner_button_link || '/products';
+                
+                // Get the text node (first child) and update it
+                const buttonText = bannerData.banner_button_text || 'Shop Now';
+                const lucideIcon = shopLink.querySelector('i');
+                shopLink.innerHTML = '';
+                shopLink.appendChild(document.createTextNode(buttonText + ' '));
+                if (lucideIcon) shopLink.appendChild(lucideIcon);
+            }
             if (info) info.classList.remove('hidden');
 
             // Show modal

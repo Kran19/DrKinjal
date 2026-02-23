@@ -164,6 +164,8 @@ class OfferController extends Controller
                 'rewards.*.same_as_buy_product' => 'nullable|boolean',
                 'banner' => 'nullable|string',
                 'show_at_start' => 'nullable|boolean',
+                'banner_button_text' => 'nullable|string|max:50',
+                'banner_button_link' => 'nullable|string|max:255',
             ]);
 
             if ($validator->fails()) {
@@ -182,7 +184,8 @@ class OfferController extends Controller
                 'buy_qty', 'get_qty', 'min_cart_amount', 'max_cart_amount',
                 'max_discount', 'max_uses', 'uses_per_customer', 'starts_at',
                 'ends_at', 'is_auto_apply', 'is_stackable', 'is_exclusive',
-                'customer_segment_id', 'banner', 'show_at_start'
+                'customer_segment_id', 'banner', 'show_at_start',
+                'banner_button_text', 'banner_button_link'
             ]));
 
             // Ensure only one offer has show_at_start = true
@@ -282,6 +285,8 @@ class OfferController extends Controller
                 'rewards' => 'nullable|array',
                 'banner' => 'nullable|string',
                 'show_at_start' => 'nullable|boolean',
+                'banner_button_text' => 'nullable|string|max:50',
+                'banner_button_link' => 'nullable|string|max:255',
             ]);
 
             if ($validator->fails()) {
@@ -300,7 +305,8 @@ class OfferController extends Controller
                 'buy_qty', 'get_qty', 'min_cart_amount', 'max_cart_amount',
                 'max_discount', 'max_uses', 'uses_per_customer', 'starts_at',
                 'ends_at', 'is_auto_apply', 'is_stackable', 'is_exclusive',
-                'customer_segment_id', 'banner', 'show_at_start'
+                'customer_segment_id', 'banner', 'show_at_start',
+                'banner_button_text', 'banner_button_link'
             ]));
 
             // Ensure only one offer has show_at_start = true

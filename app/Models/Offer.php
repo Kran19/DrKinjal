@@ -37,6 +37,8 @@ class Offer extends Model
         'customer_segment_id',
         'banner',
         'show_at_start',
+        'banner_button_text',
+        'banner_button_link',
     ];
 
     protected $casts = [

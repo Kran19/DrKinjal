@@ -44,7 +44,7 @@ class OfferController extends Controller
         try {
             $offer = Offer::active()
                 ->where('show_at_start', true)
-                ->select('id', 'name', 'code', 'banner')
+                ->select('id', 'name', 'code', 'banner', 'banner_button_text', 'banner_button_link')
                 ->first();
 
             if (!$offer || !$offer->banner) {
@@ -61,6 +61,8 @@ class OfferController extends Controller
                     'id' => $offer->id,
                     'name' => $offer->name,
                     'code' => $offer->code,
+                    'banner_button_text' => $offer->banner_button_text,
+                    'banner_button_link' => $offer->banner_button_link,
                     'banner_url' => \Illuminate\Support\Str::startsWith($offer->banner, 'http') ? $offer->banner : asset('storage/' . $offer->banner)
                 ],
                 'message' => 'Start banner retrieved successfully'

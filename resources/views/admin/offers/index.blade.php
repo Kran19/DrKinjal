@@ -225,6 +225,21 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <!-- Banner Button Info -->
+                    <div id="bannerButtonFields" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="banner_button_text" class="block text-sm font-medium text-gray-700 mb-1">Banner Button Text</label>
+                            <input type="text" id="banner_button_text" name="banner_button_text" placeholder="e.g., Shop Now"
+                                class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-indigo-500 focus:border-indigo-500">
+                        </div>
+                        <div>
+                            <label for="banner_button_link" class="block text-sm font-medium text-gray-700 mb-1">Banner Button Link</label>
+                            <input type="text" id="banner_button_link" name="banner_button_link" placeholder="e.g., /products/categories/1"
+                                class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-indigo-500 focus:border-indigo-500">
+                        </div>
+                    </div>
+
 
                     <!-- Offer Type -->
                     <div>
@@ -1849,6 +1864,8 @@
             renderSelectedVariants();
             removeBanner();
             document.getElementById('show_at_start').checked = false;
+            document.getElementById('banner_button_text').value = '';
+            document.getElementById('banner_button_link').value = '';
 
             // Set default dates
             setDefaultDates();
@@ -1886,6 +1903,8 @@
             payload.is_stackable = document.getElementById('is_stackable').checked ? 1 : 0;
             payload.show_at_start = document.getElementById('show_at_start').checked ? 1 : 0;
             payload.banner = document.getElementById('banner').value;
+            payload.banner_button_text = document.getElementById('banner_button_text').value;
+            payload.banner_button_link = document.getElementById('banner_button_link').value;
             
             // Numeric fields (only add if has value)
             const numericFields = [
@@ -2042,6 +2061,8 @@
                     document.getElementById('is_auto_apply').checked = offer.is_auto_apply === 1 || offer.is_auto_apply === true;
                     document.getElementById('is_stackable').checked = offer.is_stackable === 1 || offer.is_stackable === true;
                     document.getElementById('show_at_start').checked = offer.show_at_start === 1 || offer.show_at_start === true;
+                    document.getElementById('banner_button_text').value = offer.banner_button_text || '';
+                    document.getElementById('banner_button_link').value = offer.banner_button_link || '';
 
                     // Load banner if exists
                     if (offer.banner) {

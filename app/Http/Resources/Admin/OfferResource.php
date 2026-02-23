@@ -33,6 +33,8 @@ class OfferResource extends JsonResource
             'customer_segment_id' => $this->customer_segment_id,
             'banner' => $this->banner,
             'show_at_start' => $this->show_at_start,
+            'banner_button_text' => $this->banner_button_text,
+            'banner_button_link' => $this->banner_button_link,
             'banner_url' => $this->banner ? (\Illuminate\Support\Str::startsWith($this->banner, 'http') ? $this->banner : asset('storage/' . $this->banner)) : null,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
