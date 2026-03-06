@@ -321,10 +321,14 @@
                         <div class="w-full lg:w-1/2 flex justify-center lg:justify-end order-1 lg:order-2">
                             <div class="relative w-full max-w-md lg:max-w-xl aspect-square">
                                 <div class="absolute inset-0 bg-gradient-to-tr from-pink-100/50 to-transparent rounded-full filter blur-3xl opacity-70 animate-pulse"></div>
-                                <div class="relative w-full h-full rounded-[2rem] overflow-hidden shadow-2xl shadow-pink-200/50 transform hover:scale-105 transition-transform duration-500">
+                                <!-- <div class="relative w-full h-full rounded-[2rem] overflow-hidden shadow-2xl shadow-pink-200/50 transform hover:scale-105 transition-transform duration-500">
                                     <img src="{{ asset('storage/assets/images/slide3new.png') }}"
                                         alt="Glowing Skin"
                                         class="w-full h-full object-cover object-center">
+                                </div> -->
+                                <div class="relative w-full h-full rounded-[2rem] overflow-hidden shadow-2xl shadow-pink-200/50 transform hover:scale-105 transition-transform duration-500">
+                                    <img src="{{ asset('storage/assets/images/slide3new.png') }}"
+                                        alt="Glowing Skin">
                                 </div>
                             </div>
                         </div>
