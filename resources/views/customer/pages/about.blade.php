@@ -130,7 +130,7 @@
                 
                 <div class="bg-white rounded-3xl p-8 shadow-sm border border-slate-100">
                     <div class="aspect-square rounded-2xl overflow-hidden mb-6">
-<img src="{{ asset('storage/assets/images/img2.jpg') }}"
+<img src="{{ asset('storage/assets/images/vijay.jpeg') }}"
      class="w-full h-full object-contain"
      alt="Mr. Vijay Bharatbhai Anadkat">
                     </div>
