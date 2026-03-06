@@ -322,7 +322,7 @@
                             <div class="relative w-full max-w-md lg:max-w-xl aspect-square">
                                 <div class="absolute inset-0 bg-gradient-to-tr from-pink-100/50 to-transparent rounded-full filter blur-3xl opacity-70 animate-pulse"></div>
                                 <div class="relative w-full h-full rounded-[2rem] overflow-hidden shadow-2xl shadow-pink-200/50 transform hover:scale-105 transition-transform duration-500">
-                                    <img src="{{ asset('storage/assets/images/slide3newnew.png') }}"
+                                    <img src="{{ asset('storage/assets/images/slide3final.png') }}"
                                         alt="Glowing Skin"
                                         class="w-full h-full object-cover object-center">
                                 </div>
