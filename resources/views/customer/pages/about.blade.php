@@ -202,15 +202,7 @@
                     I sincerely thank our dedicated team members whose commitment, teamwork, and consistent efforts have played an important role in shaping and strengthening Dr. Kinjal Products.
                 </p>
                 
-                <div class="grid md:grid-cols-3 gap-6">
-                    <div class="text-center bg-white rounded-2xl p-6 shadow-sm">
-                        <div class="w-12 h-12 rounded-full bg-teal-100 flex items-center justify-center mx-auto mb-4">
-                            <i data-lucide="camera" class="w-6 h-6 text-teal-600"></i>
-                        </div>
-                        <h4 class="font-bold text-slate-900 mb-2">Mr. Vaibhav Rupala</h4>
-                        <p class="text-sm text-slate-600">Photography & Visual Branding</p>
-                    </div>
-                    
+                <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
                     <div class="text-center bg-white rounded-2xl p-6 shadow-sm">
                         <div class="w-12 h-12 rounded-full bg-cyan-100 flex items-center justify-center mx-auto mb-4">
                             <i data-lucide="shopping-cart" class="w-6 h-6 text-cyan-600"></i>
