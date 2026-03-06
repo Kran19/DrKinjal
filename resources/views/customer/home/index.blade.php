@@ -109,6 +109,15 @@
         animation: float-delay-2 3.5s ease-in-out infinite 1s;
     }
 
+    @keyframes float-slow {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-20px); }
+    }
+
+    .animate-float-slow {
+        animation: float-slow 6s ease-in-out infinite;
+    }
+
     /* Scrollbar hiding for testimonials */
     .scrollbar-hide {
         -ms-overflow-style: none;
@@ -319,12 +328,15 @@
                         
                         <!-- Image Content -->
                         <div class="w-full lg:w-1/2 flex justify-center lg:justify-end order-1 lg:order-2">
-                            <div class="relative w-full max-w-md lg:max-w-xl aspect-square">
-                                <div class="absolute inset-0 bg-gradient-to-tr from-pink-100/50 to-transparent rounded-full filter blur-3xl opacity-70 animate-pulse"></div>
-                                <div class="relative w-full h-full rounded-[2rem] overflow-hidden shadow-2xl shadow-pink-200/50 transform hover:scale-105 transition-transform duration-500">
+                            <div class="relative w-full max-w-md lg:max-w-xl aspect-square animate-float-slow">
+                                <!-- Enhanced Glow Layers -->
+                                <div class="absolute inset-0 bg-gradient-to-tr from-pink-200/40 to-transparent rounded-full filter blur-[80px] opacity-80 animate-pulse"></div>
+                                <div class="absolute inset-[-10%] bg-gradient-to-bl from-rose-100/30 to-transparent rounded-full filter blur-[60px] opacity-60"></div>
+                                
+                                <div class="relative w-full h-full rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_rgba(236,72,153,0.3)] transform hover:scale-105 transition-transform duration-700 bg-white/10 backdrop-blur-sm p-4 border border-white/20">
                                     <img src="{{ asset('storage/assets/images/slide3new.png') }}"
-                                        alt="Glowing Skin"
-                                        class="w-full h-full object-cover object-center">
+                                        alt="Glowing Skin Product"
+                                        class="w-full h-full object-contain drop-shadow-2xl">
                                 </div>
                             </div>
                         </div>
